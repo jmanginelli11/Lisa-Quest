@@ -22,6 +22,10 @@ class GameScene extends Scene {
     playButton.on("pointerout", () => {
       playButton = this.add.image(400, 300, "play-white").setScale(5);
     });
+
+    playButton.on("pointerup", () => {
+      console.log("lesssss gooooooooooo");
+    });
   }
 }
 
