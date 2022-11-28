@@ -9,6 +9,7 @@
     "build:dev": "npm run build -- --watch --mode=development",
     "start-server": "nodemon index.js --ignore public",
     "start-dev": "npm run build:dev & npm run start-server"
+    "seed": "node script/seed.js"
   },
   "keywords": [],
   "author": "",
