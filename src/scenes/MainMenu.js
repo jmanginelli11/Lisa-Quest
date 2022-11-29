@@ -38,7 +38,7 @@ class MainMenu extends Scene {
 
     playButton.on("pointerup", () => {
       console.log("lesssss gooooooooooo");
-      this.scene.switch("GameScene");
+      this.scene.switch("Form");
     });
 
     creditsButton.on("pointerover", () => {
