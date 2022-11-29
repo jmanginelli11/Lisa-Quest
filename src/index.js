@@ -1,12 +1,13 @@
 import * as Phaser from "phaser";
-import GameScene from "./GameScene.js";
+import mainMenu from "./mainMenu.js";
+import GameScene from "./GameScene";
 
 const config = {
   type: Phaser.AUTO,
   parent: "phaser-example",
   width: 800,
   height: 600,
-  scene: GameScene,
+  scene: [mainMenu, GameScene],
 
   render: {
     pixelArt: true,
