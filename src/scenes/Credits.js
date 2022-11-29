@@ -8,11 +8,19 @@ class Credits extends Scene {
   preload() {
     this.load.image("stars", "/assets/menu/stars_background.png");
     this.load.image("creditsLOL", "/assets/menu/creditsLOL.png");
+    this.load.image("main-menu", "/assets/menu/mainMenu_white.png");
   }
 
   create() {
     this.add.image(400, 300, "stars");
     this.add.image(400, 300, "creditsLOL");
+
+    let mainMenuButton = this.add.image(125, 575, "main-menu").setScale(3);
+    mainMenuButton.setInteractive();
+
+    mainMenuButton.on("pointerup", () => {
+      this.scene.switch("MainMenu");
+    });
   }
 }
 
