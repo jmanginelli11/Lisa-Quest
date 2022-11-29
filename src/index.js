@@ -14,6 +14,13 @@ const config = {
   width: 800,
   height: 600,
   scene: [MainMenu, GameScene, GameScore, HighScores, Credits, Form],
+  physics: {
+    default: 'arcade',
+    arcade: {
+      gravity: { y: 300 },
+      debug: true,
+    },
+  },
 
   render: {
     pixelArt: true,
