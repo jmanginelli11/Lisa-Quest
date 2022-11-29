@@ -2,10 +2,10 @@ import { Scene } from "phaser";
 
 class GameScene extends Scene {
   preload() {
-    this.load.image("logo", "src/assets/logo.png");
-    this.load.image("sky", "src/assets/sky.png");
-    this.load.image("play-red", "src/assets/play_red.png");
-    this.load.image("play-white", "src/assets/play_white.png");
+    this.load.image("logo", "/assets/menu/logo.png");
+    this.load.image("sky", "/assets/menu/sky.png");
+    this.load.image("play-red", "/assets/menu/play_red.png");
+    this.load.image("play-white", "/assets/menu/play_white.png");
   }
 
   create() {
