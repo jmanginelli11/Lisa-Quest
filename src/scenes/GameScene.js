@@ -15,7 +15,6 @@ class GameScene extends Scene {
     this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
     this.load.image('ground', 'assets/platform.png');
 
-    // loadSpritesheets(); // this doesn't work
     this.load.spritesheet('lisa', '/assets/lisa/default/lisa-spritesheet.png', {
       frameWidth: 80,
       frameHeight: 48,
@@ -32,11 +31,9 @@ class GameScene extends Scene {
       this.scene.switch('MainMenu');
     });
 
-    // player = lisaSprite; // this doesn't work
     this.player = this.physics.add.sprite(100, 450, 'lisa');
     this.player.setCollideWorldBounds(true);
 
-    // loadAnims(); // this doesn't work
     this.anims.create({
       key: 'idle',
       frames: [{ key: 'lisa', frame: 0 }],
@@ -67,12 +64,6 @@ class GameScene extends Scene {
 
     //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();
-
-    // Test platforms for testing
-    // this.platforms = this.add.staticGroup();
-    // this.platforms.create(400, 568, 'ground').setScale(2).refreshBody();
-
-    // this.physics.add.collider(player, platforms);
   }
 
   update() {
@@ -87,7 +78,7 @@ class GameScene extends Scene {
     } else if (this.cursors.right.isDown) {
       this.player.setVelocityX(160);
 
-      // this.player.anims.play('dash', true);
+      this.player.anims.play('dash', true);
       // this.player.anims.play('run', true);
 
       this.player.flipX = false;
