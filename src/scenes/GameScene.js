@@ -52,7 +52,6 @@ class GameScene extends Scene {
       frames: this.anims.generateFrameNumbers('lisa', { start: 8, end: 15 }),
       frameRate: 12,
       repeat: -1,
-      // delay: 500,
     });
 
     //  Input Events

@@ -18,28 +18,47 @@ class MainMenu extends Scene {
     creditsButton.setInteractive();
     // formButton.setInteractive();
 
-    let hoverSprite = this.add.sprite(100, 100, 'lisa').setScale(3.5);
-    hoverSprite.setVisible(false);
+    let hoverSprite1 = this.add.sprite(100, 100, 'lisa').setScale(3.5);
+    hoverSprite1.setVisible(false);
+    let hoverSprite2 = this.add.sprite(100, 100, 'lisa-alt').setScale(3.5);
+    hoverSprite2.setVisible(false);
+    hoverSprite2.flipX = true;
 
     this.anims.create({
       key: 'run',
       frames: this.anims.generateFrameNumbers('lisa', { start: 8, end: 15 }),
       frameRate: 12,
       repeat: -1,
-      // delay: 500,
+    });
+
+    this.anims.create({
+      key: 'alt-run',
+      frames: this.anims.generateFrameNumbers('lisa-alt', {
+        start: 0,
+        end: 7,
+      }),
+      frameRate: 12,
+      repeat: -1,
     });
 
     playButton.on('pointerover', () => {
       playButton = this.add.image(x, y, 'play-red').setScale(5);
-      hoverSprite.setVisible(true);
-      hoverSprite.play('run');
-      hoverSprite.x = playButton.x - 150;
-      hoverSprite.y = playButton.y - 75;
+
+      hoverSprite1.setVisible(true);
+      hoverSprite1.play('run');
+      hoverSprite1.x = playButton.x - 150;
+      hoverSprite1.y = playButton.y - 75;
+
+      hoverSprite2.setVisible(true);
+      hoverSprite2.play('alt-run');
+      hoverSprite2.x = playButton.x + 150;
+      hoverSprite2.y = playButton.y - 75;
     });
 
     playButton.on('pointerout', () => {
       playButton = this.add.image(x, y, 'play-white').setScale(5);
-      hoverSprite.setVisible(false);
+      hoverSprite1.setVisible(false);
+      hoverSprite2.setVisible(false);
     });
 
     playButton.on('pointerup', () => {
