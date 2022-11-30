@@ -6,6 +6,7 @@ class GameScene extends Scene {
   enemy;
   platforms;
   cursors;
+  timer;
 
   constructor() {
     super({ key: "GameScene" });
@@ -25,10 +26,20 @@ class GameScene extends Scene {
       this.scene.switch("MainMenu");
     });
 
+    let timeTextStyle = {
+      font: "24px Roboto",
+      fill: "#E43AA4",
+      stroke: "#000",
+      strokeThickness: 4,
+    };
+    this.timer = this.add.text(16, 16, "Time: ", timeTextStyle);
+
     this.player = this.physics.add.sprite(x, y, "lisa").setScale(3.5);
     this.player.setCollideWorldBounds(true);
 
-    this.enemy = this.physics.add.sprite(600, 300, "bot").setScale(2);
+    // creating the enemy sprite
+
+    this.enemy = this.physics.add.sprite(x, y, "bot").setScale(2);
     this.enemy.setCollideWorldBounds(true);
 
     this.anims.create({
@@ -69,7 +80,7 @@ class GameScene extends Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update() {
+  update(time) {
     // Idling and basic movement
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-400);
@@ -92,6 +103,9 @@ class GameScene extends Scene {
       this.enemy.anims.play("enemy-idle");
     }
     this.enemyFollows();
+
+    let gameRunTime = time * 0.001;
+    this.timer.setText("Time: " + Math.round(gameRunTime) + " seconds ");
   }
 
   enemyFollows() {
