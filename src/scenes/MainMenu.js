@@ -12,18 +12,18 @@ class MainMenu extends Scene {
 
     let playButton = this.add.image(x, y, 'play-white').setScale(5);
     let creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
+    // let formButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
 
     playButton.setInteractive();
     creditsButton.setInteractive();
+    // formButton.setInteractive();
 
     playButton.on('pointerover', () => {
       playButton = this.add.image(x, y, 'play-red').setScale(5);
     });
-
     playButton.on('pointerout', () => {
       playButton = this.add.image(x, y, 'play-white').setScale(5);
     });
-
     playButton.on('pointerup', () => {
       console.log('lesssss gooooooooooo');
       this.scene.switch('GameScene');
@@ -32,14 +32,23 @@ class MainMenu extends Scene {
     creditsButton.on('pointerover', () => {
       creditsButton = this.add.image(x, y + 100, 'credits-red').setScale(3);
     });
-
     creditsButton.on('pointerout', () => {
       creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
     });
-
     creditsButton.on('pointerup', () => {
-      this.scene.switch('Form');
+      this.scene.switch('Credits');
     });
+
+    // formButton.on('pointerover', () => {
+    //   formButton = this.add.image(x, y + 200, 'credits-red').setScale(3);
+    // });
+
+    // formButton.on('pointerout', () => {
+    //   formButton = this.add.image(x, y + 200, 'credits-white').setScale(3);
+    // });
+    // formButton.on('pointerup', () => {
+    //   this.scene.switch('Form');
+    // });
   }
 }
 
