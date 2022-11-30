@@ -1,3 +1,4 @@
+import axios from "axios";
 import { Scene } from "phaser";
 
 class Form extends Scene {
@@ -29,17 +30,16 @@ class Form extends Scene {
       this.scene.switch("MainMenu");
     });
 
-    // const element = document.getElementById("form");
     const element = this.add.dom(x, y).createFromCache("form");
 
     element.setPerspective(300);
-    element.addListener("click");
+    element.addListener("change");
 
-    element.on("click", (evt) => {
-      if (evt.target.name === "pushButton") {
-        const username = this.getChildByName("username");
-
-        text.setText("Welcome " + username.value);
+    element.on("change", async (evt) => {
+      if (evt.target.name === "username") {
+        let username = evt.target.value;
+        text.setText("Welcome " + username);
+        await axios.post("/api/scores", { name: username, score: 100 });
       }
     });
   }
