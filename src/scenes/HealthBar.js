@@ -1,4 +1,9 @@
-export default class HealthBar {
+import { Scene } from "phaser";
+
+class HealthBar extends Scene {
+  constructor() {
+    super({ key: "HealthBar" });
+  }
   preload() {
     this.load.image(
       "left-cap",
@@ -30,8 +35,9 @@ export default class HealthBar {
     this.fullWidth = 300;
   }
   create() {
-    const y = 24;
-    const x = 10;
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+    this.add.image(x, y, "stars");
 
     //shadow bar
     const leftShaddowCap = this.add
@@ -86,3 +92,5 @@ export default class HealthBar {
     });
   }
 }
+
+export default HealthBar;
