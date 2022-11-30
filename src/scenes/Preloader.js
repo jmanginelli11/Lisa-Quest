@@ -35,7 +35,15 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('credits-white', '/assets/menu/credits_white.png');
     this.load.image('credits-red', '/assets/menu/credits_red.png');
+    this.load.image('creditsLOL', '/assets/menu/creditsLOL.png');
 
+    // GameDev Sprites
+    this.load.image('lauren', '/assets/gamedevs/lauren-idle1.png');
+    this.load.image('jags', '/assets/gamedevs/jags-idle2.png');
+    this.load.image('sheyla', '/assets/gamedevs/sheyla-idle2.png');
+    this.load.image('naomi', '/assets/gamedevs/naomi-idle.png');
+
+    // Lisa
     this.load.spritesheet('lisa', '/assets/lisa/default/lisa-spritesheet.png', {
       frameWidth: 80,
       frameHeight: 48,
