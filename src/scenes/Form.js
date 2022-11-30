@@ -16,7 +16,7 @@ class Form extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
     this.add.image(x, y, "stars");
-    const text = this.add.text(x - x / 5, y - y / 4, "TYPE YOUR NAME", {
+    const text = this.add.text(x - x / 4, y - y / 4, "TYPE FOUR LETTERS", {
       color: "white",
       fontFamily: "Arial",
       fontSize: "32px",
