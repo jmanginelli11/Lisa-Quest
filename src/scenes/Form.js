@@ -8,6 +8,7 @@ class Form extends Scene {
   preload() {
     this.load.html("form", "/assets/text/inputForm.html");
     this.load.image("stars", "/assets/menu/stars_background.png");
+    this.load.image("main-menu", "/assets/menu/mainMenu_white.png");
   }
 
   create() {
@@ -20,6 +21,14 @@ class Form extends Scene {
       fontSize: "32px",
     });
 
+    let mainMenuButton = this.add
+      .image(x / 2, y * 1.8, "main-menu")
+      .setScale(3);
+    mainMenuButton.setInteractive();
+    mainMenuButton.on("pointerup", () => {
+      this.scene.switch("MainMenu");
+    });
+
     // const element = document.getElementById("form");
     const element = this.add.dom(x, y).createFromCache("form");
 
@@ -30,48 +39,7 @@ class Form extends Scene {
       if (evt.target.name === "pushButton") {
         const username = this.getChildByName("username");
 
-        // if (username.value !== "") {
-        //   this.removeListener("click");
-        //  Tween the login form out
-        //   this.scene.tweens.add({
-        //     targets: element.rotate3d,
-        //     x: 1,
-        //     w: 90,
-        //     duration: 3000,
-        //     ease: "Power3",
-        //   });
-
-        //   this.scene.tweens.add({
-        //     targets: element,
-        //     scaleX: 2,
-        //     scaleY: 2,
-        //     y: 700,
-        //     duration: 3000,
-        //     ease: "Power3",
-        //     onComplete: function () {
-        //       element.setVisible(false);
-        //     },
-        //   });
-
         text.setText("Welcome " + username.value);
-        // } else {
-        //   //  Flash the prompt
-        //   this.scene.tweens.add({
-        //     targets: text,
-        //     alpha: 0.1,
-        //     duration: 200,
-        //     ease: "Power3",
-        //     yoyo: true,
-        //   });
-        // }
-        //   }
-        // });
-
-        // this.tweens.add({
-        //   targets: element,
-        //   y: 300,
-        //   duration: 3000,
-        //   ease: "Power3",
       }
     });
   }
