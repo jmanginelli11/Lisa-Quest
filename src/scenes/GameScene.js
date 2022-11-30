@@ -26,6 +26,15 @@ class GameScene extends Scene {
 
     this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
     this.player.setCollideWorldBounds(true);
+    this.player.body.setGravity(400);
+
+    // Test platform (needed for char testing)
+    this.platforms = this.physics.add.staticGroup();
+    this.platforms
+      .create(x, innerHeight - 400, 'ground')
+      .setScale(4)
+      .refreshBody();
+    this.physics.add.collider(this.player, this.platforms);
 
     this.anims.create({
       key: 'idle',
@@ -45,7 +54,7 @@ class GameScene extends Scene {
     this.anims.create({
       key: 'dash',
       frames: this.anims.generateFrameNumbers('lisa', { start: 3, end: 7 }),
-      frameRate: 12,
+      frameRate: 20,
     });
     this.anims.create({
       key: 'run',
@@ -61,23 +70,43 @@ class GameScene extends Scene {
   update() {
     // Idling and basic movement
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-400);
+      this.player.setVelocityX(-500);
 
-      // this.player.anims.play('dash', true);
-      this.player.anims.play('run', true);
+      if (this.player.body.touching.down && !this.player.anims.isPlaying) {
+        this.player.anims.play('dash', true);
+        this.player.anims.chain('run');
+      }
 
       this.player.flipX = true;
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(400);
+      this.player.setVelocityX(500);
 
-      // this.player.anims.play('dash', true);
-      this.player.anims.play('run', true);
+      if (this.player.body.touching.down && !this.player.anims.isPlaying) {
+        this.player.anims.play('dash', true);
+        this.player.anims.chain('run');
+      }
 
       this.player.flipX = false;
     } else {
-      this.player.setVelocityX(0);
+      if (
+        this.player.body.velocity.x <= 160 ||
+        this.player.body.velocity.x >= -160
+      ) {
+        this.player.setVelocityX(0);
+      }
 
-      this.player.anims.play('idle');
+      if (this.player.body.touching.down) {
+        this.player.anims.play('idle');
+      }
+    }
+
+    // Jumping & Falling
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
+      this.player.setVelocityY(-420);
+      this.player.anims.play('rising');
+    }
+    if (!this.player.body.touching.down && this.player.body.velocity.y > 0) {
+      this.player.anims.play('falling');
     }
   }
 }

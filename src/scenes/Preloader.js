@@ -30,6 +30,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('play-red', '/assets/menu/play_red.png');
     this.load.image('play-white', '/assets/menu/play_white.png');
     this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
+    this.load.image('ground', '/assets/platform.png');
 
     this.load.image('credits', '/assets/menu/credits_white.png');
 
