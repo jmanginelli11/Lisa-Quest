@@ -48,5 +48,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 80,
       frameHeight: 48,
     });
+    // Evil Lisa
+    this.load.spritesheet('lisa-alt', '/assets/lisa/alt/lisa-alt-run.png', {
+      frameWidth: 80,
+      frameHeight: 48,
+    });
   }
 }
