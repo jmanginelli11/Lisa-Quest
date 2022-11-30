@@ -3,8 +3,10 @@ import { Scene, physics } from 'phaser';
 
 class GameScene extends Scene {
   player;
+  enemy;
   platforms;
   cursors;
+  timer;
 
   constructor() {
     super({ key: 'GameScene' });
@@ -24,6 +26,14 @@ class GameScene extends Scene {
       this.scene.switch('MainMenu');
     });
 
+    let timeTextStyle = {
+      font: '24px Roboto',
+      fill: '#E43AA4',
+      stroke: '#000',
+      strokeThickness: 4,
+    };
+    this.timer = this.add.text(16, 16, 'Time: ', timeTextStyle);
+
     this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
     this.player.setCollideWorldBounds(true);
     this.player.body.setGravity(400);
@@ -35,6 +45,16 @@ class GameScene extends Scene {
       .setScale(4)
       .refreshBody();
     this.physics.add.collider(this.player, this.platforms);
+
+    // creating the enemy sprite
+
+    this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
+    this.enemy.setCollideWorldBounds(true);
+
+    // creating the enemy sprite
+
+    this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
+    this.enemy.setCollideWorldBounds(true);
 
     this.anims.create({
       key: 'idle',
@@ -63,11 +83,18 @@ class GameScene extends Scene {
       repeat: -1,
     });
 
+    this.anims.create({
+      key: 'enemy-idle',
+      frames: this.anims.generateFrameNumbers('bot', { start: 20, end: 23 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+
     //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();
   }
 
-  update() {
+  update(time) {
     // Idling and basic movement
     if (this.cursors.left.isDown) {
       this.player.setVelocityX(-500);
@@ -98,6 +125,7 @@ class GameScene extends Scene {
       if (this.player.body.touching.down) {
         this.player.anims.play('idle');
       }
+      this.enemy.anims.play('enemy-idle');
     }
 
     // Jumping & Falling
@@ -108,6 +136,14 @@ class GameScene extends Scene {
     if (!this.player.body.touching.down && this.player.body.velocity.y > 0) {
       this.player.anims.play('falling');
     }
+    this.enemyFollows();
+
+    let gameRunTime = time * 0.001;
+    this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+  }
+
+  enemyFollows() {
+    this.physics.moveToObject(this.enemy, this.player, 100);
   }
 }
 
