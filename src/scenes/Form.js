@@ -7,19 +7,21 @@ class Form extends Scene {
 
   preload() {
     this.load.html("form", "/assets/text/inputForm.html");
-    this.load.image("sky", "/assets/menu/sky.png");
+    this.load.image("stars", "/assets/menu/stars_background.png");
   }
 
   create() {
-    this.add.image(400, 300, "sky");
-    const text = this.add.text(10, 10, "Type your name", {
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+    this.add.image(x, y, "stars");
+    const text = this.add.text(x - x / 5, y - y / 4, "TYPE YOUR NAME", {
       color: "white",
       fontFamily: "Arial",
       fontSize: "32px",
     });
 
     // const element = document.getElementById("form");
-    const element = this.add.dom(400, 300).createFromCache("form");
+    const element = this.add.dom(x, y).createFromCache("form");
 
     element.setPerspective(300);
     element.addListener("click");

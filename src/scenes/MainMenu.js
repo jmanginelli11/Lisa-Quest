@@ -16,24 +16,25 @@ class MainMenu extends Scene {
 
     this.load.image("credits-white", "/assets/menu/credits_white.png");
     this.load.image("credits-red", "/assets/menu/credits_red.png");
-
   }
 
   create() {
-    this.add.image(400, 300, "stars");
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+    this.add.image(x, y, "stars");
 
-    let playButton = this.add.image(400, 300, "play-white").setScale(5);
-    let creditsButton = this.add.image(400, 375, "credits-white").setScale(3);
+    let playButton = this.add.image(x, y, "play-white").setScale(5);
+    let creditsButton = this.add.image(x, y + 100, "credits-white").setScale(3);
 
     playButton.setInteractive();
     creditsButton.setInteractive();
 
     playButton.on("pointerover", () => {
-      playButton = this.add.image(400, 300, "play-red").setScale(5);
+      playButton = this.add.image(x, y, "play-red").setScale(5);
     });
 
     playButton.on("pointerout", () => {
-      playButton = this.add.image(400, 300, "play-white").setScale(5);
+      playButton = this.add.image(x, y, "play-white").setScale(5);
     });
 
     playButton.on("pointerup", () => {
@@ -42,11 +43,11 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on("pointerover", () => {
-      creditsButton = this.add.image(400, 375, "credits-red").setScale(3);
+      creditsButton = this.add.image(x, y + 100, "credits-red").setScale(3);
     });
 
     creditsButton.on("pointerout", () => {
-      creditsButton = this.add.image(400, 375, "credits-white").setScale(3);
+      creditsButton = this.add.image(x, y + 100, "credits-white").setScale(3);
     });
 
     creditsButton.on("pointerup", () => {
