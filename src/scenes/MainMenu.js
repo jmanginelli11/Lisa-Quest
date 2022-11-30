@@ -39,7 +39,7 @@ class MainMenu extends Scene {
 
     playButton.on("pointerup", () => {
       console.log("lesssss gooooooooooo");
-      this.scene.switch("Form");
+      this.scene.switch("GameScene");
     });
 
     creditsButton.on("pointerover", () => {
@@ -51,7 +51,7 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on("pointerup", () => {
-      this.scene.switch("Credits");
+      this.scene.switch("Form");
     });
   }
 }
