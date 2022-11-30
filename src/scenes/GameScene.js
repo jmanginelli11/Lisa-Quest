@@ -10,17 +10,6 @@ class GameScene extends Scene {
     super({ key: 'GameScene' });
   }
 
-  preload() {
-    this.load.image('sky', '/assets/menu/sky.png');
-    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
-    this.load.image('ground', 'assets/platform.png');
-
-    this.load.spritesheet('lisa', '/assets/lisa/default/lisa-spritesheet.png', {
-      frameWidth: 80,
-      frameHeight: 48,
-    });
-  }
-
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
@@ -35,7 +24,7 @@ class GameScene extends Scene {
       this.scene.switch('MainMenu');
     });
 
-    this.player = this.physics.add.sprite(100, 450, 'lisa');
+    this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
     this.player.setCollideWorldBounds(true);
 
     this.anims.create({
@@ -73,17 +62,17 @@ class GameScene extends Scene {
   update() {
     // Idling and basic movement
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-400);
 
-      this.player.anims.play('dash', true);
-      // this.player.anims.play('run', true);
+      // this.player.anims.play('dash', true);
+      this.player.anims.play('run', true);
 
       this.player.flipX = true;
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(400);
 
-      this.player.anims.play('dash', true);
-      // this.player.anims.play('run', true);
+      // this.player.anims.play('dash', true);
+      this.player.anims.play('run', true);
 
       this.player.flipX = false;
     } else {

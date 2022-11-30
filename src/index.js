@@ -5,6 +5,7 @@ import GameScore from './scenes/GameScore';
 import HighScores from './scenes/HighScores';
 import Credits from './scenes/Credits';
 import Form from './scenes/Form.js';
+import Preloader from './scenes/Preloader.js';
 // import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
 const config = {
@@ -13,7 +14,7 @@ const config = {
   dom: { createContainer: true },
   width: innerWidth,
   height: innerHeight,
-  scene: [MainMenu, GameScene, GameScore, HighScores, Credits, Form],
+  scene: [Preloader, MainMenu, GameScene, GameScore, HighScores, Credits, Form],
   physics: {
     default: 'arcade',
     arcade: {
