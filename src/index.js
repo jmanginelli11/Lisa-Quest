@@ -11,8 +11,8 @@ const config = {
   type: Phaser.AUTO,
   parent: 'phaser-example',
   dom: { createContainer: true },
-  width: 800,
-  height: 600,
+  width: innerWidth,
+  height: innerHeight,
   scene: [MainMenu, GameScene, GameScore, HighScores, Credits, Form],
   physics: {
     default: 'arcade',

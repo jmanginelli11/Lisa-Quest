@@ -12,10 +12,14 @@ class Credits extends Scene {
   }
 
   create() {
-    this.add.image(400, 300, "stars");
-    this.add.image(400, 300, "creditsLOL");
-
-    let mainMenuButton = this.add.image(125, 575, "main-menu").setScale(3);
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+    this.add.image(x, y, "stars");
+    this.add.image(x, y, "creditsLOL");
+    console.log(y);
+    let mainMenuButton = this.add
+      .image(x / 2, y * 1.8, "main-menu")
+      .setScale(3);
     mainMenuButton.setInteractive();
 
     mainMenuButton.on("pointerup", () => {

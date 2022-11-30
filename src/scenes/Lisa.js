@@ -48,7 +48,7 @@ class Lisa extends Phaser.GameObjects.Sprite {
           this.anims.play('idle', true);
           this.colliderPunch.destroy(true);
         }
-      } catch (e) {}
+      } catch (error) {}
 
       this.is_blocking = false;
     });
