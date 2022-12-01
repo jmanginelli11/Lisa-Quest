@@ -18,6 +18,7 @@ class GameScene extends Scene {
     this.add.image(x, y, 'shiny_stars');
     this.add.image(x, y, 'planet_surface');
     this.add.image(x, y, 'planet_vegetation');
+    this.add.image(x, y, 'planet_vegetation_2');
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -43,11 +44,10 @@ class GameScene extends Scene {
 
     this.platforms = this.physics.add.staticGroup();
     this.platforms
-      .create(x, innerHeight - 200, 'ground')
-      .setScale(4)
+      .create(x, innerHeight - 170, 'planet_surface')
+      .setScale(0)
       .refreshBody();
     this.physics.add.collider(this.player, this.platforms);
-
 
     // creating the enemy sprite
 
