@@ -4,10 +4,8 @@ class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y);
 
-    this.scene.physics.world.enable(this);
-    this.scene.add.existing(this);
     this.setPosition(x, y);
-    this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
+    // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
 
     this.setTexture('idle0');
     this.play('idle');

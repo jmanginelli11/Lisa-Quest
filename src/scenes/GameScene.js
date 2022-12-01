@@ -41,7 +41,7 @@ class GameScene extends Scene {
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
     this.platforms
-      .create(x, innerHeight - 400, 'ground')
+      .create(x, innerHeight - 200, 'ground')
       .setScale(4)
       .refreshBody();
     this.physics.add.collider(this.player, this.platforms);
@@ -55,40 +55,6 @@ class GameScene extends Scene {
 
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
-
-    this.anims.create({
-      key: 'idle',
-      frames: [{ key: 'lisa', frame: 0 }],
-      frameRate: 12,
-    });
-    this.anims.create({
-      key: 'rising',
-      frames: [{ key: 'lisa', frame: 1 }],
-      frameRate: 12,
-    });
-    this.anims.create({
-      key: 'falling',
-      frames: [{ key: 'lisa', frame: 2 }],
-      frameRate: 12,
-    });
-    this.anims.create({
-      key: 'dash',
-      frames: this.anims.generateFrameNumbers('lisa', { start: 3, end: 7 }),
-      frameRate: 20,
-    });
-    this.anims.create({
-      key: 'run',
-      frames: this.anims.generateFrameNumbers('lisa', { start: 8, end: 15 }),
-      frameRate: 12,
-      repeat: -1,
-    });
-
-    this.anims.create({
-      key: 'enemy-idle',
-      frames: this.anims.generateFrameNumbers('bot', { start: 20, end: 23 }),
-      frameRate: 12,
-      repeat: -1,
-    });
 
     //  Input Events
     this.cursors = this.input.keyboard.createCursorKeys();

@@ -5,25 +5,7 @@ export default class PreloaderScene extends Phaser.Scene {
     super({ key: 'Preloader' });
   }
 
-  init() {
-    this.readyCount = 0;
-  }
-
-  ready() {
-    this.scene.start('MainMenu');
-    this.readyCount += 1;
-    if (this.readyCount === 5) {
-      this.scene.start('MainMenu');
-    }
-  }
-
   preload() {
-    this.load.on('complete', () => {
-      this.ready();
-    });
-
-    this.timedEvent = this.time.delayedCall(3000, this.ready, [], this);
-
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
@@ -70,5 +52,50 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 42,
       frameHeight: 44,
     });
+  }
+
+  createLisaAnims() {
+    this.anims.create({
+      key: 'idle',
+      frames: [{ key: 'lisa', frame: 0 }],
+      frameRate: 12,
+    });
+    this.anims.create({
+      key: 'rising',
+      frames: [{ key: 'lisa', frame: 1 }],
+      frameRate: 12,
+    });
+    this.anims.create({
+      key: 'falling',
+      frames: [{ key: 'lisa', frame: 2 }],
+      frameRate: 12,
+    });
+    this.anims.create({
+      key: 'dash',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 3, end: 7 }),
+      frameRate: 20,
+    });
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 8, end: 15 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+  }
+
+  createEnemyAnims() {
+    this.anims.create({
+      key: 'enemy-idle',
+      frames: this.anims.generateFrameNumbers('bot', { start: 20, end: 23 }),
+      frameRate: 12,
+      repeat: -1,
+    });
+  }
+
+  create() {
+    this.createLisaAnims();
+    this.createEnemyAnims();
+
+    this.scene.start('MainMenu');
   }
 }
