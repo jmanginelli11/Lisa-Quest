@@ -117,6 +117,15 @@ export default class PreloaderScene extends Phaser.Scene {
       frameRate: 12,
       repeat: -1,
     });
+    this.anims.create({
+      key: "grenadeRun",
+      frames: this.anims.generateFrameNumbers("grenadeGuy", {
+        start: 8,
+        end: 15,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
   }
 
   create() {
