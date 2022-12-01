@@ -49,6 +49,21 @@ export default class PreloaderScene extends Phaser.Scene {
       frameWidth: 42,
       frameHeight: 44,
     });
+
+    //background first scene
+    this.load.image(
+      'shiny_stars',
+      '/assets/backgrounds/klipton/shiny_stars.png'
+    );
+
+    this.load.image(
+      'planet_surface',
+      '/assets/backgrounds/klipton/planet_surface.png'
+    );
+    this.load.image(
+      'planet_vegetation',
+      '/assets/backgrounds/klipton/planet_vegetation.png'
+    );
   }
 
   createLisaAnims() {
