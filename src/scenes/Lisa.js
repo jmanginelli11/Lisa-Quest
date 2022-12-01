@@ -1,25 +1,25 @@
-import { Sprite } from 'phaser';
+import { Sprite, physics } from 'phaser';
 
-class Lisa extends Phaser.GameObjects.Sprite {
+export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y);
+    super(scene, x, y, 'lisa');
 
     this.setPosition(x, y);
     // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
 
-    this.setTexture('idle0');
     this.play('idle');
+    this.scene.add.existing(this);
+    this.scene.physics.add.existing(this);
 
-    this.body // player Config
-      .setBounce(0.5);
-    this.body.setSize(200, 300, true);
-    this.body.setGravityY(100);
+    // player Config
+    // this.body.setSize(200, 300, true);
+    this.setScale(3.5);
+    this.body.setGravityY(350);
     this.body.setCollideWorldBounds(true);
-    this.body.setOffset(80, 87);
 
     //Method calls for creation
     this.init();
-    this.create();
+    // this.create();
   }
 
   init() {

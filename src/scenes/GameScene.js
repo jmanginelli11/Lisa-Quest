@@ -1,5 +1,5 @@
 import { Scene, physics } from 'phaser';
-// import { loadAnims, lisaSprite, loadSpritesheets } from './Lisa';
+import { Lisa } from './Lisa';
 
 class GameScene extends Scene {
   player;
@@ -34,9 +34,11 @@ class GameScene extends Scene {
     };
     this.timer = this.add.text(16, 16, 'Time: ', timeTextStyle);
 
-    this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
-    this.player.setCollideWorldBounds(true);
-    this.player.body.setGravity(400);
+    // Creating Player (Lisa)
+    this.player = new Lisa(this, x, y);
+
+    // this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
+    console.log(this.player);
 
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
@@ -63,7 +65,7 @@ class GameScene extends Scene {
   update(time) {
     // Idling and basic movement
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-500);
+      this.player.body.setVelocityX(-500);
 
       if (this.player.body.touching.down && !this.player.anims.isPlaying) {
         this.player.anims.play('dash', true);
@@ -72,7 +74,7 @@ class GameScene extends Scene {
 
       this.player.flipX = true;
     } else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(500);
+      this.player.body.setVelocityX(500);
 
       if (this.player.body.touching.down && !this.player.anims.isPlaying) {
         this.player.anims.play('dash', true);
@@ -85,7 +87,7 @@ class GameScene extends Scene {
         this.player.body.velocity.x <= 160 ||
         this.player.body.velocity.x >= -160
       ) {
-        this.player.setVelocityX(0);
+        this.player.body.setVelocityX(0);
       }
 
       if (this.player.body.touching.down) {
@@ -96,7 +98,7 @@ class GameScene extends Scene {
 
     // Jumping
     if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.setVelocityY(-420);
+      this.player.body.setVelocityY(-420);
       this.player.anims.play('rising');
     }
 
@@ -107,7 +109,7 @@ class GameScene extends Scene {
 
     // Fast-falling
     if (this.cursors.down.isDown && this.player.body.velocity.y < 100) {
-      this.player.setVelocityY(100);
+      this.player.body.setVelocityY(100);
     }
 
     // Do enemy AI
