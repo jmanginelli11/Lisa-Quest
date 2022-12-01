@@ -41,8 +41,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(-500);
 
       if (this.body.touching.down && !this.anims.isPlaying) {
-        this.anims.play('dash', true);
-        this.anims.chain('run');
+        this.anims.play('run');
       }
 
       this.flipX = true;
@@ -50,8 +49,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       this.body.setVelocityX(500);
 
       if (this.body.touching.down && !this.anims.isPlaying) {
-        this.anims.play('dash', true);
-        this.anims.chain('run');
+        this.anims.play('run');
       }
 
       this.flipX = false;
@@ -79,6 +77,30 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Fast-falling
     if (this.cursors.down.isDown && this.body.velocity.y < 100) {
       this.body.setVelocityY(100);
+    }
+
+    // Ground Dash
+    if (this.cursors.shift.isDown) {
+      if (this.body.velocity.x >= 160) {
+        this.anims.play('dash');
+        this.body.setVelocityX(2000);
+      }
+      if (this.body.velocity.x <= -160) {
+        this.anims.play('dash');
+        this.body.setVelocityX(-2000);
+      }
+    }
+
+    // Attack
+    if (this.cursors.space.isDown) {
+      if (this.body.velocity.x >= 160) {
+        this.anims.play('super-punch');
+        this.body.setVelocityX(1000);
+      }
+      if (this.body.velocity.x <= -160) {
+        this.anims.play('super-punch');
+        this.body.setVelocityX(-1000);
+      }
     }
   }
 }

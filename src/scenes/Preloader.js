@@ -78,6 +78,11 @@ export default class PreloaderScene extends Phaser.Scene {
       frameRate: 12,
       repeat: -1,
     });
+    this.anims.create({
+      key: 'super-punch',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 16, end: 32 }),
+      frameRate: 18,
+    });
   }
 
   createEnemyAnims() {
