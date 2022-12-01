@@ -15,7 +15,9 @@ class GameScene extends Scene {
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.add.image(x, y, 'stars');
+    this.add.image(x, y, 'shiny_stars');
+    this.add.image(x, y, 'planet_surface');
+    this.add.image(x, y, 'planet_vegetation');
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -38,12 +40,14 @@ class GameScene extends Scene {
     this.player = new Lisa(this, x, y);
 
     // Test platform (needed for char testing)
+
     this.platforms = this.physics.add.staticGroup();
     this.platforms
       .create(x, innerHeight - 200, 'ground')
       .setScale(4)
       .refreshBody();
     this.physics.add.collider(this.player, this.platforms);
+
 
     // creating the enemy sprite
 

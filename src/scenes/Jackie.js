@@ -2,6 +2,11 @@ import { Scene, physics } from "phaser";
 // import { loadAnims, lisaSprite, loadSpritesheets } from './Lisa';
 
 class Jackie extends Scene {
+  enemy;
+  platforms;
+  // set direction in this so that you can change it back and forth
+  direction = "right";
+
   constructor() {
     super({ key: "Jackie" });
   }
@@ -11,50 +16,48 @@ class Jackie extends Scene {
     const y = innerHeight / 2;
     this.add.image(x, y, "stars");
 
-    let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, "main-menu")
-      .setScale(3);
-    mainMenuButton.setInteractive();
+    // creating the enemy sprite
 
-    mainMenuButton.on("pointerup", () => {
-      this.scene.switch("MainMenu");
-    });
-
-    let timeTextStyle = {
-      font: "24px Roboto",
-      fill: "#E43AA4",
-      stroke: "#000",
-      strokeThickness: 4,
-    };
-    this.timer = this.add.text(16, 16, "Time: ", timeTextStyle);
+    this.enemy = this.physics.add.sprite(x, y, "grenadeGuy").setScale(2);
+    this.enemy.setCollideWorldBounds(true);
+    this.enemy.body.setGravity(400);
+    console.log(this);
 
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
-    this.platforms
-      .create(x, innerHeight - 400, "ground")
-      .setScale(4)
-      .refreshBody();
-    this.physics.add.collider(this.player, this.platforms);
+    this.platforms.create(400, 568, "ground").setScale(4).refreshBody();
+    this.physics.add.collider(this.enemy, this.platforms);
 
-    // creating the enemy sprite
-
-    this.enemy = this.physics.add.sprite(x, y, "bot").setScale(2);
-    this.enemy.setCollideWorldBounds(true);
-
-    // creating the enemy sprite
-
-    this.enemy = this.physics.add.sprite(x, y, "bot").setScale(2);
-    this.enemy.setCollideWorldBounds(true);
-
-    //  Input Events
-    this.cursors = this.input.keyboard.createCursorKeys();
+    this.anims.create({
+      key: "grenadeRun",
+      frames: this.anims.generateFrameNumbers("grenadeGuy", {
+        start: 8,
+        end: 20,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
   }
 
-  update(time) {
-    // Idling and basic movement
+  update() {
+    // Enemy "goomba" moves back and forth when it hits a wall it changes direction
+    if (this.enemy.body.blocked.right) {
+      this.direction = "left";
+    }
 
-    let gameRunTime = time * 0.001;
-    this.timer.setText("Time: " + Math.round(gameRunTime) + " seconds ");
+    if (this.enemy.body.blocked.left) {
+      this.direction = "right";
+    }
+
+    if (this.direction === "left") {
+      this.enemy.anims.play("grenadeRun");
+      this.enemy.setVelocityX(-200);
+    }
+
+    if (this.direction === "right") {
+      this.enemy.anims.play("grenadeRun");
+      this.enemy.setVelocityX(200);
+    }
   }
 }
 
