@@ -94,20 +94,31 @@ class GameScene extends Scene {
       this.enemy.anims.play('enemy-idle');
     }
 
-    // Jumping & Falling
+    // Jumping
     if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.setVelocityY(-420);
       this.player.anims.play('rising');
     }
+
+    // Falling
     if (!this.player.body.touching.down && this.player.body.velocity.y > 0) {
       this.player.anims.play('falling');
     }
+
+    // Fast-falling
+    if (this.cursors.down.isDown && this.player.body.velocity.y < 100) {
+      this.player.setVelocityY(100);
+    }
+
+    // Do enemy AI
     this.enemyFollows();
 
+    // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
 
+  // Following Enemy AI
   enemyFollows() {
     this.physics.moveToObject(this.enemy, this.player, 100);
   }
