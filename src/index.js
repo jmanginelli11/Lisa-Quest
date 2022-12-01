@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import MainMenu from './scenes/MainMenu.js';
 import GameScene from './scenes/GameScene';
+import Jackie from './scenes/Jackie';
 import GameScore from './scenes/GameScore';
 import HighScores from './scenes/HighScores';
 import Credits from './scenes/Credits';
@@ -10,7 +11,7 @@ import HealthBar from './scenes/HealthBar';
 
 const config = {
   type: Phaser.AUTO,
-  parent: 'phaser-example',
+  parent: 'game',
   dom: { createContainer: true },
   width: innerWidth,
   height: innerHeight,
@@ -23,6 +24,7 @@ const config = {
     Credits,
     Form,
     HealthBar,
+    Jackie,
   ],
   physics: {
     default: 'arcade',

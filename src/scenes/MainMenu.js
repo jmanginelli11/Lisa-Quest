@@ -13,10 +13,12 @@ class MainMenu extends Scene {
     let playButton = this.add.image(x, y, "play-white").setScale(5);
     let creditsButton = this.add.image(x, y + 100, "credits-white").setScale(3);
     let formButton = this.add.image(x, y + 200, "credits-white").setScale(4);
+    let jackieButton = this.add.image(x, y + 300, "credits-white").setScale(4);
 
     playButton.setInteractive();
     creditsButton.setInteractive();
     formButton.setInteractive();
+    jackieButton.setInteractive();
 
     let hoverSprite1 = this.add.sprite(100, 100, "lisa").setScale(3.5);
     hoverSprite1.setVisible(false);
@@ -80,12 +82,21 @@ class MainMenu extends Scene {
     formButton.on("pointerover", () => {
       formButton = this.add.image(x, y + 200, "credits-red").setScale(4);
     });
-
     formButton.on("pointerout", () => {
       formButton = this.add.image(x, y + 200, "credits-white").setScale(4);
     });
     formButton.on("pointerup", () => {
       this.scene.switch("Form");
+    });
+
+    jackieButton.on("pointerover", () => {
+      jackieButton = this.add.image(x, y + 300, "credits-red").setScale(4);
+    });
+    jackieButton.on("pointerout", () => {
+      jackieButton = this.add.image(x, y + 300, "credits-white").setScale(4);
+    });
+    jackieButton.on("pointerup", () => {
+      this.scene.switch("Jackie");
     });
   }
 }
