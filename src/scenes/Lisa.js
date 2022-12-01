@@ -1,10 +1,12 @@
-import { Sprite, physics } from 'phaser';
+import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'lisa');
 
     this.setPosition(x, y);
+
+    // For Health Bar?
     // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
 
     this.play('idle');

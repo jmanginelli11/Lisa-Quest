@@ -7,7 +7,6 @@ import Credits from './scenes/Credits';
 import Form from './scenes/Form.js';
 import Preloader from './scenes/Preloader.js';
 import HealthBar from './scenes/HealthBar';
-import { Lisa } from './scenes/Lisa.js';
 
 const config = {
   type: Phaser.AUTO,
