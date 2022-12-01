@@ -102,6 +102,9 @@ class MainMenu extends Scene {
       this.scene.switch('Jackie');
     });
 
+    naomiButton.on('pointerout', () => {
+      counsole.log('clicked on Naomi button');
+    });
     naomiButton.on('pointerup', () => {
       this.scene.switch('Intro');
     });
