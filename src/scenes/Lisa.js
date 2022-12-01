@@ -65,7 +65,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Jumping
     if (this.cursors.up.isDown && this.body.touching.down) {
-      this.body.setVelocityY(-420);
+      this.body.setVelocityY(-600);
       this.anims.play('rising');
     }
 
@@ -76,7 +76,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Fast-falling
     if (this.cursors.down.isDown && this.body.velocity.y < 100) {
-      this.body.setVelocityY(100);
+      this.body.setVelocityY(400);
     }
 
     // Ground Dash
