@@ -74,6 +74,10 @@ export default class PreloaderScene extends Phaser.Scene {
       "planet_vegetation",
       "/assets/backgrounds/klipton/planet_vegetation.png"
     );
+    this.load.image(
+      'planet_vegetation_2',
+      '/assets/backgrounds/klipton/planet_vegetation_2.png'
+    );
   }
 
   createLisaAnims() {
