@@ -12,64 +12,71 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
 
     // player Config
-    // this.body.setSize(200, 300, true);
     this.setScale(3.5);
     this.body.setGravityY(350);
     this.body.setCollideWorldBounds(true);
 
     //Method calls for creation
     this.init();
-    // this.create();
+    this.create();
   }
 
   init() {
-    // this.width = this.scene.sys.game.canvas.width;
-    // this.height = this.scene.sys.game.canvas.height;
-
     //Variables
     this.is_run = false;
     this.is_idle = false;
   }
 
   create() {
+    // Create Input Event
     this.cursors = this.scene.input.keyboard.createCursorKeys();
+    console.log('cursors: ', this.cursors);
+  }
 
-    // Look in this function, after one animation is completed
-    this.on('animationcomplete', (event) => {
-      try {
-        if (
-          event.key == 'punchright' ||
-          event.key == 'punchleft' ||
-          event.key == 'uppercut' ||
-          event.key == 'hurt'
-        ) {
-          this.anims.play('idle', true);
-          this.colliderPunch.destroy(true);
-        }
-      } catch (error) {}
+  update() {
+    // Idling and basic movement
+    if (this.cursors.left.isDown) {
+      this.body.setVelocityX(-500);
 
-      this.is_blocking = false;
-    });
+      if (this.body.touching.down && !this.anims.isPlaying) {
+        this.anims.play('dash', true);
+        this.anims.chain('run');
+      }
 
-    // key objects
-    this.keyobj_j = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.J
-    );
+      this.flipX = true;
+    } else if (this.cursors.right.isDown) {
+      this.body.setVelocityX(500);
 
-    this.keyobj_k = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.K
-    );
+      if (this.body.touching.down && !this.anims.isPlaying) {
+        this.anims.play('dash', true);
+        this.anims.chain('run');
+      }
 
-    this.keyobj_l = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.L
-    );
+      this.flipX = false;
+    } else {
+      if (this.body.velocity.x <= 160 || this.body.velocity.x >= -160) {
+        this.body.setVelocityX(0);
+      }
 
-    this.keyobj_h = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.H
-    );
+      if (this.body.touching.down) {
+        this.anims.play('idle');
+      }
+    }
 
-    this.keyobj_o = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.O
-    );
+    // Jumping
+    if (this.cursors.up.isDown && this.body.touching.down) {
+      this.body.setVelocityY(-420);
+      this.anims.play('rising');
+    }
+
+    // Falling
+    if (!this.body.touching.down && this.body.velocity.y > 0) {
+      this.anims.play('falling');
+    }
+
+    // Fast-falling
+    if (this.cursors.down.isDown && this.body.velocity.y < 100) {
+      this.body.setVelocityY(100);
+    }
   }
 }

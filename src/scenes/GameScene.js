@@ -37,9 +37,6 @@ class GameScene extends Scene {
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
 
-    // this.player = this.physics.add.sprite(x, y, 'lisa').setScale(3.5);
-    console.log(this.player);
-
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
     this.platforms
@@ -57,62 +54,14 @@ class GameScene extends Scene {
 
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
-
-    //  Input Events
-    this.cursors = this.input.keyboard.createCursorKeys();
   }
 
   update(time) {
-    // Idling and basic movement
-    if (this.cursors.left.isDown) {
-      this.player.body.setVelocityX(-500);
-
-      if (this.player.body.touching.down && !this.player.anims.isPlaying) {
-        this.player.anims.play('dash', true);
-        this.player.anims.chain('run');
-      }
-
-      this.player.flipX = true;
-    } else if (this.cursors.right.isDown) {
-      this.player.body.setVelocityX(500);
-
-      if (this.player.body.touching.down && !this.player.anims.isPlaying) {
-        this.player.anims.play('dash', true);
-        this.player.anims.chain('run');
-      }
-
-      this.player.flipX = false;
-    } else {
-      if (
-        this.player.body.velocity.x <= 160 ||
-        this.player.body.velocity.x >= -160
-      ) {
-        this.player.body.setVelocityX(0);
-      }
-
-      if (this.player.body.touching.down) {
-        this.player.anims.play('idle');
-      }
-      this.enemy.anims.play('enemy-idle');
-    }
-
-    // Jumping
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
-      this.player.body.setVelocityY(-420);
-      this.player.anims.play('rising');
-    }
-
-    // Falling
-    if (!this.player.body.touching.down && this.player.body.velocity.y > 0) {
-      this.player.anims.play('falling');
-    }
-
-    // Fast-falling
-    if (this.cursors.down.isDown && this.player.body.velocity.y < 100) {
-      this.player.body.setVelocityY(100);
-    }
+    // Update Player
+    this.player.update();
 
     // Do enemy AI
+    this.enemy.anims.play('enemy-idle');
     this.enemyFollows();
 
     // Timer
