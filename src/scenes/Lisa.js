@@ -21,18 +21,42 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     //Method calls for creation
     this.init();
     this.create();
+
+    console.log('the big lisa: ', this);
   }
 
   init() {
     //Variables
     this.is_run = false;
     this.is_idle = false;
+    this.is_dash = false;
+    this.is_punch = false;
+
+    this.hp = 50;
+    this.shield = 5;
+    this.colliderPunch;
   }
 
   create() {
     // Create Input Event
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     console.log('cursors: ', this.cursors);
+
+    // Look in this function, after one animation is completed
+
+    // this.on('animationcomplete', (event) => {
+    //   try {
+    //     if (
+    //       event.key == 'punchright' ||
+    //       event.key == 'punchleft' ||
+    //       event.key == 'uppercut' ||
+    //       event.key == 'hurt'
+    //     ) {
+    //       this.anims.play('idle', true);
+    //       this.colliderPunch.destroy(true);
+    //     }
+    //   } catch (e) {}
+    // });
   }
 
   update() {
@@ -93,14 +117,24 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Attack
     if (this.cursors.space.isDown) {
-      if (this.body.velocity.x >= 160) {
-        this.anims.play('super-punch');
-        this.body.setVelocityX(1000);
-      }
-      if (this.body.velocity.x <= -160) {
-        this.anims.play('super-punch');
-        this.body.setVelocityX(-1000);
+      if (this.body.velocity.x >= 160 || this.body.velocity.x <= -160) {
+        this.attackAnimation('super-punch');
       }
     }
+  }
+
+  attackAnimation(attack) {
+    this.hitbox = this.scene.add
+      .sprite(this.x, this.y - this.body.height / 2)
+      .setDepth(-1)
+      .setScale(0.2)
+      .setAngle(this.flipX ? 45 : -45);
+
+    this.hitbox.once('animationcomplete', () => {
+      this.hitbox.destroy();
+    });
+
+    this.anims.play('super-punch');
+    this.flipX ? this.body.setVelocityX(-1000) : this.body.setVelocityX(1000);
   }
 }
