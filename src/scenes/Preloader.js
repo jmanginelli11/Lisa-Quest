@@ -65,19 +65,15 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //background first scene
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
-
     this.load.image('tiles', '/assets/backgrounds/Themy/Scene-Main/tiles.png');
-
     this.load.image(
       'vegetation1',
       '/assets/backgrounds/Themy/Scene-Main/vegetation1.png'
     );
-
     this.load.image(
       'vegetation2',
       '/assets/backgrounds/Themy/Scene-Main/vegetation_2.png'
     );
-
     this.load.tilemapTiledJSON(
       'tilemap',
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
