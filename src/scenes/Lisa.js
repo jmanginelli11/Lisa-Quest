@@ -17,6 +17,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.setScale(3.5);
     this.body.setGravityY(350);
     this.body.setCollideWorldBounds(true);
+    this.body.setVelocityY(500);
 
     //Method calls for creation
     this.init();
@@ -60,7 +61,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   update() {
-    // Idling and basic movement
+    // Basic movement
     if (this.cursors.left.isDown) {
       this.body.setVelocityX(-500);
 
@@ -77,12 +78,12 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       }
 
       this.flipX = false;
-    } else {
-      if (this.body.velocity.x <= 160 || this.body.velocity.x >= -160) {
-        this.body.setVelocityX(0);
-      }
+      // idle is weird and im not sure how to get it to let me punch w/o movement
+    } else if (!this.anims.isPlaying) {
+      this.body.setVelocityX(0);
 
-      if (this.body.touching.down) {
+      if (this.body.touching.down && !this.cursors.ANY_KEY_DOWN) {
+        console.log('yo');
         this.anims.play('idle');
       }
     }
@@ -104,7 +105,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Ground Dash
-    if (this.cursors.shift.isDown) {
+    if (this.cursors.shift.isDown && this.body.touching.down) {
       if (this.body.velocity.x >= 160) {
         this.anims.play('dash');
         this.body.setVelocityX(2000);
@@ -116,10 +117,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Attack
-    if (this.cursors.space.isDown) {
-      if (this.body.velocity.x >= 160 || this.body.velocity.x <= -160) {
-        this.attackAnimation('super-punch');
-      }
+    if (this.cursors.space.isDown && this.body.touching.down) {
+      this.attackAnimation('super-punch');
     }
   }
 

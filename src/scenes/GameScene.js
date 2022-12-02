@@ -58,6 +58,9 @@ class GameScene extends Scene {
 
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
+
+    // Collider so enemy and player can interact
+    this.physics.add.collider(this.player, this.enemy);
   }
 
   update(time) {
