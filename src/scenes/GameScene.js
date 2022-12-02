@@ -15,7 +15,6 @@ class GameScene extends Scene {
   groundLayer;
   surfaceTileset;
 
-
   constructor() {
     super({ key: 'GameScene' });
   }
@@ -82,7 +81,10 @@ class GameScene extends Scene {
     );
 
     this.physics.add.collider(this.player, this.groundLayer);
+    this.physics.add.collider(this.player, this.surfaceTileset);
     this.groundLayer.setCollisionBetween(72, 99);
+
+    console.log(this.physics.add);
 
     // // Test platform (needed for char testing)
     // this.platforms = this.physics.add.staticGroup();
@@ -103,12 +105,10 @@ class GameScene extends Scene {
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
 
-
     // this.bar = new HealthBarSprite(this, x, y);
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
-
   }
 
   update(time) {
