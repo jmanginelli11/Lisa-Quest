@@ -60,11 +60,14 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     });
 
     // key objects
-    this.cursors.keyobj_space = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SPACE
+    this.cursors.keyobj_z = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.Z
     );
-    this.cursors.keyobj_shift = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.SHIFT
+    this.cursors.keyobj_x = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.X
+    );
+    this.cursors.keyobj_c = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.C
     );
     this.cursors.keyobj_up = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.UP
@@ -158,15 +161,23 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Ground Dash
     if (
-      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_shift) &&
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_c) &&
       this.body.touching.down
     ) {
       this.dashAnimation();
     }
 
-    // Attack
+    // Super-Punch
     if (
-      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_space) &&
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_x) &&
+      this.body.touching.down
+    ) {
+      this.attackAnimation('super-punch');
+    }
+
+    // Punch
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_z) &&
       this.body.touching.down
     ) {
       this.attackAnimation('punch');
@@ -187,7 +198,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       .setAngle(this.flipX ? -45 : 45);
     this.anims.play(attack);
     if (attack === 'super-punch') {
-      this.flipX ? this.body.setVelocityX(-1000) : this.body.setVelocityX(1000);
+      this.flipX ? this.body.setVelocityX(-300) : this.body.setVelocityX(300);
     }
     if (attack === 'punch') {
       this.flipX ? this.body.setVelocityX(-300) : this.body.setVelocityX(300);
