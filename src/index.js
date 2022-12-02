@@ -9,6 +9,10 @@ import Form from './scenes/Form.js';
 import Preloader from './scenes/Preloader.js';
 import HealthBar from './scenes/HealthBar';
 
+import Intro from './scenes/Intro';
+// import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
+
+
 const config = {
   type: Phaser.AUTO,
   parent: 'game',
@@ -25,6 +29,7 @@ const config = {
     Form,
     HealthBar,
     Jackie,
+    Intro,
   ],
   physics: {
     default: 'arcade',
