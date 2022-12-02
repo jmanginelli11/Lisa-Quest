@@ -2,9 +2,7 @@ import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 'lisa');
-
-    this.setPosition(x, y);
+    super(scene, x, y + 200, 'lisa');
 
     // For Health Bar?
     // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
@@ -15,9 +13,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // player Config
     this.setScale(3.5);
-    this.body.setGravityY(350);
+    this.body.setGravityY(450);
     this.body.setCollideWorldBounds(true);
-    this.body.setVelocityY(500);
 
     //Method calls for creation
     this.init();
@@ -41,50 +38,50 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   create() {
     // Create Input Event
     this.cursors = this.scene.input.keyboard.createCursorKeys();
-    console.log('cursors: ', this.cursors);
+    // console.log('cursors: ', this.cursors);
 
     // Look in this function, after one animation is completed
-
-    // this.on('animationcomplete', (event) => {
-    //   try {
-    //     if (
-    //       event.key == 'punchright' ||
-    //       event.key == 'punchleft' ||
-    //       event.key == 'uppercut' ||
-    //       event.key == 'hurt'
-    //     ) {
-    //       this.anims.play('idle', true);
-    //       this.colliderPunch.destroy(true);
-    //     }
-    //   } catch (e) {}
-    // });
+    this.on('animationcomplete', (event) => {
+      try {
+        if (
+          event.key == 'punch' ||
+          event.key == 'super-punch' ||
+          event.key == 'dash'
+        ) {
+          this.anims.play('idle', true);
+          this.is_punch = false;
+          this.is_dash = false;
+          // this.colliderPunch.destroy(true);
+        }
+      } catch (e) {}
+    });
   }
 
   update() {
     // Basic movement
     if (this.cursors.left.isDown) {
-      this.body.setVelocityX(-500);
+      if (!this.is_punch && !this.is_dash) {
+        this.body.setVelocityX(-500);
+        if (this.body.touching.down && !this.anims.isPlaying) {
+          this.anims.play('run');
+        }
 
-      if (this.body.touching.down && !this.anims.isPlaying) {
-        this.anims.play('run');
+        this.flipX = true;
       }
-
-      this.flipX = true;
     } else if (this.cursors.right.isDown) {
-      this.body.setVelocityX(500);
+      if (!this.is_punch && !this.is_dash) {
+        this.body.setVelocityX(500);
+        if (this.body.touching.down && !this.anims.isPlaying) {
+          this.anims.play('run');
+        }
 
-      if (this.body.touching.down && !this.anims.isPlaying) {
-        this.anims.play('run');
+        this.flipX = false;
       }
+    } else {
+      if (!this.is_punch && !this.is_dash) {
+        this.body.setVelocityX(0);
 
-      this.flipX = false;
-      // idle is weird and im not sure how to get it to let me punch w/o movement
-    } else if (!this.anims.isPlaying) {
-      this.body.setVelocityX(0);
-
-      if (this.body.touching.down && !this.cursors.ANY_KEY_DOWN) {
-        console.log('yo');
-        this.anims.play('idle');
+        this.anims.play('idle', true);
       }
     }
 
@@ -106,34 +103,39 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Ground Dash
     if (this.cursors.shift.isDown && this.body.touching.down) {
-      if (this.body.velocity.x >= 160) {
-        this.anims.play('dash');
-        this.body.setVelocityX(2000);
-      }
-      if (this.body.velocity.x <= -160) {
-        this.anims.play('dash');
-        this.body.setVelocityX(-2000);
-      }
+      this.dashAnimation();
     }
 
     // Attack
     if (this.cursors.space.isDown && this.body.touching.down) {
-      this.attackAnimation('super-punch');
+      this.attackAnimation('punch');
     }
   }
 
   attackAnimation(attack) {
+    this.is_punch = true;
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)
       .setDepth(-1)
       .setScale(0.2)
-      .setAngle(this.flipX ? 45 : -45);
+      .setAngle(this.flipX ? -45 : 45);
+    this.anims.play(attack);
+    if (attack === 'super-punch') {
+      this.flipX ? this.body.setVelocityX(-1000) : this.body.setVelocityX(1000);
+    }
+
+    console.log('anims: ', this.anims);
+    console.log('hitbox: ', this.hitbox);
 
     this.hitbox.once('animationcomplete', () => {
       this.hitbox.destroy();
+      // this.is_punch = false;
     });
+  }
 
-    this.anims.play('super-punch');
-    this.flipX ? this.body.setVelocityX(-1000) : this.body.setVelocityX(1000);
+  dashAnimation() {
+    this.is_dash = true;
+    this.anims.play('dash');
+    this.flipX ? this.body.setVelocityX(-1200) : this.body.setVelocityX(1200);
   }
 }
