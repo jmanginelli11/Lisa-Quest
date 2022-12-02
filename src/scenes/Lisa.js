@@ -158,10 +158,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // calcutating hitbox by atack
     // var animation_progress = this.player1.anims.getProgress();
     this.colliderPunch = this.scene.add.rectangle(
-      this.x - 192,
-      this.y + 70,
-      180,
-      180
+      this.flipX ? this.x - 192 : this.x + 192,
+      this.y,
+      80,
+      80
     );
 
     this.scene.physics.add.existing(this.colliderPunch);

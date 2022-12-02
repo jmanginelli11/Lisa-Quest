@@ -27,6 +27,7 @@ class Jackie extends Scene {
       .create(x, innerHeight - 170, 'test')
       .setScale(5)
       .refreshBody();
+    this.platforms.create(x / 2, innerHeight - 450, 'test');
 
     // Colliders
     this.physics.add.collider(this.enemy, this.platforms);
