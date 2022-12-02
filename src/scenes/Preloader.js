@@ -12,7 +12,9 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('play-red', '/assets/menu/play_red.png');
     this.load.image('play-white', '/assets/menu/play_white.png');
     this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
-    this.load.image('ground', '/assets/platform.png');
+
+    this.load.image('test', '/assets/platform.png');
+
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
@@ -130,6 +132,16 @@ export default class PreloaderScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('lisa', { start: 8, end: 15 }),
       frameRate: 12,
       repeat: -1,
+    });
+    this.anims.create({
+      key: 'super-punch',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 16, end: 32 }),
+      frameRate: 18,
+    });
+    this.anims.create({
+      key: 'punch',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 33, end: 36 }),
+      frameRate: 18,
     });
   }
 

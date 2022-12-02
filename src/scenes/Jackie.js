@@ -1,61 +1,42 @@
-import { Scene, physics } from "phaser";
-import { Enemy } from "./Enemy";
-// import { loadAnims, lisaSprite, loadSpritesheets } from './Lisa';
+import { Scene, physics } from 'phaser';
+import { Enemy } from './Enemy';
+import { Lisa } from './Lisa';
 
 class Jackie extends Scene {
   enemy;
   platforms;
   // set direction in this so that you can change it back and forth
-  direction = "right";
+  direction = 'right';
 
   constructor() {
-    super({ key: "Jackie" });
+    super({ key: 'Jackie' });
   }
 
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.add.image(x, y, "stars");
+    this.add.image(x, y, 'stars');
 
-    // creating the enemy sprite
-
+    // Creating the enemy sprite
     this.enemy = new Enemy(this, x, y).setScale(2);
+    this.player = new Lisa(this, x, y);
 
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(400, 568, "ground").setScale(4).refreshBody();
-    this.physics.add.collider(this.enemy, this.platforms);
+    this.platforms
+      .create(x, innerHeight - 170, 'test')
+      .setScale(5)
+      .refreshBody();
+    this.platforms.create(x / 2, innerHeight - 450, 'test');
 
-    //   this.anims.create({
-    //     key: "grenadeRun",
-    //     frames: this.anims.generateFrameNumbers("grenadeGuy", {
-    //       start: 8,
-    //       end: 20,
-    //     }),
-    //     frameRate: 12,
-    //     repeat: -1,
-    //   });
-    // }
+    // Colliders
+    this.physics.add.collider(this.enemy, this.platforms);
+    this.physics.add.collider(this.player, this.platforms);
   }
 
   update() {
-    // Enemy "goomba" moves back and forth when it hits a wall it changes direction
-    //   if (this.enemy.body.blocked.right) {
-    //     this.direction = "left";
-    //   }
-    //   if (this.enemy.body.blocked.left) {
-    //     this.direction = "right";
-    //   }
-    //   if (this.direction === "left") {
-    //     this.enemy.anims.play("grenadeRun");
-    //     this.enemy.setVelocityX(-200);
-    //   }
-    //   if (this.direction === "right") {
-    //     this.enemy.anims.play("grenadeRun");
-    //     this.enemy.setVelocityX(200);
-    //   }
-    // }
     this.enemy.update();
+    this.player.update();
   }
 }
 
