@@ -8,10 +8,11 @@ import Credits from './scenes/Credits';
 import Form from './scenes/Form.js';
 import Preloader from './scenes/Preloader.js';
 import HealthBar from './scenes/HealthBar';
+import GameSceneTester from './scenes/HealthBarSprite.js';
 
 import Intro from './scenes/Intro';
-// import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
+// import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
 const config = {
   type: Phaser.AUTO,
@@ -30,6 +31,7 @@ const config = {
     HealthBar,
     Jackie,
     Intro,
+    GameSceneTester,
   ],
   physics: {
     default: 'arcade',
