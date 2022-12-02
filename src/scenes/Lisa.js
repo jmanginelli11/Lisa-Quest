@@ -30,7 +30,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_dash = false;
     this.is_punch = false;
     this.is_in_knockback = false;
-    this.jumps_remaining = 2;
+    this.has_air_jump = false;
 
     this.current_knockback_speed = 0;
     this.hp = 50;
@@ -127,13 +127,18 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       this.anims.play('hurt');
     }
 
-    // Jumping
+    // Grounded Jump
+    if (Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up)) {
+      this.body.setVelocityY(-450);
+    }
+
+    // Aerial Jump
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up) &&
-      this.jumps_remaining > 1
+      !this.body.touching.down
     ) {
-      this.body.setVelocityY(-600);
-      this.jumps_remaining--;
+      this.body.setVelocityY(-250);
+      this.has_air_jump = false;
     }
 
     // Rising
@@ -169,7 +174,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Reset Jumps
     if (this.body.touching.down) {
-      this.jumps_remaining = 2;
+      this.has_air_jump = true;
     }
   }
 
