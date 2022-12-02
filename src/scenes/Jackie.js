@@ -17,8 +17,7 @@ class Jackie extends Scene {
     const y = innerHeight / 2;
     this.add.image(x, y, 'stars');
 
-    // creating the enemy sprite
-
+    // Creating the enemy sprite
     this.enemy = new Enemy(this, x, y).setScale(2);
     this.player = new Lisa(this, x, y);
 
@@ -28,38 +27,13 @@ class Jackie extends Scene {
       .create(x, innerHeight - 170, 'test')
       .setScale(5)
       .refreshBody();
+
+    // Colliders
     this.physics.add.collider(this.enemy, this.platforms);
     this.physics.add.collider(this.player, this.platforms);
-
-    //   this.anims.create({
-    //     key: "grenadeRun",
-    //     frames: this.anims.generateFrameNumbers("grenadeGuy", {
-    //       start: 8,
-    //       end: 20,
-    //     }),
-    //     frameRate: 12,
-    //     repeat: -1,
-    //   });
-    // }
   }
 
   update() {
-    // Enemy "goomba" moves back and forth when it hits a wall it changes direction
-    //   if (this.enemy.body.blocked.right) {
-    //     this.direction = "left";
-    //   }
-    //   if (this.enemy.body.blocked.left) {
-    //     this.direction = "right";
-    //   }
-    //   if (this.direction === "left") {
-    //     this.enemy.anims.play("grenadeRun");
-    //     this.enemy.setVelocityX(-200);
-    //   }
-    //   if (this.direction === "right") {
-    //     this.enemy.anims.play("grenadeRun");
-    //     this.enemy.setVelocityX(200);
-    //   }
-    // }
     this.enemy.update();
     this.player.update();
   }

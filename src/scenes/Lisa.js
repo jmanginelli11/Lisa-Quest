@@ -29,7 +29,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_idle = false;
     this.is_dash = false;
     this.is_punch = false;
+    this.is_in_knockback = false;
 
+    this.current_knockback_speed = 0;
     this.hp = 50;
     this.shield = 5;
     this.colliderPunch;
@@ -51,7 +53,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           this.anims.play('idle', true);
           this.is_punch = false;
           this.is_dash = false;
-          // this.colliderPunch.destroy(true);
+          this.colliderPunch.destroy(true);
         }
       } catch (e) {}
     });
@@ -83,6 +85,20 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
         this.anims.play('idle', true);
       }
+    }
+
+    //Knockback
+    if (this.is_in_knockback) {
+      if (this.current_knockback_speed <= 0) {
+        this.is_in_knockback = false;
+      }
+      this.body.setVelocityX(
+        this.body.velocity.x + this.current_knockback_speed
+      );
+      this.current_knockback_speed -= 5;
+    }
+    if (this.is_hp_losing) {
+      this.anims.play('hurt');
     }
 
     // Jumping
@@ -123,14 +139,39 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (attack === 'super-punch') {
       this.flipX ? this.body.setVelocityX(-1000) : this.body.setVelocityX(1000);
     }
+    if (attack === 'punch') {
+      this.flipX ? this.body.setVelocityX(-300) : this.body.setVelocityX(300);
+    }
 
-    console.log('anims: ', this.anims);
-    console.log('hitbox: ', this.hitbox);
+    // console.log('anims: ', this.anims);
+    // console.log('hitbox: ', this.hitbox);
 
     this.hitbox.once('animationcomplete', () => {
       this.hitbox.destroy();
       // this.is_punch = false;
     });
+
+    this.attackCalculation();
+  }
+
+  attackCalculation() {
+    // calcutating hitbox by atack
+    // var animation_progress = this.player1.anims.getProgress();
+    this.colliderPunch = this.scene.add.rectangle(
+      this.x - 192,
+      this.y + 70,
+      180,
+      180
+    );
+
+    this.scene.physics.add.existing(this.colliderPunch);
+    this.colliderPunch.body.setImmovable(true);
+
+    this.colliderPunch.setVisible(false);
+
+    if (this.scene.physics.overlap(this.scene.enemy, this.colliderPunch)) {
+      if (this.colliderPunch) this.colliderPunch.destroy();
+    }
   }
 
   dashAnimation() {
