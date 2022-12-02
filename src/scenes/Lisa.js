@@ -1,23 +1,22 @@
 import { Sprite } from 'phaser';
 
-class Lisa extends Phaser.GameObjects.Sprite {
+export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y);
+    super(scene, x, y, 'lisa');
 
-    this.scene.physics.world.enable(this);
-    this.scene.add.existing(this);
     this.setPosition(x, y);
-    this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
 
-    this.setTexture('idle0');
+    // For Health Bar?
+    // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
+
     this.play('idle');
+    this.scene.add.existing(this);
+    this.scene.physics.add.existing(this);
 
-    this.body // player Config
-      .setBounce(0.5);
-    this.body.setSize(200, 300, true);
-    this.body.setGravityY(100);
+    // player Config
+    this.setScale(3.5);
+    this.body.setGravityY(350);
     this.body.setCollideWorldBounds(true);
-    this.body.setOffset(80, 87);
 
     //Method calls for creation
     this.init();
@@ -25,53 +24,61 @@ class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   init() {
-    // this.width = this.scene.sys.game.canvas.width;
-    // this.height = this.scene.sys.game.canvas.height;
-
     //Variables
     this.is_run = false;
     this.is_idle = false;
   }
 
   create() {
+    // Create Input Event
     this.cursors = this.scene.input.keyboard.createCursorKeys();
+    console.log('cursors: ', this.cursors);
+  }
 
-    // Look in this function, after one animation is completed
-    this.on('animationcomplete', (event) => {
-      try {
-        if (
-          event.key == 'punchright' ||
-          event.key == 'punchleft' ||
-          event.key == 'uppercut' ||
-          event.key == 'hurt'
-        ) {
-          this.anims.play('idle', true);
-          this.colliderPunch.destroy(true);
-        }
-      } catch (error) {}
+  update() {
+    // Idling and basic movement
+    if (this.cursors.left.isDown) {
+      this.body.setVelocityX(-500);
 
-      this.is_blocking = false;
-    });
+      if (this.body.touching.down && !this.anims.isPlaying) {
+        this.anims.play('dash', true);
+        this.anims.chain('run');
+      }
 
-    // key objects
-    this.keyobj_j = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.J
-    );
+      this.flipX = true;
+    } else if (this.cursors.right.isDown) {
+      this.body.setVelocityX(500);
 
-    this.keyobj_k = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.K
-    );
+      if (this.body.touching.down && !this.anims.isPlaying) {
+        this.anims.play('dash', true);
+        this.anims.chain('run');
+      }
 
-    this.keyobj_l = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.L
-    );
+      this.flipX = false;
+    } else {
+      if (this.body.velocity.x <= 160 || this.body.velocity.x >= -160) {
+        this.body.setVelocityX(0);
+      }
 
-    this.keyobj_h = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.H
-    );
+      if (this.body.touching.down) {
+        this.anims.play('idle');
+      }
+    }
 
-    this.keyobj_o = this.scene.input.keyboard.addKey(
-      Phaser.Input.Keyboard.KeyCodes.O
-    );
+    // Jumping
+    if (this.cursors.up.isDown && this.body.touching.down) {
+      this.body.setVelocityY(-420);
+      this.anims.play('rising');
+    }
+
+    // Falling
+    if (!this.body.touching.down && this.body.velocity.y > 0) {
+      this.anims.play('falling');
+    }
+
+    // Fast-falling
+    if (this.cursors.down.isDown && this.body.velocity.y < 100) {
+      this.body.setVelocityY(100);
+    }
   }
 }
