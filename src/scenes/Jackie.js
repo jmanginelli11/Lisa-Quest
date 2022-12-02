@@ -37,6 +37,10 @@ class Jackie extends Scene {
   update() {
     this.enemy.update();
     this.player.update();
+
+    if (this.enemy.hp <= 0) {
+      this.enemy.destroy();
+    }
   }
 }
 

@@ -242,12 +242,17 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.colliderPunch.body.setImmovable(true);
     this.colliderPunch.body.allowGravity = false;
 
-    this.colliderPunch.setVisible(false);
-
     if (this.scene.physics.overlap(this.scene.enemy, this.colliderPunch)) {
       this.scene.enemy.is_in_knockback = true;
       this.scene.enemy.current_knockback_speed = knockbackVal;
       this.scene.enemy.body.setVelocityX(knockbackVal);
+
+      if (this.scene.enemy.hp >= 0) {
+        this.scene.enemy.hp--;
+        // if (this.scene.enemy.hp <= 0) {
+        //   this.colliderPunch.play('test-explosion');
+        // }
+      }
 
       if (knockbackVal < 0) {
         this.scene.enemy.body.setVelocityY(knockbackVal / 1.8);

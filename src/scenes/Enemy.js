@@ -21,36 +21,41 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   init() {
     this.is_in_knockback = false;
     this.current_knockback_speed = 0;
+    this.hp = 3;
   }
 
   update() {
-    if (this.body.blocked.right) {
-      this.direction = 'left';
-    }
-
-    if (this.body.blocked.left) {
-      this.direction = 'right';
-    }
-
-    if (this.direction === 'left') {
-      this.flipX = false;
-      this.body.setVelocityX(-200);
-    }
-
-    if (this.direction === 'right') {
-      this.flipX = true;
-      this.body.setVelocityX(200);
-    }
-
-    //Knockback
-    if (this.is_in_knockback) {
-      if (this.current_knockback_speed <= 0) {
-        this.is_in_knockback = false;
+    if (this.hp > 0) {
+      if (this.body.blocked.right) {
+        this.direction = 'left';
       }
-      this.body.setVelocityX(
-        this.body.velocity.x + this.current_knockback_speed
-      );
-      this.current_knockback_speed -= 5;
+
+      if (this.body.blocked.left) {
+        this.direction = 'right';
+      }
+
+      if (this.direction === 'left') {
+        this.flipX = false;
+        this.body.setVelocityX(-200);
+      }
+
+      if (this.direction === 'right') {
+        this.flipX = true;
+        this.body.setVelocityX(200);
+      }
+
+      //Knockback
+      if (this.is_in_knockback) {
+        if (this.current_knockback_speed <= 0) {
+          this.is_in_knockback = false;
+        }
+        this.body.setVelocityX(
+          this.body.velocity.x + this.current_knockback_speed
+        );
+        this.current_knockback_speed -= 5;
+      }
+    } else {
+      this.destroy();
     }
   }
 }
