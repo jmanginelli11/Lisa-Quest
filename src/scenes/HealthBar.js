@@ -1,50 +1,32 @@
 import { Scene } from 'phaser';
+import { Lisa } from './Lisa';
 
 class HealthBar extends Scene {
+  player;
+  enemy;
+  platforms;
+  cursors;
+  timer;
+  bar;
+
   constructor() {
     super({ key: 'HealthBar' });
   }
-  preload() {
-    this.load.image(
-      'left-cap',
-      '/assets/uipack-space/PNG/barHorizontal_blue_left.png'
-    );
-    this.load.image(
-      'middle',
-      '/assets/uipack-space/PNG/barHorizontal_blue_mid.png'
-    );
-    this.load.image(
-      'right-cap',
-      '/assets/uipack-space/PNG/barHorizontal_blue_right.png'
-    );
 
-    this.load.image(
-      'left-cap-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_left.png'
-    );
-    this.load.image(
-      'middle-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_mid.png'
-    );
-    this.load.image(
-      'right-cap-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_right.png'
-    );
-  }
   init() {
     this.fullWidth = 300;
   }
   create() {
-    const x = innerWidth / 2;
-    const y = innerHeight / 2;
-    this.add.image(x, y, 'stars');
+    const x = 200;
+    const y = 240;
+    this.add.image(innerWidth / 2, innerHeight / 2, 'stars');
 
     //shadow bar
     const leftShaddowCap = this.add
       .image(x, y, 'left-cap-shadow')
       .setOrigin(0, 0.5);
     const middleShaddowCap = this.add
-      .image(leftShadowCap.x + leftShadowCap.width, y, 'middle-shadow')
+      .image(leftShaddowCap.x + leftShaddowCap.width, y, 'middle-shadow')
       .setOrigin(0, 0.5);
     middleShaddowCap.displayWidth = this.fullWidth;
     this.add
@@ -65,12 +47,13 @@ class HealthBar extends Scene {
       .setOrigin(0, 0.5);
 
     this.setMeterPercentage(1);
+    // this.setMeterPercentageAnimated(0);
   }
   setMeterPercentage(percent = 1) {
     const width = this.fullWidth * percent;
 
-    this.middle.displayWidth = widththis.rightCap.x =
-      this.middle.x + this.middle.displayWidth;
+    this.middle.displayWidth = width;
+    this.rightCap.x = this.middle.x + this.middle.displayWidth;
   }
 
   //animation

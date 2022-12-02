@@ -1,5 +1,6 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from './Lisa';
+// import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
   player;
@@ -7,9 +8,13 @@ class GameScene extends Scene {
   platforms;
   cursors;
   timer;
+
+  bar;
+
   map;
   groundLayer;
   surfaceTileset;
+
 
   constructor() {
     super({ key: 'GameScene' });
@@ -41,6 +46,10 @@ class GameScene extends Scene {
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
 
+    // Create player's healthBar
+    let lisaHealth = this.makeBar(140, 100, 0x2e71cc);
+    this.setValue(lisaHealth, 100);
+
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
     this.surfaceTileset = this.map.addTilesetImage('surface', 'surface');
@@ -67,8 +76,12 @@ class GameScene extends Scene {
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
 
+
+    // this.bar = new HealthBarSprite(this, x, y);
+
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
+
   }
 
   update(time) {
@@ -87,6 +100,26 @@ class GameScene extends Scene {
   // Following Enemy AI
   enemyFollows() {
     this.physics.moveToObject(this.enemy, this.player, 100);
+  }
+
+  // healthBar Maker
+  makeBar(x, y, color) {
+    //blue = 0x2e71cc
+    //red = 0xCC2E3A
+
+    let bar = this.add.graphics();
+
+    bar.fillStyle(color, 1);
+    bar.fillRoundedRect(0, 0, 200, 35);
+
+    bar.x = x;
+    bar.y = y;
+    return bar;
+  }
+  //increment and decrement health
+  setValue(bar, percentage) {
+    //scale the bar
+    bar.scaleX = percentage / 100;
   }
 }
 

@@ -12,6 +12,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('play-red', '/assets/menu/play_red.png');
     this.load.image('play-white', '/assets/menu/play_white.png');
     this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
+
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
@@ -93,6 +94,33 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.tilemapTiledJSON(
       'tilemap',
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
+    );
+
+    //HealthBar
+    this.load.image(
+      'left-cap',
+      '/assets/uipack-space/PNG/barHorizontal_blue_left.png'
+    );
+    this.load.image(
+      'middle',
+      '/assets/uipack-space/PNG/barHorizontal_blue_mid.png'
+    );
+    this.load.image(
+      'right-cap',
+      '/assets/uipack-space/PNG/barHorizontal_blue_right.png'
+    );
+
+    this.load.image(
+      'left-cap-shadow',
+      '/assets/uipack-space/PNG/barHorizontal_shadow_left.png'
+    );
+    this.load.image(
+      'middle-shadow',
+      '/assets/uipack-space/PNG/barHorizontal_shadow_mid.png'
+    );
+    this.load.image(
+      'right-cap-shadow',
+      '/assets/uipack-space/PNG/barHorizontal_shadow_right.png'
     );
   }
 
