@@ -7,6 +7,9 @@ class GameScene extends Scene {
   platforms;
   cursors;
   timer;
+  map;
+  groundLayer;
+  surfaceTileset;
 
   constructor() {
     super({ key: 'GameScene' });
@@ -39,20 +42,20 @@ class GameScene extends Scene {
     this.player = new Lisa(this, x, y);
 
     //Background - First Scene
-    const map = this.make.tilemap({ key: 'tilemap' });
-    const surfaceTileset = map.addTilesetImage('surface', 'surface');
-    const groundLayer = map.createLayer('ground', surfaceTileset);
-    this.physics.add.collider(this.player, groundLayer);
-    groundLayer.setCollisionBetween(72, 74);
+    this.map = this.make.tilemap({ key: 'tilemap' });
+    this.surfaceTileset = this.map.addTilesetImage('surface', 'surface');
+    this.groundLayer = this.map.createLayer('ground', this.surfaceTileset);
+    this.physics.add.collider(this.player, this.groundLayer);
+    this.groundLayer.setCollisionBetween(72, 74);
 
-    // Test platform (needed for char testing)
-
+    // // Test platform (needed for char testing)
     // this.platforms = this.physics.add.staticGroup();
     // this.platforms
-    //   .create(x, innerHeight - 170, 'planet_surface')
-    //   .setScale(0)
+    //   .create(x, innerHeight - 170, 'test')
+    //   .setScale(5)
     //   .refreshBody();
     // this.physics.add.collider(this.player, this.platforms);
+    // this.platforms.setVisible(true);
 
     // creating the enemy sprite
 
@@ -63,6 +66,9 @@ class GameScene extends Scene {
 
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
     this.enemy.setCollideWorldBounds(true);
+
+    // Collider so enemy and player can interact
+    this.physics.add.collider(this.player, this.enemy);
   }
 
   update(time) {
