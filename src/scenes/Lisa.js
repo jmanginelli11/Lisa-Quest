@@ -30,17 +30,18 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_dash = false;
     this.is_punch = false;
     this.is_in_knockback = false;
+    this.jumps_remaining = 2;
 
     this.current_knockback_speed = 0;
     this.hp = 50;
     this.shield = 5;
     this.colliderPunch;
+    this.cursors;
   }
 
   create() {
     // Create Input Event
-    this.cursors = this.scene.input.keyboard.createCursorKeys();
-    // console.log('cursors: ', this.cursors);
+    this.cursors = this.scene.input.keyboard;
 
     // Look in this function, after one animation is completed
     this.on('animationcomplete', (event) => {
@@ -57,11 +58,34 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         }
       } catch (e) {}
     });
+
+    // key objects
+    this.cursors.keyobj_space = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
+    this.cursors.keyobj_shift = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SHIFT
+    );
+    this.cursors.keyobj_up = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.UP
+    );
+    this.cursors.keyobj_down = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.DOWN
+    );
+    this.cursors.keyobj_left = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.LEFT
+    );
+    this.cursors.keyobj_right = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.RIGHT
+    );
+
+    console.log('cursors: ', this.cursors);
+    console.log(Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up));
   }
 
   update() {
     // Basic movement
-    if (this.cursors.left.isDown) {
+    if (this.cursors.keyobj_left.isDown) {
       if (!this.is_punch && !this.is_dash) {
         this.body.setVelocityX(-500);
         if (this.body.touching.down && !this.anims.isPlaying) {
@@ -70,7 +94,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
         this.flipX = true;
       }
-    } else if (this.cursors.right.isDown) {
+    } else if (this.cursors.keyobj_right.isDown) {
       if (!this.is_punch && !this.is_dash) {
         this.body.setVelocityX(500);
         if (this.body.touching.down && !this.anims.isPlaying) {
@@ -79,6 +103,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
         this.flipX = false;
       }
+
+      // Idle
     } else {
       if (!this.is_punch && !this.is_dash) {
         this.body.setVelocityX(0);
@@ -102,8 +128,16 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Jumping
-    if (this.cursors.up.isDown && this.body.touching.down) {
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up) &&
+      this.jumps_remaining > 1
+    ) {
       this.body.setVelocityY(-600);
+      this.jumps_remaining--;
+    }
+
+    // Rising
+    if (!this.body.touching.down && this.body.velocity.y < 0) {
       this.anims.play('rising');
     }
 
@@ -113,18 +147,29 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Fast-falling
-    if (this.cursors.down.isDown && this.body.velocity.y < 100) {
+    if (this.cursors.keyobj_down.isDown && this.body.velocity.y < 100) {
       this.body.setVelocityY(400);
     }
 
     // Ground Dash
-    if (this.cursors.shift.isDown && this.body.touching.down) {
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_shift) &&
+      this.body.touching.down
+    ) {
       this.dashAnimation();
     }
 
     // Attack
-    if (this.cursors.space.isDown && this.body.touching.down) {
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_space) &&
+      this.body.touching.down
+    ) {
       this.attackAnimation('punch');
+    }
+
+    // Reset Jumps
+    if (this.body.touching.down) {
+      this.jumps_remaining = 2;
     }
   }
 
@@ -148,7 +193,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.hitbox.once('animationcomplete', () => {
       this.hitbox.destroy();
-      // this.is_punch = false;
     });
 
     this.attackCalculation();
@@ -158,14 +202,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // calcutating hitbox by atack
     // var animation_progress = this.player1.anims.getProgress();
     this.colliderPunch = this.scene.add.rectangle(
-      this.flipX ? this.x - 192 : this.x + 192,
+      this.flipX ? this.x - 90 : this.x + 90,
       this.y,
-      80,
-      80
+      60,
+      60
     );
 
     this.scene.physics.add.existing(this.colliderPunch);
     this.colliderPunch.body.setImmovable(true);
+    this.colliderPunch.body.allowGravity = false;
 
     this.colliderPunch.setVisible(false);
 
