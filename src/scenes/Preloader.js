@@ -13,8 +13,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('play-white', '/assets/menu/play_white.png');
     this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
 
-    this.load.image('test', '/assets/platform.png');
-
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
@@ -30,6 +28,26 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('letsGo-white', '/assets/menu/lets_go_white.png');
     this.load.image('letsGo-blue', '/assets/menu/lets_go_blue.png');
+
+    // Testing assets
+    this.load.image('test', '/assets/testSprites/platform.png');
+    this.load.spritesheet(
+      'test-explosion',
+      '/assets/testSprites/explosion.png',
+      {
+        frameWidth: 32,
+        frameHeight: 32,
+      }
+    );
+    this.anims.create({
+      key: 'explosion',
+      frames: this.anims.generateFrameNumbers('test-explosion', {
+        start: 0,
+        end: 1,
+      }),
+      frameRate: 4,
+      repeat: -1,
+    });
 
     // GameDev Sprites
     this.load.image('lauren', '/assets/gamedevs/lauren-idle1.png');
