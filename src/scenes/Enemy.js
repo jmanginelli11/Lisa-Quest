@@ -41,5 +41,16 @@ export class Enemy extends Phaser.GameObjects.Sprite {
       this.flipX = true;
       this.body.setVelocityX(200);
     }
+
+    //Knockback
+    if (this.is_in_knockback) {
+      if (this.current_knockback_speed <= 0) {
+        this.is_in_knockback = false;
+      }
+      this.body.setVelocityX(
+        this.body.velocity.x + this.current_knockback_speed
+      );
+      this.current_knockback_speed -= 5;
+    }
   }
 }
