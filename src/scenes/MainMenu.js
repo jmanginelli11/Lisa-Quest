@@ -103,7 +103,7 @@ class MainMenu extends Scene {
     });
 
     naomiButton.on('pointerout', () => {
-      counsole.log('clicked on Naomi button');
+      console.log('clicked on Naomi button');
     });
     naomiButton.on('pointerup', () => {
       this.scene.switch('Intro');
