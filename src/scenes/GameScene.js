@@ -88,9 +88,11 @@ class GameScene extends Scene {
 
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
-    this.platforms.create(x - 200, 775, "test").refreshBody();
-    this.physics.add.collider(this.player, this.platforms);
-    this.platforms.setVisible(false);
+    let waterFallPlatform = this.platforms
+      .create(x - 200, 775, "test")
+      .refreshBody();
+    this.physics.add.collider(this.player, waterFallPlatform);
+    waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
 

@@ -14,7 +14,7 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
 
     this.direction = "right";
     // this.enemyWeapon = this.add.weapon(5, "fire");
-    // this.play("bigBossWalk");
+    this.play("bigBossWalk");
   }
 
   update() {
@@ -29,21 +29,21 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
     if (this.direction === "left") {
       // console.log(this.scene.player.body.x);
       this.flipX = false;
-      this.play("bigBossWalk");
+      // this.play("bigBossWalk");
       this.body.setVelocityX(-200);
     }
 
     if (this.direction === "right") {
       this.flipX = true;
-      this.play("bigBossWalk");
+      // this.play("bigBossWalk");
       this.body.setVelocityX(200);
     }
 
     if (
       this.direction === "right" &&
-      this.body.x - this.scene.player.body.x <= 200
+      this.body.x - this.scene.player.body.x >= -200
     ) {
-      this.play("bigBossRun");
+      // this.play("bigBossWalk");
       this.body.setVelocityX(500);
     }
 
@@ -51,7 +51,7 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
       this.direction === "left" &&
       this.body.x - this.scene.player.body.x <= 200
     ) {
-      this.play("bigBossRun");
+      // this.play("bigBossWalk");
       this.body.setVelocityX(-500);
     }
     // this.play("bigBossWalk");

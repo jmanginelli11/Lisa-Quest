@@ -192,6 +192,15 @@ export default class PreloaderScene extends Phaser.Scene {
       frameRate: 12,
       repeat: -1,
     });
+    this.anims.create({
+      key: "bigBossWalk",
+      frames: this.anims.generateFrameNumbers("bigBoss", {
+        start: 0,
+        end: 5,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
   }
 
   create() {
