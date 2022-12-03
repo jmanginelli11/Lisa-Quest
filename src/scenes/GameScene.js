@@ -28,7 +28,9 @@ class GameScene extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
+    this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
+    this.background.displayWidth = this.sys.canvas.width;
+    this.background.displayHeight = this.sys.canvas.height;
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -85,6 +87,14 @@ class GameScene extends Scene {
       0,
       0
     );
+
+    //resizing to fit the playable game scene
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.groundLayer.displayHeight = this.sys.canvas.height;
+    this.vegetationLayerOne.displayWidth = this.sys.canvas.width;
+    this.vegetationLayerOne.displayHeight = this.sys.canvas.height;
+    this.vegetationLayerTwo.displayWidth = this.sys.canvas.width;
+    this.vegetationLayerTwo.displayHeight = this.sys.canvas.height;
 
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.player, this.surfaceTileset);
