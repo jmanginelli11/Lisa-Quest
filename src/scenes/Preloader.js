@@ -6,11 +6,6 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload() {
-    // this.scale.scaleMode = Phaser.ScaleManager.EXACT_FIT;
-
-    // this.scale.pageAlignHorizontally = true;
-    // this.scale.pageAlignVertically = true;
-
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');

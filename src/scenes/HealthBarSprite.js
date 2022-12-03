@@ -26,26 +26,6 @@ class GameSceneTester extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    // this.background.scaleToGameW(this.background, 3);
-
-    // Phaser.Display.Align.In.Center(
-    //   this.background,
-
-    //   this.add.zone(
-    //     window.innerWidth / 2,
-    //     window.innerHeight / 2,
-    //     window.innerWidth,
-    //     window.innerHeight
-    //   )
-    // );
-    //-----------------------------------
-    // this.healthBarTest = this.createHealthBar(200, 240);
-    //healthbar
-
-    // this.setMeterPercentage(1);
-
-    //-------------------------------------
-
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
       .setScale(3);
