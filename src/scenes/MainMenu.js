@@ -9,6 +9,7 @@ class MainMenu extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
     this.add.image(x, y, 'stars');
+    // this.add.image(0, 0, 'stars').setOrigin(0);
 
     let playButton = this.add.image(x, y, 'play-white').setScale(5);
     let creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);

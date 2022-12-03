@@ -20,10 +20,14 @@ class GameScene extends Scene {
   }
 
   create() {
+    // this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
+    // this.scale.setUserScale(0.7, 0.7, 0, 0);
     // this.scale.displaySize.setAspectRatio(width / height);
     // this.scale.refresh();
+    // const { width, height } = this;
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
     this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
 
     let mainMenuButton = this.add

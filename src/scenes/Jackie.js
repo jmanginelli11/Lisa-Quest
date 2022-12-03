@@ -15,7 +15,6 @@ class Jackie extends Scene {
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.add.image(x, y, 'stars');
 
     // Creating the enemy sprite
     this.enemy = new Enemy(this, x, y).setScale(2);

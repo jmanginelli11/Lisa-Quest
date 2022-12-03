@@ -1,4 +1,5 @@
 import { Scene, physics } from 'phaser';
+
 import { Lisa } from './Lisa';
 // import HealthBarSprite from './HealthBarSprite';
 
@@ -19,9 +20,24 @@ class GameSceneTester extends Scene {
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.add.image(x, y, 'shiny_stars');
-    this.add.image(x, y, 'surface');
+    this.background = this.add.image(x, y, 'shiny_stars');
+    this.surface = this.add.image(x, y, 'surface');
 
+    this.background.displayWidth = this.sys.canvas.width;
+    this.background.displayHeight = this.sys.canvas.height;
+
+    // this.background.scaleToGameW(this.background, 3);
+
+    // Phaser.Display.Align.In.Center(
+    //   this.background,
+
+    //   this.add.zone(
+    //     window.innerWidth / 2,
+    //     window.innerHeight / 2,
+    //     window.innerWidth,
+    //     window.innerHeight
+    //   )
+    // );
     //-----------------------------------
     // this.healthBarTest = this.createHealthBar(200, 240);
     //healthbar
