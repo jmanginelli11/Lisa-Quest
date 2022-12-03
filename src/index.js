@@ -18,8 +18,11 @@ const config = {
   type: Phaser.AUTO,
   parent: 'game',
   dom: { createContainer: true },
-  width: innerWidth,
-  height: innerHeight,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    width: innerWidth,
+    height: innerHeight,
+  },
   scene: [
     Preloader,
     MainMenu,
