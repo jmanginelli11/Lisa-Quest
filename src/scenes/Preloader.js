@@ -109,6 +109,21 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
     );
 
+    //background falling scene
+    this.load.image(
+      'textures_1',
+      '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+    );
+    this.load.image(
+      'texture_2',
+      '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
+    );
+
+    this.load.tilemapTiledJSON(
+      'tilemap_FS',
+      '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
+    );
+
     //HealthBar
     this.load.image(
       'left-cap',
