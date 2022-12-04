@@ -1,6 +1,7 @@
 import { Scene } from "phaser";
 import { BigBoss } from "../sprites/Enemies/BigBoss.js";
 import { Lisa } from "../sprites/Lisa.js";
+import { FireGroup } from "../weapons/Fire/FireGroup.js";
 
 class Credits extends Scene {
   constructor() {
@@ -30,17 +31,12 @@ class Credits extends Scene {
 
     this.player = new Lisa(this, x, y);
     this.bigBoss = new BigBoss(this, x, y, this.player).setScale(4);
-
-    // this.fire = this.physics.add.group();
-
-    console.log("weapon?", this.add);
+    this.fireGroup = new FireGroup(this);
   }
 
   update() {
     this.player.update();
     this.bigBoss.update();
-
-    // if(this.bigBoss.x - this.player.x <= 200)
   }
 }
 
