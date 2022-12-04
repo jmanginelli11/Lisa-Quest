@@ -1,5 +1,5 @@
 import { Scene, physics } from "phaser";
-import { Lisa } from "./Lisa";
+import { Lisa } from "../sprites/Lisa.js";
 // import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
