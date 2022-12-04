@@ -111,11 +111,11 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //background falling scene
     this.load.image(
-      'textures_1',
+      'texturesOne',
       '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
     );
     this.load.image(
-      'texture_2',
+      'texturesTwo',
       '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
     );
 
