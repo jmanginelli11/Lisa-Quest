@@ -16,10 +16,14 @@ import Intro from './scenes/Intro';
 
 const config = {
   type: Phaser.AUTO,
-  parent: 'game',
   dom: { createContainer: true },
-  width: innerWidth,
-  height: innerHeight,
+  scale: {
+    mode: Phaser.Scale.FIT,
+    parent: 'game',
+    autoCenter: Phaser.Scale.CENTER_BOTH,
+    width: innerWidth,
+    height: innerHeight,
+  },
   scene: [
     Preloader,
     MainMenu,

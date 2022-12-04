@@ -19,7 +19,11 @@ class HealthBar extends Scene {
   create() {
     const x = 200;
     const y = 240;
-    this.add.image(innerWidth / 2, innerHeight / 2, 'stars');
+    this.background = this.add.image(innerWidth / 2, innerHeight / 2, 'stars');
+    // this.background.setPosition(
+    //   this.cameras.main.centerX,
+    //   this.cameras.main.centerY
+    // );
 
     //shadow bar
     const leftShaddowCap = this.add
