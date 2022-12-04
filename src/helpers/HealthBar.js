@@ -1,5 +1,5 @@
-import { Scene } from 'phaser';
-import { Lisa } from './Lisa';
+import { Scene } from "phaser";
+import { Lisa } from "../sprites/Lisa";
 
 class HealthBar extends Scene {
   player;
@@ -10,7 +10,7 @@ class HealthBar extends Scene {
   bar;
 
   constructor() {
-    super({ key: 'HealthBar' });
+    super({ key: "HealthBar" });
   }
 
   init() {
@@ -19,7 +19,7 @@ class HealthBar extends Scene {
   create() {
     const x = 200;
     const y = 240;
-    this.background = this.add.image(innerWidth / 2, innerHeight / 2, 'stars');
+    this.background = this.add.image(innerWidth / 2, innerHeight / 2, "stars");
     // this.background.setPosition(
     //   this.cameras.main.centerX,
     //   this.cameras.main.centerY
@@ -27,27 +27,27 @@ class HealthBar extends Scene {
 
     //shadow bar
     const leftShaddowCap = this.add
-      .image(x, y, 'left-cap-shadow')
+      .image(x, y, "left-cap-shadow")
       .setOrigin(0, 0.5);
     const middleShaddowCap = this.add
-      .image(leftShaddowCap.x + leftShaddowCap.width, y, 'middle-shadow')
+      .image(leftShaddowCap.x + leftShaddowCap.width, y, "middle-shadow")
       .setOrigin(0, 0.5);
     middleShaddowCap.displayWidth = this.fullWidth;
     this.add
       .image(
         middleShaddowCap.x + middleShaddowCap.displayWidth,
         y,
-        'right-cap-shadow'
+        "right-cap-shadow"
       )
       .setOrigin(0, 0.5);
 
     //health bar
-    this.leftCap = this.add.image(x, y, 'left-cap').setOrigin(0, 0.5);
+    this.leftCap = this.add.image(x, y, "left-cap").setOrigin(0, 0.5);
     this.middle = this.add
-      .image(this.leftCap.x + this.leftCap.width, y, 'middle')
+      .image(this.leftCap.x + this.leftCap.width, y, "middle")
       .setOrigin(0, 0.5);
     this.rightCap = this.add
-      .image(this.middle.x + this.middle.displayWidth, y, 'right-cap')
+      .image(this.middle.x + this.middle.displayWidth, y, "right-cap")
       .setOrigin(0, 0.5);
 
     this.setMeterPercentage(1);

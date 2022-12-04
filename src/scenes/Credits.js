@@ -1,6 +1,6 @@
 import { Scene } from "phaser";
-import { BigBoss } from "./BigBoss";
-import { Lisa } from "./Lisa";
+import { BigBoss } from "../sprites/Enemies/BigBoss.js";
+import { Lisa } from "../sprites/Lisa.js";
 
 class Credits extends Scene {
   constructor() {

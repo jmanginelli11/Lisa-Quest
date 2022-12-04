@@ -1,6 +1,6 @@
-import { Scene, physics } from 'phaser';
+import { Scene, physics } from "phaser";
 
-import { Lisa } from './Lisa';
+import { Lisa } from "../sprites/Lisa";
 // import HealthBarSprite from './HealthBarSprite';
 
 class GameSceneTester extends Scene {
@@ -12,7 +12,7 @@ class GameSceneTester extends Scene {
   healthBarTest;
 
   constructor() {
-    super({ key: 'GameSceneTester' });
+    super({ key: "GameSceneTester" });
   }
   // init() {
   //   this.fullWidth = 300;
@@ -20,28 +20,28 @@ class GameSceneTester extends Scene {
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.background = this.add.image(x, y, 'shiny_stars');
-    this.surface = this.add.image(x, y, 'surface');
+    this.background = this.add.image(x, y, "shiny_stars");
+    this.surface = this.add.image(x, y, "surface");
 
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
     let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, 'main-menu')
+      .image(x / 2, y * 1.8, "main-menu")
       .setScale(3);
     mainMenuButton.setInteractive();
 
-    mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
+    mainMenuButton.on("pointerup", () => {
+      this.scene.switch("MainMenu");
     });
 
     let timeTextStyle = {
-      font: '24px Roboto',
-      fill: '#E43AA4',
-      stroke: '#000',
+      font: "24px Roboto",
+      fill: "#E43AA4",
+      stroke: "#000",
       strokeThickness: 4,
     };
-    this.timer = this.add.text(16, 16, 'Time: ', timeTextStyle);
+    this.timer = this.add.text(16, 16, "Time: ", timeTextStyle);
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
@@ -50,7 +50,7 @@ class GameSceneTester extends Scene {
 
     // creating the enemy sprite
 
-    this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
+    this.enemy = this.physics.add.sprite(x, y, "bot").setScale(2);
     this.enemy.setCollideWorldBounds(true);
 
     // this.bar = new HealthBarSprite(this, x, y)
@@ -64,12 +64,12 @@ class GameSceneTester extends Scene {
     this.player.update();
 
     // Do enemy AI
-    this.enemy.anims.play('enemy-idle');
+    this.enemy.anims.play("enemy-idle");
     this.enemyFollows();
 
     // Timer
     let gameRunTime = time * 0.001;
-    this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+    this.timer.setText("Time: " + Math.round(gameRunTime) + " seconds ");
   }
 
   // Following Enemy AI
