@@ -1,3 +1,5 @@
+import Phaser from "phaser";
+import { FireGroup } from "../../weapons/Fire/FireGroup.js";
 import { Sprite } from "phaser";
 
 export class BigBoss extends Phaser.GameObjects.Sprite {
@@ -13,8 +15,11 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
 
     this.direction = "right";
-    // this.enemyWeapon = this.add.weapon(5, "fire");
+    this.fireGroup;
     this.play("bigBossWalk");
+  }
+  create() {
+    this.fireGroup = new FireGroup(this);
   }
 
   update() {
@@ -27,15 +32,12 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
     }
 
     if (this.direction === "left") {
-      // console.log(this.scene.player.body.x);
       this.flipX = false;
-      // this.play("bigBossWalk");
       this.body.setVelocityX(-200);
     }
 
     if (this.direction === "right") {
       this.flipX = true;
-      // this.play("bigBossWalk");
       this.body.setVelocityX(200);
     }
 
@@ -43,7 +45,6 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
       this.direction === "right" &&
       this.body.x - this.scene.player.body.x >= -200
     ) {
-      // this.play("bigBossWalk");
       this.body.setVelocityX(500);
     }
 
@@ -51,9 +52,13 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
       this.direction === "left" &&
       this.body.x - this.scene.player.body.x <= 200
     ) {
-      // this.play("bigBossWalk");
       this.body.setVelocityX(-500);
+      this.shootFire();
     }
-    // this.play("bigBossWalk");
+    // this.shootFire();
+  }
+
+  shootFire() {
+    this.fireGroup.shootFire(this.x, this.y);
   }
 }
