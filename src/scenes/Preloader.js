@@ -111,17 +111,17 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //background falling scene
     this.load.image(
-      'texturesOne',
-      '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+      "texturesOne",
+      "/assets/backgrounds/Themy/Falling-Scene/textures_1.png"
     );
     this.load.image(
-      'texturesTwo',
-      '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
+      "texturesTwo",
+      "/assets/backgrounds/Themy/Falling-Scene/textures_2.png"
     );
 
     this.load.tilemapTiledJSON(
-      'tilemap_FS',
-      '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
+      "tilemap_FS",
+      "/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json"
     );
 
     //HealthBar
@@ -200,7 +200,7 @@ export default class PreloaderScene extends Phaser.Scene {
   createEnemyAnims() {
     this.anims.create({
       key: "enemy-idle",
-      frames: this.anims.generateFrameNumbers("bot", { start: 20, end: 23 }),
+      frames: this.anims.generateFrameNumbers("bot", { start: 18, end: 25 }),
       frameRate: 12,
       repeat: -1,
     });
