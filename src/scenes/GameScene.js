@@ -117,7 +117,9 @@ class GameScene extends Scene {
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
-    this.physics.add.collider(this.player, waterFallPlatform);
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
+      this.scene.switch('FallingScene');
+    });
     waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
