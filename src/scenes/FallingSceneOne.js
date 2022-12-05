@@ -8,9 +8,8 @@ class FallingSceneOne extends Scene {
   }
 
   create() {
-    // Creating Player (Lisa)
-
     //Background - First Scene
+    this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     this.map = this.make.tilemap({ key: 'tilemapFallingSceneOne' });
     this.waterAndRockTileset = this.map.addTilesetImage(
       'water_and_rock',
@@ -35,6 +34,12 @@ class FallingSceneOne extends Scene {
       0,
       0
     );
+    // Creating Player (Lisa)
+
+    this.player = new Lisa(this, 695, 0).setOrigin(0, 0);
+
+    //colliders
+
     this.physics.add.collider(this.player, this.groundLayer);
     this.groundLayer.setCollisionBetween(95, 99);
     this.physics.add.collider(this.player, this.texturesTwoLayer);
@@ -64,7 +69,6 @@ class FallingSceneOne extends Scene {
     // this.myCam = this.cameras.main;
     // this.myCam.setBounds(0, 0, innerWidth * 3, innerHeight);
 
-    this.player = new Lisa(this, 695, 0).setOrigin(0, 0);
     // making the camera follow the player
     // this.myCam.startFollow(this.player);
 
