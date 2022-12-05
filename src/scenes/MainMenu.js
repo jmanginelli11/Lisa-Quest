@@ -89,7 +89,7 @@ class MainMenu extends Scene {
       formButton = this.add.image(x, y + 200, 'credits-white').setScale(4);
     });
     formButton.on('pointerup', () => {
-      this.scene.switch('Form');
+      this.scene.switch('FirstFight');
     });
 
     jackieButton.on('pointerover', () => {
