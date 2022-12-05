@@ -59,13 +59,13 @@ class GameScene extends Scene {
     this.add.text(x - 600, innerHeight / 14, 'LISA');
     this.makeBar(x - 600, innerHeight / 10, 0xc1c1c1);
     let lisaHealth = this.makeBar(x - 600, innerHeight / 10, 0x2e71cc);
-    this.setValue(lisaHealth, 75);
+    this.setValue(lisaHealth, this.player.hp);
 
     //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
     this.add.text(x + 400, innerHeight / 14, 'TORI');
     this.makeBar(x + 400, innerHeight / 10, 0xc1c1c1);
     let toriHealth = this.makeBar(x + 400, innerHeight / 10, 0xcc2e3a);
-    this.setValue(toriHealth, 50);
+    this.setValue(toriHealth, 5);
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -124,6 +124,7 @@ class GameScene extends Scene {
     // creating the enemy sprite
 
     this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
+    this.enemy.anims.play('enemy-idle');
     this.enemy.setCollideWorldBounds(true);
 
     // this.bar = new HealthBarSprite(this, x, y);
@@ -137,7 +138,6 @@ class GameScene extends Scene {
     this.player.update();
 
     // Do enemy AI
-    this.enemy.anims.play('enemy-idle');
     this.enemyFollows();
 
     // Timer
@@ -166,9 +166,10 @@ class GameScene extends Scene {
     return bar;
   }
   //increment and decrement health
-  setValue(bar, percentage) {
+  setValue(bar, hp) {
     //scale the bar
-    bar.scaleX = percentage / 100;
+    // 10 is assumed to be Lisa's max hp
+    bar.scaleX = hp / 10;
   }
 }
 
