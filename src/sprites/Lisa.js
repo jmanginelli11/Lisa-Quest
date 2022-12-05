@@ -232,9 +232,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       !this.is_dash &&
       !this.is_shoot
     ) {
-      console.log('shift detected');
-      // this.anims.play('shoot');
-      this.shootAnimation('shoot');
+      this.body.setVelocityX(0);
+      this.attackAnimation('shoot');
     }
 
     // Reset Jumps
@@ -244,53 +243,51 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   attackAnimation(attack) {
-    this.is_punch = true;
+    if (attack === 'shoot') {
+      this.is_shoot = true;
+      this.hitbox = this.scene.add
+        .sprite(this.x, this.y - this.body.height / 2)
+        .setDepth(-1)
+        .setScale(0.2)
+        .setAngle(this.flipX ? -45 : 45);
 
-    this.hitbox = this.scene.add
-      .sprite(this.x, this.y - this.body.height / 2)
-      .setDepth(-1)
-      .setScale(0.2)
-      .setAngle(this.flipX ? -45 : 45);
+      this.anims.play(attack);
 
-    this.anims.play(attack);
+      this.hitbox.once('animationcomplete', () => {
+        this.hitbox.destroy();
+      });
 
-    if (attack === 'super-punch') {
-      this.flipX
-        ? this.body.setVelocityX(-200) && this.attackCalculation(-800)
-        : this.body.setVelocityX(200) && this.attackCalculation(800);
+      this.colliderPunch = this.scene.add.rectangle(
+        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+        this.y,
+        this.height / 2,
+        this.width / 2
+      );
+    } else {
+      this.is_punch = true;
+      this.hitbox = this.scene.add
+        .sprite(this.x, this.y - this.body.height / 2)
+        .setDepth(-1)
+        .setScale(0.2)
+        .setAngle(this.flipX ? -45 : 45);
+
+      this.anims.play(attack);
+
+      if (attack === 'super-punch') {
+        this.flipX
+          ? this.body.setVelocityX(-200) && this.attackCalculation(-800)
+          : this.body.setVelocityX(200) && this.attackCalculation(800);
+      }
+      if (attack === 'punch') {
+        this.flipX
+          ? this.body.setVelocityX(-300) && this.attackCalculation(-400)
+          : this.body.setVelocityX(300) && this.attackCalculation(400);
+      }
+
+      this.hitbox.once('animationcomplete', () => {
+        this.hitbox.destroy();
+      });
     }
-    if (attack === 'punch') {
-      this.flipX
-        ? this.body.setVelocityX(-300) && this.attackCalculation(-400)
-        : this.body.setVelocityX(300) && this.attackCalculation(400);
-    }
-
-    this.hitbox.once('animationcomplete', () => {
-      this.hitbox.destroy();
-    });
-  }
-
-  shootAnimation(attack) {
-    this.is_shoot = true;
-
-    this.hitbox = this.scene.add
-      .sprite(this.x, this.y - this.body.height / 2)
-      .setDepth(-1)
-      .setScale(0.2)
-      .setAngle(this.flipX ? -45 : 45);
-
-    this.anims.play(attack);
-
-    this.hitbox.once('animationcomplete', () => {
-      this.hitbox.destroy();
-    });
-
-    this.colliderPunch = this.scene.add.rectangle(
-      this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-      this.y,
-      60,
-      60
-    );
   }
 
   attackCalculation(knockbackVal) {
