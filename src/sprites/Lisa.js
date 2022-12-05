@@ -35,8 +35,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.can_dash = true;
 
     this.current_knockback_speed = 0;
-    this.hp = 50;
-    this.shield = 5;
+    this.hp = 10;
     this.colliderPunch;
     this.cursors;
   }
@@ -242,7 +241,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   attackCalculation(knockbackVal) {
     // calcutating hitbox by attack
-    // var animation_progress = this.player1.anims.getProgress();
     this.colliderPunch = this.scene.add.rectangle(
       this.flipX ? this.x - 90 : this.x + 90,
       this.y,
