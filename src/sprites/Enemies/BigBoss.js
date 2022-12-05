@@ -1,10 +1,10 @@
-import Phaser from "phaser";
-import { FireGroup } from "../../weapons/Fire/FireGroup.js";
-import { Sprite } from "phaser";
+import Phaser from 'phaser';
+// import { FireGroup } from '../../weapons/Fire/FireGroup.js';
+import { Sprite } from 'phaser';
 
 export class BigBoss extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, "bigBoss");
+    super(scene, x, y, 'bigBoss');
 
     this.setPosition(x, y + 300);
 
@@ -14,51 +14,43 @@ export class BigBoss extends Phaser.GameObjects.Sprite {
     this.body.setGravityY(300);
     this.body.setCollideWorldBounds(true);
 
-    this.direction = "right";
-    this.fireGroup;
-    this.play("bigBossWalk");
-  }
-  create() {
-    this.fireGroup = new FireGroup(this);
+    this.direction = 'right';
+    this.play('bigBossWalk');
+    console.log('here is this', this);
   }
 
   update() {
     if (this.body.blocked.right) {
-      this.direction = "left";
+      this.direction = 'left';
     }
 
     if (this.body.blocked.left) {
-      this.direction = "right";
+      this.direction = 'right';
     }
 
-    if (this.direction === "left") {
+    if (this.direction === 'left') {
       this.flipX = false;
       this.body.setVelocityX(-200);
     }
 
-    if (this.direction === "right") {
+    if (this.direction === 'right') {
       this.flipX = true;
       this.body.setVelocityX(200);
     }
 
     if (
-      this.direction === "right" &&
+      this.direction === 'right' &&
       this.body.x - this.scene.player.body.x >= -200
     ) {
       this.body.setVelocityX(500);
     }
 
     if (
-      this.direction === "left" &&
+      this.direction === 'left' &&
       this.body.x - this.scene.player.body.x <= 200
     ) {
       this.body.setVelocityX(-500);
-      this.shootFire();
+      this.scene.fireGroup.shootFire(this.x, this.y);
     }
-    // this.shootFire();
-  }
-
-  shootFire() {
-    this.fireGroup.shootFire(this.x, this.y);
   }
 }
