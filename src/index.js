@@ -11,7 +11,8 @@ import HealthBar from './helpers/HealthBar';
 import GameSceneTester from './helpers/HealthBarSprite.js';
 import Intro from './scenes/Intro';
 import FallingScene from './scenes/FallingScene';
-import FirstFight from './scenes/FirstFight.js';
+import FirstFight_Start from './scenes/FirstFight_Start.js';
+import FirstFight_Two from './scenes/FirstFight_Two';
 
 // import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
@@ -38,7 +39,8 @@ const config = {
     Intro,
     GameSceneTester,
     FallingScene,
-    FirstFight,
+    FirstFight_Start,
+    FirstFight_Two,
   ],
   physics: {
     default: 'arcade',
