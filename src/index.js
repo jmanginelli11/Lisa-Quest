@@ -13,6 +13,7 @@ import Intro from './scenes/Intro';
 import FallingScene from './scenes/FallingScene';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
+import FirstFight_Three from './scenes/FirstFight_Three.js';
 
 // import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
@@ -41,6 +42,7 @@ const config = {
     FallingScene,
     FirstFight_Start,
     FirstFight_Two,
+    FirstFight_Three,
   ],
   physics: {
     default: 'arcade',

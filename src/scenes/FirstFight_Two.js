@@ -13,6 +13,8 @@ class FirstFight_Two extends Scene {
     // Background - First Scene
 
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
+    this.sun.displayWidth = this.sys.canvas.width;
+    this.sun.displayHeight = this.sys.canvas.height;
     this.map = this.make.tilemap({ key: 'tilemap_FF2' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
@@ -39,6 +41,8 @@ class FirstFight_Two extends Scene {
     this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
+    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
+    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
   }
 
