@@ -1,34 +1,33 @@
 import Phaser from 'phaser';
 
-export class FireGroup extends Phaser.Physics.Arcade.Group {
+export class LaserGroup extends Phaser.Physics.Arcade.Group {
   constructor(scene) {
     super(scene.physics.world, scene);
     this.createMultiple({
-      classType: Fire,
+      classType: Laser,
       frameQuantity: 30,
       active: false,
       visible: false,
-      key: 'fire',
+      key: 'laser',
     });
   }
-
-  shootFire(x, y) {
-    const fire = this.getFirstDead(false);
-    if (fire) {
-      fire.shoot(x, y);
+  shootLaser(x, y) {
+    const laser = this.getFirstDead(false);
+    if (laser) {
+      laser.shoot(x, y);
     }
   }
 }
 
-class Fire extends Phaser.Physics.Arcade.Sprite {
+class Laser extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 'fire');
+    super(scene, x, y, 'laser');
   }
   shoot(x, y) {
     this.body.reset(x, y);
     this.setActive(true);
     this.setVisible(true);
-    this.setVelocityX(-900);
+    this.setVelocityX(900);
   }
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
