@@ -1,5 +1,5 @@
-import { Scene, physics } from 'phaser';
-import { Lisa } from '../sprites/Lisa.js';
+import { Scene, physics } from "phaser";
+import { Lisa } from "../sprites/Lisa.js";
 // import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
@@ -16,7 +16,7 @@ class GameScene extends Scene {
   surfaceTileset;
 
   constructor() {
-    super({ key: 'GameScene' });
+    super({ key: "GameScene" });
   }
 
   create() {
@@ -28,72 +28,72 @@ class GameScene extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
+    this.background = this.add.image(0, 0, "shiny_stars").setOrigin(0, 0);
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
     let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, 'main-menu')
+      .image(x / 2, y * 1.8, "main-menu")
       .setScale(3);
     mainMenuButton.setInteractive();
 
-    mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
+    mainMenuButton.on("pointerup", () => {
+      this.scene.switch("MainMenu");
     });
 
     //timer
     let timeTextStyle = {
-      font: '24px Roboto',
-      fill: '#E43AA4',
-      stroke: '#000',
+      font: "24px Roboto",
+      fill: "#E43AA4",
+      stroke: "#000",
       strokeThickness: 4,
     };
     this.timer = this.add
-      .text(x, innerHeight / 10, 'Time: ', timeTextStyle)
+      .text(x, innerHeight / 10, "Time: ", timeTextStyle)
       .setOrigin(0.5, 0.5);
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
 
     // Create player's healthBar
-    this.add.text(x - 600, innerHeight / 14, 'LISA');
+    this.add.text(x - 600, innerHeight / 14, "LISA");
     this.makeBar(x - 600, innerHeight / 10, 0xc1c1c1);
     let lisaHealth = this.makeBar(x - 600, innerHeight / 10, 0x2e71cc);
     this.setValue(lisaHealth, 75);
 
     //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
-    this.add.text(x + 400, innerHeight / 14, 'TORI');
+    this.add.text(x + 400, innerHeight / 14, "TORI");
     this.makeBar(x + 400, innerHeight / 10, 0xc1c1c1);
     let toriHealth = this.makeBar(x + 400, innerHeight / 10, 0xcc2e3a);
     this.setValue(toriHealth, 50);
 
     //Background - First Scene
-    this.map = this.make.tilemap({ key: 'tilemap' });
-    this.surfaceTileset = this.map.addTilesetImage('surface', 'tiles');
+    this.map = this.make.tilemap({ key: "tilemap" });
+    this.surfaceTileset = this.map.addTilesetImage("surface", "tiles");
     this.vegetationOneTileset = this.map.addTilesetImage(
-      'vegetation',
-      'vegetation1'
+      "vegetation",
+      "vegetation1"
     );
 
     this.vegetationTwoTileset = this.map.addTilesetImage(
-      'vegetation_color',
-      'vegetation2'
+      "vegetation_color",
+      "vegetation2"
     );
 
     this.groundLayer = this.map.createLayer(
-      'ground',
+      "ground",
       this.surfaceTileset,
       0,
       0
     );
     this.vegetationLayerOne = this.map.createLayer(
-      'vegetation',
+      "vegetation",
       this.vegetationOneTileset,
       0,
       0
     );
     this.vegetationLayerTwo = this.map.createLayer(
-      'vegetation_color',
+      "vegetation_color",
       this.vegetationTwoTileset,
       0,
       0
@@ -116,14 +116,15 @@ class GameScene extends Scene {
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
     let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
+      .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, "test")
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform);
     waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
 
-    this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
+    this.enemy = this.physics.add.sprite(x, y, "bot").setScale(2);
+    this.enemy.anims.play("enemy-idle");
     this.enemy.setCollideWorldBounds(true);
 
     // this.bar = new HealthBarSprite(this, x, y);
@@ -137,12 +138,11 @@ class GameScene extends Scene {
     this.player.update();
 
     // Do enemy AI
-    this.enemy.anims.play('enemy-idle');
     this.enemyFollows();
 
     // Timer
     let gameRunTime = time * 0.001;
-    this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+    this.timer.setText("Time: " + Math.round(gameRunTime) + " seconds ");
   }
 
   // Following Enemy AI
