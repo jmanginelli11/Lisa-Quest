@@ -95,7 +95,9 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //background first scene
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
+
     this.load.image('tiles', '/assets/backgrounds/Themy/Scene-Main/tiles.png');
+
     this.load.image(
       'vegetation1',
       '/assets/backgrounds/Themy/Scene-Main/vegetation1.png'
@@ -103,10 +105,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image(
       'vegetation2',
       '/assets/backgrounds/Themy/Scene-Main/vegetation_2.png'
-    );
-    this.load.tilemapTiledJSON(
-      'tilemap',
-      '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
     );
 
     //background falling scene
@@ -137,6 +135,24 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image(
       'texture_2_layer',
       '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
+    );
+
+    //background first fight
+
+    this.load.image('sun', '/assets/backgrounds/Themy/First-Fight/sun.png');
+
+    this.load.image(
+      'ground_and_platforms',
+      '/assets/backgrounds/Themy/First-Fight/ground_and_platforms.png'
+    );
+    this.load.image(
+      'rocks_and_plants',
+      '/assets/backgrounds/Themy/First-Fight/rocks_and_plants.png'
+    );
+
+    this.load.tilemapTiledJSON(
+      'tilemap_FF',
+      '/assets/backgrounds/Themy/First-Fight/First_Fight.json'
     );
 
     //HealthBar
