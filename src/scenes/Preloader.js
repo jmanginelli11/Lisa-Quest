@@ -146,18 +146,16 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('sun', '/assets/backgrounds/Themy/First-Fight/sun.png');
 
-    this.load.image(
-      'ground_and_platforms',
-      '/assets/backgrounds/Themy/First-Fight/ground_and_platforms.png'
-    );
-    this.load.image(
-      'rocks_and_plants',
-      '/assets/backgrounds/Themy/First-Fight/rocks_and_plants.png'
-    );
-
     this.load.tilemapTiledJSON(
       'tilemap_FF',
-      '/assets/backgrounds/Themy/First-Fight/First_Fight.json'
+      '/assets/backgrounds/Themy/First-Fight/Start/First_Fight.json'
+    );
+
+    // first fight two
+
+    this.load.tilemapTiledJSON(
+      'tilemap_FF2',
+      '/assets/backgrounds/Themy/First-Fight/Part_Two/First_Fight(2).json'
     );
 
     //HealthBar

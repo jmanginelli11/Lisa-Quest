@@ -89,7 +89,7 @@ class MainMenu extends Scene {
       formButton = this.add.image(x, y + 200, 'credits-white').setScale(4);
     });
     formButton.on('pointerup', () => {
-      this.scene.switch('FirstFight');
+      this.scene.switch('FirstFight_Start');
     });
 
     jackieButton.on('pointerover', () => {
@@ -106,7 +106,7 @@ class MainMenu extends Scene {
       console.log('clicked on Naomi button');
     });
     naomiButton.on('pointerup', () => {
-      this.scene.switch('FallingScene');
+      this.scene.switch('FirstFight_Two');
     });
   }
 }
