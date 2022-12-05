@@ -11,6 +11,7 @@ import HealthBar from './helpers/HealthBar';
 import GameSceneTester from './helpers/HealthBarSprite.js';
 import Intro from './scenes/Intro';
 import FallingSceneOne from './scenes/FallingSceneOne.js';
+import FallingSceneTwo from './scenes/FallingSceneTwo.js';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
 import FirstFight_Three from './scenes/FirstFight_Three.js';
@@ -40,6 +41,7 @@ const config = {
     Intro,
     GameSceneTester,
     FallingSceneOne,
+    FallingSceneTwo,
     FirstFight_Start,
     FirstFight_Two,
     FirstFight_Three,
