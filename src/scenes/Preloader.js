@@ -103,40 +103,51 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Scene-Main/vegetation_2.png'
     );
 
-    //background falling scene
     this.load.tilemapTiledJSON(
       'tilemap',
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
     );
 
-    this.load.image(
-      'texturesOne',
-      '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+    //background falling scene
+
+    this.load.tilemapTiledJSON(
+      'tilemapFallingSceneOne',
+      '/assets/backgrounds/Themy/Falling-Scene/One/Falling-Scene(one).json'
     );
+
+    this.load.tilemapTiledJSON(
+      'tilemapFallingSceneTwo',
+      '/assets/backgrounds/Themy/Falling-Scene/Two/Falling-Scene(two).json'
+    );
+
+    // this.load.image(
+    //   'texturesOne',
+    //   '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+    // );
     this.load.image(
       'texturesTwo',
       '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
     );
 
-    this.load.tilemapTiledJSON(
-      'tilemap_FS',
-      '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
-    );
+    // this.load.tilemapTiledJSON(
+    //   'tilemap_FS',
+    //   '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
+    // );
 
-    this.load.image(
-      'water_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/water_layer.png'
-    );
+    // this.load.image(
+    //   'water_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/water_layer.png'
+    // );
 
-    this.load.image(
-      'texture_1_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/texture_1_layer.png'
-    );
+    // this.load.image(
+    //   'texture_1_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/texture_1_layer.png'
+    // );
 
-    this.load.image(
-      'texture_2_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
-    );
+    // this.load.image(
+    //   'texture_2_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
+    // );
 
     //background first fight
 
@@ -152,6 +163,18 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.tilemapTiledJSON(
       'tilemap_FF2',
       '/assets/backgrounds/Themy/First-Fight/Part_Two/First_Fight(2).json'
+    );
+
+    // first fight three
+
+    this.load.tilemapTiledJSON(
+      'tilemap_FF3',
+      '/assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3).json'
+    );
+
+    this.load.image(
+      'mechanical',
+      '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
     );
 
     //HealthBar
@@ -234,7 +257,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
   createEnemyAnims() {
     this.anims.create({
-      key: 'enemy-idle',
+      key: 'flyguy-idle',
       frames: this.anims.generateFrameNumbers('bot', { start: 18, end: 25 }),
       frameRate: 12,
       repeat: -1,

@@ -1,5 +1,6 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 // import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
@@ -112,22 +113,19 @@ class GameScene extends Scene {
     this.physics.add.collider(this.player, this.surfaceTileset);
     this.groundLayer.setCollisionBetween(72, 99);
 
-    console.log(this.physics.add);
-
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
-    this.physics.add.collider(this.player, waterFallPlatform);
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
+      this.scene.switch('FallingScene');
+    });
     waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
 
-    this.enemy = this.physics.add.sprite(x, y, 'bot').setScale(2);
-    this.enemy.anims.play('enemy-idle');
-    this.enemy.setCollideWorldBounds(true);
-
+    this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
     // this.bar = new HealthBarSprite(this, x, y);
 
     // Collider so enemy and player can interact
@@ -137,8 +135,9 @@ class GameScene extends Scene {
   update(time) {
     // Update Player
     this.player.update();
+    // this.enemy.update();
 
-    // Do enemy AI
+    // // Do enemy AI
     this.enemyFollows();
 
     // Timer
