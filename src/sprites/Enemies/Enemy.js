@@ -1,9 +1,9 @@
-import Phaser from "phaser";
-import { Sprite } from "phaser";
+import Phaser from 'phaser';
+import { Sprite } from 'phaser';
 
 export class Enemy extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, "grenadeGuy");
+    super(scene, x, y, 'grenadeGuy');
 
     this.setPosition(x, y);
 
@@ -13,8 +13,8 @@ export class Enemy extends Phaser.GameObjects.Sprite {
     this.body.setGravityY(300);
     this.body.setCollideWorldBounds(true);
 
-    this.direction = "right";
-    this.play("grenadeRun");
+    this.direction = 'right';
+    this.play('grenadeRun');
 
     this.init();
   }
@@ -28,19 +28,19 @@ export class Enemy extends Phaser.GameObjects.Sprite {
   update() {
     if (this.hp > 0) {
       if (this.body.blocked.right) {
-        this.direction = "left";
+        this.direction = 'left';
       }
 
       if (this.body.blocked.left) {
-        this.direction = "right";
+        this.direction = 'right';
       }
 
-      if (this.direction === "left") {
+      if (this.direction === 'left') {
         this.flipX = false;
         this.body.setVelocityX(-200);
       }
 
-      if (this.direction === "right") {
+      if (this.direction === 'right') {
         this.flipX = true;
         this.body.setVelocityX(200);
       }
