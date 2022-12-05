@@ -79,7 +79,7 @@ class MainMenu extends Scene {
       creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
     });
     creditsButton.on('pointerup', () => {
-      this.scene.switch('Credits');
+      this.scene.switch('Form');
     });
 
     formButton.on('pointerover', () => {
