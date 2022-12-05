@@ -31,14 +31,10 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // Testing assets
     this.load.image('test', '/assets/testSprites/platform.png');
-    this.load.spritesheet(
-      'test-explosion',
-      '/assets/testSprites/explosion.png',
-      {
-        frameWidth: 32,
-        frameHeight: 32,
-      }
-    );
+    this.load.spritesheet('explosion', '/assets/testSprites/explosion.png', {
+      frameWidth: 32,
+      frameHeight: 32,
+    });
     this.anims.create({
       key: 'explosion',
       frames: this.anims.generateFrameNumbers('test-explosion', {
@@ -46,7 +42,7 @@ export default class PreloaderScene extends Phaser.Scene {
         end: 1,
       }),
       frameRate: 4,
-      repeat: -1,
+      repeat: 1,
     });
 
     // GameDev Sprites
@@ -227,6 +223,11 @@ export default class PreloaderScene extends Phaser.Scene {
     this.anims.create({
       key: 'punch',
       frames: this.anims.generateFrameNumbers('lisa', { start: 33, end: 36 }),
+      frameRate: 18,
+    });
+    this.anims.create({
+      key: 'shoot',
+      frames: this.anims.generateFrameNumbers('lisa', { start: 37, end: 46 }),
       frameRate: 18,
     });
   }
