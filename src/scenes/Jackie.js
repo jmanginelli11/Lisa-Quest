@@ -1,15 +1,15 @@
-import { Scene, physics } from "phaser";
-import { Enemy } from "../sprites/Enemies/Enemy";
-import { Lisa } from "../sprites/Lisa";
+import { Scene, physics } from 'phaser';
+import { Enemy } from '../sprites/Enemies/Enemy';
+import { Lisa } from '../sprites/Lisa';
 
 class Jackie extends Scene {
   enemy;
   platforms;
   // set direction in this so that you can change it back and forth
-  direction = "right";
+  direction = 'right';
 
   constructor() {
-    super({ key: "Jackie" });
+    super({ key: 'Jackie' });
   }
 
   create() {
@@ -23,10 +23,10 @@ class Jackie extends Scene {
     // Test platform (needed for char testing)
     this.platforms = this.physics.add.staticGroup();
     this.platforms
-      .create(x, innerHeight - 170, "test")
+      .create(x, innerHeight - 170, 'test')
       .setScale(5)
       .refreshBody();
-    this.platforms.create(x / 2, innerHeight - 450, "test");
+    this.platforms.create(x / 2, innerHeight - 450, 'test');
 
     // Colliders
     this.physics.add.collider(this.enemy, this.platforms);
@@ -36,10 +36,6 @@ class Jackie extends Scene {
   update() {
     this.enemy.update();
     this.player.update();
-
-    if (this.enemy.hp <= 0) {
-      this.enemy.destroy();
-    }
   }
 }
 

@@ -2,7 +2,7 @@ import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y + 200, 'lisa');
+    super(scene, x, y, 'lisa');
 
     // For Health Bar?
     // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
@@ -12,7 +12,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
 
     // player Config
-    this.setScale(3.5);
+    this.setScale(x / 180);
     this.body.setGravityY(450);
     this.body.setCollideWorldBounds(true);
 
@@ -30,6 +30,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_dash = false;
     this.is_punch = false;
     this.is_in_knockback = false;
+    this.is_shoot = false;
 
     this.has_air_jump = false;
     this.can_dash = true;
@@ -38,6 +39,19 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.hp = 10;
     this.colliderPunch;
     this.cursors;
+    this.explosion;
+
+    // Score
+    this.score = 0;
+    this.scoreText = this.scene.add.text(
+      this.x * 0.1,
+      this.y * 0.1,
+      'score: 0',
+      {
+        fontSize: '32px',
+        fill: '#E43AA4',
+      }
+    );
   }
 
   create() {
@@ -50,11 +64,13 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         if (
           event.key == 'punch' ||
           event.key == 'super-punch' ||
-          event.key == 'dash'
+          event.key == 'dash' ||
+          event.key == 'shoot'
         ) {
           this.anims.play('idle', true);
           this.is_punch = false;
           this.is_dash = false;
+          this.is_shoot = false;
           this.colliderPunch.destroy(true);
         }
       } catch (e) {}
@@ -82,15 +98,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.cursors.keyobj_right = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.RIGHT
     );
-
-    console.log('cursors: ', this.cursors);
-    console.log(Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up));
+    this.cursors.keyobj_shift = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SHIFT
+    );
   }
 
   update() {
     // Move Left
     if (this.cursors.keyobj_left.isDown) {
-      if (!this.is_punch && !this.is_dash) {
+      if (!this.is_punch && !this.is_dash && !this.is_shoot) {
         this.body.setVelocityX(-500);
         if (
           (this.body.blocked.down || this.body.touching.down) &&
@@ -104,7 +120,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
       // Move Right
     } else if (this.cursors.keyobj_right.isDown) {
-      if (!this.is_punch && !this.is_dash) {
+      if (!this.is_punch && !this.is_dash && !this.is_shoot) {
         this.body.setVelocityX(500);
         if (
           (this.body.blocked.down || this.body.touching.down) &&
@@ -118,7 +134,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
       // Idle
     } else {
-      if (!this.is_punch && !this.is_dash) {
+      if (!this.is_punch && !this.is_dash && !this.is_shoot) {
         this.body.setVelocityX(0);
 
         this.anims.play('idle', true);
@@ -191,7 +207,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_x) &&
       (this.body.blocked.down || this.body.touching.down) &&
       !this.is_punch &&
-      !this.is_dash
+      !this.is_dash &&
+      !this.is_shoot
     ) {
       this.attackAnimation('super-punch');
     }
@@ -201,9 +218,23 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_z) &&
       (this.body.blocked.down || this.body.touching.down) &&
       !this.is_punch &&
-      !this.is_dash
+      !this.is_dash &&
+      !this.is_shoot
     ) {
       this.attackAnimation('punch');
+    }
+
+    // Shoot
+    if (
+      Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_shift) &&
+      (this.body.blocked.down || this.body.touching.down) &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
+    ) {
+      console.log('shift detected');
+      // this.anims.play('shoot');
+      this.shootAnimation('shoot');
     }
 
     // Reset Jumps
@@ -214,12 +245,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   attackAnimation(attack) {
     this.is_punch = true;
+
     this.hitbox = this.scene.add
       .sprite(this.x, this.y - this.body.height / 2)
       .setDepth(-1)
       .setScale(0.2)
       .setAngle(this.flipX ? -45 : 45);
+
     this.anims.play(attack);
+
     if (attack === 'super-punch') {
       this.flipX
         ? this.body.setVelocityX(-200) && this.attackCalculation(-800)
@@ -231,18 +265,38 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         : this.body.setVelocityX(300) && this.attackCalculation(400);
     }
 
-    // console.log('anims: ', this.anims);
-    // console.log('hitbox: ', this.hitbox);
-
     this.hitbox.once('animationcomplete', () => {
       this.hitbox.destroy();
     });
   }
 
-  attackCalculation(knockbackVal) {
-    // calcutating hitbox by attack
+  shootAnimation(attack) {
+    this.is_shoot = true;
+
+    this.hitbox = this.scene.add
+      .sprite(this.x, this.y - this.body.height / 2)
+      .setDepth(-1)
+      .setScale(0.2)
+      .setAngle(this.flipX ? -45 : 45);
+
+    this.anims.play(attack);
+
+    this.hitbox.once('animationcomplete', () => {
+      this.hitbox.destroy();
+    });
+
     this.colliderPunch = this.scene.add.rectangle(
-      this.flipX ? this.x - 90 : this.x + 90,
+      this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+      this.y,
+      60,
+      60
+    );
+  }
+
+  attackCalculation(knockbackVal) {
+    // calculating hitbox by attack
+    this.colliderPunch = this.scene.add.rectangle(
+      this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
       this.y,
       60,
       60
@@ -257,17 +311,25 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       this.scene.enemy.current_knockback_speed = knockbackVal;
       this.scene.enemy.body.setVelocityX(knockbackVal);
 
-      if (this.scene.enemy.hp >= 0) {
-        this.scene.enemy.hp--;
-        // if (this.scene.enemy.hp <= 0) {
-        //   this.colliderPunch.play('test-explosion');
-        // }
-      }
-
-      if (knockbackVal < 0) {
+      // Knockingback enemy
+      if (knockbackVal <= 0) {
         this.scene.enemy.body.setVelocityY(knockbackVal / 1.8);
       } else {
         this.scene.enemy.body.setVelocityY(knockbackVal / -1.8);
+      }
+
+      // HP and Score
+      if (this.scene.enemy.hp >= 0) {
+        this.scene.enemy.hp--;
+
+        if (knockbackVal <= 0) {
+          this.addScore(knockbackVal * -0.05);
+        } else {
+          this.addScore(knockbackVal * 0.05);
+        }
+      } else if (this.scene.enemy.hp <= 0) {
+        this.scene.enemy.destroy();
+        this.addScore(100);
       }
 
       if (this.colliderPunch) this.colliderPunch.destroy();
@@ -278,5 +340,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_dash = true;
     this.anims.play('dash');
     this.flipX ? this.body.setVelocityX(-1200) : this.body.setVelocityX(1200);
+  }
+
+  addScore(num) {
+    this.score += num;
+    this.scoreText.setText('Score:' + this.score);
   }
 }
