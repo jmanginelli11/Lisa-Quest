@@ -1,8 +1,28 @@
-import Phaser from "phaser";
+import Phaser from 'phaser';
+
+export class FireGroup extends Phaser.Physics.Arcade.Group {
+  constructor(scene) {
+    super(scene.physics.world, scene);
+    this.createMultiple({
+      classType: Fire,
+      frameQuantity: 5,
+      active: false,
+      visible: false,
+      key: 'fire',
+    });
+  }
+
+  shootFire(x, y) {
+    const fire = this.getFirstDead(false);
+    if (fire) {
+      fire.shoot(x, y);
+    }
+  }
+}
 
 class Fire extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, "fire");
+    super(scene, x, y, 'fire');
   }
   shoot(x, y) {
     this.body.reset(x, y);
@@ -15,28 +35,6 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
     if (this.x <= 0) {
       this.setActive(false);
       this.setVisible(false);
-    }
-  }
-}
-
-export class FireGroup extends Phaser.Physics.Arcade.Group {
-  constructor(scene) {
-    super(scene.physics.world, scene);
-  }
-  create() {
-    this.createMultiple({
-      classType: Fire,
-      frameQuantity: 30,
-      active: false,
-      visible: false,
-      key: "fire",
-    });
-  }
-
-  shootFire(x, y) {
-    const fire = this.getFirstDead(false);
-    if (fire) {
-      fire.shoot(x, y);
     }
   }
 }

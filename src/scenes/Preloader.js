@@ -190,7 +190,7 @@ export default class PreloaderScene extends Phaser.Scene {
     // fire
     this.load.image(
       'fire',
-      '/assets/bigBoss/Screen Shot 2022-12-02 at 4.42.15 PM.png'
+      '/assets/bigBoss/Screen_Shot_2022-12-02_at_4.42.15_PM-removebg-preview.png'
     );
   }
 
