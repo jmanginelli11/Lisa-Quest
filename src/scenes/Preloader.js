@@ -233,7 +233,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
   createEnemyAnims() {
     this.anims.create({
-      key: 'enemy-idle',
+      key: 'flyguy-idle',
       frames: this.anims.generateFrameNumbers('bot', { start: 18, end: 25 }),
       frameRate: 12,
       repeat: -1,
