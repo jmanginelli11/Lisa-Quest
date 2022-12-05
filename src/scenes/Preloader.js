@@ -107,40 +107,51 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Scene-Main/vegetation_2.png'
     );
 
-    //background falling scene
     this.load.tilemapTiledJSON(
       'tilemap',
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
     );
 
-    this.load.image(
-      'texturesOne',
-      '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+    //background falling scene
+
+    this.load.tilemapTiledJSON(
+      'tilemapFallingSceneOne',
+      '/assets/backgrounds/Themy/Falling-Scene/One/Falling-Scene(one).json'
     );
+
+    this.load.tilemapTiledJSON(
+      'tilemapFallingSceneTwo',
+      '/assets/backgrounds/Themy/Falling-Scene/Two/Falling-Scene(two).json'
+    );
+
+    // this.load.image(
+    //   'texturesOne',
+    //   '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
+    // );
     this.load.image(
       'texturesTwo',
       '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
     );
 
-    this.load.tilemapTiledJSON(
-      'tilemap_FS',
-      '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
-    );
+    // this.load.tilemapTiledJSON(
+    //   'tilemap_FS',
+    //   '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
+    // );
 
-    this.load.image(
-      'water_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/water_layer.png'
-    );
+    // this.load.image(
+    //   'water_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/water_layer.png'
+    // );
 
-    this.load.image(
-      'texture_1_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/texture_1_layer.png'
-    );
+    // this.load.image(
+    //   'texture_1_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/texture_1_layer.png'
+    // );
 
-    this.load.image(
-      'texture_2_layer',
-      '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
-    );
+    // this.load.image(
+    //   'texture_2_layer',
+    //   '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
+    // );
 
     //background first fight
 
