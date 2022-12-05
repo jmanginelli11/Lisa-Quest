@@ -10,7 +10,7 @@ import Preloader from './scenes/Preloader.js';
 import HealthBar from './helpers/HealthBar';
 import GameSceneTester from './helpers/HealthBarSprite.js';
 import Intro from './scenes/Intro';
-import FallingScene from './scenes/FallingScene';
+import FallingSceneOne from './scenes/FallingSceneOne.js';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
 import FirstFight_Three from './scenes/FirstFight_Three.js';
@@ -39,7 +39,7 @@ const config = {
     Jackie,
     Intro,
     GameSceneTester,
-    FallingScene,
+    FallingSceneOne,
     FirstFight_Start,
     FirstFight_Two,
     FirstFight_Three,
