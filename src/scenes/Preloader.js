@@ -158,6 +158,18 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/First-Fight/Part_Two/First_Fight(2).json'
     );
 
+    // first fight three
+
+    this.load.tilemapTiledJSON(
+      'tilemap_FF3',
+      '/assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3).json'
+    );
+
+    this.load.image(
+      'mechanical',
+      '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
+    );
+
     //HealthBar
     this.load.image(
       'left-cap',
