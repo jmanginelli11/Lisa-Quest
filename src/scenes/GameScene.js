@@ -137,7 +137,7 @@ class GameScene extends Scene {
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.switch('FallingScene');
+      this.scene.switch('FallingSceneOne');
     });
     waterFallPlatform.setVisible(false);
 
