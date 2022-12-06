@@ -5,11 +5,12 @@ class FirstFight_Start extends Scene {
   cameras;
   player;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'FirstFight_Start' });
   }
 
-  create() {
+  create(data) {
+    console.log(data);
     // Background - First Scene
 
     const x = innerWidth / 2;
@@ -41,7 +42,7 @@ class FirstFight_Start extends Scene {
       0
     );
 
-    this.player = new Lisa(this, x, y);
+    this.player = new Lisa(this, x, y, data.hp, data.score);
 
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;

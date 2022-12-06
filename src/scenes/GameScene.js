@@ -1,8 +1,6 @@
 import { Scene, physics } from 'phaser';
-import HealthBar from '../helpers/HealthBar.js';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
-// import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
   player;
@@ -11,9 +9,7 @@ class GameScene extends Scene {
   waterFallPlatform;
   cursors;
   timer;
-
   bar;
-
   map;
   groundLayer;
   surfaceTileset;
@@ -157,8 +153,21 @@ class GameScene extends Scene {
     this.waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
+
+    // console.log('scene: ', this.scene);
+
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
-      this.scene.switch('FirstFight_Start');
+      console.log('data in gamescene: ', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+
+      this.scene.start('FirstFight_Start', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
     this.waterFallPlatform.setVisible(false);
 
