@@ -1,7 +1,8 @@
 import Phaser from 'phaser';
 import { Sprite } from 'phaser';
+import { EnemiesParent } from './EnemiesParent';
 
-export class Enemy extends Phaser.GameObjects.Sprite {
+export class Enemy extends EnemiesParent {
   constructor(scene, x, y) {
     super(scene, x, y, 'grenadeGuy');
 

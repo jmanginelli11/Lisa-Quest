@@ -56,7 +56,7 @@ class GameScene extends Scene {
       .setOrigin(0.5, 0.5);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
+    this.player = new Lisa(this, x, y);
 
     // Create player's healthBar
     this.add.text(x - 600, innerHeight / 14, 'LISA');

@@ -1,8 +1,9 @@
 import Phaser from 'phaser';
 // import { FireGroup } from '../../weapons/Fire/FireGroup.js';
 import { Sprite } from 'phaser';
+import { EnemiesParent } from './EnemiesParent';
 
-export class BigBoss extends Phaser.GameObjects.Sprite {
+export class BigBoss extends EnemiesParent {
   constructor(scene, x, y) {
     super(scene, x, y, 'bigBoss');
 
