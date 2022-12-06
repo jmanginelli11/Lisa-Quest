@@ -17,8 +17,8 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('credits', '/assets/menu/credits_white.png');
 
-    this.load.image('credits-white', '/assets/menu/credits_white.png');
-    this.load.image('credits-red', '/assets/menu/credits_red.png');
+    this.load.image('credits-white', '/assets/menu/credits-white.png');
+    this.load.image('credits-red', '/assets/menu/credits-red.png');
     this.load.image('creditsLOL', '/assets/menu/creditsLOL.png');
 
     this.load.image('letsGo-white', '/assets/menu/lets_go_white.png');

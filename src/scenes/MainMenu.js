@@ -19,7 +19,7 @@ class MainMenu extends Scene {
 
     let creditsButton = this.add
       .image(x, y + 250, 'credits-white')
-      .setScale(5.5);
+      .setScale(1.8);
     // let formButton = this.add.image(x, y + 200, 'credits-white').setScale(4);
     // let jackieButton = this.add.image(x, y + 300, 'credits-white').setScale(4);
 
@@ -93,15 +93,15 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on('pointerover', () => {
-      creditsButton = this.add.image(x, y + 250, 'credits-red').setScale(5.5);
+      creditsButton = this.add.image(x, y + 250, 'credits-red').setScale(1.8);
     });
 
-    // creditsButton.on('pointerout', () => {
-    //   creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
-    // });
-    // creditsButton.on('pointerup', () => {
-    //   this.scene.switch('Form');
-    // });
+    creditsButton.on('pointerout', () => {
+      creditsButton = this.add.image(x, y + 250, 'credits-white').setScale(1.8);
+    });
+    creditsButton.on('pointerup', () => {
+      this.scene.switch('Credits');
+    });
 
     // formButton.on('pointerover', () => {
     //   formButton = this.add.image(x, y + 200, 'credits-red').setScale(4);
