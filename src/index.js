@@ -44,7 +44,7 @@ const config = {
     // FallingSceneTwo,
     FirstFight_Start,
     FirstFight_Two,
-    // FirstFight_Three,
+    FirstFight_Three,
   ],
   physics: {
     default: 'arcade',
