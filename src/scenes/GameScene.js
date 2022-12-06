@@ -1,9 +1,8 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
-
+import { Enemy } from '../sprites/Enemies/Enemy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
-
 
 class GameScene extends Scene {
   player;
