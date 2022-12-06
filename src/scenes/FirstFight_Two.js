@@ -76,8 +76,6 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, x, y, data.hp, data.score);
-
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
