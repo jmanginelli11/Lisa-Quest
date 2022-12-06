@@ -375,12 +375,14 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   setHBValue(bar, hp) {
     //scales the real_bar
+
     bar.scaleX = hp / this.max_hp;
   }
 
   // Collecting Hearts
   collectHeart(player, heart) {
     heart.disableBody(true, true);
+
     player.hp++;
     player.setHBValue(player.real_bar, player.hp);
     player.addScore(20);

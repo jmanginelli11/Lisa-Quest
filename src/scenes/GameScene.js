@@ -2,6 +2,7 @@ import { Scene, physics } from 'phaser';
 import HealthBar from '../helpers/HealthBar.js';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
+import { Enemy } from '../sprites/Enemies/Enemy.js';
 // import HealthBarSprite from './HealthBarSprite';
 
 class GameScene extends Scene {
@@ -121,6 +122,27 @@ class GameScene extends Scene {
       this
     );
 
+    //spawning bad guys
+    this.rigs = this.physics.add.group({
+      key: 'rig',
+      repeat: 5,
+    });
+    this.rigs.children.iterate(function (rig) {
+      for (let i = 0; i < 5; i++) {
+        rig.setPosition(
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+      }
+    });
+
+    // this.physics.add.collider(
+    //   this.rigs,
+    //   // this.player,
+    //   this.platforms
+    //   // this.groundLayer
+    // );
+
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -150,6 +172,20 @@ class GameScene extends Scene {
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
+    this.physics.add.collider(
+      this.rigs,
+      // this.player,
+      this.groundLayer
+      // this.groundLayer
+    );
+
+    this.time.addEvent({
+      delay: 3000,
+      callback: this.spawnEnemy,
+      callbackScope: this,
+      loop: true,
+    });
+    // this.spawnEnemy();
   }
 
   update(time) {
@@ -172,6 +208,19 @@ class GameScene extends Scene {
   // Following Enemy AI
   enemyFollows() {
     this.physics.moveToObject(this.enemy, this.player, 100);
+  }
+
+  spawnEnemy() {
+    let counter = 10;
+
+    if (counter > 0) {
+      this.spawn = new Enemy(
+        this,
+        Phaser.Math.RND.between(0, 1400),
+        Phaser.Math.RND.between(0, 600)
+      );
+      this.physics.add.collider(this.spawn, this.groundLayer);
+    }
   }
 }
 
