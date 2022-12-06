@@ -41,8 +41,8 @@ class FirstFight_Two extends Scene {
     this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
-    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
-    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+    // this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
+    // this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
   }
 
