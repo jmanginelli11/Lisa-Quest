@@ -31,6 +31,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // Testing assets
     this.load.image('test', '/assets/testSprites/platform.png');
+    this.load.image('test2', '/assets/testSprites/platformRotate.png');
     this.load.spritesheet('explosion', '/assets/testSprites/explosion.png', {
       frameWidth: 32,
       frameHeight: 32,
@@ -226,7 +227,7 @@ export default class PreloaderScene extends Phaser.Scene {
     );
 
     // laser
-    this.load.image('laser', '/assets/lisa/blue-Beam.png');
+    this.load.image('laser', '/assets/lisa/default/laser3.png');
   }
 
   createLisaAnims() {

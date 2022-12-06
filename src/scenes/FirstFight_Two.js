@@ -4,13 +4,18 @@ import { Lisa } from '../sprites/Lisa.js';
 class FirstFight_Two extends Scene {
   cameras;
   player;
+  platforms;
+  wallPlatform;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'FirstFight_Two' });
   }
 
-  create() {
+  create(data) {
     // Background - First Scene
+
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
 
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
@@ -62,11 +67,28 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, 100, 100).setScale(3);
+    this.player = new Lisa(this, x, y, data.hp, data.score);
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+
+    // invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    this.wallPlatform = this.platforms
+      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+      .refreshBody();
+
+    this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.scene.start('FirstFight_Three', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    // .rotation(90);
+    this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
   }
 

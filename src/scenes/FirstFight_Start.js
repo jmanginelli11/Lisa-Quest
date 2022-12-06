@@ -5,6 +5,8 @@ import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 class FirstFight_Start extends Scene {
   cameras;
   player;
+  platforms;
+  wallPlatform;
   laserGroup;
 
   constructor(data) {
@@ -54,6 +56,22 @@ class FirstFight_Start extends Scene {
     // this.groundAndPlatforms.setCollisionBetween(27, 79);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
+
+    // invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    this.wallPlatform = this.platforms
+      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+      .refreshBody();
+
+    this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.scene.start('FirstFight_Two', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    // .rotation(90);
+    this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
   }
