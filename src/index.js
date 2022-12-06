@@ -10,7 +10,7 @@ import Preloader from './scenes/Preloader.js';
 import HealthBar from './helpers/HealthBar';
 import GameSceneTester from './helpers/HealthBarSprite.js';
 import Intro from './scenes/Intro';
-import FallingSceneOne from './scenes/FallingSceneOne.js';
+import OneFallingScene from './scenes/FallingSceneOne.js';
 import FallingSceneTwo from './scenes/FallingSceneTwo.js';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
@@ -31,20 +31,20 @@ const config = {
   scene: [
     Preloader,
     MainMenu,
+    Intro,
     GameScene,
+    OneFallingScene,
     GameScore,
     HighScores,
     Credits,
     Form,
     HealthBar,
     Jackie,
-    Intro,
     GameSceneTester,
-    FallingSceneOne,
-    FallingSceneTwo,
-    FirstFight_Start,
-    FirstFight_Two,
-    FirstFight_Three,
+    // FallingSceneTwo,
+    // FirstFight_Start,
+    // FirstFight_Two,
+    // FirstFight_Three,
   ],
   physics: {
     default: 'arcade',
