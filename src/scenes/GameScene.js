@@ -58,19 +58,11 @@ class GameScene extends Scene {
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
 
-    // Create player's healthBar
-    this.add.text(x - 600, innerHeight / 14, 'LISA');
-    this.makeBar(x - 600, innerHeight / 10, 0xc1c1c1);
-
-    let lisaHealth = this.makeBar(x - 600, innerHeight / 10, 0x2e71cc);
-    //need this function to fire every time player.hp increments or decrements
-    this.setValue(lisaHealth, this.player.hp);
-
     //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
-    this.add.text(x + 400, innerHeight / 14, 'TORI');
-    this.makeBar(x + 400, innerHeight / 10, 0xc1c1c1);
-    let toriHealth = this.makeBar(x + 400, innerHeight / 10, 0xcc2e3a);
-    this.setValue(toriHealth, 5);
+    // this.add.text(x + 400, innerHeight / 14, 'TORI');
+    // this.makeBar(x + 400, innerHeight / 10, 0xc1c1c1);
+    // let toriHealth = this.makeBar(x + 400, innerHeight / 10, 0xcc2e3a);
+    // this.setValue(toriHealth, 5);
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -142,7 +134,7 @@ class GameScene extends Scene {
     this.physics.add.overlap(
       this.player,
       this.hearts,
-      this.collectHeart,
+      this.player.collectHeart,
       null,
       this
     );
@@ -198,39 +190,6 @@ class GameScene extends Scene {
   // Following Enemy AI
   enemyFollows() {
     this.physics.moveToObject(this.enemy, this.player, 100);
-  }
-
-  // healthBar Maker
-  makeBar(x, y, color) {
-    //blue = 0x2e71cc
-    //red = 0xCC2E3A
-    //grey = 0xc1c1c1
-
-    let bar = this.add.graphics();
-
-    bar.fillStyle(color, 1);
-    bar.fillRoundedRect(0, 0, 200, 20, 5);
-
-    bar.x = x;
-    bar.y = y;
-    return bar;
-  }
-  setValue(bar, hp) {
-    //scale the bar
-    // 10 is assumed to be Lisa's max hp
-
-    bar.scaleX = hp / 10;
-  }
-
-  //increment and decrement health
-  collectHeart(player, heart) {
-    heart.disableBody(true, true);
-
-    console.log('before increment', this.player, this.player.hp);
-    this.player.hp += 1;
-    console.log('after increment', this.player.hp);
-    // const bar = player
-    // this.setValue(lisaHealth, this.player.hp);
   }
 }
 
