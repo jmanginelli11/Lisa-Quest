@@ -9,7 +9,9 @@ class GameScore extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.add.image(x, y, 'stars');
+    this.background = this.add.image(x, y, 'stars');
+    this.background.displayWidth = this.sys.canvas.width;
+    this.background.displayHeight = this.sys.canvas.height;
 
     this.story = this.add.text(x - 400, y - 200, '');
 

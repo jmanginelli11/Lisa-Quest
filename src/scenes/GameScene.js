@@ -97,35 +97,16 @@ class GameScene extends Scene {
       0
     );
 
-    //adding hearts to increment health
-    // this.heart = this.physics.add.sprite(240, 480, 'heart');
-    // this.heart.setOrigin(-20, 4);
-    // this.heart.body.setGravity(-300);
-    // this.heart.body.setAllowGravity(false);
-    // console.log('------>', this.heart);
-
-    // this.hearts = this.add.group();
-    // this.hearts.createMultiple({
-    //   key: 'heart',
-    //   frame: 'heart',
-    //   setXY: {
-    //     x: Phaser.Math.RND.between(0, innerHeight),
-    //     y: Phaser.Math.RND.between(0, innerWidth),
-    //   },
-    //   frameQuantity: 2,
-    //   repeat: 5,
-    // });
-
     this.hearts = this.physics.add.group({
       key: 'heart',
-      repeat: 5,
+      repeat: 9,
       allowGravity: false,
     });
     this.hearts.children.iterate(function (child) {
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 9; i++) {
         child.setPosition(
           Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
+          Phaser.Math.RND.between(400, 600)
         );
         child.setOrigin(0, 0);
       }
