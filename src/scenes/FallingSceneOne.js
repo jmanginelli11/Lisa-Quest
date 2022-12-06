@@ -3,6 +3,8 @@ import { Lisa } from '../sprites/Lisa.js';
 
 class FallingSceneOne extends Scene {
   cameras;
+  platforms;
+  player;
   constructor() {
     super({ key: 'FallingSceneOne' });
   }
@@ -45,6 +47,15 @@ class FallingSceneOne extends Scene {
     this.physics.add.collider(this.player, this.texturesTwoLayer);
     this.texturesTwoLayer.setCollisionBetween(1000, 1250);
 
+    // Invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    let waterFallPlatform = this.platforms
+      .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
+      .refreshBody();
+    this.physics.add.collider(this.player.waterFallPlatform, () => {
+      this.scene.switch('FallingSceneTwo');
+    });
+    waterFallPlatform.setVisible(false);
     //PARALLAX EFFECT
     // this.stars = this.add
     //   .tileSprite(0, 0, innerWidth, innerHeight, 'shiny_stars')

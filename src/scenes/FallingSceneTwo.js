@@ -2,7 +2,9 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
 class FallingSceneTwo extends Scene {
+  player;
   cameras;
+  platforms;
   constructor() {
     super({ key: 'FallingSceneTwo' });
   }
@@ -47,6 +49,16 @@ class FallingSceneTwo extends Scene {
     this.groundLayer.setCollisionBetween(95, 99);
     this.physics.add.collider(this.player, this.texturesTwoLayer);
     this.texturesTwoLayer.setCollisionBetween(1000, 1250);
+
+    // Invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    let waterFallPlatform = this.platforms
+      .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
+      .refreshBody();
+    this.physics.add.collider(this.player.waterFallPlatform, () => {
+      this.scene.switch('FirstFight_Start');
+    });
+    waterFallPlatform.setVisible(false);
   }
 
   update() {
