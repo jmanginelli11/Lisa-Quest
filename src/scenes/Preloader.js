@@ -31,6 +31,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // Testing assets
     this.load.image('test', '/assets/testSprites/platform.png');
+    this.load.image('test2', '/assets/testSprites/platformRotate.png');
     this.load.spritesheet('explosion', '/assets/testSprites/explosion.png', {
       frameWidth: 32,
       frameHeight: 32,
@@ -177,6 +178,18 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
     );
 
+    //promised land first
+
+    this.load.tilemapTiledJSON(
+      'tilemapPromisedLand',
+      '/assets/backgrounds/Themy/Promised-Lands/First-Promised-Land.json'
+    );
+
+    this.load.image(
+      'blue_sky',
+      '/assets/backgrounds/Themy/Promised-Lands/sky.png'
+    );
+
     //HealthBar
     this.load.image(
       'left-cap',
@@ -213,8 +226,13 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/bigBoss/Screen_Shot_2022-12-02_at_4.42.15_PM-removebg-preview.png'
     );
 
+
     //oilRig
     this.load.image('rig', '/assets/oilRig.png');
+
+    // laser
+    this.load.image('laser', '/assets/lisa/default/laser3.png');
+
   }
 
   createLisaAnims() {

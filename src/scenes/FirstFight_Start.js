@@ -1,15 +1,20 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class FirstFight_Start extends Scene {
   cameras;
   player;
+  platforms;
+  wallPlatform;
+  laserGroup;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'FirstFight_Start' });
   }
 
-  create() {
+  create(data) {
+    console.log(data);
     // Background - First Scene
 
     const x = innerWidth / 2;
@@ -34,14 +39,15 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    //creating lisa behind the plants
+    this.player = new Lisa(this, x, y, data.hp, data.score);
+
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants',
       this.rocksAndPlantsTileset,
       0,
       0
     );
-
-    this.player = new Lisa(this, x, y);
 
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
@@ -51,6 +57,24 @@ class FirstFight_Start extends Scene {
     // this.groundAndPlatforms.setCollisionBetween(27, 79);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
+
+    // invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    this.wallPlatform = this.platforms
+      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+      .refreshBody();
+
+    this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.scene.start('FirstFight_Two', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    // .rotation(90);
+    this.wallPlatform.setVisible(false);
+
+    this.laserGroup = new LaserGroup(this);
   }
 
   update() {
