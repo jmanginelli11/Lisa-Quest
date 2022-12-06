@@ -37,14 +37,15 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    //creating lisa behind the plants
+    this.player = new Lisa(this, x, y, data.hp, data.score);
+
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants',
       this.rocksAndPlantsTileset,
       0,
       0
     );
-
-    this.player = new Lisa(this, x, y, data.hp, data.score);
 
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
