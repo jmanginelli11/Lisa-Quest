@@ -1,24 +1,31 @@
 import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y) {
+  constructor(scene, x, y, hp = null, score = null) {
     super(scene, x, y, 'lisa');
 
+    // Making the homie
     this.play('idle');
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
 
-    // player Config
+    // Player Config
     this.setScale(x / 250);
     this.body.setGravityY(450);
     this.body.setCollideWorldBounds(true);
+
+    // If we have HP and Score data
+    if (hp) this.hp = hp;
+    else this.hp = 5;
+    if (score) this.score = score;
+    else this.score = 0;
 
     //Method calls for creation
     this.init();
     this.create();
 
-    console.log('scene passed to Lisa: ', this.scene);
-    console.log('the big lisa: ', this);
+    // console.log('scene passed to Lisa: ', this.scene);
+    // console.log('the big lisa: ', this);
   }
 
   init() {
@@ -34,7 +41,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.can_dash = true;
 
     this.current_knockback_speed = 0;
-    this.hp = 1;
     this.max_hp = 10;
 
     // Declarations
@@ -95,11 +101,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     );
 
     // Score
-    this.score = 0;
     this.scoreText = this.scene.add.text(
       this.x * 0.1,
       this.y * 0.1,
-      'Score: 0',
+      'Score: ' + this.score,
       {
         fontSize: '32px',
         fill: '#E43AA4',
@@ -107,7 +112,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     );
 
     // HealthBar Creation
-    console.log('x and y: ', this.x, ' ', this.y);
+    // console.log('x and y: ', this.x, ' ', this.y);
 
     this.hb_text = this.scene.add.text(this.x * 0.1, this.y * 0.25, 'LISA');
     this.shadow_bar = this.makeHealthBar(this.x * 0.1, this.y * 0.3, 0xc1c1c1);
