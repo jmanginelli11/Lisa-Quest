@@ -1,9 +1,11 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class FirstFight_Start extends Scene {
   cameras;
   player;
+  laserGroup;
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -53,6 +55,8 @@ class FirstFight_Start extends Scene {
     // this.groundAndPlatforms.setCollisionBetween(27, 79);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
+
+    this.laserGroup = new LaserGroup(this);
   }
 
   update() {

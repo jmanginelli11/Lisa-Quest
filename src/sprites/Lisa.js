@@ -71,7 +71,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           this.is_shoot = false;
           this.colliderPunch.destroy(true);
         }
-      } catch (e) {}
+      } catch (e) {
+        console.log(e);
+      }
     });
 
     // key objects
@@ -252,6 +254,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     ) {
       this.body.setVelocityX(0);
       this.attackAnimation('shoot');
+      this.scene.laserGroup.shootLaser(this.x, this.y);
     }
 
     // Reset Jumps
