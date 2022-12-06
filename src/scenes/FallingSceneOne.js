@@ -1,4 +1,4 @@
-import { Scene } from 'phaser';
+import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
 class OneFallingScene extends Scene {
@@ -53,7 +53,7 @@ class OneFallingScene extends Scene {
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
     this.physics.add.collider(this.player.waterFallPlatform, () => {
-      this.scene.switch('FallingSceneTwo');
+      this.scene.switch('secondFall');
     });
     waterFallPlatform.setVisible(false);
     //PARALLAX EFFECT
