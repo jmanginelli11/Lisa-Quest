@@ -4,15 +4,12 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'lisa');
 
-    // For Health Bar?
-    // this.aura = this.scene.add.sprite(this.body.x, this.body.y, 'hp_block');
-
     this.play('idle');
     this.scene.add.existing(this);
     this.scene.physics.add.existing(this);
 
     // player Config
-    this.setScale(x / 180);
+    this.setScale(x / 250);
     this.body.setGravityY(450);
     this.body.setCollideWorldBounds(true);
 
@@ -20,6 +17,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.init();
     this.create();
 
+    console.log('scene passed to Lisa: ', this.scene);
     console.log('the big lisa: ', this);
   }
 
@@ -37,21 +35,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
     this.hp = 1;
+    this.max_hp = 10;
+
+    // Declarations
     this.colliderPunch;
     this.cursors;
     this.explosion;
-
-    // Score
-    this.score = 0;
-    this.scoreText = this.scene.add.text(
-      this.x * 0.1,
-      this.y * 0.1,
-      'score: 0',
-      {
-        fontSize: '32px',
-        fill: '#E43AA4',
-      }
-    );
+    this.shadow_bar;
+    this.hb_text;
+    this.real_bar;
   }
 
   create() {
@@ -101,6 +93,27 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.cursors.keyobj_shift = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SHIFT
     );
+
+    // Score
+    this.score = 0;
+    this.scoreText = this.scene.add.text(
+      this.x * 0.1,
+      this.y * 0.1,
+      'Score: 0',
+      {
+        fontSize: '32px',
+        fill: '#E43AA4',
+      }
+    );
+
+    // HealthBar Creation
+    console.log('x and y: ', this.x, ' ', this.y);
+
+    this.hb_text = this.scene.add.text(this.x * 0.1, this.y * 0.25, 'LISA');
+    this.shadow_bar = this.makeHealthBar(this.x * 0.1, this.y * 0.3, 0xc1c1c1);
+    this.real_bar = this.makeHealthBar(this.x * 0.1, this.y * 0.3, 0x2e71cc);
+
+    this.setHBValue(this.real_bar, this.hp);
   }
 
   update() {
@@ -342,5 +355,34 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   addScore(num) {
     this.score += num;
     this.scoreText.setText('Score:' + this.score);
+  }
+
+  // Health Bar Zone
+  makeHealthBar(x, y, color) {
+    //blue = 0x2e71cc
+    //red = 0xCC2E3A
+    //grey = 0xc1c1c1
+
+    let bar = this.scene.add.graphics();
+
+    bar.fillStyle(color, 1);
+    bar.fillRoundedRect(0, 0, 200, 20, 5);
+
+    bar.x = x;
+    bar.y = y;
+    return bar;
+  }
+
+  setHBValue(bar, hp) {
+    //scales the real_bar
+    bar.scaleX = hp / this.max_hp;
+  }
+
+  // Collecting Hearts
+  collectHeart(player, heart) {
+    heart.disableBody(true, true);
+    player.hp++;
+    player.setHBValue(player.real_bar, player.hp);
+    player.addScore(20);
   }
 }
