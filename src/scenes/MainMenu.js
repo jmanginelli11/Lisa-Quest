@@ -106,7 +106,7 @@ class MainMenu extends Scene {
       console.log('clicked on Naomi button');
     });
     naomiButton.on('pointerup', () => {
-      this.scene.switch('FallingSceneOne');
+      this.scene.switch('FirstFight_Two');
     });
   }
 }
