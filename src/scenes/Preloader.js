@@ -177,6 +177,18 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
     );
 
+    //promised land first
+
+    this.load.tilemapTiledJSON(
+      'tilemapPromisedLand',
+      '/assets/backgrounds/Themy/Promised-Lands/First-Promised-Land.json'
+    );
+
+    this.load.image(
+      'blue_sky',
+      '/assets/backgrounds/Themy/Promised-Lands/sky.png'
+    );
+
     //HealthBar
     this.load.image(
       'left-cap',
