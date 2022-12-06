@@ -12,7 +12,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.scene.physics.add.existing(this);
 
     // player Config
-    this.setScale(x / 180);
+    this.setScale(x / 250);
     this.body.setGravityY(450);
     this.body.setCollideWorldBounds(true);
 
