@@ -43,7 +43,7 @@ const config = {
     OneFallingScene,
     // FallingSceneTwo,
     FirstFight_Start,
-    // FirstFight_Two,
+    FirstFight_Two,
     // FirstFight_Three,
   ],
   physics: {
