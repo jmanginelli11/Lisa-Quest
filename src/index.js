@@ -15,8 +15,9 @@ import FallingSceneTwo from './scenes/FallingSceneTwo.js';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
 import FirstFight_Three from './scenes/FirstFight_Three.js';
+import PromisedLandFirst from './scenes/PromisedLandFirst.js';
 
-// import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
+// import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";                                                         
 
 const config = {
   type: Phaser.AUTO,
@@ -45,6 +46,7 @@ const config = {
     FirstFight_Start,
     // FirstFight_Two,
     // FirstFight_Three,
+    PromisedLandFirst,
   ],
   physics: {
     default: 'arcade',

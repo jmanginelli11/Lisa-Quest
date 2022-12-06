@@ -8,7 +8,9 @@ class MainMenu extends Scene {
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.add.image(x, y, 'stars');
+    this.background = this.add.image(x, y, 'stars');
+    this.background.displayWidth = this.sys.canvas.width;
+    this.background.displayHeight = this.sys.canvas.height;
 
     let playButton = this.add.image(x, y, 'play-white').setScale(5);
     let creditsButton = this.add.image(x, y + 100, 'credits-white').setScale(3);
@@ -106,7 +108,7 @@ class MainMenu extends Scene {
       console.log('clicked on Naomi button');
     });
     naomiButton.on('pointerup', () => {
-      this.scene.switch('FirstFight_Two');
+      this.scene.switch('PromisedLandFirst');
     });
   }
 }

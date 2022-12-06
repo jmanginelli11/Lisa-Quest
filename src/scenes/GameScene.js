@@ -1,9 +1,11 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class GameScene extends Scene {
   player;
+  laserGroup;
   enemy;
   platforms;
   waterFallPlatform;
@@ -93,35 +95,16 @@ class GameScene extends Scene {
       0
     );
 
-    //adding hearts to increment health
-    // this.heart = this.physics.add.sprite(240, 480, 'heart');
-    // this.heart.setOrigin(-20, 4);
-    // this.heart.body.setGravity(-300);
-    // this.heart.body.setAllowGravity(false);
-    // console.log('------>', this.heart);
-
-    // this.hearts = this.add.group();
-    // this.hearts.createMultiple({
-    //   key: 'heart',
-    //   frame: 'heart',
-    //   setXY: {
-    //     x: Phaser.Math.RND.between(0, innerHeight),
-    //     y: Phaser.Math.RND.between(0, innerWidth),
-    //   },
-    //   frameQuantity: 2,
-    //   repeat: 5,
-    // });
-
     this.hearts = this.physics.add.group({
       key: 'heart',
-      repeat: 5,
+      repeat: 9,
       allowGravity: false,
     });
     this.hearts.children.iterate(function (child) {
-      for (var i = 0; i < 5; i++) {
+      for (var i = 0; i < 9; i++) {
         child.setPosition(
           Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
+          Phaser.Math.RND.between(400, 600)
         );
         child.setOrigin(0, 0);
       }
@@ -174,6 +157,10 @@ class GameScene extends Scene {
     // creating the enemy sprite
 
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
+
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
+
     // this.bar = new HealthBarSprite(this, x, y);
 
     // Collider so enemy and player can interact
