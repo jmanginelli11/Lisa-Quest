@@ -1,12 +1,12 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
-class FallingSceneOne extends Scene {
+class OneFallingScene extends Scene {
   cameras;
   platforms;
   player;
   constructor() {
-    super({ key: 'FallingSceneOne' });
+    super({ key: 'OneFallingScene' });
   }
 
   create() {
@@ -95,4 +95,4 @@ class FallingSceneOne extends Scene {
   }
 }
 
-export default FallingSceneOne;
+export default OneFallingScene;

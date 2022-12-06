@@ -8,6 +8,7 @@ class GameScene extends Scene {
   player;
   enemy;
   platforms;
+  waterFallPlatform;
   cursors;
   timer;
 
@@ -147,6 +148,16 @@ class GameScene extends Scene {
       this
     );
 
+    // Invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    this.waterFallPlatform = this.platforms
+      .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
+      .refreshBody();
+    this.physics.add.collider(this.player, this.waterFallPlatform, () => {
+      this.scene.switch('OneFallingScene');
+    });
+    this.waterFallPlatform.setVisible(false);
+
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -158,16 +169,6 @@ class GameScene extends Scene {
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.player, this.surfaceTileset);
     this.groundLayer.setCollisionBetween(72, 99);
-
-    // Invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
-      .refreshBody();
-    this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.switch('FallingSceneOne');
-    });
-    waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
 
