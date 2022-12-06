@@ -12,6 +12,9 @@ class FirstFight_Start extends Scene {
   create() {
     // Background - First Scene
 
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
@@ -38,7 +41,8 @@ class FirstFight_Start extends Scene {
       0
     );
 
-    this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
+    this.player = new Lisa(this, x, y);
+
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
