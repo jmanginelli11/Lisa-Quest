@@ -46,6 +46,15 @@ class FirstFight_Two extends Scene {
       0
     );
 
+    this.mechanicalLayer = this.map.createLayer(
+      'mechanical_layer',
+      this.mechanicalTileset,
+      0,
+      0
+    );
+
+    this.player = new Lisa(this, 100, 100).setScale(3);
+
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,

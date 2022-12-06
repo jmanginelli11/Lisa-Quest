@@ -47,6 +47,7 @@ const config = {
     FirstFight_Two,
     FirstFight_Three,
     PromisedLandFirst,
+
   ],
   physics: {
     default: 'arcade',
