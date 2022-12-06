@@ -11,6 +11,9 @@ class PromisedLandFirst extends Scene {
   }
 
   create() {
+    //Blue sky
+
+    this.sky = this.add.image(0, 0, 'blue_sky').setOrigin(0, 0);
     //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapPromisedLand' });
     this.groundAndWaterTileset = this.map.addTilesetImage(
@@ -30,15 +33,15 @@ class PromisedLandFirst extends Scene {
       0
     );
 
-    this.mountainsLayer = this.map.createLayer(
-      'mountains_layer',
+    this.waterLayer = this.map.createLayer(
+      'water_layer',
       this.groundAndWaterTileset,
       0,
       0
     );
 
-    this.waterLayer = this.map.createLayer(
-      'water_layer',
+    this.mountainsLayer = this.map.createLayer(
+      'mountains_layer',
       this.groundAndWaterTileset,
       0,
       0
@@ -50,7 +53,10 @@ class PromisedLandFirst extends Scene {
       0,
       0
     );
+
+    // Creating Player (Lisa) - Created here so she is behind the plants
     this.player = new Lisa(this, 695, 0);
+
     this.rocksAndPlantsLayer = this.map.createLayer(
       'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,
@@ -62,9 +68,6 @@ class PromisedLandFirst extends Scene {
     this.groundLayer.displayHeight = this.sys.canvas.height;
     // this.mountainsLayer.displayWidth = this.sys.canvas.width;
     // this.mountainsLayer.displayHeight = this.sys.canvas.height;
-
-    // Creating Player (Lisa)
-    // this.player = new Lisa(this, 695, 0);
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
