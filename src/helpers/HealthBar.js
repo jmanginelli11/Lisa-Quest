@@ -1,6 +1,12 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa';
 
+// class HealthBar extends Phaser.Group {
+//   constructor() {
+//     super(game);
+//     this.create(0, 0, 'healthbar');
+//   }
+// }
 class HealthBar extends Scene {
   player;
   enemy;

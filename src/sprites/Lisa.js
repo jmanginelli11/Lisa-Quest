@@ -36,7 +36,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.can_dash = true;
 
     this.current_knockback_speed = 0;
-    this.hp = 10;
+    this.hp = 1;
     this.colliderPunch;
     this.cursors;
     this.explosion;
