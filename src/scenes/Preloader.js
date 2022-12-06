@@ -204,6 +204,9 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/uipack-space/PNG/barHorizontal_shadow_right.png'
     );
 
+    //heart
+    this.load.image('heart', '/assets/heart.png');
+
     // fire
     this.load.image(
       'fire',

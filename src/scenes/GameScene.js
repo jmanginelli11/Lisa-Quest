@@ -1,4 +1,5 @@
 import { Scene, physics } from 'phaser';
+import HealthBar from '../helpers/HealthBar.js';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 // import HealthBarSprite from './HealthBarSprite';
@@ -60,7 +61,9 @@ class GameScene extends Scene {
     // Create player's healthBar
     this.add.text(x - 600, innerHeight / 14, 'LISA');
     this.makeBar(x - 600, innerHeight / 10, 0xc1c1c1);
+
     let lisaHealth = this.makeBar(x - 600, innerHeight / 10, 0x2e71cc);
+    //need this function to fire every time player.hp increments or decrements
     this.setValue(lisaHealth, this.player.hp);
 
     //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
@@ -101,6 +104,21 @@ class GameScene extends Scene {
       0
     );
 
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      repeat: 5,
+      allowGravity: false,
+    });
+    this.hearts.children.iterate(function (child) {
+      for (var i = 0; i < 5; i++) {
+        child.setPosition(
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+        child.setOrigin(0, 0);
+      }
+    });
+
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -140,6 +158,10 @@ class GameScene extends Scene {
     // // Do enemy AI
     this.enemyFollows();
 
+    //healthbar changing
+    // this.lisaHealth.update();
+    // this.setValue(this.lisaHealth, this.player.hp);
+
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
@@ -165,11 +187,22 @@ class GameScene extends Scene {
     bar.y = y;
     return bar;
   }
-  //increment and decrement health
   setValue(bar, hp) {
     //scale the bar
     // 10 is assumed to be Lisa's max hp
+
     bar.scaleX = hp / 10;
+  }
+
+  //increment and decrement health
+  collectHeart(player, heart) {
+    heart.disableBody(true, true);
+
+    console.log('before increment', this.player, this.player.hp);
+    this.player.hp += 1;
+    console.log('after increment', this.player.hp);
+    // const bar = player
+    // this.setValue(lisaHealth, this.player.hp);
   }
 }
 
