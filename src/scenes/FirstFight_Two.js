@@ -24,6 +24,16 @@ class FirstFight_Two extends Scene {
       'vegetation2'
     );
 
+    this.rocksAndPlantsTilesetTwo = this.map.addTilesetImage(
+      'plants_rocks_tileset_2',
+      'vegetation1'
+    );
+
+    this.mechanicalTileset = this.map.addTilesetImage(
+      'mechanical_tileset',
+      'mechanical'
+    );
+
     this.groundAndPlatforms = this.map.createLayer(
       'ground_layer',
       this.groundTileset,
@@ -38,11 +48,25 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, 0, 0).setOrigin(0, 0);
+    this.rocksAndPlantsTwo = this.map.createLayer(
+      'rocks_and_plants_layer_2',
+      this.rocksAndPlantsTilesetTwo,
+      0,
+      0
+    );
+
+    this.mechanicalLayer = this.map.createLayer(
+      'mechanical_layer',
+      this.mechanicalTileset,
+      0,
+      0
+    );
+
+    this.player = new Lisa(this, 100, 100).setScale(3);
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
-    // this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
-    // this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
+    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
   }
 
