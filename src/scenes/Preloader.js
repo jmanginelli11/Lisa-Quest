@@ -212,6 +212,9 @@ export default class PreloaderScene extends Phaser.Scene {
       'fire',
       '/assets/bigBoss/Screen_Shot_2022-12-02_at_4.42.15_PM-removebg-preview.png'
     );
+
+    // laser
+    this.load.image('laser', '/assets/lisa/blue-Beam.png');
   }
 
   createLisaAnims() {

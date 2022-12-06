@@ -1,9 +1,11 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class GameScene extends Scene {
   player;
+  laserGroup;
   enemy;
   platforms;
   waterFallPlatform;
@@ -155,6 +157,10 @@ class GameScene extends Scene {
     // creating the enemy sprite
 
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
+
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
+
     // this.bar = new HealthBarSprite(this, x, y);
 
     // Collider so enemy and player can interact
