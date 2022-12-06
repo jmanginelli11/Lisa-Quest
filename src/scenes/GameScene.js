@@ -18,6 +18,7 @@ class GameScene extends Scene {
   map;
   groundLayer;
   surfaceTileset;
+  direction = 'right';
 
   constructor() {
     super({ key: 'GameScene' });
@@ -122,7 +123,7 @@ class GameScene extends Scene {
       this
     );
 
-    //spawning bad guys
+    //spawning rigs
     this.rigs = this.physics.add.group({
       key: 'rig',
       repeat: 5,
@@ -135,13 +136,6 @@ class GameScene extends Scene {
         );
       }
     });
-
-    // this.physics.add.collider(
-    //   this.rigs,
-    //   // this.player,
-    //   this.platforms
-    //   // this.groundLayer
-    // );
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -179,12 +173,34 @@ class GameScene extends Scene {
       // this.groundLayer
     );
 
-    this.time.addEvent({
-      delay: 3000,
-      callback: this.spawnEnemy,
-      callbackScope: this,
-      loop: true,
-    });
+    //enemies spawning at timed intervals
+    // for (let i = 0; i < 3; i++) {
+    //   this.time.addEvent({
+    //     delay: 3000,
+    //     callback: this.spawnEnemy,
+    //     callbackScope: this,
+    //   });
+    // }
+    this.spawn = new Enemy(
+      this,
+      Phaser.Math.RND.between(0, 1400),
+      Phaser.Math.RND.between(0, 600)
+    );
+    this.physics.add.collider(this.spawn, this.groundLayer);
+    // this.physics.add.collider(this.player, this.spawn);
+    this.physics.add.overlap(
+      this.player,
+      this.spawn,
+      this.player.hitSpawn,
+      null,
+      this
+    );
+    // this.spawns = this.time.addEvent({
+    //   delay: 3000,
+    //   callback: this.spawnEnemy,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
     // this.spawnEnemy();
   }
 
@@ -196,6 +212,7 @@ class GameScene extends Scene {
     // // Do enemy AI
     this.enemyFollows();
 
+    this.spawn.update();
     //healthbar changing
     // this.lisaHealth.update();
     // this.setValue(this.lisaHealth, this.player.hp);
@@ -210,18 +227,27 @@ class GameScene extends Scene {
     this.physics.moveToObject(this.enemy, this.player, 100);
   }
 
-  spawnEnemy() {
-    let counter = 10;
+  // spawnEnemy() {
+  //   let counter = 3;
+  //   counter--;
 
-    if (counter > 0) {
-      this.spawn = new Enemy(
-        this,
-        Phaser.Math.RND.between(0, 1400),
-        Phaser.Math.RND.between(0, 600)
-      );
-      this.physics.add.collider(this.spawn, this.groundLayer);
-    }
-  }
+  //   if (counter > 0) {
+  //     this.spawn = new Enemy(
+  //       this,
+  //       Phaser.Math.RND.between(0, 1400),
+  //       Phaser.Math.RND.between(0, 600)
+  //     );
+  //     this.physics.add.collider(this.spawn, this.groundLayer);
+  //     // this.physics.add.collider(this.player, this.spawn);
+  //     this.physics.add.overlap(
+  //       this.player,
+  //       this.spawn,
+  //       this.player.hitSpawn,
+  //       null,
+  //       this
+  //     );
+  //   }
+  // }
 }
 
 export default GameScene;
