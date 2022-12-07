@@ -114,7 +114,6 @@ class GameScene extends Scene {
       }
     });
 
-    // this.physics.add.collider(this.hearts, this.groundLayer);
     this.physics.add.overlap(
       this.player,
       this.hearts,
@@ -138,11 +137,6 @@ class GameScene extends Scene {
       }
     });
 
-    // Adding rigs to enemiesArray
-    // for (let j = 0; j < this.rigs.children.length; j++) {
-    //   this.enemiesArray.push(this.rigs.children[j]);
-    // }
-
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -161,8 +155,6 @@ class GameScene extends Scene {
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
 
-    // console.log('scene: ', this.scene);
-
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
       this.scene.start('FallingScene_One', {
         hp: this.player.hp,
@@ -173,14 +165,10 @@ class GameScene extends Scene {
     this.waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
-
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
-    // this.enemiesArray.push(this.enemy);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
-
-    // this.bar = new HealthBarSprite(this, x, y);
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
@@ -224,26 +212,13 @@ class GameScene extends Scene {
   }
 
   update(time) {
-    // Update Player
     this.player.update();
     this.enemy.update();
-
-    // // Do enemy AI
-    this.enemyFollows();
-
     this.spawn.update();
-    //healthbar changing
-    // this.lisaHealth.update();
-    // this.setValue(this.lisaHealth, this.player.hp);
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
-  }
-
-  // Following Enemy AI
-  enemyFollows() {
-    this.physics.moveToObject(this.enemy, this.player, 100);
   }
 
   // spawnEnemy() {

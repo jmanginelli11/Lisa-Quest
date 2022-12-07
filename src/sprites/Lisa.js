@@ -1,7 +1,7 @@
 import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, hp = 10, score = 0) {
+  constructor(scene, x, y, hp = null, score = null) {
     super(scene, x, y, 'lisa');
 
     // Making the homie
@@ -15,11 +15,11 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
 
     // If we have HP and Score data
-    // if (hp) this.hp = hp;
-    // if (hp > 10) this.hp = 10;
-    // else this.hp = 5;
-    // if (score) this.score = score;
-    // else this.score = 0;
+    if (hp) this.hp = hp;
+    else this.hp = 5;
+    if (hp > 10) this.hp = 10;
+    if (score) this.score = score;
+    else this.score = 0;
 
     //Method calls for creation
     this.init();
@@ -43,7 +43,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-    this.hp = 5; //Phaser.Math.Clamp(10, 0, 10);
+    //Phaser.Math.Clamp(10, 0, 10);
 
     this.max_hp = 10;
 
@@ -352,7 +352,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         }
 
         // HP and Score
-        if (this.scene.enemiesArray[i].hp >= 0) {
+        if (this.scene.enemiesArray[i].hp > 1) {
           this.scene.enemiesArray[i].hp--;
 
           if (knockbackVal <= 0) {
@@ -360,9 +360,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           } else {
             this.addScore(knockbackVal * 0.05);
           }
-        } else if (this.scene.enemiesArray[i].hp <= 0) {
-          this.scene.enemiesArray[i].destroy();
+        } else if (this.scene.enemiesArray[i].hp <= 1) {
+          if (knockbackVal <= 0) {
+            this.addScore(knockbackVal * -0.05);
+          } else {
+            this.addScore(knockbackVal * 0.05);
+          }
+
           this.addScore(100);
+          this.scene.enemiesArray[i].hp--;
         }
 
         if (this.colliderPunch) this.colliderPunch.destroy();

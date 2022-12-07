@@ -27,7 +27,9 @@ export class FlyGuy extends EnemiesParent {
 
   update() {
     if (this.hp > 0) {
-      //Knockback
+      if (this.scene.player) this.enemyFollows();
+
+      // Knockback
       if (this.is_in_knockback) {
         if (this.current_knockback_speed <= 0) {
           this.is_in_knockback = false;
@@ -42,9 +44,8 @@ export class FlyGuy extends EnemiesParent {
     }
   }
 
-  // this.enemyFollows();
   // Following Enemy AI
-  // enemyFollows() {
-  //   this.scene.physics.moveToObject(this.body, this.player, 100);
-  // }
+  enemyFollows() {
+    this.scene.physics.moveToObject(this, this.scene.player, 100);
+  }
 }
