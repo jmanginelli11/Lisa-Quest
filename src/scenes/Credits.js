@@ -13,7 +13,7 @@ class Credits extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.add.image(x, y, 'stars');
+    this.add.image(x, y, 'shiny_stars');
     this.add.image(x, y, 'creditsLOL');
 
     this.add.image(innerWidth * 0.75, innerHeight * 0.3, 'naomi').setScale(7);
@@ -23,7 +23,7 @@ class Credits extends Scene {
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
-      .setScale(1.5);
+      .setScale(2);
     mainMenuButton.setInteractive();
 
     mainMenuButton.on('pointerup', () => {
