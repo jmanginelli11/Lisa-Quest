@@ -17,7 +17,8 @@ export class BigBoss extends EnemiesParent {
 
     this.direction = 'right';
     this.play('bigBossWalk');
-    console.log('here is this', this);
+    this.is_walk = true;
+    // console.log('here is this', this);
   }
 
   update() {
@@ -44,11 +45,7 @@ export class BigBoss extends EnemiesParent {
       this.body.x - this.scene.player.body.x >= -200
     ) {
       this.body.setVelocityX(500);
-      this.scene.fireGroup.shootFireRight(
-        this.x,
-        this.y,
-        console.log('dropping in right')
-      );
+      this.scene.fireGroup.shootFireRight(this.x, this.y);
     }
 
     if (
@@ -56,11 +53,7 @@ export class BigBoss extends EnemiesParent {
       this.body.x - this.scene.player.body.x <= 200
     ) {
       this.body.setVelocityX(-500);
-      this.scene.fireGroup.shootFireLeft(
-        this.x,
-        this.y,
-        console.log('dropping in left')
-      );
+      this.scene.fireGroup.shootFireLeft(this.x, this.y);
     }
   }
 }
