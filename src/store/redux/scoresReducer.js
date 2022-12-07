@@ -1,17 +1,33 @@
+import axios from 'axios';
+
 //Action types
-GET_SCORES = 'GET_SCORES';
+const SET_SCORES = 'SET_SCORES';
 
 //Action creators
-const getScores = (scores) => {
+const setScores = (scores) => {
   return {
-    type: GET_SCORES,
+    type: SET_SCORES,
     scores,
   };
 };
 
+//Thunk
+export const fetchScores = () => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get('/api/scores');
+      // console.log(`inside the fetch`, data);
+      dispatch(setScores(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+//Reducer
 const scoresReducer = (state = [], action) => {
   switch (action.type) {
-    case GET_SCORES:
+    case SET_SCORES:
       return action.scores;
     default:
       return state;
