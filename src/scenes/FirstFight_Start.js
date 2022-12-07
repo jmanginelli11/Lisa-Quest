@@ -1,6 +1,7 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
+import { Enemy } from '../sprites/Enemies/Enemy';
 
 class FirstFight_Start extends Scene {
   cameras;
@@ -75,10 +76,85 @@ class FirstFight_Start extends Scene {
     this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
+
+    //Spawn guy
+    this.spawn = new Enemy(
+      this,
+      Phaser.Math.RND.between(0, 1400),
+      Phaser.Math.RND.between(0, 600)
+    );
+
+    this.physics.add.collider(this.spawn, this.wallPlatform);
+    this.physics.add.collider(this.spawn, this.groundAndPlatforms);
+    this.physics.add.overlap(
+      this.player,
+      this.spawn,
+      this.player.hitSpawn,
+      null,
+      this
+    );
+    this.physics.add.collider(this.player, this.spawn);
+
+    //spawn guy 2
+    this.spawnArray = [];
+    for (let i = 0; i < 5; i++) {
+      this.spawn2 = new Enemy(
+        this,
+        Phaser.Math.RND.between(0, 1400),
+        Phaser.Math.RND.between(0, 600)
+      );
+      this.spawnArray.push(this.spawn2);
+      this.physics.add.collider(this.spawn2, this.wallPlatform);
+      this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+      this.physics.add.overlap(
+        this.player,
+        this.spawn2,
+        this.player.hitSpawn,
+        null,
+        this
+      );
+      this.physics.add.collider(this.player, this.spawn2);
+    }
+
+    //healthHearts spawning every 10 seconds
+    this.time.addEvent({
+      delay: 10000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
     this.player.update();
+    this.spawn.update();
+
+    for (let i = 0; i < this.spawnArray.length; i++) {
+      this.spawnArray[i].update();
+    }
+    // this.spawn2.update();
+  }
+
+  spawnHearts() {
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      // repeat: 1,
+      allowGravity: false,
+    });
+    this.hearts.children.iterate(function (child) {
+      child.setPosition(
+        Phaser.Math.RND.between(0, 1400),
+        Phaser.Math.RND.between(0, 600)
+      );
+      child.setOrigin(0, 0);
+    });
+    this.physics.add.overlap(
+      this.player,
+      this.hearts,
+      this.player.collectHeart,
+      null,
+      this
+    );
   }
 }
 

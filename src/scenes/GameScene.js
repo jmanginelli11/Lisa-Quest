@@ -97,6 +97,7 @@ class GameScene extends Scene {
       0
     );
 
+    //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
       repeat: 9,
@@ -196,7 +197,6 @@ class GameScene extends Scene {
       Phaser.Math.RND.between(0, 600)
     );
     this.physics.add.collider(this.spawn, this.groundLayer);
-    // this.physics.add.collider(this.player, this.spawn);
     this.physics.add.overlap(
       this.player,
       this.spawn,
@@ -204,6 +204,7 @@ class GameScene extends Scene {
       null,
       this
     );
+    this.physics.add.collider(this.player, this.spawn);
     // this.spawns = this.time.addEvent({
     //   delay: 3000,
     //   callback: this.spawnEnemy,

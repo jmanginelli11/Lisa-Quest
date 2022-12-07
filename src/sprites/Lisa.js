@@ -43,7 +43,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-    this.hp = 9; //Phaser.Math.Clamp(10, 0, 10);
+    this.hp = 5; //Phaser.Math.Clamp(10, 0, 10);
 
     this.max_hp = 10;
 
@@ -414,7 +414,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   collectHeart(player, heart) {
     heart.disableBody(true, true);
 
-    player.hp++;
+    player.hp = Phaser.Math.Clamp(player.hp + 1, 0, 10);
+
     player.setHBValue(player.real_bar, player.hp);
     player.addScore(20);
   }
