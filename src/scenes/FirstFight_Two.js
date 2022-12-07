@@ -101,6 +101,18 @@ class FirstFight_Two extends Scene {
 
   update() {
     this.player.update();
+
+    if (this.player.hp <= 0) {
+      this.gameOver();
+    }
+  }
+
+  gameOver() {
+    this.scene.start('Form', {
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
+    });
   }
 }
 
