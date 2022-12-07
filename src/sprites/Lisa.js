@@ -332,6 +332,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.colliderPunch.body.setImmovable(true);
     this.colliderPunch.body.allowGravity = false;
 
+    // if all the enemies are on an array
+
+    // we loop through and do this
+
     if (this.scene.physics.overlap(this.scene.enemy, this.colliderPunch)) {
       this.scene.enemy.is_in_knockback = true;
       this.scene.enemy.current_knockback_speed = knockbackVal;

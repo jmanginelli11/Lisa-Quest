@@ -17,6 +17,7 @@ class GameScene extends Scene {
   groundLayer;
   surfaceTileset;
   direction = 'right';
+  enemiesArray = [];
 
   constructor() {
     super({ key: 'GameScene' });
@@ -126,12 +127,14 @@ class GameScene extends Scene {
       key: 'rig',
       repeat: 5,
     });
+
     this.rigs.children.iterate(function (rig) {
       for (let i = 0; i < 5; i++) {
         rig.setPosition(
           Phaser.Math.RND.between(0, 1400),
           Phaser.Math.RND.between(0, 600)
         );
+        // this.enemiesArray = [...rig];
       }
     });
 
@@ -167,6 +170,7 @@ class GameScene extends Scene {
     // creating the enemy sprite
 
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
+    this.enemiesArray.push(this.enemy);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
