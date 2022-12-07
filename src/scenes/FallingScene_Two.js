@@ -44,6 +44,11 @@ class FallingScene_Two extends Scene {
       0
     );
 
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
+    this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
+
     //player
     this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
 

@@ -164,52 +164,14 @@ class GameScene extends Scene {
     this.waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
-
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // this.bar = new HealthBarSprite(this, x, y);
-
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
-    // this.physics.add.collider(
-    //   this.rigs,
-    //   // this.player,
-    //   this.groundLayer
-    //   // this.groundLayer
-    // );
 
-    //enemies spawning at timed intervals
-    // for (let i = 0; i < 3; i++) {
-    //   this.time.addEvent({
-    //     delay: 3000,
-    //     callback: this.spawnEnemy,
-    //     callbackScope: this,
-    //   });
-    // }
-    // this.spawn = new Enemy(
-    //   this,
-    //   Phaser.Math.RND.between(0, 1400),
-    //   Phaser.Math.RND.between(0, 600)
-    // );
-    // this.physics.add.collider(this.spawn, this.groundLayer);
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.spawn,
-    //   this.player.hitSpawn,
-    //   null,
-    //   this
-    // );
-    // this.physics.add.collider(this.player, this.spawn);
-    // this.spawns = this.time.addEvent({
-    //   delay: 3000,
-    //   callback: this.spawnEnemy,
-    //   callbackScope: this,
-    //   loop: true,
-    // });
-    // this.spawnEnemy();
     console.log('here is player', this.player);
     console.log('here is data', data);
     if (this.player.hp <= 0) {
@@ -224,11 +186,6 @@ class GameScene extends Scene {
 
     // // Do enemy AI
     this.enemyFollows();
-
-    // this.spawn.update();
-    //healthbar changing
-    // this.lisaHealth.update();
-    // this.setValue(this.lisaHealth, this.player.hp);
 
     // Timer
     let gameRunTime = time * 0.001;

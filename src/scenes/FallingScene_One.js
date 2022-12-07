@@ -40,6 +40,11 @@ class FallingScene_One extends Scene {
       0,
       0
     );
+
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
+    this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
     // Creating Player (Lisa)
 
     this.player = new Lisa(this, x + 100, 0, data.hp, data.score);

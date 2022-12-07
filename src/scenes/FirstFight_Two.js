@@ -99,12 +99,31 @@ class FirstFight_Two extends Scene {
     this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
-    // this.time.addEvent({
-    //   delay: 5000,
-    //   callback: this.spawnEnemy,
-    //   callbackScope: this,
-    //   loop: true,
-    // });
+    this.spawnArray = [];
+
+    this.time.addEvent({
+      delay: 5000,
+      callback: function () {
+        this.spawn2 = new Enemy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+        this.spawnArray.push(this.spawn2);
+        this.physics.add.collider(this.spawn2, this.wallPlatform);
+        this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.spawn2,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.spawn2);
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
@@ -112,6 +131,9 @@ class FirstFight_Two extends Scene {
 
     if (this.player.hp <= 0) {
       this.gameOver();
+    }
+    for (let i = 0; i < this.spawnArray.length; i++) {
+      this.spawnArray[i].update();
     }
   }
 
@@ -122,23 +144,6 @@ class FirstFight_Two extends Scene {
       timer: this.timer,
     });
   }
-
-  // spawnEnemy() {
-  //   new Enemy(
-  //     this,
-  //     Phaser.Math.RND.between(0, 1400),
-  //     Phaser.Math.RND.between(0, 600)
-  //   );
-  //   this.physics.add.collider(this.spawn, this.groundLayer);
-  //   this.physics.add.collider(this.player, this.spawn);
-  //   this.physics.add.overlap(
-  //     this.player,
-  //     this.spawn,
-  //     this.player.hitSpawn,
-  //     null,
-  //     this
-  //   );
-  // }
 }
 
 export default FirstFight_Two;
