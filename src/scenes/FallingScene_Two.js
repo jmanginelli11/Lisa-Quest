@@ -5,11 +5,11 @@ class FallingScene_Two extends Scene {
   player;
   cameras;
   platforms;
-  constructor() {
+  constructor(data) {
     super({ key: 'FallingScene_Two' });
   }
 
-  create() {
+  create(data) {
     // Creating Player (Lisa)
 
     //Background - First Scene
@@ -42,7 +42,7 @@ class FallingScene_Two extends Scene {
     );
 
     //player
-    this.player = new Lisa(this, 695, 0).setOrigin(0, 0);
+    this.player = new Lisa(this, 695, 0, data.hp, data.score);
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
@@ -56,7 +56,11 @@ class FallingScene_Two extends Scene {
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.switch('FirstFight_Start');
+      this.scene.start('FirstFight_Start', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
     waterFallPlatform.setVisible(false);
   }

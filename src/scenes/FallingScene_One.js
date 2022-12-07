@@ -58,7 +58,11 @@ class FallingScene_One extends Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.switch('FallingScene_Two');
+      this.scene.start('FallingScene_Two', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
 
     waterFallPlatform.setVisible(false);
