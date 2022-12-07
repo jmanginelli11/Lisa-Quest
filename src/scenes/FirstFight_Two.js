@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import { Enemy } from '../sprites/Enemies/Enemy';
 
 class FirstFight_Two extends Scene {
   cameras;
@@ -98,10 +99,51 @@ class FirstFight_Two extends Scene {
     // .rotation(90);
     this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
+
+    this.spawnArray = [];
+
+    this.time.addEvent({
+      delay: 5000,
+      callback: function () {
+        this.spawn2 = new Enemy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+        this.spawnArray.push(this.spawn2);
+        this.physics.add.collider(this.spawn2, this.wallPlatform);
+        this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.spawn2,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.spawn2);
+      },
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update() {
     this.player.update();
+
+    if (this.player.hp <= 0) {
+      this.gameOver();
+    }
+    for (let i = 0; i < this.spawnArray.length; i++) {
+      this.spawnArray[i].update();
+    }
+  }
+
+  gameOver() {
+    this.scene.start('Form', {
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
+    });
   }
 }
 

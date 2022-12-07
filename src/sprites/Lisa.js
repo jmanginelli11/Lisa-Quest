@@ -43,7 +43,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-    //Phaser.Math.Clamp(10, 0, 10);
 
     this.max_hp = 10;
 

@@ -19,11 +19,11 @@ class GameScene extends Scene {
   direction = 'right';
   enemiesArray = [];
 
-  constructor() {
+  constructor(data) {
     super({ key: 'GameScene' });
   }
 
-  create() {
+  create(data) {
     // this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
     // this.scale.setUserScale(0.7, 0.7, 0, 0);
     // this.scale.displaySize.setAspectRatio(width / height);
@@ -123,6 +123,7 @@ class GameScene extends Scene {
     );
 
     //spawning rigs
+
     this.rigs = this.physics.add.group({
       key: 'rig',
       repeat: 5,
@@ -172,12 +173,7 @@ class GameScene extends Scene {
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
-    this.physics.add.collider(
-      this.rigs,
-      // this.player,
-      this.groundLayer
-      // this.groundLayer
-    );
+
 
     //enemies spawning at timed intervals
     // for (let i = 0; i < 3; i++) {
@@ -209,16 +205,35 @@ class GameScene extends Scene {
     //   loop: true,
     // });
     // this.spawnEnemy();
+
+    console.log('here is player', this.player);
+    console.log('here is data', data);
+    if (this.player.hp <= 0) {
+      this.gameOver();
+    }
+
   }
 
   update(time) {
     this.player.update();
+
     this.enemy.update();
     this.spawn.update();
+
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+  }
+
+
+
+  gameOver() {
+    this.scene.start('Form', {
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
+    });
   }
 
   // spawnEnemy() {

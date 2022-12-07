@@ -126,7 +126,7 @@ class FirstFight_Start extends Scene {
     });
   }
 
-  update() {
+  update(data) {
     this.player.update();
     this.spawn.update();
 
@@ -134,6 +134,11 @@ class FirstFight_Start extends Scene {
       this.spawnArray[i].update();
     }
     // this.spawn2.update();
+
+    // console.log(data.hp);
+    if (this.player.hp <= 0) {
+      this.gameOver();
+    }
   }
 
   spawnHearts() {
@@ -156,6 +161,14 @@ class FirstFight_Start extends Scene {
       null,
       this
     );
+  }
+
+  gameOver() {
+    this.scene.start('Form', {
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
+    });
   }
 }
 
