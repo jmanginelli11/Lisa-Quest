@@ -6,6 +6,7 @@ class FirstFight_Two extends Scene {
   player;
   platforms;
   wallPlatform;
+  enemiesArray = [];
 
   constructor(data) {
     super({ key: 'FirstFight_Two' });

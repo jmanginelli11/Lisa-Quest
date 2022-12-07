@@ -5,6 +5,8 @@ class FallingScene_One extends Scene {
   cameras;
   platforms;
   player;
+  enemiesArray = [];
+
   constructor(data) {
     super({ key: 'FallingScene_One' });
   }

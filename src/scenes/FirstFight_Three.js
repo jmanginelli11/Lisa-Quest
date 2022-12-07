@@ -6,6 +6,7 @@ class FirstFight_Three extends Scene {
   player;
   platforms;
   waterFallPlatform;
+  enemiesArray = [];
 
   constructor(data) {
     super({ key: 'FirstFight_Three' });
