@@ -5,19 +5,20 @@ import { Lisa } from '../sprites/Lisa.js';
 class Form extends Scene {
   player;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'Form' });
   }
 
-  create() {
+  create(data) {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
     this.background = this.add.image(x, y, 'shiny_stars');
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y).setVisible(false);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setVisible(false);
 
     this.story = this.add.text(x - 400, y - 200, '', {
       color: 'white',
@@ -52,7 +53,7 @@ class Form extends Scene {
         text.setText('Welcome ' + username);
         await axios.post('/api/scores', {
           name: username,
-          score: this.player.score,
+          score: data.score,
         });
       }
     });

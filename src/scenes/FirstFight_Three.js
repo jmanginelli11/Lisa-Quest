@@ -4,6 +4,8 @@ import { Lisa } from '../sprites/Lisa.js';
 class FirstFight_Three extends Scene {
   cameras;
   player;
+  platforms;
+  waterFallPlatform;
 
   constructor(data) {
     super({ key: 'FirstFight_Three' });
@@ -45,6 +47,20 @@ class FirstFight_Three extends Scene {
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
+
+    // Invisible platform
+    this.platforms = this.physics.add.staticGroup();
+    let waterFallPlatform = this.platforms
+      .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test2')
+      .refreshBody();
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
+      this.scene.start('Form', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    waterFallPlatform.setVisible(false);
   }
 
   update() {

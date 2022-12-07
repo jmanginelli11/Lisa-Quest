@@ -1,18 +1,21 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
-class FallingSceneTwo extends Scene {
+class FallingScene_Two extends Scene {
   player;
   cameras;
   platforms;
-  constructor() {
-    super({ key: 'FallingSceneTwo' });
+  constructor(data) {
+    super({ key: 'FallingScene_Two' });
   }
 
-  create() {
+  create(data) {
     // Creating Player (Lisa)
 
     //Background - First Scene
+
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
 
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
 
@@ -42,7 +45,7 @@ class FallingSceneTwo extends Scene {
     );
 
     //player
-    this.player = new Lisa(this, 695, 0).setOrigin(0, 0);
+    this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
@@ -55,8 +58,12 @@ class FallingSceneTwo extends Scene {
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
-    this.physics.add.collider(this.player.waterFallPlatform, () => {
-      this.scene.switch('FirstFight_Start');
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
+      this.scene.start('FirstFight_Start', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
     waterFallPlatform.setVisible(false);
   }
@@ -66,4 +73,4 @@ class FallingSceneTwo extends Scene {
   }
 }
 
-export default FallingSceneTwo;
+export default FallingScene_Two;
