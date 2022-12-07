@@ -16,17 +16,17 @@ export class FlyGuy extends EnemiesParent {
 
     this.play('flyguy-idle');
 
-    // this.init();
+    this.init();
   }
 
-  // init() {
-  //   this.is_in_knockback = false;
-  //   this.current_knockback_speed = 0;
-  //   this.hp = 3;
-  // }
+  init() {
+    this.is_in_knockback = false;
+    this.current_knockback_speed = 0;
+    this.hp = 3;
+  }
 
   update() {
-    //Knockback
+    // Knockback:
     // this.enemyFollows();
     // if (this.is_in_knockback) {
     //   if (this.current_knockback_speed <= 0) {
