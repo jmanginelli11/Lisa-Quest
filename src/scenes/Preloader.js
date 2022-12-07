@@ -11,14 +11,13 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('sky', '/assets/menu/sky.png');
     this.load.image('play-red', '/assets/menu/play_red.png');
     this.load.image('play-white', '/assets/menu/play_white.png');
-    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
+    this.load.image('main-menu', '/assets/menu/main-menu-white.png');
 
     this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
     this.load.image('play-red', '/assets/menu/play_red.png');
     this.load.image('play-white', '/assets/menu/play_white.png');
-    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
 
     this.load.image('credits', '/assets/menu/credits_white.png');
 
@@ -26,8 +25,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('credits-red', '/assets/menu/credits_red.png');
     this.load.image('creditsLOL', '/assets/menu/creditsLOL.png');
 
-    this.load.image('letsGo-white', '/assets/menu/lets_go_white.png');
-    this.load.image('letsGo-blue', '/assets/menu/lets_go_blue.png');
+    this.load.image('letsGo-white', '/assets/menu/lets-go-white.png');
+    this.load.image('letsGo-red', '/assets/menu/lets-go-red.png');
 
     // Testing assets
     this.load.image('test', '/assets/testSprites/platform.png');
@@ -226,13 +225,11 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/bigBoss/Screen_Shot_2022-12-02_at_4.42.15_PM-removebg-preview.png'
     );
 
-
     //oilRig
     this.load.image('rig', '/assets/oilRig.png');
 
     // laser
     this.load.image('laser', '/assets/lisa/default/laser3.png');
-
   }
 
   createLisaAnims() {
