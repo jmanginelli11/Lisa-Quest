@@ -1,7 +1,7 @@
 import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, hp = null, score = null) {
+  constructor(scene, x, y, hp = 10, score = 0) {
     super(scene, x, y, 'lisa');
 
     // Making the homie
@@ -15,11 +15,11 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.body.setCollideWorldBounds(true);
 
     // If we have HP and Score data
-    if (hp) this.hp = hp;
+    // if (hp) this.hp = hp;
     // if (hp > 10) this.hp = 10;
-    else this.hp = 5;
-    if (score) this.score = score;
-    else this.score = 0;
+    // else this.hp = 5;
+    // if (score) this.score = score;
+    // else this.score = 0;
 
     //Method calls for creation
     this.init();
@@ -332,37 +332,41 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.colliderPunch.body.setImmovable(true);
     this.colliderPunch.body.allowGravity = false;
 
-    // if all the enemies are on an array
+    // Loop through enemiesArray in scene
+    for (let i = 0; i < this.scene.enemiesArray.length; i++) {
+      if (
+        this.scene.physics.overlap(
+          this.scene.enemiesArray[i],
+          this.colliderPunch
+        )
+      ) {
+        this.scene.enemiesArray[i].is_in_knockback = true;
+        this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
+        this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
 
-    // we loop through and do this
-
-    if (this.scene.physics.overlap(this.scene.enemy, this.colliderPunch)) {
-      this.scene.enemy.is_in_knockback = true;
-      this.scene.enemy.current_knockback_speed = knockbackVal;
-      this.scene.enemy.body.setVelocityX(knockbackVal);
-
-      // Knockingback enemy
-      if (knockbackVal <= 0) {
-        this.scene.enemy.body.setVelocityY(knockbackVal / 1.8);
-      } else {
-        this.scene.enemy.body.setVelocityY(knockbackVal / -1.8);
-      }
-
-      // HP and Score
-      if (this.scene.enemy.hp >= 0) {
-        this.scene.enemy.hp--;
-
+        // Knockingback enemiesArray[i]
         if (knockbackVal <= 0) {
-          this.addScore(knockbackVal * -0.05);
+          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
         } else {
-          this.addScore(knockbackVal * 0.05);
+          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
         }
-      } else if (this.scene.enemy.hp <= 0) {
-        this.scene.enemy.destroy();
-        this.addScore(100);
-      }
 
-      if (this.colliderPunch) this.colliderPunch.destroy();
+        // HP and Score
+        if (this.scene.enemiesArray[i].hp >= 0) {
+          this.scene.enemiesArray[i].hp--;
+
+          if (knockbackVal <= 0) {
+            this.addScore(knockbackVal * -0.05);
+          } else {
+            this.addScore(knockbackVal * 0.05);
+          }
+        } else if (this.scene.enemiesArray[i].hp <= 0) {
+          this.scene.enemiesArray[i].destroy();
+          this.addScore(100);
+        }
+
+        if (this.colliderPunch) this.colliderPunch.destroy();
+      }
     }
   }
 

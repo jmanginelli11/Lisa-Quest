@@ -135,9 +135,13 @@ class GameScene extends Scene {
           Phaser.Math.RND.between(0, 1400),
           Phaser.Math.RND.between(0, 600)
         );
-        // this.enemiesArray = [...rig];
       }
     });
+
+    // Adding rigs to enemiesArray
+    // for (let j = 0; j < this.rigs.children.length; j++) {
+    //   this.enemiesArray.push(this.rigs.children[j]);
+    // }
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -171,7 +175,7 @@ class GameScene extends Scene {
     // creating the enemy sprite
 
     this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
-    this.enemiesArray.push(this.enemy);
+    // this.enemiesArray.push(this.enemy);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
@@ -200,6 +204,7 @@ class GameScene extends Scene {
       Phaser.Math.RND.between(0, 1400),
       Phaser.Math.RND.between(0, 600)
     );
+
     this.physics.add.collider(this.spawn, this.groundLayer);
     this.physics.add.overlap(
       this.player,
@@ -221,7 +226,7 @@ class GameScene extends Scene {
   update(time) {
     // Update Player
     this.player.update();
-    // this.enemy.update();
+    this.enemy.update();
 
     // // Do enemy AI
     this.enemyFollows();

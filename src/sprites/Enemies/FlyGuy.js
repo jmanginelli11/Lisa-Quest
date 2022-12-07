@@ -26,21 +26,23 @@ export class FlyGuy extends EnemiesParent {
   }
 
   update() {
-    // Knockback:
-    // this.enemyFollows();
-    // if (this.is_in_knockback) {
-    //   if (this.current_knockback_speed <= 0) {
-    //     this.is_in_knockback = false;
-    //   }
-    //   this.body.setVelocityX(
-    //     this.body.velocity.x + this.current_knockback_speed
-    //   );
-    //   this.current_knockback_speed -= 5;
-    // } else {
-    //   this.destroy();
-    // }
+    if (this.hp > 0) {
+      //Knockback
+      if (this.is_in_knockback) {
+        if (this.current_knockback_speed <= 0) {
+          this.is_in_knockback = false;
+        }
+        this.body.setVelocityX(
+          this.body.velocity.x + this.current_knockback_speed
+        );
+        this.current_knockback_speed -= 5;
+      }
+    } else {
+      this.destroy();
+    }
   }
 
+  // this.enemyFollows();
   // Following Enemy AI
   // enemyFollows() {
   //   this.scene.physics.moveToObject(this.body, this.player, 100);
