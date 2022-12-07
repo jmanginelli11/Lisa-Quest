@@ -123,18 +123,18 @@ class GameScene extends Scene {
     );
 
     //spawning rigs
-    this.rigs = this.physics.add.group({
-      key: 'rig',
-      repeat: 5,
-    });
-    this.rigs.children.iterate(function (rig) {
-      for (let i = 0; i < 5; i++) {
-        rig.setPosition(
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
-        );
-      }
-    });
+    // this.rigs = this.physics.add.group({
+    //   key: 'rig',
+    //   repeat: 5,
+    // });
+    // this.rigs.children.iterate(function (rig) {
+    //   for (let i = 0; i < 5; i++) {
+    //     rig.setPosition(
+    //       Phaser.Math.RND.between(0, 1400),
+    //       Phaser.Math.RND.between(0, 600)
+    //     );
+    //   }
+    // });
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -153,8 +153,6 @@ class GameScene extends Scene {
     this.waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
-
-    // console.log('scene: ', this.scene);
 
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
       this.scene.start('FallingScene_One', {
@@ -176,12 +174,12 @@ class GameScene extends Scene {
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
-    this.physics.add.collider(
-      this.rigs,
-      // this.player,
-      this.groundLayer
-      // this.groundLayer
-    );
+    // this.physics.add.collider(
+    //   this.rigs,
+    //   // this.player,
+    //   this.groundLayer
+    //   // this.groundLayer
+    // );
 
     //enemies spawning at timed intervals
     // for (let i = 0; i < 3; i++) {
@@ -191,20 +189,20 @@ class GameScene extends Scene {
     //     callbackScope: this,
     //   });
     // }
-    this.spawn = new Enemy(
-      this,
-      Phaser.Math.RND.between(0, 1400),
-      Phaser.Math.RND.between(0, 600)
-    );
-    this.physics.add.collider(this.spawn, this.groundLayer);
-    this.physics.add.overlap(
-      this.player,
-      this.spawn,
-      this.player.hitSpawn,
-      null,
-      this
-    );
-    this.physics.add.collider(this.player, this.spawn);
+    // this.spawn = new Enemy(
+    //   this,
+    //   Phaser.Math.RND.between(0, 1400),
+    //   Phaser.Math.RND.between(0, 600)
+    // );
+    // this.physics.add.collider(this.spawn, this.groundLayer);
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.spawn,
+    //   this.player.hitSpawn,
+    //   null,
+    //   this
+    // );
+    // this.physics.add.collider(this.player, this.spawn);
     // this.spawns = this.time.addEvent({
     //   delay: 3000,
     //   callback: this.spawnEnemy,
@@ -222,7 +220,7 @@ class GameScene extends Scene {
     // // Do enemy AI
     this.enemyFollows();
 
-    this.spawn.update();
+    // this.spawn.update();
     //healthbar changing
     // this.lisaHealth.update();
     // this.setValue(this.lisaHealth, this.player.hp);
