@@ -53,7 +53,7 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, 100, 100).setScale(3);
+    this.player = new Lisa(this, x, y, data.hp, data.score);
 
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants_layer',
