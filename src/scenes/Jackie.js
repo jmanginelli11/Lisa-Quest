@@ -7,6 +7,7 @@ class Jackie extends Scene {
   platforms;
   // set direction in this so that you can change it back and forth
   direction = 'right';
+  enemiesArray = [];
 
   constructor() {
     super({ key: 'Jackie' });

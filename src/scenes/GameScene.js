@@ -17,6 +17,7 @@ class GameScene extends Scene {
   groundLayer;
   surfaceTileset;
   direction = 'right';
+  enemiesArray = [];
 
   constructor(data) {
     super({ key: 'GameScene' });
@@ -113,7 +114,6 @@ class GameScene extends Scene {
       }
     });
 
-    // this.physics.add.collider(this.hearts, this.groundLayer);
     this.physics.add.overlap(
       this.player,
       this.hearts,
@@ -123,18 +123,20 @@ class GameScene extends Scene {
     );
 
     //spawning rigs
-    // this.rigs = this.physics.add.group({
-    //   key: 'rig',
-    //   repeat: 5,
-    // });
-    // this.rigs.children.iterate(function (rig) {
-    //   for (let i = 0; i < 5; i++) {
-    //     rig.setPosition(
-    //       Phaser.Math.RND.between(0, 1400),
-    //       Phaser.Math.RND.between(0, 600)
-    //     );
-    //   }
-    // });
+
+    this.rigs = this.physics.add.group({
+      key: 'rig',
+      repeat: 5,
+    });
+
+    this.rigs.children.iterate(function (rig) {
+      for (let i = 0; i < 5; i++) {
+        rig.setPosition(
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+      }
+    });
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -172,30 +174,59 @@ class GameScene extends Scene {
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
 
+
+    //enemies spawning at timed intervals
+    // for (let i = 0; i < 3; i++) {
+    //   this.time.addEvent({
+    //     delay: 3000,
+    //     callback: this.spawnEnemy,
+    //     callbackScope: this,
+    //   });
+    // }
+    this.spawn = new Enemy(
+      this,
+      Phaser.Math.RND.between(0, 1400),
+      Phaser.Math.RND.between(0, 600)
+    );
+
+    this.physics.add.collider(this.spawn, this.groundLayer);
+    this.physics.add.overlap(
+      this.player,
+      this.spawn,
+      this.player.hitSpawn,
+      null,
+      this
+    );
+    this.physics.add.collider(this.player, this.spawn);
+    // this.spawns = this.time.addEvent({
+    //   delay: 3000,
+    //   callback: this.spawnEnemy,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
+    // this.spawnEnemy();
+
     console.log('here is player', this.player);
     console.log('here is data', data);
     if (this.player.hp <= 0) {
       this.gameOver();
     }
+
   }
 
   update(time) {
-    // Update Player
     this.player.update();
-    // this.enemy.update();
 
-    // // Do enemy AI
-    this.enemyFollows();
+    this.enemy.update();
+    this.spawn.update();
+
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
 
-  // Following Enemy AI
-  enemyFollows() {
-    this.physics.moveToObject(this.enemy, this.player, 100);
-  }
+
 
   gameOver() {
     this.scene.start('Form', {
@@ -204,6 +235,7 @@ class GameScene extends Scene {
       timer: this.timer,
     });
   }
+
   // spawnEnemy() {
   //   let counter = 3;
   //   counter--;

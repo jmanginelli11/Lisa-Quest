@@ -6,6 +6,12 @@ export class EnemiesParent extends Phaser.GameObjects.Sprite {
     super(scene, x, y, spriteSheet);
 
     this.init();
+
+    if (this.scene.enemiesArray)
+      this.scene.enemiesArray.push(this) &&
+        console.log('enemiesArray: ', this.scene.enemiesArray);
+    else
+      throw 'You must add an enemiesArray to this scene in order for Lisa to interact with them.';
   }
 
   init() {

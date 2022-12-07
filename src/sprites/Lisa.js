@@ -16,8 +16,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // If we have HP and Score data
     if (hp) this.hp = hp;
-    // if (hp > 10) this.hp = 10;
     else this.hp = 5;
+    if (hp > 10) this.hp = 10;
     if (score) this.score = score;
     else this.score = 0;
 
@@ -43,7 +43,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-    // this.hp = 7; //Phaser.Math.Clamp(10, 0, 10);
 
     this.max_hp = 10;
 
@@ -304,13 +303,13 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
       if (attack === 'super-punch') {
         this.flipX
-          ? this.body.setVelocityX(-200) && this.attackCalculation(-800)
-          : this.body.setVelocityX(200) && this.attackCalculation(800);
+          ? this.body.setVelocityX(-200) && this.attackCalculation(-800, attack)
+          : this.body.setVelocityX(200) && this.attackCalculation(800, attack);
       }
       if (attack === 'punch') {
         this.flipX
-          ? this.body.setVelocityX(-300) && this.attackCalculation(-400)
-          : this.body.setVelocityX(300) && this.attackCalculation(400);
+          ? this.body.setVelocityX(-300) && this.attackCalculation(-400, attack)
+          : this.body.setVelocityX(300) && this.attackCalculation(400, attack);
       }
 
       this.hitbox.once('animationcomplete', () => {
@@ -319,46 +318,61 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
 
-  attackCalculation(knockbackVal) {
-    // calculating hitbox by attack
-    this.colliderPunch = this.scene.add.rectangle(
-      this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-      this.y,
-      60,
-      60
-    );
+  attackCalculation(knockbackVal, attack) {
+    if (attack === 'punch' || attack === 'super-punch')
+      // calculating hitbox by attack
+      this.colliderPunch = this.scene.add.rectangle(
+        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+        this.y,
+        60,
+        60
+      );
 
     this.scene.physics.add.existing(this.colliderPunch);
     this.colliderPunch.body.setImmovable(true);
     this.colliderPunch.body.allowGravity = false;
 
-    if (this.scene.physics.overlap(this.scene.enemy, this.colliderPunch)) {
-      this.scene.enemy.is_in_knockback = true;
-      this.scene.enemy.current_knockback_speed = knockbackVal;
-      this.scene.enemy.body.setVelocityX(knockbackVal);
+    // Loop through enemiesArray in scene
+    for (let i = 0; i < this.scene.enemiesArray.length; i++) {
+      if (
+        this.scene.physics.overlap(
+          this.scene.enemiesArray[i],
+          this.colliderPunch
+        )
+      ) {
+        this.scene.enemiesArray[i].is_in_knockback = true;
+        this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
+        this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
 
-      // Knockingback enemy
-      if (knockbackVal <= 0) {
-        this.scene.enemy.body.setVelocityY(knockbackVal / 1.8);
-      } else {
-        this.scene.enemy.body.setVelocityY(knockbackVal / -1.8);
-      }
-
-      // HP and Score
-      if (this.scene.enemy.hp >= 0) {
-        this.scene.enemy.hp--;
-
+        // Knockingback enemiesArray[i]
         if (knockbackVal <= 0) {
-          this.addScore(knockbackVal * -0.05);
+          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
         } else {
-          this.addScore(knockbackVal * 0.05);
+          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
         }
-      } else if (this.scene.enemy.hp <= 0) {
-        this.scene.enemy.destroy();
-        this.addScore(100);
-      }
 
-      if (this.colliderPunch) this.colliderPunch.destroy();
+        // HP and Score
+        if (this.scene.enemiesArray[i].hp > 1) {
+          this.scene.enemiesArray[i].hp--;
+
+          if (knockbackVal <= 0) {
+            this.addScore(knockbackVal * -0.05);
+          } else {
+            this.addScore(knockbackVal * 0.05);
+          }
+        } else if (this.scene.enemiesArray[i].hp <= 1) {
+          if (knockbackVal <= 0) {
+            this.addScore(knockbackVal * -0.05);
+          } else {
+            this.addScore(knockbackVal * 0.05);
+          }
+
+          this.addScore(100);
+          this.scene.enemiesArray[i].hp--;
+        }
+
+        if (this.colliderPunch) this.colliderPunch.destroy();
+      }
     }
   }
 

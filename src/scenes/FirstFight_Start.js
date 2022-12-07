@@ -9,6 +9,7 @@ class FirstFight_Start extends Scene {
   platforms;
   wallPlatform;
   laserGroup;
+  enemiesArray = [];
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });

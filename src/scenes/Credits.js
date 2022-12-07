@@ -5,6 +5,8 @@ import { FireGroup } from '../weapons/Fire/FireGroup.js';
 
 class Credits extends Scene {
   bigBoss;
+  enemiesArray = [];
+
   constructor() {
     super({ key: 'Credits' });
   }
