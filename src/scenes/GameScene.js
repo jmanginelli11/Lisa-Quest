@@ -18,11 +18,11 @@ class GameScene extends Scene {
   surfaceTileset;
   direction = 'right';
 
-  constructor() {
+  constructor(data) {
     super({ key: 'GameScene' });
   }
 
-  create() {
+  create(data) {
     // this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
     // this.scale.setUserScale(0.7, 0.7, 0, 0);
     // this.scale.displaySize.setAspectRatio(width / height);
@@ -212,6 +212,11 @@ class GameScene extends Scene {
     //   loop: true,
     // });
     // this.spawnEnemy();
+    console.log('here is player', this.player);
+    console.log('here is data', data);
+    if (this.player.hp <= 0) {
+      this.gameOver();
+    }
   }
 
   update(time) {
@@ -237,6 +242,13 @@ class GameScene extends Scene {
     this.physics.moveToObject(this.enemy, this.player, 100);
   }
 
+  gameOver() {
+    this.scene.start('Form', {
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
+    });
+  }
   // spawnEnemy() {
   //   let counter = 3;
   //   counter--;
