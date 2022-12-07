@@ -26,8 +26,8 @@ const config = {
     mode: Phaser.Scale.FIT,
     parent: 'game',
     autoCenter: Phaser.Scale.CENTER_BOTH,
-    width: 1420,
-    height: 800,
+    width: innerWidth,
+    height: innerHeight,
   },
   scene: [
     Preloader,
