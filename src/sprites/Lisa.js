@@ -260,7 +260,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     ) {
       this.body.setVelocityX(0);
       this.attackAnimation('shoot');
-      this.scene.laserGroup.shootLaser(this.x, this.y);
+      this.flipX
+        ? this.scene.laserGroup.shootLaserLeft(this.x, this.y)
+        : this.scene.laserGroup.shootLaserRight(this.x, this.y);
     }
 
     // Reset Jumps

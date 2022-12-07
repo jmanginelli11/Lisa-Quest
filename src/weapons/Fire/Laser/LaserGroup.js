@@ -11,10 +11,16 @@ export class LaserGroup extends Phaser.Physics.Arcade.Group {
       key: 'laser',
     });
   }
-  shootLaser(x, y) {
+  shootLaserRight(x, y) {
     const laser = this.getFirstDead(false);
     if (laser) {
-      laser.shoot(x, y);
+      laser.shootRight(x, y);
+    }
+  }
+  shootLaserLeft(x, y) {
+    const laser = this.getFirstDead(false);
+    if (laser) {
+      laser.shootLeft(x, y);
     }
   }
 }
@@ -23,7 +29,13 @@ class Laser extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'laser');
   }
-  shoot(x, y) {
+  shootLeft(x, y) {
+    this.body.reset(x, y);
+    this.setActive(true);
+    this.setVisible(true);
+    this.setVelocityX(-900);
+  }
+  shootRight(x, y) {
     this.body.reset(x, y);
     this.setActive(true);
     this.setVisible(true);
