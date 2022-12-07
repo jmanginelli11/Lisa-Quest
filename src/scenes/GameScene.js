@@ -156,13 +156,7 @@ class GameScene extends Scene {
     // console.log('scene: ', this.scene);
 
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
-      console.log('data in gamescene: ', {
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-
-      this.scene.start('FirstFight_Start', {
+      this.scene.start('FallingScene_One', {
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,

@@ -1,12 +1,12 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
-class FallingSceneTwo extends Scene {
+class FallingScene_Two extends Scene {
   player;
   cameras;
   platforms;
   constructor() {
-    super({ key: 'FallingSceneTwo' });
+    super({ key: 'FallingScene_Two' });
   }
 
   create() {
@@ -55,7 +55,7 @@ class FallingSceneTwo extends Scene {
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
-    this.physics.add.collider(this.player.waterFallPlatform, () => {
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
       this.scene.switch('FirstFight_Start');
     });
     waterFallPlatform.setVisible(false);
@@ -66,4 +66,4 @@ class FallingSceneTwo extends Scene {
   }
 }
 
-export default FallingSceneTwo;
+export default FallingScene_Two;
