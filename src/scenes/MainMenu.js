@@ -85,7 +85,7 @@ class MainMenu extends Scene {
     });
 
     highScoreButton.on('pointerup', () => {
-      this.scene.switch('OneFallingScene');
+      this.scene.switch('HighScores');
     });
 
     highScoreButton.on('pointerout', () => {
