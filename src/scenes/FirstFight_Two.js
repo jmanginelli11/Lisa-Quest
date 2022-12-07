@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import { Enemy } from '../sprites/Enemies/Enemy';
 
 class FirstFight_Two extends Scene {
   cameras;
@@ -97,6 +98,13 @@ class FirstFight_Two extends Scene {
     // .rotation(90);
     this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
+
+    // this.time.addEvent({
+    //   delay: 5000,
+    //   callback: this.spawnEnemy,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
   }
 
   update() {
@@ -114,6 +122,23 @@ class FirstFight_Two extends Scene {
       timer: this.timer,
     });
   }
+
+  // spawnEnemy() {
+  //   new Enemy(
+  //     this,
+  //     Phaser.Math.RND.between(0, 1400),
+  //     Phaser.Math.RND.between(0, 600)
+  //   );
+  //   this.physics.add.collider(this.spawn, this.groundLayer);
+  //   this.physics.add.collider(this.player, this.spawn);
+  //   this.physics.add.overlap(
+  //     this.player,
+  //     this.spawn,
+  //     this.player.hitSpawn,
+  //     null,
+  //     this
+  //   );
+  // }
 }
 
 export default FirstFight_Two;
