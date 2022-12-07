@@ -16,7 +16,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('play-white', '/assets/menu/play-button.png');
     this.load.image('high-score-white', '/assets/menu/high-score.png');
     this.load.image('high-score-red', '/assets/menu/high-score-red.png');
-    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
+    this.load.image('main-menu', '/assets/menu/main-menu-white.png');
     this.load.image('credits', '/assets/menu/credits_white.png');
     this.load.image('credits-white', '/assets/menu/credits-white.png');
     this.load.image('credits-red', '/assets/menu/credits-red.png');
@@ -28,6 +28,13 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //Form
     this.load.html('form', '/assets/text/inputForm.html');
+
+    //HighScores
+    this.load.bitmapFont(
+      'arcade',
+      '/assets/fonts/joystix.png',
+      '/assets/fonts/joystix.xml'
+    );
 
     // Testing assets
     this.load.image('test', '/assets/testSprites/platform.png');

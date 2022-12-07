@@ -1,4 +1,6 @@
 import { Scene } from 'phaser';
+import store from '../store';
+import { fetchScores } from '../store/redux/scoresReducer';
 
 class MainMenu extends Scene {
   constructor() {
@@ -6,6 +8,7 @@ class MainMenu extends Scene {
   }
 
   create() {
+    store.dispatch(fetchScores());
     const x = innerWidth / 2;
     const y = innerHeight / 2;
     this.background = this.add.image(x, y, 'shiny_stars');

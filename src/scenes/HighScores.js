@@ -1,5 +1,5 @@
 import { Scene } from 'phaser';
-import axios from 'axios';
+import store from '../store';
 
 class HighScores extends Scene {
   constructor() {
@@ -8,48 +8,59 @@ class HighScores extends Scene {
     this.scores = [];
   }
 
-  preload() {
-    this.load.bitmapFont(
-      'arcade',
-      '/assets/fonts/joystix.png',
-      '/assets/fonts/joystix.xml'
-    );
-  }
-
-  scoreData = async () => {
-    const { data } = await axios.get('/api/scores');
-    return data;
-  };
-
   create() {
-    let names;
-    this.scores = this.scoreData();
-    console.log(this.scores);
+    //Defining x and y
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+
+    //Getting score from state
+    this.scores = store.getState();
+
+    //Adding background
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
+    let mainMenuButton = this.add
+      .image(x / 2 - 200, y * 1.85, 'main-menu')
+      .setScale(1);
+    mainMenuButton.setInteractive();
+    mainMenuButton.on('pointerup', () => {
+      this.scene.switch('MainMenu');
+    });
+
+    //Bitmap font
     this.add
       .bitmapText(100, 100, 'arcade', 'RANK   SCORE   NAME')
       .setTint(0xffffff);
-    if (this.scores) {
-      for (let i = 1; i < 6; i++) {
-        if (this.scores[i - 6]) {
+
+    for (let i = 1; i < 7; i++) {
+      if (this.scores[i]) {
+        if (this.scores[i].score > 0 && this.scores[i].score < 999) {
           this.add
             .bitmapText(
               100,
-              160,
-              50 * i,
+              170 + 60 * i,
               'arcade',
-              `${i}   ${this.scores[i - 1].score}   ${this.scores[i - 1].name}`
+              `\n  ${i}    ${this.scores[i].score}     ${this.scores[i].name} \n`
             )
             .setTint(0xffffff);
-        } else {
+        } else if (this.scores[i].score > 999) {
           this.add
-            .bitmapText(100, 160 + 50 * i, 'arcade', ` ${i}      0    ---`)
+            .bitmapText(
+              100,
+              170 + 60 * i,
+              'arcade',
+              `\n  ${i}    ${this.scores[i].score}    ${this.scores[i].name} \n`
+            )
             .setTint(0xffffff);
         }
       }
+      // } else {
+      //   this.add
+      //     .bitmapText(100, 171 + 60 * i, 'arcade', `  ${i}      0      ---  \n`)
+      //     .setTint(0xffffff);
+      // }
     }
   }
 }
