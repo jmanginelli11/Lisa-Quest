@@ -14,6 +14,9 @@ class FallingScene_Two extends Scene {
 
     //Background - First Scene
 
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
+
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
 
     this.map = this.make.tilemap({ key: 'tilemapFallingSceneTwo' });
@@ -42,7 +45,7 @@ class FallingScene_Two extends Scene {
     );
 
     //player
-    this.player = new Lisa(this, 695, 0, data.hp, data.score);
+    this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);

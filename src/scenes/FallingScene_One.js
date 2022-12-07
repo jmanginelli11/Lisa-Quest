@@ -42,7 +42,7 @@ class FallingScene_One extends Scene {
     );
     // Creating Player (Lisa)
 
-    this.player = new Lisa(this, x + 100, y, data.hp, data.score);
+    this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
 
     //colliders
 
