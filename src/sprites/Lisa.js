@@ -304,13 +304,13 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
       if (attack === 'super-punch') {
         this.flipX
-          ? this.body.setVelocityX(-200) && this.attackCalculation(-800)
-          : this.body.setVelocityX(200) && this.attackCalculation(800);
+          ? this.body.setVelocityX(-200) && this.attackCalculation(-800, attack)
+          : this.body.setVelocityX(200) && this.attackCalculation(800, attack);
       }
       if (attack === 'punch') {
         this.flipX
-          ? this.body.setVelocityX(-300) && this.attackCalculation(-400)
-          : this.body.setVelocityX(300) && this.attackCalculation(400);
+          ? this.body.setVelocityX(-300) && this.attackCalculation(-400, attack)
+          : this.body.setVelocityX(300) && this.attackCalculation(400, attack);
       }
 
       this.hitbox.once('animationcomplete', () => {
@@ -319,14 +319,15 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
 
-  attackCalculation(knockbackVal) {
-    // calculating hitbox by attack
-    this.colliderPunch = this.scene.add.rectangle(
-      this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-      this.y,
-      60,
-      60
-    );
+  attackCalculation(knockbackVal, attack) {
+    if (attack === 'punch' || attack === 'super-punch')
+      // calculating hitbox by attack
+      this.colliderPunch = this.scene.add.rectangle(
+        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+        this.y,
+        60,
+        60
+      );
 
     this.scene.physics.add.existing(this.colliderPunch);
     this.colliderPunch.body.setImmovable(true);
