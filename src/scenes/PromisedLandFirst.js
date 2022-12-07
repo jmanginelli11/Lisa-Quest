@@ -6,12 +6,15 @@ class PromisedLandFirst extends Scene {
   platforms;
   player;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'PromisedLandFirst' });
   }
 
-  create() {
+  create(data) {
     //Blue sky
+
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
 
     this.sky = this.add.image(0, 0, 'blue_sky').setOrigin(0, 0);
     //Tilemap
@@ -54,9 +57,6 @@ class PromisedLandFirst extends Scene {
       0
     );
 
-    // Creating Player (Lisa) - Created here so she is behind the plants
-    this.player = new Lisa(this, 695, 0);
-
     this.rocksAndPlantsLayer = this.map.createLayer(
       'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,
@@ -69,6 +69,9 @@ class PromisedLandFirst extends Scene {
     // this.mountainsLayer.displayWidth = this.sys.canvas.width;
     // this.mountainsLayer.displayHeight = this.sys.canvas.height;
 
+    // adding player
+    this.player = new Lisa(this, x, y, data.hp, data.score);
+
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
     this.groundLayer.setCollisionBetween(165, 170);
@@ -76,14 +79,18 @@ class PromisedLandFirst extends Scene {
     this.groundLayer.setCollisionBetween(455, 458);
 
     // Invisible platform
-    // this.platforms = this.physics.add.staticGroup();
-    // let waterFallPlatform = this.platforms
-    //   .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
-    //   .refreshBody();
-    // this.physics.add.collider(this.player.waterFallPlatform, () => {
-    //   this.scene.switch('secondFall');
-    // });
-    // waterFallPlatform.setVisible(false);
+    this.platforms = this.physics.add.staticGroup();
+    let waterFallPlatform = this.platforms
+      .create(this.sys.canvas.width, this.sys.canvas.height - 300, 'test2')
+      .refreshBody();
+    this.physics.add.collider(this.player, waterFallPlatform, () => {
+      this.scene.start('Form', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    waterFallPlatform.setVisible(false);
   }
   update() {
     this.player.update();

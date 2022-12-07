@@ -51,10 +51,10 @@ class FirstFight_Three extends Scene {
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
     let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test2')
+      .create(this.sys.canvas.width - 57, this.sys.canvas.height, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('Form', {
+      this.scene.start('PromisedLandFirst', {
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
