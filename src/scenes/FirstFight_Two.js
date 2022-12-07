@@ -144,23 +144,6 @@ class FirstFight_Two extends Scene {
       timer: this.timer,
     });
   }
-
-  // spawnEnemy() {
-  //   new Enemy(
-  //     this,
-  //     Phaser.Math.RND.between(0, 1400),
-  //     Phaser.Math.RND.between(0, 600)
-  //   );
-  //   this.physics.add.collider(this.spawn, this.groundLayer);
-  //   this.physics.add.collider(this.player, this.spawn);
-  //   this.physics.add.overlap(
-  //     this.player,
-  //     this.spawn,
-  //     this.player.hitSpawn,
-  //     null,
-  //     this
-  //   );
-  // }
 }
 
 export default FirstFight_Two;
