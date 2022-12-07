@@ -1,23 +1,23 @@
 import axios from 'axios';
 import { Scene } from 'phaser';
+import { Lisa } from '../sprites/Lisa.js';
 
 class Form extends Scene {
+  player;
+
   constructor() {
     super({ key: 'Form' });
-  }
-
-  preload() {
-    this.load.html('form', '/assets/text/inputForm.html');
-    this.load.image('stars', '/assets/menu/stars_background.png');
-    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
   }
 
   create() {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-    this.background = this.add.image(x, y, 'stars');
+    this.background = this.add.image(x, y, 'shiny_stars');
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
+
+    // Creating Player (Lisa)
+    this.player = new Lisa(this, x, y).setVisible(false);
 
     this.story = this.add.text(x - 400, y - 200, '', {
       color: 'white',
@@ -52,7 +52,7 @@ class Form extends Scene {
         text.setText('Welcome ' + username);
         await axios.post('/api/scores', {
           name: username,
-          score: 100,
+          score: this.player.score,
         });
       }
     });
