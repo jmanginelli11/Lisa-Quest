@@ -16,6 +16,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // If we have HP and Score data
     if (hp) this.hp = hp;
+    // if (hp > 10) this.hp = 10;
     else this.hp = 5;
     if (score) this.score = score;
     else this.score = 0;
@@ -42,7 +43,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-    this.hp = Phaser.Math.Clamp(10, 0, 10);
+    this.hp = 9; //Phaser.Math.Clamp(10, 0, 10);
 
     this.max_hp = 10;
 
@@ -391,8 +392,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
   hitSpawn(player, spawn) {
-    player.hp--;
-    console.log(player.hp);
+    console.log('before', player.hp);
+    player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
+    console.log('after', player.hp);
     player.setHBValue(player.real_bar, player.hp);
   }
 
