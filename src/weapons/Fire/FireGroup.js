@@ -12,10 +12,17 @@ export class FireGroup extends Phaser.Physics.Arcade.Group {
     });
   }
 
-  shootFire(x, y) {
+  shootFireRight(x, y) {
     const fire = this.getFirstDead(false);
     if (fire) {
-      fire.shoot(x, y);
+      fire.shootRight(x, y);
+    }
+  }
+
+  shootFireLeft(x, y) {
+    const fire = this.getFirstDead(false);
+    if (fire) {
+      fire.shootLeft(x, y);
     }
   }
 }
@@ -24,7 +31,13 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'fire');
   }
-  shoot(x, y) {
+  shootRight(x, y) {
+    this.body.reset(x, y);
+    this.setActive(true);
+    this.setVisible(true);
+    this.setVelocityX(900);
+  }
+  shootLeft(x, y) {
     this.body.reset(x, y);
     this.setActive(true);
     this.setVisible(true);
