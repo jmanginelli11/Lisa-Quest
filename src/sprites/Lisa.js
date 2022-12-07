@@ -47,6 +47,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.max_hp = 10;
 
+    this.is_immune = false;
+
     // Declarations
     this.colliderPunch;
     this.cursors;
@@ -393,9 +395,19 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
   hitSpawn(player, spawn) {
     console.log('before', player.hp);
-    player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
-    console.log('after', player.hp);
-    player.setHBValue(player.real_bar, player.hp);
+    if (!player.is_immune) {
+      player.is_immune = true;
+      player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
+      console.log('after', player.hp);
+      player.setHBValue(player.real_bar, player.hp);
+      this.time.addEvent({
+        delay: 500,
+        callback: function () {
+          player.is_immune = false;
+        },
+        callbackScope: this,
+      });
+    }
   }
 
   // Collecting Hearts
