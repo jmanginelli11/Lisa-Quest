@@ -7,22 +7,20 @@ export default class PreloaderScene extends Phaser.Scene {
 
   preload() {
     this.load.image('stars', '/assets/menu/stars_background.png');
-    this.load.image('logo', '/assets/menu/logo.png');
+    // this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
-    this.load.image('play-red', '/assets/menu/play_red.png');
-    this.load.image('play-white', '/assets/menu/play_white.png');
-    this.load.image('main-menu', '/assets/menu/main-menu-white.png');
 
-    this.load.image('stars', '/assets/menu/stars_background.png');
-    this.load.image('logo', '/assets/menu/logo.png');
-    this.load.image('sky', '/assets/menu/sky.png');
-    this.load.image('play-red', '/assets/menu/play_red.png');
-    this.load.image('play-white', '/assets/menu/play_white.png');
+    this.load.image('play-red', '/assets/menu/play-button-red.png');
+    this.load.image('play-white', '/assets/menu/play-button.png');
+    this.load.image('high-score-white', '/assets/menu/high-score.png');
+    this.load.image('high-score-red', '/assets/menu/high-score-red.png');
+    this.load.image('main-menu', '/assets/menu/mainMenu_white.png');
+
 
     this.load.image('credits', '/assets/menu/credits_white.png');
 
-    this.load.image('credits-white', '/assets/menu/credits_white.png');
-    this.load.image('credits-red', '/assets/menu/credits_red.png');
+    this.load.image('credits-white', '/assets/menu/credits-white.png');
+    this.load.image('credits-red', '/assets/menu/credits-red.png');
     this.load.image('creditsLOL', '/assets/menu/creditsLOL.png');
 
     this.load.image('letsGo-white', '/assets/menu/lets-go-white.png');
