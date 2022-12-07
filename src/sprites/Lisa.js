@@ -41,6 +41,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.can_dash = true;
 
     this.current_knockback_speed = 0;
+
+    this.hp = Phaser.Math.Clamp(10, 0, 10);
+
     this.max_hp = 10;
 
     // Declarations
@@ -383,12 +386,20 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   setHBValue(bar, hp) {
     //scales the real_bar
-    bar.scaleX = hp / this.max_hp;
+    if (hp >= 0 && hp <= 10) {
+      bar.scaleX = hp / 10;
+    }
+  }
+  hitSpawn(player, spawn) {
+    player.hp--;
+    console.log(player.hp);
+    player.setHBValue(player.real_bar, player.hp);
   }
 
   // Collecting Hearts
   collectHeart(player, heart) {
     heart.disableBody(true, true);
+
     player.hp++;
     player.setHBValue(player.real_bar, player.hp);
     player.addScore(20);

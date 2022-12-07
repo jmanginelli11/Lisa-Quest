@@ -1,6 +1,7 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
+import { Enemy } from '../sprites/Enemies/Enemy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class GameScene extends Scene {
@@ -15,6 +16,7 @@ class GameScene extends Scene {
   map;
   groundLayer;
   surfaceTileset;
+  direction = 'right';
 
   constructor() {
     super({ key: 'GameScene' });
@@ -119,6 +121,20 @@ class GameScene extends Scene {
       this
     );
 
+    //spawning rigs
+    this.rigs = this.physics.add.group({
+      key: 'rig',
+      repeat: 5,
+    });
+    this.rigs.children.iterate(function (rig) {
+      for (let i = 0; i < 5; i++) {
+        rig.setPosition(
+          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(0, 600)
+        );
+      }
+    });
+
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -165,6 +181,42 @@ class GameScene extends Scene {
 
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
+    this.physics.add.collider(
+      this.rigs,
+      // this.player,
+      this.groundLayer
+      // this.groundLayer
+    );
+
+    //enemies spawning at timed intervals
+    // for (let i = 0; i < 3; i++) {
+    //   this.time.addEvent({
+    //     delay: 3000,
+    //     callback: this.spawnEnemy,
+    //     callbackScope: this,
+    //   });
+    // }
+    this.spawn = new Enemy(
+      this,
+      Phaser.Math.RND.between(0, 1400),
+      Phaser.Math.RND.between(0, 600)
+    );
+    this.physics.add.collider(this.spawn, this.groundLayer);
+    // this.physics.add.collider(this.player, this.spawn);
+    this.physics.add.overlap(
+      this.player,
+      this.spawn,
+      this.player.hitSpawn,
+      null,
+      this
+    );
+    // this.spawns = this.time.addEvent({
+    //   delay: 3000,
+    //   callback: this.spawnEnemy,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
+    // this.spawnEnemy();
   }
 
   update(time) {
@@ -175,6 +227,7 @@ class GameScene extends Scene {
     // // Do enemy AI
     this.enemyFollows();
 
+    this.spawn.update();
     //healthbar changing
     // this.lisaHealth.update();
     // this.setValue(this.lisaHealth, this.player.hp);
@@ -188,6 +241,28 @@ class GameScene extends Scene {
   enemyFollows() {
     this.physics.moveToObject(this.enemy, this.player, 100);
   }
+
+  // spawnEnemy() {
+  //   let counter = 3;
+  //   counter--;
+
+  //   if (counter > 0) {
+  //     this.spawn = new Enemy(
+  //       this,
+  //       Phaser.Math.RND.between(0, 1400),
+  //       Phaser.Math.RND.between(0, 600)
+  //     );
+  //     this.physics.add.collider(this.spawn, this.groundLayer);
+  //     // this.physics.add.collider(this.player, this.spawn);
+  //     this.physics.add.overlap(
+  //       this.player,
+  //       this.spawn,
+  //       this.player.hitSpawn,
+  //       null,
+  //       this
+  //     );
+  //   }
+  // }
 }
 
 export default GameScene;
