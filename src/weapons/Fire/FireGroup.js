@@ -31,6 +31,7 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'fire');
   }
+
   shootRight(x, y) {
     this.body.reset(x, y);
     this.setActive(true);
@@ -45,7 +46,7 @@ class Fire extends Phaser.Physics.Arcade.Sprite {
   }
   preUpdate(time, delta) {
     super.preUpdate(time, delta);
-    if (this.x <= 0) {
+    if (this.x <= 0 || this.x >= innerWidth) {
       this.setActive(false);
       this.setVisible(false);
     }
