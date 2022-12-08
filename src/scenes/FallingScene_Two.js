@@ -56,9 +56,9 @@ class FallingScene_Two extends Scene {
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
-    this.groundLayer.setCollisionBetween(95, 99);
-    this.physics.add.collider(this.player, this.texturesTwoLayer);
-    this.texturesTwoLayer.setCollisionBetween(1000, 1250);
+    this.groundLayer.setCollisionBetween(72, 120);
+    //     this.physics.add.collider(this.player, this.texturesTwoLayer);
+    // this.texturesTwoLayer.setCollisionBetween(1000, 1250);
 
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
