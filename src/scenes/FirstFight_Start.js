@@ -136,7 +136,7 @@ class FirstFight_Start extends Scene {
 
     //spawning fly guy
     this.time.addEvent({
-      delay: 7000,
+      delay: 8000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -161,7 +161,7 @@ class FirstFight_Start extends Scene {
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
-      delay: 8000,
+      delay: 5000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
