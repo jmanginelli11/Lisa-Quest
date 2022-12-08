@@ -33,7 +33,7 @@ class MainMenu extends Scene {
 
     let hoverSprite1 = this.add.sprite(100, 100, 'lisa').setScale(3.5);
     hoverSprite1.setVisible(false);
-    let hoverSprite2 = this.add.sprite(100, 100, 'lisa-alt').setScale(3.5);
+    let hoverSprite2 = this.add.sprite(100, 100, 'tori').setScale(3.5);
     hoverSprite2.setVisible(false);
     hoverSprite2.flipX = true;
 
@@ -45,7 +45,7 @@ class MainMenu extends Scene {
     });
 
     this.anims.create({
-      key: 'alt-run',
+      key: 'tori-run',
       frames: this.anims.generateFrameNumbers('tori', {
         start: 0,
         end: 7,
@@ -63,7 +63,7 @@ class MainMenu extends Scene {
       hoverSprite1.y = playButton.y - 25;
 
       hoverSprite2.setVisible(true);
-      hoverSprite2.play('tori');
+      hoverSprite2.play('tori-run');
       hoverSprite2.x = playButton.x + 170;
       hoverSprite2.y = playButton.y - 40;
     });
