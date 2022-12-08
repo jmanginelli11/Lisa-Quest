@@ -80,7 +80,6 @@ class FirstFight_Start extends Scene {
       '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
     );
 
-
     this.laserGroup = new LaserGroup(this);
 
     // Gun placeholder
@@ -204,7 +203,7 @@ class FirstFight_Start extends Scene {
   }
 
   gameOver(data) {
-    this.scene.start('Form', {
+    this.scene.start('GameOver', {
       music: data.music,
       hp: this.player.hp,
       score: this.player.score,
