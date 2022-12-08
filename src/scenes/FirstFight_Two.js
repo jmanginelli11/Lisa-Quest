@@ -133,16 +133,17 @@ class FirstFight_Two extends Scene {
     );
 
     //baddies
-    this.spawnArray = [];
+    // this.spawnArray = [];
     this.time.addEvent({
       delay: 5000,
       callback: function () {
         this.spawn2 = new Enemy(
           this,
-          Phaser.Math.RND.between(0, 1400),
+
+          Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.spawnArray.push(this.spawn2);
+        this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
         this.physics.add.overlap(
@@ -155,7 +156,7 @@ class FirstFight_Two extends Scene {
         this.physics.add.collider(this.player, this.spawn2);
       },
       callbackScope: this,
-      loop: true,
+      repeat: 10,
     });
   }
 
@@ -165,8 +166,8 @@ class FirstFight_Two extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver();
     }
-    for (let i = 0; i < this.spawnArray.length; i++) {
-      this.spawnArray[i].update();
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      this.enemiesArray[i].update();
     }
   }
 
