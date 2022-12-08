@@ -30,6 +30,8 @@ class GameScene extends Scene {
     // this.scale.refresh();
     // const { width, height } = this;
 
+    console.log('here is cameras', this.cameras);
+
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 

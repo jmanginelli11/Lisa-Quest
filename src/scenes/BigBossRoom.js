@@ -36,6 +36,8 @@ class BigBossRoom extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    this.shakeCameras();
+
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
@@ -58,14 +60,14 @@ class BigBossRoom extends Scene {
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score);
 
-    // new BigBoss
-    this.bigBoss = new BigBoss(
-      this,
-      x,
-      y,
-      this.player,
-      this.fireGroup
-    ).setScale(4);
+    // // new BigBoss
+    // this.bigBoss = new BigBoss(
+    //   this,
+    //   x,
+    //   y,
+    //   this.player,
+    //   this.fireGroup
+    // ).setScale(4);
 
     // new laser Group
     this.fireGroup = new FireGroup(this);
@@ -81,8 +83,9 @@ class BigBossRoom extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
-    this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+    // this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
 
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
@@ -147,9 +150,30 @@ class BigBossRoom extends Scene {
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
 
+    // spawning big boss
+    this.time.addEvent({
+      delay: 5000,
+      callback: function () {
+        this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
+        this.enemiesArray.push(this.bigBoss);
+        this.physics.add.collider(this.bigBoss, this.wallPlatform);
+        this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.bigBoss,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.bigBoss);
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     //spawning fly guy
     this.time.addEvent({
-      delay: 7000,
+      delay: 10000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -228,6 +252,12 @@ class BigBossRoom extends Scene {
       score: this.player.score,
       timer: this.timer,
     });
+  }
+
+  shakeCameras() {
+    this.cameras.default.shakeEffect.duration = 100;
+    this.cameras.default.shakeEffect.isRunning = true;
+    // this.cameras.shake();
   }
 }
 

@@ -54,7 +54,7 @@ export class BigBoss extends EnemiesParent {
         this.body.x - this.scene.player.body.x >= -200
       ) {
         this.body.setVelocityX(500);
-        this.scene.sound.play('fire');
+        // this.scene.sound.play('fire');
         this.scene.fireGroup.shootFireRight(this.x, this.y);
       }
 
@@ -63,7 +63,7 @@ export class BigBoss extends EnemiesParent {
         this.body.x - this.scene.player.body.x <= 200
       ) {
         this.body.setVelocityX(-500);
-        this.scene.sound.play('fire');
+        // this.scene.sound.play('fire');
         this.scene.fireGroup.shootFireLeft(this.x, this.y);
       }
 
