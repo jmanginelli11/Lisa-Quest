@@ -67,7 +67,8 @@ class FirstFight_Three extends Scene {
       .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('BigBossRoom', {
+
+      this.scene.start('BossFight', {
         music: data.music,
         hp: this.player.hp,
         score: this.player.score,

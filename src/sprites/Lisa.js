@@ -1,7 +1,7 @@
 import { Sprite } from 'phaser';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, hp = null, score = null) {
+  constructor(scene, x, y, hp = null, score = null, heartCount = null) {
     super(scene, x, y, 'lisa');
 
     // Making the homie
@@ -20,6 +20,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (hp > 10) this.hp = 10;
     if (score) this.score = score;
     else this.score = 0;
+    if (heartCount) this.heartCount = heartCount;
+    else this.heartCount = 0;
 
     //Method calls for creation
     this.init();
@@ -525,5 +527,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     player.setHBValue(player.real_bar, player.hp);
     player.addScore(20);
+    player.heartCount++;
   }
 }

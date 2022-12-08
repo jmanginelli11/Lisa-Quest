@@ -11,6 +11,7 @@ class FirstFight_Start extends Scene {
   wallPlatform;
   laserGroup;
   enemiesArray = [];
+  // heartCount = 0;
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -79,22 +80,6 @@ class FirstFight_Start extends Scene {
       '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
     );
 
-    // invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    this.wallPlatform = this.platforms
-      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
-      .refreshBody();
-
-    this.physics.add.collider(this.player, this.wallPlatform, () => {
-      this.scene.start('FirstFight_Two', {
-        music: data.music,
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-    });
-    // .rotation(90);
-    this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
 
@@ -176,6 +161,23 @@ class FirstFight_Start extends Scene {
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
+    }
+
+    if (this.player.heartCount >= 5) {
+      this.platforms = this.physics.add.staticGroup();
+      this.wallPlatform = this.platforms
+        .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+        .refreshBody();
+
+      this.physics.add.collider(this.player, this.wallPlatform, () => {
+        this.scene.start('FirstFight_Two', {
+          hp: this.player.hp,
+          score: this.player.score,
+          timer: this.timer,
+        });
+      });
+      // .rotation(90);
+      this.wallPlatform.setVisible(true);
     }
   }
 
