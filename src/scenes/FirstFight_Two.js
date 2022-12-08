@@ -141,7 +141,6 @@ class FirstFight_Two extends Scene {
           Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.spawn2);
         // this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
         this.physics.add.overlap(

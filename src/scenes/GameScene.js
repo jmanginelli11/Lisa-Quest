@@ -138,6 +138,29 @@ class GameScene extends Scene {
     this.laserGroup = new LaserGroup(this);
 
     // Spawn one baddie
+    this.time.addEvent({
+      delay: 1000,
+      callback: function () {
+        this.spawn2 = new Enemy(
+          this,
+
+          innerWidth * 0.75,
+          innerHeight * 0.75
+        ).setScale(1.5);
+        this.physics.add.collider(this.spawn2, this.groundLayer);
+        this.physics.add.collider(this.spawn2, this.surfaceTileset);
+        this.physics.add.overlap(
+          this.player,
+          this.spawn2,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.spawn2);
+      },
+      callbackScope: this,
+      repeat: 0,
+    });
   }
 
   update(data, time) {
@@ -150,6 +173,10 @@ class GameScene extends Scene {
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      // this.enemiesArray[i].update();
+    }
   }
 
   gameOver(data) {
