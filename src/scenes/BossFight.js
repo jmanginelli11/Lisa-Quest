@@ -1,6 +1,10 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
+import { Enemy } from '../sprites/Enemies/Enemy';
+import { FlyGuy } from '../sprites/Enemies/FlyGuy';
+import { BigBoss } from '../sprites/Enemies/BigBoss.js';
+import { FireGroup } from '../weapons/Fire/FireGroup.js';
 
 class BossFight extends Scene {
   cameras;
@@ -14,14 +18,33 @@ class BossFight extends Scene {
     super({ key: 'BossFight' });
   }
 
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
+    });
+  }
+
   create(data) {
     // Background - Boss Fight
 
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    //camera shake
+    this.shakeCameras();
+
     // laserGroup
     this.laserGroup = new LaserGroup(this);
+
+    // new laser Group
+    this.fireGroup = new FireGroup(this);
 
     this.map = this.make.tilemap({ key: 'tilemap_BF' });
 
@@ -62,6 +85,13 @@ class BossFight extends Scene {
       560
     );
 
+    // text
+    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+
+    this.typewriteText(
+      '                \nIs this...  \n                \n... the big boss room? \n                \n '
+    );
+
     //Colliders
     this.physics.add.collider(this.player, this.firstLayer);
     this.firstLayer.setCollisionBetween(160, 170);
@@ -83,6 +113,68 @@ class BossFight extends Scene {
       });
     });
     wallPlatform.setVisible(false);
+
+    // spawning big boss
+    this.time.addEvent({
+      delay: 10000,
+      callback: function () {
+        this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
+        this.enemiesArray.push(this.bigBoss);
+        this.physics.add.collider(this.bigBoss, this.wallPlatform);
+        this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.bigBoss,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.bigBoss);
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
+    //spawning fly guy
+    this.time.addEvent({
+      delay: 10000,
+      callback: function () {
+        this.flyGuy = new FlyGuy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          0
+        ).setScale(1.5);
+        this.enemiesArray.push(this.flyGuy);
+        this.physics.add.collider(this.flyGuy, this.wallPlatform);
+        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.flyGuy,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.flyGuy);
+      },
+      callbackScope: this,
+      loop: true,
+    });
+
+    //healthHearts spawning every 10 seconds
+    this.time.addEvent({
+      delay: 10000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
+
+    //fire raining down
+    this.time.addEvent({
+      delay: 8000,
+      callback: this.spawnFire,
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update(data) {
@@ -97,13 +189,56 @@ class BossFight extends Scene {
     }
   }
 
+  spawnFire() {
+    this.fire = this.physics.add.group({
+      key: 'fire',
+      allowGravity: true,
+    });
+    this.fire.children.iterate(function (child) {
+      child.setPosition(Phaser.Math.RND.between(0, 1600), 0);
+    });
+    this.physics.add.overlap(
+      this.player,
+      this.fire,
+      this.player.hitSpawn,
+      null,
+      this
+    );
+  }
+
+  spawnHearts() {
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      // repeat: 1,
+      allowGravity: false,
+    });
+    this.hearts.children.iterate(function (child) {
+      child.setPosition(
+        Phaser.Math.RND.between(0, 1600),
+        Phaser.Math.RND.between(400, 900)
+      );
+      child.setOrigin(0, 0);
+    });
+    this.physics.add.overlap(
+      this.player,
+      this.hearts,
+      this.player.collectHeart,
+      null,
+      this
+    );
+  }
+
   gameOver(data) {
-    this.scene.start('Form', {
+    this.scene.start('GameOver', {
       music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,
     });
+  }
+
+  shakeCameras() {
+    this.cameras.main.shake(5000);
   }
 }
 

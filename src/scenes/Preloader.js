@@ -230,10 +230,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('heart', '/assets/heart.png');
 
     // fire
-    this.load.image(
-      'fire',
-      '/assets/bigBoss/Screen_Shot_2022-12-02_at_4.42.15_PM-removebg-preview.png'
-    );
+    this.load.image('fire', '/assets/bigBoss/fire.png');
 
     //oilRig
     this.load.image('rig', '/assets/oilRig.png');
