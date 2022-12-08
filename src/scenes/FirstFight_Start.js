@@ -16,6 +16,19 @@ class FirstFight_Start extends Scene {
     super({ key: 'FirstFight_Start' });
   }
 
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
+    });
+  }
+
   create(data) {
     console.log(data);
     // Background - First Scene
@@ -61,6 +74,13 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
+    // text
+    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+
+    this.typewriteText(
+      '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
+    );
+
     // invisible platform
     this.platforms = this.physics.add.staticGroup();
     this.wallPlatform = this.platforms
@@ -78,6 +98,9 @@ class FirstFight_Start extends Scene {
     this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
+
+    // Gun placeholder
+    this.gun = this.add.image(x + 150, y - 225, 'c');
 
     // //Spawn guy
     // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
