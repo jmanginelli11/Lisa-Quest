@@ -70,7 +70,10 @@ class PromisedLandFirst extends Scene {
     // this.mountainsLayer.displayHeight = this.sys.canvas.height;
 
     // adding player
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);

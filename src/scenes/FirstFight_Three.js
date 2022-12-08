@@ -48,7 +48,13 @@ class FirstFight_Three extends Scene {
       0
     );
 
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    //Lisa
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      1200,
+      100
+    );
+
+    //Colliders
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
@@ -58,7 +64,7 @@ class FirstFight_Three extends Scene {
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
     let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width - 57, this.sys.canvas.height, 'test2')
+      .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
       this.scene.start('PromisedLandFirst', {

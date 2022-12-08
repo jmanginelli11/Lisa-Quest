@@ -60,7 +60,11 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    //Lisa
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
 
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants_layer',
@@ -76,13 +80,6 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.mechanicalLayer = this.map.createLayer(
-      'mechanical_layer',
-      this.mechanicalTileset,
-      0,
-      0
-    );
-
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
@@ -91,7 +88,7 @@ class FirstFight_Two extends Scene {
     // invisible platform
     this.platforms = this.physics.add.staticGroup();
     this.wallPlatform = this.platforms
-      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+      .create(this.sys.canvas.width / 2 + 500, this.sys.canvas.height, 'test')
       .refreshBody();
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
