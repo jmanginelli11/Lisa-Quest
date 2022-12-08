@@ -43,7 +43,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.current_knockback_speed = 0;
 
-
     this.max_hp = 10;
 
     this.is_immune = false;
@@ -121,9 +120,21 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // HealthBar Creation
     // console.log('x and y: ', this.x, ' ', this.y);
 
-    this.hb_text = this.scene.add.text(this.x * 0.1, this.y * 0.25, 'LISA');
-    this.shadow_bar = this.makeHealthBar(this.x * 0.1, this.y * 0.3, 0xc1c1c1);
-    this.real_bar = this.makeHealthBar(this.x * 0.1, this.y * 0.3, 0x2e71cc);
+    this.hb_text = this.scene.add.text(
+      innerWidth * 0.05,
+      innerHeight * 0.125,
+      'LISA'
+    );
+    this.shadow_bar = this.makeHealthBar(
+      innerWidth * 0.05,
+      innerHeight * 0.15,
+      0xc1c1c1
+    );
+    this.real_bar = this.makeHealthBar(
+      innerWidth * 0.05,
+      innerHeight * 0.15,
+      0x2e71cc
+    );
 
     this.setHBValue(this.real_bar, this.hp);
   }
