@@ -46,7 +46,7 @@ class MainMenu extends Scene {
 
     this.anims.create({
       key: 'alt-run',
-      frames: this.anims.generateFrameNumbers('lisa-alt', {
+      frames: this.anims.generateFrameNumbers('tori', {
         start: 0,
         end: 7,
       }),
@@ -63,7 +63,7 @@ class MainMenu extends Scene {
       hoverSprite1.y = playButton.y - 25;
 
       hoverSprite2.setVisible(true);
-      hoverSprite2.play('alt-run');
+      hoverSprite2.play('tori');
       hoverSprite2.x = playButton.x + 170;
       hoverSprite2.y = playButton.y - 40;
     });

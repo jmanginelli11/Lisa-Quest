@@ -293,6 +293,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         .setScale(0.2)
         .setAngle(this.flipX ? -45 : 45);
 
+      this.flipX
+        ? this.hitbox.body.setVelocityX(-1400)
+        : this.hitbox.body.setVelocityX(1400);
       this.anims.play(attack);
 
       this.flipX
@@ -352,12 +355,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   attackCalculation(knockbackVal, attack) {
     if (attack === 'shoot') {
-      this.colliderLaser = this.scene.add.rectangle(
-        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-        this.y,
-        60,
-        60
-      );
+      this.colliderLaser = this.scene.add.rectangle(this.x, this.y, 60, 60);
       this.scene.physics.add.existing(this.colliderLaser);
 
       // Shooting left
