@@ -35,23 +35,38 @@ class HighScores extends Scene {
       .setTint(0xffffff);
 
     for (let i = 1; i < 7; i++) {
-      if (this.scores[i]) {
-        if (this.scores[i].score > 0 && this.scores[i].score < 999) {
+      if (this.scores[i - 1]) {
+        if (this.scores[i - 1].score > 0 && this.scores[i - 1].score < 99) {
           this.add
             .bitmapText(
               100,
               170 + 60 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i].score}     ${this.scores[i].name} \n`
+              `\n  ${i}    ${this.scores[i - 1].score}      ${
+                this.scores[i - 1].name
+              } \n`
             )
             .setTint(0xffffff);
-        } else if (this.scores[i].score > 999) {
+        } else if (this.scores[i - 1].score < 999) {
           this.add
             .bitmapText(
               100,
               170 + 60 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i].score}    ${this.scores[i].name} \n`
+              `\n  ${i}    ${this.scores[i - 1].score}     ${
+                this.scores[i - 1].name
+              } \n`
+            )
+            .setTint(0xffffff);
+        } else if (this.scores[i - 1].score > 999) {
+          this.add
+            .bitmapText(
+              100,
+              170 + 60 * i,
+              'arcade',
+              `\n  ${i}    ${this.scores[i - 1].score}    ${
+                this.scores[i - 1].name
+              } \n`
             )
             .setTint(0xffffff);
         }
