@@ -7,7 +7,7 @@ class PromisedLandFirst extends Scene {
   player;
 
   constructor(data) {
-    super({ key: 'PromisedLandFirst' });
+    super({ key: 'PromisedLand' });
   }
 
   create(data) {
@@ -29,12 +29,12 @@ class PromisedLandFirst extends Scene {
       'vegetation1'
     );
 
-    this.skyLayer = this.map.createLayer(
-      'sky_layer',
-      this.groundAndWaterTileset,
-      0,
-      0
-    );
+    // this.skyLayer = this.map.createLayer(
+    //   'sky_layer',
+    //   this.groundAndWaterTileset,
+    //   0,
+    //   0
+    // );
 
     this.waterLayer = this.map.createLayer(
       'water_layer',
