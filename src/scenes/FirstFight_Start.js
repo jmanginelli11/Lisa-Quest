@@ -84,7 +84,7 @@ class FirstFight_Start extends Scene {
     this.laserGroup = new LaserGroup(this);
 
     // Gun placeholder
-    this.gun = this.add.image(x + 150, y - 225, 'c');
+    // this.gun = this.add.image(x + 150, y - 225, 'c');
 
     // //Spawn guy
     // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
