@@ -60,14 +60,14 @@ class BigBossRoom extends Scene {
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score);
 
-    // new BigBoss
-    this.bigBoss = new BigBoss(
-      this,
-      x,
-      y,
-      this.player,
-      this.fireGroup
-    ).setScale(4);
+    // // new BigBoss
+    // this.bigBoss = new BigBoss(
+    //   this,
+    //   x,
+    //   y,
+    //   this.player,
+    //   this.fireGroup
+    // ).setScale(4);
 
     // new laser Group
     this.fireGroup = new FireGroup(this);
@@ -85,7 +85,7 @@ class BigBossRoom extends Scene {
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
 
     this.physics.add.collider(this.player, this.groundAndPlatforms);
-    this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+    // this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
 
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
@@ -149,6 +149,27 @@ class BigBossRoom extends Scene {
     //   );
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
+
+    // spawning big boss
+    this.time.addEvent({
+      delay: 5000,
+      callback: function () {
+        this.bigBoss = new BigBoss(this, x, y).setScale(1.5);
+        this.enemiesArray.push(this.bigBoss);
+        this.physics.add.collider(this.bigBoss, this.wallPlatform);
+        this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.bigBoss,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.bigBoss);
+      },
+      callbackScope: this,
+      loop: false,
+    });
 
     //spawning fly guy
     this.time.addEvent({
