@@ -38,6 +38,15 @@ class BigBossRoom extends Scene {
 
     this.shakeCameras();
 
+    // this.music = this.sound.add('boss');
+    // this.musicConfig = {
+    //   mute: 0,
+    //   volume: 0.45,
+    //   loop: true,
+    // };
+    // data.music.stop();
+    // this.music.play('boss');
+
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
@@ -104,7 +113,10 @@ class BigBossRoom extends Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
+      // this.music.stop();
+      // data.music.play();
       this.scene.start('PromisedLandFirst', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
@@ -149,7 +161,7 @@ class BigBossRoom extends Scene {
 
     // spawning big boss
     this.time.addEvent({
-      delay: 5000,
+      delay: 10000,
       callback: function () {
         this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
         this.enemiesArray.push(this.bigBoss);
@@ -213,7 +225,9 @@ class BigBossRoom extends Scene {
 
     // console.log(data.hp);
     if (this.player.hp <= 0) {
-      this.gameOver();
+      // this.music.stop();
+      // data.music.play();
+      this.gameOver(data);
     }
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
@@ -243,8 +257,9 @@ class BigBossRoom extends Scene {
     );
   }
 
-  gameOver() {
+  gameOver(data) {
     this.scene.start('Form', {
+      music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,

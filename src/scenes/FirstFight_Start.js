@@ -70,7 +70,6 @@ class FirstFight_Start extends Scene {
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
     this.physics.add.collider(this.player, this.groundAndPlatforms);
-    // this.groundAndPlatforms.setCollisionBetween(27, 79);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
@@ -80,6 +79,7 @@ class FirstFight_Start extends Scene {
     this.typewriteText(
       '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
     );
+
 
     this.laserGroup = new LaserGroup(this);
 
@@ -120,7 +120,7 @@ class FirstFight_Start extends Scene {
 
     //spawning fly guy
     this.time.addEvent({
-      delay: 7000,
+      delay: 8000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -145,7 +145,7 @@ class FirstFight_Start extends Scene {
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
-      delay: 8000,
+      delay: 5000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
@@ -156,7 +156,7 @@ class FirstFight_Start extends Scene {
     this.player.update();
 
     if (this.player.hp <= 0) {
-      this.gameOver();
+      this.gameOver(data);
     }
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
@@ -203,8 +203,9 @@ class FirstFight_Start extends Scene {
     );
   }
 
-  gameOver() {
+  gameOver(data) {
     this.scene.start('Form', {
+      music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,

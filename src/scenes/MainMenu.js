@@ -3,12 +3,15 @@ import store from '../store';
 import { fetchScores } from '../store/redux/scoresReducer';
 
 class MainMenu extends Scene {
-  constructor() {
+  music;
+
+  constructor(data) {
     super({ key: 'MainMenu' });
   }
 
-  create() {
+  create(data) {
     store.dispatch(fetchScores());
+
     const x = innerWidth / 2;
     const y = innerHeight / 2;
     this.background = this.add.image(x, y, 'shiny_stars');
@@ -23,17 +26,10 @@ class MainMenu extends Scene {
     let creditsButton = this.add
       .image(x, y + 250, 'credits-white')
       .setScale(1.8);
-    // let formButton = this.add.image(x, y + 200, 'credits-white').setScale(4);
-    // let jackieButton = this.add.image(x, y + 300, 'credits-white').setScale(4);
-
-    // let naomiButton = this.add.text(x - 200, y, "NAOMI'S BUTTON");
 
     playButton.setInteractive();
     highScoreButton.setInteractive();
     creditsButton.setInteractive();
-    // formButton.setInteractive();
-    // jackieButton.setInteractive();
-    // naomiButton.setInteractive();
 
     let hoverSprite1 = this.add.sprite(100, 100, 'lisa').setScale(3.5);
     hoverSprite1.setVisible(false);
@@ -79,8 +75,9 @@ class MainMenu extends Scene {
     });
 
     playButton.on('pointerup', () => {
-      // console.log('lesssss gooooooooooo');
-      this.scene.switch('Intro');
+      this.scene.start('Intro', {
+        music: data.music,
+      });
     });
 
     highScoreButton.on('pointerover', () => {
@@ -88,7 +85,9 @@ class MainMenu extends Scene {
     });
 
     highScoreButton.on('pointerup', () => {
-      this.scene.switch('HighScores');
+      this.scene.start('HighScores', {
+        music: data.music,
+      });
     });
 
     highScoreButton.on('pointerout', () => {
@@ -102,36 +101,12 @@ class MainMenu extends Scene {
     creditsButton.on('pointerout', () => {
       creditsButton = this.add.image(x, y + 250, 'credits-white').setScale(1.8);
     });
+
     creditsButton.on('pointerup', () => {
-      this.scene.switch('Credits');
+      this.scene.start('Credits', {
+        music: data.music,
+      });
     });
-
-    // formButton.on('pointerover', () => {
-    //   formButton = this.add.image(x, y + 200, 'credits-red').setScale(4);
-    // });
-    // formButton.on('pointerout', () => {
-    //   formButton = this.add.image(x, y + 200, 'credits-white').setScale(4);
-    // });
-    // formButton.on('pointerup', () => {
-    //   this.scene.switch('FirstFight_Start');
-    // });
-
-    // jackieButton.on('pointerover', () => {
-    //   jackieButton = this.add.image(x, y + 300, 'credits-red').setScale(4);
-    // });
-    // jackieButton.on('pointerout', () => {
-    //   jackieButton = this.add.image(x, y + 300, 'credits-white').setScale(4);
-    // });
-    // jackieButton.on('pointerup', () => {
-    //   this.scene.switch('Jackie');
-    // });
-
-    // naomiButton.on('pointerout', () => {
-    //   console.log('clicked on Naomi button');
-    // });
-    // naomiButton.on('pointerup', () => {
-    //   this.scene.switch('PromisedLandFirst');
-    // });
   }
 }
 

@@ -67,6 +67,7 @@ class FallingScene_Two extends Scene {
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
       this.scene.start('FirstFight_Start', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
