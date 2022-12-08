@@ -21,9 +21,6 @@ class FirstFight_Two extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    // laserGroup
-    this.laserGroup = new LaserGroup(this);
-
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
@@ -102,6 +99,9 @@ class FirstFight_Two extends Scene {
     // .rotation(90);
     this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
+
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
 
     //healthHearts
     this.hearts = this.physics.add.group({

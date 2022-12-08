@@ -23,8 +23,6 @@ class FirstFight_Three extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    // laserGroup
-    this.laserGroup = new LaserGroup(this);
     this.map = this.make.tilemap({ key: 'tilemap_FF3' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
@@ -61,13 +59,15 @@ class FirstFight_Three extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
+
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-
       this.scene.start('BossFight', {
         music: data.music,
         hp: this.player.hp,
