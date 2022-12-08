@@ -112,7 +112,7 @@ class GameScene extends Scene {
       key: 'heart',
       repeat: 4,
       allowGravity: false,
-      setXY: { x: 300, y: 350, stepX: 300 },
+      setXY: { x: 300, y: 400, stepX: 300 },
     });
     // this.hearts.children.iterate(function (child) {
     //   for (var i = 0; i < 5; i++) {

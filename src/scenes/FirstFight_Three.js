@@ -76,10 +76,16 @@ class FirstFight_Three extends Scene {
     waterFallPlatform.setVisible(false);
 
     // spawning little enemy guy
+
     this.time.addEvent({
       delay: 11000,
       callback: function () {
-        this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1400), 0);
+        this.spawn2 = new Enemy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          0
+        ).setScale(1.5);
+
         this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
@@ -93,10 +99,11 @@ class FirstFight_Three extends Scene {
         this.physics.add.collider(this.player, this.spawn2);
       },
       callbackScope: this,
-      loop: true,
+      repeat: 9,
     });
 
     //spawning fly guy
+
     this.time.addEvent({
       delay: 10000,
       callback: function () {
@@ -105,6 +112,7 @@ class FirstFight_Three extends Scene {
           Phaser.Math.RND.between(0, 1400),
           0
         ).setScale(1.5);
+
         this.enemiesArray.push(this.flyGuy);
         this.physics.add.collider(this.flyGuy, this.wallPlatform);
         this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
@@ -118,14 +126,14 @@ class FirstFight_Three extends Scene {
         this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      loop: true,
+      repeat: 9,
     });
 
     this.time.addEvent({
       delay: 10000,
       callback: this.spawnHearts,
       callbackScope: this,
-      loop: true,
+      repeat: 19,
     });
   }
 
