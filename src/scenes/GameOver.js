@@ -4,11 +4,11 @@ import { fetchScores } from '../store/redux/scoresReducer';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
-class Form extends Scene {
+class GameOver extends Scene {
   player;
 
   constructor(data) {
-    super({ key: 'Form' });
+    super({ key: 'GameOver' });
   }
 
   create(data) {
@@ -20,7 +20,17 @@ class Form extends Scene {
     this.background.displayHeight = this.sys.canvas.height;
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y, data.hp, data.score).setVisible(false);
+    // this.player = new Lisa(this, x, y, data.score).setVisible(false);
+    const score = data.score || 0;
+    this.scoreText = this.add.text(
+      innerWidth * 0.05,
+      innerHeight * 0.05,
+      'Score: ' + score,
+      {
+        fontSize: '32px',
+        fill: '#E43AA4',
+      }
+    );
 
     this.story = this.add.text(x - 400, y - 200, '', {
       color: 'white',
@@ -28,13 +38,20 @@ class Form extends Scene {
       fontSize: '32px',
     });
 
-    this.typewriteText('                \nGame over...');
+    this.typewriteText(
+      '                \nGAME OVER  \nType up to four letters to save your score!'
+    );
 
-    const text = this.add.text(x - x / 4, y - y / 4, 'TYPE FOUR LETTERS', {
-      color: 'white',
-      // fontFamily: 'Arial',
-      fontSize: '32px',
-    });
+    // const text = this.add.text(
+    //   x - x / 4,
+    //   y - y / 4,
+    //   'Type up to four letters to save your score',
+    //   {
+    //     color: 'white',
+    //     fontFamily: 'Arial',
+    //     fontSize: '32px',
+    //   }
+    // );
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -80,4 +97,4 @@ class Form extends Scene {
   }
 }
 
-export default Form;
+export default GameOver;

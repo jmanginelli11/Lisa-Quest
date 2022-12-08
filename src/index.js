@@ -5,7 +5,7 @@ import Jackie from './scenes/Jackie';
 import GameScore from './scenes/GameScore';
 import HighScores from './scenes/HighScores';
 import Credits from './scenes/Credits';
-import Form from './scenes/Form.js';
+import GameOver from './scenes/GameOver.js';
 import Preloader from './scenes/Preloader.js';
 import HealthBar from './helpers/HealthBar';
 import GameSceneTester from './helpers/HealthBarSprite.js';
@@ -39,7 +39,7 @@ const config = {
     GameScore,
     HighScores,
     Credits,
-    Form,
+    GameOver,
     HealthBar,
     Jackie,
     GameSceneTester,
