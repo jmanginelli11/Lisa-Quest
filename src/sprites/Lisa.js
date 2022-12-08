@@ -137,6 +137,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     );
 
     this.setHBValue(this.real_bar, this.hp);
+
+    // Sounds
   }
 
   update() {
