@@ -96,6 +96,7 @@ class FirstFight_Two extends Scene {
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
       this.scene.start('FirstFight_Three', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,

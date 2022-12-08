@@ -24,27 +24,12 @@ class GameScene extends Scene {
   }
 
   create(data) {
-    // this.scale.scaleMode = Phaser.ScaleManager.USER_SCALE;
-    // this.scale.setUserScale(0.7, 0.7, 0, 0);
-    // this.scale.displaySize.setAspectRatio(width / height);
-    // this.scale.refresh();
-    // const { width, height } = this;
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
-
-    // let mainMenuButton = this.add
-    //   .image(x / 2, y * 1.8, 'main-menu')
-    //   .setScale(3);
-    // mainMenuButton.setInteractive();
-
-    // mainMenuButton.on('pointerup', () => {
-    //   this.scene.switch('MainMenu');
-    // });
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
@@ -66,12 +51,6 @@ class GameScene extends Scene {
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
-
-    //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
-    // this.add.text(x + 400, innerHeight / 14, 'TORI');
-    // this.makeBar(x + 400, innerHeight / 10, 0xc1c1c1);
-    // let toriHealth = this.makeBar(x + 400, innerHeight / 10, 0xcc2e3a);
-    // this.setValue(toriHealth, 5);
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -112,15 +91,6 @@ class GameScene extends Scene {
       allowGravity: false,
       setXY: { x: 300, y: 350, stepX: 300 },
     });
-    // this.hearts.children.iterate(function (child) {
-    //   for (var i = 0; i < 5; i++) {
-    //     child.setPosition(
-    //       Phaser.Math.RND.between(0, 1600),
-    //       Phaser.Math.RND.between(400, 600)
-    //     );
-    //     child.setOrigin(0, 0);
-    //   }
-    // });
 
     this.physics.add.overlap(
       this.player,
@@ -129,22 +99,6 @@ class GameScene extends Scene {
       null,
       this
     );
-
-    //spawning rigs
-
-    // this.rigs = this.physics.add.group({
-    //   key: 'rig',
-    //   repeat: 5,
-    // });
-
-    // this.rigs.children.iterate(function (rig) {
-    //   for (let i = 0; i < 5; i++) {
-    //     rig.setPosition(
-    //       Phaser.Math.RND.between(0, 1400),
-    //       Phaser.Math.RND.between(0, 600)
-    //     );
-    //   }
-    // });
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -164,8 +118,10 @@ class GameScene extends Scene {
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
 
+    console.log('here is data', data);
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
       this.scene.start('FallingScene_One', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
@@ -173,48 +129,9 @@ class GameScene extends Scene {
     });
     this.waterFallPlatform.setVisible(false);
 
-    // creating the enemy sprite
-    // this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
-
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // Collider so enemy and player can interact
-    // this.physics.add.collider(this.player, this.enemy);
-
-    //enemies spawning at timed intervals
-    // for (let i = 0; i < 3; i++) {
-    //   this.time.addEvent({
-    //     delay: 3000,
-    //     callback: this.spawnEnemy,
-    //     callbackScope: this,
-    //   });
-    // }
-    // this.spawn = new Enemy(
-    //   this,
-    //   Phaser.Math.RND.between(0, 1400),
-    //   Phaser.Math.RND.between(0, 600)
-    // );
-
-    // this.physics.add.collider(this.spawn, this.groundLayer);
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.spawn,
-    //   this.player.hitSpawn,
-    //   null,
-    //   this
-    // );
-    // this.physics.add.collider(this.player, this.spawn);
-    // this.spawns = this.time.addEvent({
-    //   delay: 3000,
-    //   callback: this.spawnEnemy,
-    //   callbackScope: this,
-    //   loop: true,
-    // });
-    // this.spawnEnemy();
-
-    console.log('here is player', this.player);
-    console.log('here is data', data);
     if (this.player.hp <= 0) {
       this.gameOver();
     }
@@ -222,9 +139,6 @@ class GameScene extends Scene {
 
   update(time) {
     this.player.update();
-
-    // this.enemy.update();
-    // this.spawn.update();
 
     // Timer
     let gameRunTime = time * 0.001;

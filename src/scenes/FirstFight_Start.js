@@ -30,7 +30,6 @@ class FirstFight_Start extends Scene {
   }
 
   create(data) {
-    console.log(data);
     // Background - First Scene
 
     const x = innerWidth / 2;
@@ -70,7 +69,6 @@ class FirstFight_Start extends Scene {
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
     this.physics.add.collider(this.player, this.groundAndPlatforms);
-    // this.groundAndPlatforms.setCollisionBetween(27, 79);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
@@ -89,6 +87,7 @@ class FirstFight_Start extends Scene {
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
       this.scene.start('FirstFight_Two', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,

@@ -420,6 +420,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       bar.scaleX = hp / 10;
     }
   }
+
   hitSpawn(player, spawn) {
     console.log('before', player.hp);
     if (!player.is_immune) {

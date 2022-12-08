@@ -1,11 +1,32 @@
 import Phaser from 'phaser';
 
 export default class PreloaderScene extends Phaser.Scene {
+  music;
+
   constructor() {
     super({ key: 'Preloader' });
   }
 
   preload() {
+    this.loadText = this.add.text(
+      innerWidth * 0.05,
+      innerHeight * 0.95,
+      'Loading... ',
+      {
+        fontSize: '24px',
+        fill: '#FFFFFF',
+        fontStyle: 'italic',
+      }
+    );
+
+    // Sounds
+    this.load.audio('fire', '/assets/audios/sounds/flamethrower.mp3');
+
+    // Music
+    this.load.audio('main-menu', '/assets/audios/music/main-menu-music.mp3');
+    this.load.audio('fight', '/assets/audios/music/fight-music.mp3');
+    this.load.audio('boss', '/assets/audios/music/boss-music.mp3');
+
     //Backgrounds
     this.load.image('stars', '/assets/menu/stars_background.png');
     // this.load.image('logo', '/assets/menu/logo.png');
@@ -40,23 +61,6 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.image('test', '/assets/testSprites/platform.png');
     this.load.image('test2', '/assets/testSprites/platformRotate.png');
-    this.load.spritesheet('explosion', '/assets/testSprites/explosion.png', {
-      frameWidth: 32,
-      frameHeight: 32,
-    });
-    this.anims.create({
-      key: 'explosion',
-      frames: this.anims.generateFrameNumbers('test-explosion', {
-        start: 0,
-        end: 1,
-      }),
-      frameRate: 4,
-      repeat: 1,
-    });
-
-    // Audio
-
-    this.load.audio('fire', '/assets/audios/084303_hq-flamethrower-87072.mp3');
 
     // GameDev Sprites
     this.load.image('lauren', '/assets/gamedevs/lauren-idle1.png');
@@ -133,34 +137,10 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Falling-Scene/Two/Falling-Scene(two).json'
     );
 
-    // this.load.image(
-    //   'texturesOne',
-    //   '/assets/backgrounds/Themy/Falling-Scene/textures_1.png'
-    // );
     this.load.image(
       'texturesTwo',
       '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
     );
-
-    // this.load.tilemapTiledJSON(
-    //   'tilemap_FS',
-    //   '/assets/backgrounds/Themy/Falling-Scene/Falling-Scene.json'
-    // );
-
-    // this.load.image(
-    //   'water_layer',
-    //   '/assets/backgrounds/Themy/Falling-Scene/water_layer.png'
-    // );
-
-    // this.load.image(
-    //   'texture_1_layer',
-    //   '/assets/backgrounds/Themy/Falling-Scene/texture_1_layer.png'
-    // );
-
-    // this.load.image(
-    //   'texture_2_layer',
-    //   '/assets/backgrounds/Themy/Falling-Scene/texture_2_layer.png'
-    // );
 
     //background first fight
 
@@ -320,9 +300,29 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   create() {
+    this.music = this.sound.add('main-menu');
+    this.musicConfig = {
+      mute: 0,
+      volume: 0.3,
+      loop: true,
+    };
+
     this.createLisaAnims();
     this.createEnemyAnims();
 
-    this.scene.start('MainMenu');
+    this.loadText.setText('Loading... Complete: click here to begin.');
+    this.loadText.setInteractive();
+
+    this.loadText.on('pointerup', () => {
+      this.start();
+    });
+  }
+
+  start() {
+    // Need user input for music so I've tied it with starting the game... don't ask :(
+    this.music.play(this.musicConfig);
+    this.scene.start('MainMenu', {
+      music: this.music,
+    });
   }
 }
