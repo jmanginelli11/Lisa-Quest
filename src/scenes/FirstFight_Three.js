@@ -61,7 +61,7 @@ class FirstFight_Three extends Scene {
       .create(this.sys.canvas.width - 57, this.sys.canvas.height, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('PromisedLandFirst', {
+      this.scene.start('BigBossRoom', {
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
