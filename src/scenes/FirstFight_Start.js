@@ -55,6 +55,13 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
@@ -70,8 +77,10 @@ class FirstFight_Start extends Scene {
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
     this.physics.add.collider(this.player, this.groundAndPlatforms);
+    this.physics.add.collider(this.player, this.invisibleLayer);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
+    this.invisibleLayer.setCollisionBetween(160, 170);
 
     // text
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
@@ -79,7 +88,6 @@ class FirstFight_Start extends Scene {
     this.typewriteText(
       '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
     );
-
 
     this.laserGroup = new LaserGroup(this);
 
