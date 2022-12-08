@@ -255,9 +255,13 @@ class BigBossRoom extends Scene {
   }
 
   shakeCameras() {
-    this.cameras.default.shakeEffect.duration = 100;
-    this.cameras.default.shakeEffect.isRunning = true;
-    // this.cameras.shake();
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.SHAKE_START, () => {
+      console.log('we shaking baby');
+    });
+    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.SHAKE_COMPLETE, () => {
+      console.log('we finished dat shake');
+    });
+    this.cameras.main.shake(500);
   }
 }
 
