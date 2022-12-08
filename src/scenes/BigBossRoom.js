@@ -154,7 +154,7 @@ class BigBossRoom extends Scene {
     this.time.addEvent({
       delay: 5000,
       callback: function () {
-        this.bigBoss = new BigBoss(this, x, y).setScale(1.5);
+        this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
         this.enemiesArray.push(this.bigBoss);
         this.physics.add.collider(this.bigBoss, this.wallPlatform);
         this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
@@ -173,7 +173,7 @@ class BigBossRoom extends Scene {
 
     //spawning fly guy
     this.time.addEvent({
-      delay: 7000,
+      delay: 10000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
