@@ -24,6 +24,8 @@ class GameScene extends Scene {
   }
 
   create(data) {
+    console.log('here is cameras', this.cameras);
+
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -34,7 +36,7 @@ class GameScene extends Scene {
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
     this.typewriteText(
-      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the X and especially the Z keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
     );
 
     //timer
@@ -89,7 +91,7 @@ class GameScene extends Scene {
       key: 'heart',
       repeat: 4,
       allowGravity: false,
-      setXY: { x: 300, y: 350, stepX: 300 },
+      setXY: { x: 300, y: 400, stepX: 300 },
     });
 
     this.physics.add.overlap(

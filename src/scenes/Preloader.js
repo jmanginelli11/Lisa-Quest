@@ -170,6 +170,25 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
     );
 
+    //Boss fight
+    this.load.tilemapTiledJSON(
+      'tilemap_BF',
+      '/assets/backgrounds/Themy/First-Fight/Boss-Fight/Boss-Fight.json'
+    );
+
+    this.load.image(
+      'boss_tileset1',
+      '/assets/backgrounds/Themy/First-Fight/Boss-Fight/boss_tileset1.png'
+    );
+    this.load.image(
+      'boss_tileset2',
+      '/assets/backgrounds/Themy/First-Fight/Boss-Fight/boss_tileset2.png'
+    );
+    this.load.image(
+      'boss_tileset3',
+      '/assets/backgrounds/Themy/First-Fight/Boss-Fight/boss_tileset3.png'
+    );
+
     //promised land first
 
     this.load.tilemapTiledJSON(

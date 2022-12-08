@@ -16,7 +16,7 @@ class PromisedLandFirst extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.sky = this.add.image(0, 0, 'blue_sky').setOrigin(0, 0);
+    this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapPromisedLand' });
     this.groundAndWaterTileset = this.map.addTilesetImage(
@@ -70,7 +70,10 @@ class PromisedLandFirst extends Scene {
     // this.mountainsLayer.displayHeight = this.sys.canvas.height;
 
     // adding player
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);

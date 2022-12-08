@@ -1,12 +1,6 @@
 import { Scene } from 'phaser';
-import { BigBoss } from '../sprites/Enemies/BigBoss.js';
-import { Lisa } from '../sprites/Lisa.js';
-import { FireGroup } from '../weapons/Fire/FireGroup.js';
 
 class Credits extends Scene {
-  bigBoss;
-  enemiesArray = [];
-
   constructor() {
     super({ key: 'Credits' });
   }
@@ -31,21 +25,6 @@ class Credits extends Scene {
     mainMenuButton.on('pointerup', () => {
       this.scene.switch('MainMenu');
     });
-
-    this.player = new Lisa(this, x, y);
-    this.bigBoss = new BigBoss(
-      this,
-      x,
-      y,
-      this.player,
-      this.fireGroup
-    ).setScale(4);
-    this.fireGroup = new FireGroup(this);
-  }
-
-  update() {
-    this.player.update();
-    this.bigBoss.update();
   }
 }
 

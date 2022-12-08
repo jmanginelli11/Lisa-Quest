@@ -60,7 +60,11 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    //Lisa
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
 
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants_layer',
@@ -76,13 +80,6 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.mechanicalLayer = this.map.createLayer(
-      'mechanical_layer',
-      this.mechanicalTileset,
-      0,
-      0
-    );
-
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
@@ -91,7 +88,7 @@ class FirstFight_Two extends Scene {
     // invisible platform
     this.platforms = this.physics.add.staticGroup();
     this.wallPlatform = this.platforms
-      .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
+      .create(this.sys.canvas.width / 2 + 500, this.sys.canvas.height, 'test')
       .refreshBody();
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
@@ -134,12 +131,17 @@ class FirstFight_Two extends Scene {
     );
 
     //baddies
-    this.spawnArray = [];
+    // this.spawnArray = [];
     this.time.addEvent({
       delay: 5000,
       callback: function () {
-        this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1400), 0);
-        this.spawnArray.push(this.spawn2);
+        this.spawn2 = new Enemy(
+          this,
+
+          Phaser.Math.RND.between(0, 2000),
+          0
+        ).setScale(1.5);
+        this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
         this.physics.add.overlap(
@@ -152,7 +154,7 @@ class FirstFight_Two extends Scene {
         this.physics.add.collider(this.player, this.spawn2);
       },
       callbackScope: this,
-      loop: true,
+      repeat: 10,
     });
   }
 
@@ -162,8 +164,8 @@ class FirstFight_Two extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver();
     }
-    for (let i = 0; i < this.spawnArray.length; i++) {
-      this.spawnArray[i].update();
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      this.enemiesArray[i].update();
     }
   }
 

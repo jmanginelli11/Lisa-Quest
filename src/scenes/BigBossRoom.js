@@ -3,17 +3,20 @@ import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
+import { BigBoss } from '../sprites/Enemies/BigBoss.js';
+import { FireGroup } from '../weapons/Fire/FireGroup.js';
 
-class FirstFight_Start extends Scene {
+class BigBossRoom extends Scene {
   cameras;
   player;
+  bigBoss;
   platforms;
   wallPlatform;
   laserGroup;
   enemiesArray = [];
 
   constructor(data) {
-    super({ key: 'FirstFight_Start' });
+    super({ key: 'BigBossRoom' });
   }
 
   typewriteText(text) {
@@ -30,10 +33,10 @@ class FirstFight_Start extends Scene {
   }
 
   create(data) {
-    // Background - First Scene
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
+    this.shakeCameras();
 
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
@@ -55,7 +58,19 @@ class FirstFight_Start extends Scene {
     );
 
     //creating lisa behind the plants
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
+    this.player = new Lisa(this, x, y, data.hp, data.score);
+
+    // // new BigBoss
+    // this.bigBoss = new BigBoss(
+    //   this,
+    //   x,
+    //   y,
+    //   this.player,
+    //   this.fireGroup
+    // ).setScale(4);
+
+    // new laser Group
+    this.fireGroup = new FireGroup(this);
 
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants',
@@ -68,7 +83,10 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
+    // this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
@@ -76,7 +94,7 @@ class FirstFight_Start extends Scene {
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
+      '                \nIs this...  \n                \n... the big boss room? \n                \n '
     );
 
     // invisible platform
@@ -86,8 +104,7 @@ class FirstFight_Start extends Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
-      this.scene.start('FirstFight_Two', {
-        music: data.music,
+      this.scene.start('PromisedLandFirst', {
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
@@ -97,9 +114,6 @@ class FirstFight_Start extends Scene {
     this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
-
-    // Gun placeholder
-    this.gun = this.add.image(x + 150, y - 225, 'c');
 
     // //Spawn guy
     // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
@@ -133,9 +147,30 @@ class FirstFight_Start extends Scene {
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
 
+    // spawning big boss
+    this.time.addEvent({
+      delay: 5000,
+      callback: function () {
+        this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
+        this.enemiesArray.push(this.bigBoss);
+        this.physics.add.collider(this.bigBoss, this.wallPlatform);
+        this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.bigBoss,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.bigBoss);
+      },
+      callbackScope: this,
+      loop: false,
+    });
+
     //spawning fly guy
     this.time.addEvent({
-      delay: 7000,
+      delay: 10000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -155,12 +190,12 @@ class FirstFight_Start extends Scene {
         this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      loop: 5,
+      loop: true,
     });
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
-      delay: 8000,
+      delay: 10000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
@@ -169,7 +204,14 @@ class FirstFight_Start extends Scene {
 
   update(data) {
     this.player.update();
+    // this.spawn.update();
 
+    // for (let i = 0; i < this.spawnArray.length; i++) {
+    //   this.spawnArray[i].update();
+    // }
+    // this.spawn2.update();
+
+    // console.log(data.hp);
     if (this.player.hp <= 0) {
       this.gameOver();
     }
@@ -187,8 +229,8 @@ class FirstFight_Start extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 2000),
-        Phaser.Math.RND.between(400, 600)
+        Phaser.Math.RND.between(0, 1600),
+        Phaser.Math.RND.between(400, 900)
       );
       child.setOrigin(0, 0);
     });
@@ -208,6 +250,10 @@ class FirstFight_Start extends Scene {
       timer: this.timer,
     });
   }
+
+  shakeCameras() {
+    this.cameras.main.shake(5000);
+  }
 }
 
-export default FirstFight_Start;
+export default BigBossRoom;
