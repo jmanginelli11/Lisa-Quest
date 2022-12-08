@@ -2,13 +2,13 @@ import { Scene } from 'phaser';
 import store from '../store';
 
 class HighScores extends Scene {
-  constructor() {
+  constructor(data) {
     super({ key: 'HighScores' });
 
     this.scores = [];
   }
 
-  create() {
+  create(data) {
     //Defining x and y
     const x = innerWidth / 2;
     const y = innerHeight / 2;
@@ -26,7 +26,9 @@ class HighScores extends Scene {
       .setScale(1);
     mainMenuButton.setInteractive();
     mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
+      this.scene.start('MainMenu', {
+        music: data.music,
+      });
     });
 
     //Bitmap font

@@ -1,11 +1,11 @@
 import { Scene } from 'phaser';
 
 class GameScore extends Scene {
-  constructor() {
+  constructor(data) {
     super({ key: 'GameScore' });
   }
 
-  create() {
+  create(data) {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
