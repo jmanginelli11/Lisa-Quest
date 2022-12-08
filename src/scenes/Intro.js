@@ -37,9 +37,6 @@ class Intro extends Scene {
     gameButton.on('pointerup', () => {
       this.scene.start('GameScene', {
         music: data.music,
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
       });
     });
   }

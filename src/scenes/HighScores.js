@@ -28,9 +28,6 @@ class HighScores extends Scene {
     mainMenuButton.on('pointerup', () => {
       this.scene.start('MainMenu', {
         music: data.music,
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
       });
     });
 
