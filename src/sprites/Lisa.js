@@ -48,6 +48,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_immune = false;
 
     // Declarations
+    this.colliderLaser;
     this.colliderPunch;
     this.cursors;
     this.explosion;
@@ -73,7 +74,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           this.is_punch = false;
           this.is_dash = false;
           this.is_shoot = false;
-          this.colliderPunch.destroy(true);
+          if (this.colliderPunch) this.colliderPunch.destroy(true);
+          if (this.colliderLaser) this.colliderLaser.destroy(true);
         }
       } catch (e) {
         console.log(e);
@@ -272,9 +274,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     ) {
       this.body.setVelocityX(0);
       this.attackAnimation('shoot');
-      this.flipX
-        ? this.scene.laserGroup.shootLaserLeft(this.x, this.y)
-        : this.scene.laserGroup.shootLaserRight(this.x, this.y);
     }
 
     // Reset Jumps
@@ -294,35 +293,53 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
       this.anims.play(attack);
 
+      this.flipX
+        ? this.attackCalculation(-300, attack)
+        : this.attackCalculation(300, attack);
+
       this.hitbox.once('animationcomplete', () => {
         this.hitbox.destroy();
       });
-
-      this.colliderPunch = this.scene.add.rectangle(
-        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-        this.y,
-        this.height / 2,
-        this.width / 2
-      );
     } else {
       this.is_punch = true;
-      this.hitbox = this.scene.add
-        .sprite(this.x, this.y - this.body.height / 2)
-        .setDepth(-1)
-        .setScale(0.2)
-        .setAngle(this.flipX ? -45 : 45);
-
       this.anims.play(attack);
 
       if (attack === 'super-punch') {
+        this.hitbox = this.scene.add
+          .sprite(this.x, this.y - this.body.height / 2)
+          .setDepth(-1)
+          .setScale(0.2)
+          .setAngle(this.flipX ? -45 : 45);
+
+        this.colliderPunch = this.scene.add.rectangle(
+          this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+          this.y,
+          this.width / 0.6,
+          this.height / 0.6
+        );
+
         this.flipX
-          ? this.body.setVelocityX(-200) && this.attackCalculation(-800, attack)
-          : this.body.setVelocityX(200) && this.attackCalculation(800, attack);
+          ? this.body.setVelocityX(-200) &&
+            this.attackCalculation(-1000, attack)
+          : this.body.setVelocityX(200) && this.attackCalculation(1000, attack);
       }
       if (attack === 'punch') {
+        this.hitbox = this.scene.add
+          .sprite(this.x, this.y - this.body.height / 2)
+          .setDepth(-1)
+          .setScale(0.2)
+          .setAngle(this.flipX ? -45 : 45);
+
+        this.colliderPunch = this.scene.add.rectangle(
+          this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+          this.y,
+          this.width / 0.6,
+          this.height / 0.6
+        );
+
         this.flipX
-          ? this.body.setVelocityX(-300) && this.attackCalculation(-400, attack)
-          : this.body.setVelocityX(300) && this.attackCalculation(400, attack);
+          ? this.body.setVelocityX(-200) && this.attackCalculation(-500, attack)
+          : this.body.setVelocityX(200) && this.attackCalculation(500, attack);
       }
 
       this.hitbox.once('animationcomplete', () => {
@@ -332,7 +349,66 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   attackCalculation(knockbackVal, attack) {
-    if (attack === 'punch' || attack === 'super-punch')
+    if (attack === 'shoot') {
+      this.colliderLaser = this.scene.add.rectangle(
+        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
+        this.y,
+        60,
+        60
+      );
+      this.scene.physics.add.existing(this.colliderLaser);
+
+      // Shooting left
+      if (this.flipX) {
+        this.scene.laserGroup.shootLaserLeft(this.x, this.y);
+        this.colliderLaser.body.setVelocityX(-1400);
+      } else {
+        this.scene.laserGroup.shootLaserRight(this.x, this.y);
+        this.colliderLaser.body.setVelocityX(1400);
+      }
+
+      // Collision, knockback, health deprecation
+      for (let i = 0; i < this.scene.enemiesArray.length; i++) {
+        if (
+          this.scene.physics.overlap(
+            this.scene.enemiesArray[i],
+            this.colliderLaser
+          )
+        ) {
+          this.scene.enemiesArray[i].is_in_knockback = true;
+          this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
+          this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
+
+          // Knockingback enemiesArray[i]
+          if (knockbackVal <= 0) {
+            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
+          } else {
+            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
+          }
+
+          // HP and Score
+          if (this.scene.enemiesArray[i].hp > 1) {
+            this.scene.enemiesArray[i].hp--;
+            console.log('hit! hp: ', this.scene.enemiesArray[i].hp);
+
+            if (knockbackVal <= 0) {
+              this.addScore(knockbackVal * -0.05);
+            } else {
+              this.addScore(knockbackVal * 0.05);
+            }
+          } else if (this.scene.enemiesArray[i].hp <= 1) {
+            if (knockbackVal <= 0) {
+              this.addScore(knockbackVal * -0.05);
+            } else {
+              this.addScore(knockbackVal * 0.05);
+            }
+
+            this.addScore(100);
+            this.scene.enemiesArray[i].hp--;
+          }
+        }
+      }
+    } else if (attack === 'punch' || attack === 'super-punch') {
       // calculating hitbox by attack
       this.colliderPunch = this.scene.add.rectangle(
         this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
@@ -341,50 +417,51 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         60
       );
 
-    this.scene.physics.add.existing(this.colliderPunch);
-    this.colliderPunch.body.setImmovable(true);
-    this.colliderPunch.body.allowGravity = false;
+      this.scene.physics.add.existing(this.colliderPunch);
+      this.colliderPunch.body.setImmovable(true);
+      this.colliderPunch.body.allowGravity = false;
 
-    // Loop through enemiesArray in scene
-    for (let i = 0; i < this.scene.enemiesArray.length; i++) {
-      if (
-        this.scene.physics.overlap(
-          this.scene.enemiesArray[i],
-          this.colliderPunch
-        )
-      ) {
-        this.scene.enemiesArray[i].is_in_knockback = true;
-        this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
-        this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
+      // Loop through enemiesArray in scene
+      for (let i = 0; i < this.scene.enemiesArray.length; i++) {
+        if (
+          this.scene.physics.overlap(
+            this.scene.enemiesArray[i],
+            this.colliderPunch
+          )
+        ) {
+          this.scene.enemiesArray[i].is_in_knockback = true;
+          this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
+          this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
 
-        // Knockingback enemiesArray[i]
-        if (knockbackVal <= 0) {
-          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
-        } else {
-          this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
-        }
-
-        // HP and Score
-        if (this.scene.enemiesArray[i].hp > 1) {
-          this.scene.enemiesArray[i].hp--;
-
+          // Knockingback enemiesArray[i]
           if (knockbackVal <= 0) {
-            this.addScore(knockbackVal * -0.05);
+            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
           } else {
-            this.addScore(knockbackVal * 0.05);
-          }
-        } else if (this.scene.enemiesArray[i].hp <= 1) {
-          if (knockbackVal <= 0) {
-            this.addScore(knockbackVal * -0.05);
-          } else {
-            this.addScore(knockbackVal * 0.05);
+            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
           }
 
-          this.addScore(100);
-          this.scene.enemiesArray[i].hp--;
-        }
+          // HP and Score
+          if (this.scene.enemiesArray[i].hp > 1) {
+            this.scene.enemiesArray[i].hp--;
 
-        if (this.colliderPunch) this.colliderPunch.destroy();
+            if (knockbackVal <= 0) {
+              this.addScore(knockbackVal * -0.05);
+            } else {
+              this.addScore(knockbackVal * 0.05);
+            }
+          } else if (this.scene.enemiesArray[i].hp <= 1) {
+            if (knockbackVal <= 0) {
+              this.addScore(knockbackVal * -0.05);
+            } else {
+              this.addScore(knockbackVal * 0.05);
+            }
+
+            this.addScore(100);
+            this.scene.enemiesArray[i].hp--;
+          }
+
+          if (this.colliderPunch) this.colliderPunch.destroy();
+        }
       }
     }
   }
@@ -424,11 +501,11 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   hitSpawn(player, spawn) {
-    console.log('before', player.hp);
+    // console.log('before', player.hp);
     if (!player.is_immune) {
       player.is_immune = true;
       player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
-      console.log('after', player.hp);
+      // console.log('after', player.hp);
       player.setHBValue(player.real_bar, player.hp);
       this.time.addEvent({
         delay: 500,
