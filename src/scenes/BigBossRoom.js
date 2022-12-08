@@ -94,7 +94,7 @@ class BigBossRoom extends Scene {
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
+      '                \nIs this...  \n                \n... the big boss room? \n                \n '
     );
 
     // invisible platform
@@ -114,9 +114,6 @@ class BigBossRoom extends Scene {
     this.wallPlatform.setVisible(false);
 
     this.laserGroup = new LaserGroup(this);
-
-    // Gun placeholder
-    this.gun = this.add.image(x + 150, y - 225, 'c');
 
     // //Spawn guy
     // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
@@ -255,13 +252,7 @@ class BigBossRoom extends Scene {
   }
 
   shakeCameras() {
-    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.SHAKE_START, () => {
-      console.log('we shaking baby');
-    });
-    this.cameras.main.on(Phaser.Cameras.Scene2D.Events.SHAKE_COMPLETE, () => {
-      console.log('we finished dat shake');
-    });
-    this.cameras.main.shake(500);
+    this.cameras.main.shake(5000);
   }
 }
 
