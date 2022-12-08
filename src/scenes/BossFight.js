@@ -70,18 +70,18 @@ class BossFight extends Scene {
     this.secondLayer.displayHeight = this.sys.canvas.height;
 
     // Invisible platform
-    // this.platforms = this.physics.add.staticGroup();
-    // let waterFallPlatform = this.platforms
-    //   .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-    //   .refreshBody();
-    // this.physics.add.collider(this.player, waterFallPlatform, () => {
-    //   this.scene.start('BigBossRoom', {
-    //     hp: this.player.hp,
-    //     score: this.player.score,
-    //     timer: this.timer,
-    //   });
-    // });
-    // waterFallPlatform.setVisible(false);
+    this.platforms = this.physics.add.staticGroup();
+    let wallPlatform = this.platforms
+      .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
+      .refreshBody();
+    this.physics.add.collider(this.player, wallPlatform, () => {
+      this.scene.start('PromisedLand', {
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
+    });
+    wallPlatform.setVisible(false);
   }
 
   update() {
