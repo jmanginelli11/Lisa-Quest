@@ -74,10 +74,10 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
     // text
-    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+    this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      `What have we here? Fly guys I hate these ones...                \n  \nI can't seem to get out of here... I think I have to collect three hearts for a door to appear...                \n  \n                \n `
+      `What have we here? Fly guys I hate these ones...                \nI can't seem to get out of here... I think I have to \ncollect three hearts for a door to appear...                       `
     );
 
     this.laserGroup = new LaserGroup(this);
