@@ -322,7 +322,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.music = this.sound.add('main-menu');
     this.musicConfig = {
       mute: 0,
-      volume: 0.3,
+      volume: 0.35,
       loop: true,
     };
 
