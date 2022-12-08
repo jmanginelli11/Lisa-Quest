@@ -61,7 +61,8 @@ class GameScene extends Scene {
     };
     this.timer = this.add
       .text(x, innerHeight / 10, 'Time: ', timeTextStyle)
-      .setOrigin(0.5, 0.5);
+      .setOrigin(0.5, 0.5)
+      .setVisible(false);
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
