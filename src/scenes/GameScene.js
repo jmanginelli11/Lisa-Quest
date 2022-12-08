@@ -52,7 +52,7 @@ class GameScene extends Scene {
       .setVisible(false);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y);
+    this.player = new Lisa(this, x, y).setPosition(0, 0);
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
