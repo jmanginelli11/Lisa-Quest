@@ -37,14 +37,14 @@ class GameScene extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, 'main-menu')
-      .setScale(3);
-    mainMenuButton.setInteractive();
+    // let mainMenuButton = this.add
+    //   .image(x / 2, y * 1.8, 'main-menu')
+    //   .setScale(3);
+    // mainMenuButton.setInteractive();
 
-    mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
-    });
+    // mainMenuButton.on('pointerup', () => {
+    //   this.scene.switch('MainMenu');
+    // });
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
