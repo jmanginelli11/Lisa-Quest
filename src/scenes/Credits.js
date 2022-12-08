@@ -1,10 +1,6 @@
 import { Scene } from 'phaser';
-import { Lisa } from '../sprites/Lisa.js';
 
 class Credits extends Scene {
-  bigBoss;
-  enemiesArray = [];
-
   constructor() {
     super({ key: 'Credits' });
   }
@@ -29,13 +25,6 @@ class Credits extends Scene {
     mainMenuButton.on('pointerup', () => {
       this.scene.switch('MainMenu');
     });
-
-    this.player = new Lisa(this, x, y);
-  }
-
-  update() {
-    this.player.update();
-    this.bigBoss.update();
   }
 }
 
