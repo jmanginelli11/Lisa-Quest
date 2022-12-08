@@ -54,6 +54,10 @@ export default class PreloaderScene extends Phaser.Scene {
       repeat: 1,
     });
 
+    // Audio
+
+    this.load.audio('fire', '/assets/audios/084303_hq-flamethrower-87072.mp3');
+
     // GameDev Sprites
     this.load.image('lauren', '/assets/gamedevs/lauren-idle1.png');
     this.load.image('jags', '/assets/gamedevs/jags-idle2.png');
