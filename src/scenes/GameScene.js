@@ -101,18 +101,19 @@ class GameScene extends Scene {
     //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
-      repeat: 9,
+      repeat: 4,
       allowGravity: false,
+      setXY: { x: 300, y: 350, stepX: 300 },
     });
-    this.hearts.children.iterate(function (child) {
-      for (var i = 0; i < 9; i++) {
-        child.setPosition(
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(400, 600)
-        );
-        child.setOrigin(0, 0);
-      }
-    });
+    // this.hearts.children.iterate(function (child) {
+    //   for (var i = 0; i < 5; i++) {
+    //     child.setPosition(
+    //       Phaser.Math.RND.between(0, 1600),
+    //       Phaser.Math.RND.between(400, 600)
+    //     );
+    //     child.setOrigin(0, 0);
+    //   }
+    // });
 
     this.physics.add.overlap(
       this.player,
@@ -124,19 +125,19 @@ class GameScene extends Scene {
 
     //spawning rigs
 
-    this.rigs = this.physics.add.group({
-      key: 'rig',
-      repeat: 5,
-    });
+    // this.rigs = this.physics.add.group({
+    //   key: 'rig',
+    //   repeat: 5,
+    // });
 
-    this.rigs.children.iterate(function (rig) {
-      for (let i = 0; i < 5; i++) {
-        rig.setPosition(
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
-        );
-      }
-    });
+    // this.rigs.children.iterate(function (rig) {
+    //   for (let i = 0; i < 5; i++) {
+    //     rig.setPosition(
+    //       Phaser.Math.RND.between(0, 1400),
+    //       Phaser.Math.RND.between(0, 600)
+    //     );
+    //   }
+    // });
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -174,7 +175,6 @@ class GameScene extends Scene {
     // Collider so enemy and player can interact
     this.physics.add.collider(this.player, this.enemy);
 
-
     //enemies spawning at timed intervals
     // for (let i = 0; i < 3; i++) {
     //   this.time.addEvent({
@@ -183,21 +183,21 @@ class GameScene extends Scene {
     //     callbackScope: this,
     //   });
     // }
-    this.spawn = new Enemy(
-      this,
-      Phaser.Math.RND.between(0, 1400),
-      Phaser.Math.RND.between(0, 600)
-    );
+    // this.spawn = new Enemy(
+    //   this,
+    //   Phaser.Math.RND.between(0, 1400),
+    //   Phaser.Math.RND.between(0, 600)
+    // );
 
-    this.physics.add.collider(this.spawn, this.groundLayer);
-    this.physics.add.overlap(
-      this.player,
-      this.spawn,
-      this.player.hitSpawn,
-      null,
-      this
-    );
-    this.physics.add.collider(this.player, this.spawn);
+    // this.physics.add.collider(this.spawn, this.groundLayer);
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.spawn,
+    //   this.player.hitSpawn,
+    //   null,
+    //   this
+    // );
+    // this.physics.add.collider(this.player, this.spawn);
     // this.spawns = this.time.addEvent({
     //   delay: 3000,
     //   callback: this.spawnEnemy,
@@ -211,22 +211,18 @@ class GameScene extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver();
     }
-
   }
 
   update(time) {
     this.player.update();
 
     this.enemy.update();
-    this.spawn.update();
-
+    // this.spawn.update();
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
-
-
 
   gameOver() {
     this.scene.start('Form', {

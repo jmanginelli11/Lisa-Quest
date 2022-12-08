@@ -1,12 +1,14 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class FirstFight_Two extends Scene {
   cameras;
   player;
   platforms;
   wallPlatform;
+  laserGroup;
   enemiesArray = [];
 
   constructor(data) {
@@ -18,6 +20,9 @@ class FirstFight_Two extends Scene {
 
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
 
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
@@ -100,16 +105,39 @@ class FirstFight_Two extends Scene {
     this.wallPlatform.setVisible(false);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
-    this.spawnArray = [];
+    //healthHearts
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      repeat: 4,
+      allowGravity: true,
+      setXY: { x: 0, y: 350, stepX: 300 },
+    });
 
+    this.physics.add.collider(this.hearts, this.wallPlatform);
+    this.physics.add.collider(this.hearts, this.groundAndPlatforms);
+    this.hearts.children.iterate(function (child) {
+      for (var i = 0; i < 5; i++) {
+        child.setBounce(1),
+          child.setOrigin(0, 0),
+          child.setVelocity(Phaser.Math.Between(-200, 200)),
+          child.setCollideWorldBounds(true);
+      }
+    });
+
+    this.physics.add.overlap(
+      this.player,
+      this.hearts,
+      this.player.collectHeart,
+      null,
+      this
+    );
+
+    //baddies
+    this.spawnArray = [];
     this.time.addEvent({
       delay: 5000,
       callback: function () {
-        this.spawn2 = new Enemy(
-          this,
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
-        );
+        this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1400), 0);
         this.spawnArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
