@@ -76,12 +76,20 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
+    this.physics.add.collider(
+      this.player,
+      this.invisibleLayer,
+      this.player.hitSpikyPlant
+    );
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
-    this.physics.add.collider(this.player, this.invisibleLayer);
+
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
-    this.invisibleLayer.setCollisionBetween(160, 170);
-
+    this.invisibleLayer.setCollisionBetween(139, 170);
+    //
     // text
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
 
