@@ -156,12 +156,12 @@ class FirstFight_Start extends Scene {
         this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      loop: true,
+      loop: 5,
     });
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
-      delay: 10000,
+      delay: 8000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
@@ -170,14 +170,7 @@ class FirstFight_Start extends Scene {
 
   update(data) {
     this.player.update();
-    // this.spawn.update();
 
-    // for (let i = 0; i < this.spawnArray.length; i++) {
-    //   this.spawnArray[i].update();
-    // }
-    // this.spawn2.update();
-
-    // console.log(data.hp);
     if (this.player.hp <= 0) {
       this.gameOver();
     }
@@ -195,8 +188,8 @@ class FirstFight_Start extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 1600),
-        Phaser.Math.RND.between(400, 900)
+        Phaser.Math.RND.between(0, 2000),
+        Phaser.Math.RND.between(400, 600)
       );
       child.setOrigin(0, 0);
     });

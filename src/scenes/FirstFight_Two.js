@@ -137,7 +137,11 @@ class FirstFight_Two extends Scene {
     this.time.addEvent({
       delay: 5000,
       callback: function () {
-        this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1400), 0);
+        this.spawn2 = new Enemy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          0
+        ).setScale(1.5);
         this.spawnArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
