@@ -67,7 +67,7 @@ class GameScene extends Scene {
       .setVisible(false);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y);
+    this.player = new Lisa(this, x, y).setPosition(100);
 
     //ADD SOMETHING TO MAKE TORI APPEAR WHEN IN TWO PLAYER MODE
     // this.add.text(x + 400, innerHeight / 14, 'TORI');

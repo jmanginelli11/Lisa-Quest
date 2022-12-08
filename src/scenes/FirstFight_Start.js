@@ -56,7 +56,7 @@ class FirstFight_Start extends Scene {
     );
 
     //creating lisa behind the plants
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
     this.rocksAndPlants = this.map.createLayer(
       'rocks_and_plants',
