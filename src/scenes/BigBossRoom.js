@@ -36,6 +36,8 @@ class BigBossRoom extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    this.shakeCameras();
+
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
@@ -81,6 +83,7 @@ class BigBossRoom extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
 
@@ -228,6 +231,12 @@ class BigBossRoom extends Scene {
       score: this.player.score,
       timer: this.timer,
     });
+  }
+
+  shakeCameras() {
+    this.cameras.default.shakeEffect.duration = 100;
+    this.cameras.default.shakeEffect.isRunning = true;
+    // this.cameras.shake();
   }
 }
 
