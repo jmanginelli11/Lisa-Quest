@@ -52,7 +52,10 @@ class GameScene extends Scene {
       .setVisible(false);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y);
+    this.player = new Lisa(this, x, y).setPosition(
+      innerWidth * 0.2,
+      innerHeight * 0.65
+    );
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -134,13 +137,15 @@ class GameScene extends Scene {
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
+    // Spawn one baddie
+  }
+
+  update(data, time) {
+    this.player.update();
+
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-  }
-
-  update(time) {
-    this.player.update();
 
     // Timer
     let gameRunTime = time * 0.001;
