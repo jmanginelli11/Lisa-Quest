@@ -85,7 +85,9 @@ class MainMenu extends Scene {
     });
 
     highScoreButton.on('pointerup', () => {
-      this.scene.switch('HighScores');
+      this.scene.start('HighScores', {
+        music: data.music,
+      });
     });
 
     highScoreButton.on('pointerout', () => {
@@ -101,15 +103,11 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on('pointerup', () => {
-      this.scene.switch('Credits');
+      this.scene.start('Credits', {
+        music: data.music,
+      });
     });
   }
-
-  // update() {
-  //   if (this.game.sound.context.state === 'suspended') {
-  //     this.game.sound.context.resume();
-  //   }
-  // }
 }
 
 export default MainMenu;

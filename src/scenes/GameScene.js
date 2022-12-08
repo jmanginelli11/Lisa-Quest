@@ -135,7 +135,7 @@ class GameScene extends Scene {
     this.laserGroup = new LaserGroup(this);
 
     if (this.player.hp <= 0) {
-      this.gameOver();
+      this.gameOver(data);
     }
   }
 
@@ -147,8 +147,9 @@ class GameScene extends Scene {
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
 
-  gameOver() {
+  gameOver(data) {
     this.scene.start('Form', {
+      music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,

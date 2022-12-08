@@ -105,6 +105,7 @@ class BigBossRoom extends Scene {
 
     this.physics.add.collider(this.player, this.wallPlatform, () => {
       this.scene.start('PromisedLandFirst', {
+        music: data.music,
         hp: this.player.hp,
         score: this.player.score,
         timer: this.timer,
@@ -213,7 +214,7 @@ class BigBossRoom extends Scene {
 
     // console.log(data.hp);
     if (this.player.hp <= 0) {
-      this.gameOver();
+      this.gameOver(data);
     }
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
@@ -243,8 +244,9 @@ class BigBossRoom extends Scene {
     );
   }
 
-  gameOver() {
+  gameOver(data) {
     this.scene.start('Form', {
+      music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,

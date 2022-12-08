@@ -1,11 +1,11 @@
 import { Scene } from 'phaser';
 
 class Intro extends Scene {
-  constructor() {
+  constructor(data) {
     super({ key: 'Intro' });
   }
 
-  create() {
+  create(data) {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -35,7 +35,12 @@ class Intro extends Scene {
     });
 
     gameButton.on('pointerup', () => {
-      this.scene.switch('GameScene');
+      this.scene.start('GameScene', {
+        music: data.music,
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
   }
   typewriteText(text) {

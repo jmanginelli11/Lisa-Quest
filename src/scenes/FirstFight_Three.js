@@ -138,11 +138,11 @@ class FirstFight_Three extends Scene {
     });
   }
 
-  update() {
+  update(data) {
     this.player.update();
 
     if (this.player.hp <= 0) {
-      this.gameOver();
+      this.gameOver(data);
     }
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
@@ -183,8 +183,9 @@ class FirstFight_Three extends Scene {
     );
   }
 
-  gameOver() {
+  gameOver(data) {
     this.scene.start('Form', {
+      music: data.music,
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,

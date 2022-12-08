@@ -41,7 +41,12 @@ class Form extends Scene {
       .setScale(1.5);
     mainMenuButton.setInteractive();
     mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
+      this.scene.start('MainMenu', {
+        music: data.music,
+        hp: this.player.hp,
+        score: this.player.score,
+        timer: this.timer,
+      });
     });
 
     const element = this.add.dom(x, y).createFromCache('form');

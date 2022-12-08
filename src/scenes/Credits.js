@@ -1,11 +1,11 @@
 import { Scene } from 'phaser';
 
 class Credits extends Scene {
-  constructor() {
+  constructor(data) {
     super({ key: 'Credits' });
   }
 
-  create() {
+  create(data) {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -23,7 +23,9 @@ class Credits extends Scene {
     mainMenuButton.setInteractive();
 
     mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
+      this.scene.start('MainMenu', {
+        music: data.music,
+      });
     });
   }
 }
