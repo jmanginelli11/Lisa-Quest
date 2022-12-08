@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
+import { FlyGuy } from '../sprites/Enemies/FlyGuy';
 
 class FirstFight_Start extends Scene {
   cameras;
@@ -13,6 +14,19 @@ class FirstFight_Start extends Scene {
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
+  }
+
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
+    });
   }
 
   create(data) {
@@ -60,6 +74,13 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
+    // text
+    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+
+    this.typewriteText(
+      '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
+    );
+
     // invisible platform
     this.platforms = this.physics.add.staticGroup();
     this.wallPlatform = this.platforms
@@ -78,44 +99,65 @@ class FirstFight_Start extends Scene {
 
     this.laserGroup = new LaserGroup(this);
 
-    //Spawn guy
-    this.spawn = new Enemy(
-      this,
-      Phaser.Math.RND.between(0, 1400),
-      Phaser.Math.RND.between(0, 600)
-    );
+    // Gun placeholder
+    this.gun = this.add.image(x + 150, y - 225, 'c');
 
-    this.physics.add.collider(this.spawn, this.wallPlatform);
-    this.physics.add.collider(this.spawn, this.groundAndPlatforms);
-    this.physics.add.overlap(
-      this.player,
-      this.spawn,
-      this.player.hitSpawn,
-      null,
-      this
-    );
-    this.physics.add.collider(this.player, this.spawn);
+    // //Spawn guy
+    // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
 
-    //spawn guy 2
-    this.spawnArray = [];
-    for (let i = 0; i < 5; i++) {
-      this.spawn2 = new Enemy(
-        this,
-        Phaser.Math.RND.between(0, 1400),
-        Phaser.Math.RND.between(0, 600)
-      );
-      this.spawnArray.push(this.spawn2);
-      this.physics.add.collider(this.spawn2, this.wallPlatform);
-      this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
-      this.physics.add.overlap(
-        this.player,
-        this.spawn2,
-        this.player.hitSpawn,
-        null,
-        this
-      );
-      this.physics.add.collider(this.player, this.spawn2);
-    }
+    // this.physics.add.collider(this.spawn, this.wallPlatform);
+    // this.physics.add.collider(this.spawn, this.groundAndPlatforms);
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.spawn,
+    //   this.player.hitSpawn,
+    //   null,
+    //   this
+    // );
+    // this.physics.add.collider(this.player, this.spawn);
+
+    // //spawn guy 2
+    // this.spawnArray = [];
+    // for (let i = 0; i < 5; i++) {
+    //   this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1600), 0);
+
+    //   this.spawnArray.push(this.spawn2);
+    //   this.physics.add.collider(this.spawn2, this.wallPlatform);
+    //   this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+    //   this.physics.add.overlap(
+    //     this.player,
+    //     this.spawn2,
+    //     this.player.hitSpawn,
+    //     null,
+    //     this
+    //   );
+    //   this.physics.add.collider(this.player, this.spawn2);
+    // }
+
+    //spawning fly guy
+    this.time.addEvent({
+      delay: 7000,
+      callback: function () {
+        this.flyGuy = new FlyGuy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          0
+        ).setScale(1.5);
+        this.enemiesArray.push(this.flyGuy);
+        this.physics.add.collider(this.flyGuy, this.wallPlatform);
+        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.flyGuy,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.flyGuy);
+      },
+      callbackScope: this,
+      loop: true,
+    });
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
@@ -128,16 +170,20 @@ class FirstFight_Start extends Scene {
 
   update(data) {
     this.player.update();
-    this.spawn.update();
+    // this.spawn.update();
 
-    for (let i = 0; i < this.spawnArray.length; i++) {
-      this.spawnArray[i].update();
-    }
+    // for (let i = 0; i < this.spawnArray.length; i++) {
+    //   this.spawnArray[i].update();
+    // }
     // this.spawn2.update();
 
     // console.log(data.hp);
     if (this.player.hp <= 0) {
       this.gameOver();
+    }
+
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      this.enemiesArray[i].update();
     }
   }
 
@@ -149,8 +195,8 @@ class FirstFight_Start extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 1400),
-        Phaser.Math.RND.between(0, 600)
+        Phaser.Math.RND.between(0, 1600),
+        Phaser.Math.RND.between(400, 900)
       );
       child.setOrigin(0, 0);
     });

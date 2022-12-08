@@ -37,14 +37,20 @@ class GameScene extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, 'main-menu')
-      .setScale(3);
-    mainMenuButton.setInteractive();
+    // let mainMenuButton = this.add
+    //   .image(x / 2, y * 1.8, 'main-menu')
+    //   .setScale(3);
+    // mainMenuButton.setInteractive();
 
-    mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
-    });
+    // mainMenuButton.on('pointerup', () => {
+    //   this.scene.switch('MainMenu');
+    // });
+
+    this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
+
+    this.typewriteText(
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the X and especially the Z keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
+    );
 
     //timer
     let timeTextStyle = {
@@ -55,7 +61,8 @@ class GameScene extends Scene {
     };
     this.timer = this.add
       .text(x, innerHeight / 10, 'Time: ', timeTextStyle)
-      .setOrigin(0.5, 0.5);
+      .setOrigin(0.5, 0.5)
+      .setVisible(false);
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
@@ -101,18 +108,19 @@ class GameScene extends Scene {
     //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
-      repeat: 9,
+      repeat: 4,
       allowGravity: false,
+      setXY: { x: 300, y: 350, stepX: 300 },
     });
-    this.hearts.children.iterate(function (child) {
-      for (var i = 0; i < 9; i++) {
-        child.setPosition(
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(400, 600)
-        );
-        child.setOrigin(0, 0);
-      }
-    });
+    // this.hearts.children.iterate(function (child) {
+    //   for (var i = 0; i < 5; i++) {
+    //     child.setPosition(
+    //       Phaser.Math.RND.between(0, 1600),
+    //       Phaser.Math.RND.between(400, 600)
+    //     );
+    //     child.setOrigin(0, 0);
+    //   }
+    // });
 
     this.physics.add.overlap(
       this.player,
@@ -124,19 +132,19 @@ class GameScene extends Scene {
 
     //spawning rigs
 
-    this.rigs = this.physics.add.group({
-      key: 'rig',
-      repeat: 5,
-    });
+    // this.rigs = this.physics.add.group({
+    //   key: 'rig',
+    //   repeat: 5,
+    // });
 
-    this.rigs.children.iterate(function (rig) {
-      for (let i = 0; i < 5; i++) {
-        rig.setPosition(
-          Phaser.Math.RND.between(0, 1400),
-          Phaser.Math.RND.between(0, 600)
-        );
-      }
-    });
+    // this.rigs.children.iterate(function (rig) {
+    //   for (let i = 0; i < 5; i++) {
+    //     rig.setPosition(
+    //       Phaser.Math.RND.between(0, 1400),
+    //       Phaser.Math.RND.between(0, 600)
+    //     );
+    //   }
+    // });
 
     //resizing to fit the playable game scene
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -166,14 +174,13 @@ class GameScene extends Scene {
     this.waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
-    this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
+    // this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
     // Collider so enemy and player can interact
-    this.physics.add.collider(this.player, this.enemy);
-
+    // this.physics.add.collider(this.player, this.enemy);
 
     //enemies spawning at timed intervals
     // for (let i = 0; i < 3; i++) {
@@ -183,21 +190,21 @@ class GameScene extends Scene {
     //     callbackScope: this,
     //   });
     // }
-    this.spawn = new Enemy(
-      this,
-      Phaser.Math.RND.between(0, 1400),
-      Phaser.Math.RND.between(0, 600)
-    );
+    // this.spawn = new Enemy(
+    //   this,
+    //   Phaser.Math.RND.between(0, 1400),
+    //   Phaser.Math.RND.between(0, 600)
+    // );
 
-    this.physics.add.collider(this.spawn, this.groundLayer);
-    this.physics.add.overlap(
-      this.player,
-      this.spawn,
-      this.player.hitSpawn,
-      null,
-      this
-    );
-    this.physics.add.collider(this.player, this.spawn);
+    // this.physics.add.collider(this.spawn, this.groundLayer);
+    // this.physics.add.overlap(
+    //   this.player,
+    //   this.spawn,
+    //   this.player.hitSpawn,
+    //   null,
+    //   this
+    // );
+    // this.physics.add.collider(this.player, this.spawn);
     // this.spawns = this.time.addEvent({
     //   delay: 3000,
     //   callback: this.spawnEnemy,
@@ -211,28 +218,37 @@ class GameScene extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver();
     }
-
   }
 
   update(time) {
     this.player.update();
 
-    this.enemy.update();
-    this.spawn.update();
-
+    // this.enemy.update();
+    // this.spawn.update();
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
 
-
-
   gameOver() {
     this.scene.start('Form', {
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,
+    });
+  }
+
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
     });
   }
 

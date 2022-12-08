@@ -37,6 +37,7 @@ export default class PreloaderScene extends Phaser.Scene {
     );
 
     // Testing assets
+
     this.load.image('test', '/assets/testSprites/platform.png');
     this.load.image('test2', '/assets/testSprites/platformRotate.png');
     this.load.spritesheet('explosion', '/assets/testSprites/explosion.png', {
@@ -52,6 +53,10 @@ export default class PreloaderScene extends Phaser.Scene {
       frameRate: 4,
       repeat: 1,
     });
+
+    // Audio
+
+    this.load.audio('fire', '/assets/audios/084303_hq-flamethrower-87072.mp3');
 
     // GameDev Sprites
     this.load.image('lauren', '/assets/gamedevs/lauren-idle1.png');
@@ -238,6 +243,9 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // laser
     this.load.image('laser', '/assets/lisa/default/laser3.png');
+
+    // gun
+    this.load.image('c', '/assets/c.png');
   }
 
   createLisaAnims() {

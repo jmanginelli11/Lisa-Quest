@@ -3,7 +3,9 @@ const { Score } = require('../db');
 
 scoresRouter.get('/', async (req, res, next) => {
   try {
-    const scores = await Score.findAll();
+    const scores = await Score.findAll({
+      order: [['score', 'DESC']],
+    });
     res.status(200).send(scores);
   } catch (error) {
     next(error);

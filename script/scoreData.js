@@ -1,10 +1,10 @@
 const scoreData = [
   {
-    name: "JACK",
+    name: 'JACK',
     score: 100,
   },
   {
-    name: "NAOM",
+    name: 'NAOM',
     score: 2000,
   },
 ];
