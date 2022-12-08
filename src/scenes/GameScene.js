@@ -37,14 +37,20 @@ class GameScene extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    let mainMenuButton = this.add
-      .image(x / 2, y * 1.8, 'main-menu')
-      .setScale(3);
-    mainMenuButton.setInteractive();
+    // let mainMenuButton = this.add
+    //   .image(x / 2, y * 1.8, 'main-menu')
+    //   .setScale(3);
+    // mainMenuButton.setInteractive();
 
-    mainMenuButton.on('pointerup', () => {
-      this.scene.switch('MainMenu');
-    });
+    // mainMenuButton.on('pointerup', () => {
+    //   this.scene.switch('MainMenu');
+    // });
+
+    this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
+
+    this.typewriteText(
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the X and especially the Z keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
+    );
 
     //timer
     let timeTextStyle = {
@@ -55,7 +61,8 @@ class GameScene extends Scene {
     };
     this.timer = this.add
       .text(x, innerHeight / 10, 'Time: ', timeTextStyle)
-      .setOrigin(0.5, 0.5);
+      .setOrigin(0.5, 0.5)
+      .setVisible(false);
 
     // Creating Player (Lisa)
     this.player = new Lisa(this, x, y);
@@ -229,6 +236,19 @@ class GameScene extends Scene {
       hp: this.player.hp,
       score: this.player.score,
       timer: this.timer,
+    });
+  }
+
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
     });
   }
 
