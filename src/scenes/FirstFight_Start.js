@@ -74,10 +74,10 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(743, 746);
 
     // text
-    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+    this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
+      `What have we here? Fly guys I hate these ones...                \nI can't seem to get out of here... I think I have to \ncollect three hearts for a door to appear...                       `
     );
 
     this.laserGroup = new LaserGroup(this);
@@ -162,7 +162,7 @@ class FirstFight_Start extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 5) {
+    if (this.player.heartCount >= 3) {
       this.platforms = this.physics.add.staticGroup();
       this.wallPlatform = this.platforms
         .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
@@ -175,7 +175,6 @@ class FirstFight_Start extends Scene {
           timer: this.timer,
         });
       });
-      // .rotation(90);
       this.wallPlatform.setVisible(true);
     }
   }

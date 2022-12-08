@@ -62,21 +62,6 @@ class FirstFight_Three extends Scene {
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // Invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-      .refreshBody();
-    this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('BossFight', {
-        music: data.music,
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-    });
-    waterFallPlatform.setVisible(false);
-
     // spawning little enemy guy
 
     this.time.addEvent({
@@ -148,6 +133,22 @@ class FirstFight_Three extends Scene {
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
+    }
+
+    if (this.player.heartCount >= 3) {
+      this.platforms = this.physics.add.staticGroup();
+      this.wallPlatform = this.platforms
+        .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
+        .refreshBody();
+
+      this.physics.add.collider(this.player, this.wallPlatform, () => {
+        this.scene.start('BigBossRoom', {
+          hp: this.player.hp,
+          score: this.player.score,
+          timer: this.timer,
+        });
+      });
+      this.wallPlatform.setVisible(true);
     }
   }
 

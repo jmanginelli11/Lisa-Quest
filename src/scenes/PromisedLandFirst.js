@@ -87,7 +87,7 @@ class PromisedLandFirst extends Scene {
       .create(this.sys.canvas.width, this.sys.canvas.height - 300, 'test2')
       .refreshBody();
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('Form', {
+      this.scene.start('GameOver', {
         music: data.music,
         hp: this.player.hp,
         score: this.player.score,
