@@ -52,7 +52,7 @@ class GameScene extends Scene {
       .setVisible(false);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y);
+    this.player = new Lisa(this, x, y).setPosition(0, 0);
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -148,7 +148,7 @@ class GameScene extends Scene {
   }
 
   gameOver(data) {
-    this.scene.start('Form', {
+    this.scene.start('GameOver', {
       music: data.music,
       hp: this.player.hp,
       score: this.player.score,
