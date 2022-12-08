@@ -167,6 +167,14 @@ class BossFight extends Scene {
       callbackScope: this,
       loop: true,
     });
+
+    //fire raining down
+    this.time.addEvent({
+      delay: 8000,
+      callback: this.spawnFire,
+      callbackScope: this,
+      loop: true,
+    });
   }
 
   update(data) {
@@ -179,6 +187,23 @@ class BossFight extends Scene {
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
+  }
+
+  spawnFire() {
+    this.fire = this.physics.add.group({
+      key: 'fire',
+      allowGravity: true,
+    });
+    this.fire.children.iterate(function (child) {
+      child.setPosition(Phaser.Math.RND.between(0, 1600), 0);
+    });
+    this.physics.add.overlap(
+      this.player,
+      this.fire,
+      this.player.hitSpawn,
+      null,
+      this
+    );
   }
 
   spawnHearts() {

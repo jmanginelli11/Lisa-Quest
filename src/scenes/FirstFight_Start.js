@@ -139,7 +139,7 @@ class FirstFight_Start extends Scene {
         this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      loop: 5,
+      repeat: 5,
     });
 
     //healthHearts spawning every 10 seconds
