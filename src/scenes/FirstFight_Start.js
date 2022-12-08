@@ -80,7 +80,6 @@ class FirstFight_Start extends Scene {
       '                \nLisa says a witty thing!  \n                \n And we know to do a thing! \n                \n '
     );
 
-
     this.laserGroup = new LaserGroup(this);
 
     // Gun placeholder
@@ -140,7 +139,7 @@ class FirstFight_Start extends Scene {
         this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      loop: 5,
+      repeat: 5,
     });
 
     //healthHearts spawning every 10 seconds
