@@ -1,4 +1,6 @@
 import axios from 'axios';
+import store from '../store';
+import { fetchScores } from '../store/redux/scoresReducer';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
@@ -55,6 +57,7 @@ class Form extends Scene {
           name: username,
           score: data.score,
         });
+        store.dispatch(fetchScores());
       }
     });
   }
