@@ -167,13 +167,13 @@ class GameScene extends Scene {
     this.waterFallPlatform.setVisible(false);
 
     // creating the enemy sprite
-    this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
+    // this.enemy = new FlyGuy(this, x, y, this.player).setScale(1.7);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
     // Collider so enemy and player can interact
-    this.physics.add.collider(this.player, this.enemy);
+    // this.physics.add.collider(this.player, this.enemy);
 
     //enemies spawning at timed intervals
     // for (let i = 0; i < 3; i++) {
@@ -216,7 +216,7 @@ class GameScene extends Scene {
   update(time) {
     this.player.update();
 
-    this.enemy.update();
+    // this.enemy.update();
     // this.spawn.update();
 
     // Timer

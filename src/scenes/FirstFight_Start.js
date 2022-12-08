@@ -172,8 +172,8 @@ class FirstFight_Start extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 1400),
-        Phaser.Math.RND.between(0, 600)
+        Phaser.Math.RND.between(0, 1600),
+        Phaser.Math.RND.between(400, 900)
       );
       child.setOrigin(0, 0);
     });

@@ -110,7 +110,7 @@ class FirstFight_Two extends Scene {
       key: 'heart',
       repeat: 5,
       allowGravity: true,
-      setXY: { x: 0, y: 0 },
+      setXY: { x: 300, y: 0 },
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
