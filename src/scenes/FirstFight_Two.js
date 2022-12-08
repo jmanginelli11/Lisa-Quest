@@ -108,9 +108,9 @@ class FirstFight_Two extends Scene {
     //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
-      repeat: 4,
+      repeat: 5,
       allowGravity: true,
-      setXY: { x: 0, y: 350, stepX: 300 },
+      setXY: { x: 0, y: 0 },
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
