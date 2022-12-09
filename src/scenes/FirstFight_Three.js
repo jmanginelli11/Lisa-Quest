@@ -142,7 +142,7 @@ class FirstFight_Three extends Scene {
         .refreshBody();
 
       this.physics.add.collider(this.player, this.wallPlatform, () => {
-        this.scene.start('BigBossRoom', {
+        this.scene.start('BossFight', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,

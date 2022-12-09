@@ -62,6 +62,8 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
@@ -170,6 +172,11 @@ class FirstFight_Start extends Scene {
 
   update(data) {
     this.player.update();
+
+    // if (this.key_P.isDown) {
+    //   console.log('trying to pause');
+    //   this.physics.pause();
+    // }
 
     if (this.player.hp <= 0) {
       this.gameOver(data);
