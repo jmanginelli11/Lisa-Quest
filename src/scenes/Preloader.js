@@ -162,12 +162,17 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.tilemapTiledJSON(
       'tilemap_FF3',
-      '/assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3).json'
+      'assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3)(Final).json'
     );
 
     this.load.image(
       'mechanical',
       '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
+    );
+
+    this.load.image(
+      'security_cam',
+      'assets/backgrounds/Themy/First-Fight/Part_Three/cameras.png'
     );
 
     //Boss fight
