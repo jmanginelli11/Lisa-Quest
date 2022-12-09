@@ -211,9 +211,12 @@ class FirstFight_Three extends Scene {
       this.enemiesArray[i].update();
     }
 
+
+
     if (this.player.heartCount >= 1) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
+
         this.scene.start('BossFight', {
           hp: this.player.hp,
           score: this.player.score,

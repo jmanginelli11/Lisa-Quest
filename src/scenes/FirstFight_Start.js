@@ -42,6 +42,13 @@ class FirstFight_Start extends Scene {
     this.sun.displayHeight = this.sys.canvas.height;
     this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
+    this.time.addEvent({
+      delay: 5000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
+
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.rocksAndPlantsTileset = this.map.addTilesetImage(
@@ -62,6 +69,8 @@ class FirstFight_Start extends Scene {
       0,
       0
     );
+
+    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
@@ -161,6 +170,7 @@ class FirstFight_Start extends Scene {
     });
 
     //healthHearts spawning every 10 seconds
+
     this.time.addEvent({
       delay: 5000,
       callback: this.spawnHearts,
@@ -177,10 +187,16 @@ class FirstFight_Start extends Scene {
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay');
+
   }
 
   update(data) {
     this.player.update();
+
+    // if (this.key_P.isDown) {
+    //   console.log('trying to pause');
+    //   this.physics.pause();
+    // }
 
     if (this.player.hp <= 0) {
       this.gameOver(data);

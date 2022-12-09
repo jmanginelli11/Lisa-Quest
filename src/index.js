@@ -17,6 +17,7 @@ import FirstFight_Two from './scenes/FirstFight_Two';
 import FirstFight_Three from './scenes/FirstFight_Three.js';
 import PromisedLandFirst from './scenes/PromisedLandFirst.js';
 import BossFight from './scenes/BossFight.js';
+import PauseScene from './scenes/PauseScene.js';
 
 // import { MainMenu, GameScene, GameScore, HighScores, Credits } from "./scenes";
 
@@ -49,6 +50,7 @@ const config = {
     FirstFight_Three,
     PromisedLandFirst,
     BossFight,
+    PauseScene,
   ],
   physics: {
     default: 'arcade',

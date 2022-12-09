@@ -18,6 +18,7 @@ class GameScene extends Scene {
   surfaceTileset;
   direction = 'right';
   enemiesArray = [];
+  isPaused = false;
 
   constructor(data) {
     super({ key: 'GameScene' });
@@ -35,8 +36,26 @@ class GameScene extends Scene {
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
+    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
+    // let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    // pauseButton.setInteractive();
+
+    // pauseButton.on('pointerup', () => {
+    // this.isPaused = !this.isPaused;
+    //   this.scene.launch('PauseScene');
+    //   this.scene.pause();
+    //   // if (this.isPaused === true) {
+    //   //   this.physics.pause();
+    //   // } else {
+    //   //   this.physics.resume();
+    //   // }
+
+    //   console.log('pause button pressed');
+    // });
+
     this.typewriteText(
-      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI should probably avoid hitting the deadly spiky plants I see off in the distance\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
     );
 
     //timer
@@ -137,10 +156,26 @@ class GameScene extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
+
+    // this.input.on('pointerup', function () {
+    //   this.scene.pause();
+    // });
+    //trying to set spacebar as a useable
+    // this.cursors = this.input.keyboard;
+    // this.cursors.pauseKey = this.input.keyboard.addKey(
+    //   Phaser.Input.Keyboard.KeyCodes.SPACEBAR
+    // );
   }
 
   update(time) {
     this.player.update();
+
+    // if (this.isPaused === true) {
+    //   this.scene.start('PauseScene');
+    //   this.scene.pause();
+    // } else {
+    //   this.scene.resume();
+    // }
 
     // Timer
     let gameRunTime = time * 0.001;
