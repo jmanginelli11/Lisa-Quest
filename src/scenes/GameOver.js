@@ -42,7 +42,7 @@ class GameOver extends Scene {
       '                \nGAME OVER  \nType up to four letters to save your score!'
     );
 
-    const text = this.add.text(x - x / 4, y - y / 4, '', {
+    this.text = this.add.text(x - x / 4, y - y / 4, '', {
       color: 'white',
       fontFamily: 'Arial',
       fontSize: '32px',
