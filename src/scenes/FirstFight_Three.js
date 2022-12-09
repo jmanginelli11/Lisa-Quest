@@ -18,10 +18,11 @@ class FirstFight_Three extends Scene {
 
   create(data) {
     // Background - First Scene(3)
-    this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
 
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
+    // this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
 
     this.map = this.make.tilemap({ key: 'tilemap_FF3' });
 
@@ -32,16 +33,61 @@ class FirstFight_Three extends Scene {
       'mechanical'
     );
 
-    this.groundAndPlatforms = this.map.createLayer(
-      'ground_layer',
-      this.groundTileset,
+    this.machineRoomTileset = this.map.addTilesetImage(
+      'machine_room_tileset1',
+      'security_cam'
+    );
+
+    this.machineRoomTilesetTwo = this.map.addTilesetImage(
+      'machine_room_tileset2',
+      'boss_tileset1'
+    );
+
+    this.machineRoomTilesetThree = this.map.addTilesetImage(
+      'machine_room_tileset3',
+      'boss_tileset2'
+    );
+
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.machineRoomTilesetThree,
       0,
       0
     );
 
-    this.mechanicalLayer = this.map.createLayer(
-      'mechanical_layer',
+    this.firstLayer = this.map.createLayer('First', this.groundTileset, 0, 0);
+
+    this.thirdLayer = this.map.createLayer(
+      'Third',
       this.mechanicalTileset,
+      0,
+      0
+    );
+
+    this.sixthLayer = this.map.createLayer(
+      'Sixth',
+      this.machineRoomTileset,
+      0,
+      0
+    );
+
+    this.seventhLayer = this.map.createLayer(
+      'Seventh',
+      this.machineRoomTilesetThree,
+      0,
+      0
+    );
+
+    this.fourthLayer = this.map.createLayer(
+      'Fourth',
+      this.machineRoomTilesetTwo,
+      0,
+      0
+    );
+
+    this.secondLayer = this.map.createLayer(
+      'Second',
+      this.machineRoomTilesetTwo,
       0,
       0
     );
@@ -52,11 +98,30 @@ class FirstFight_Three extends Scene {
       100
     );
 
-    //Colliders
-    this.physics.add.collider(this.player, this.groundAndPlatforms);
-    this.groundAndPlatforms.setCollisionBetween(142, 170);
-    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
-    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+    // Display adjustments
+    this.firstLayer.displayWidth = this.sys.canvas.width;
+    this.firstLayer.displayHeight = this.sys.canvas.height;
+    this.secondLayer.displayWidth = this.sys.canvas.width;
+    this.secondLayer.displayHeight = this.sys.canvas.height;
+    this.thirdLayer.displayWidth = this.sys.canvas.width;
+    this.thirdLayer.displayHeight = this.sys.canvas.height;
+    this.fourthLayer.displayWidth = this.sys.canvas.width;
+    this.fourthLayer.displayHeight = this.sys.canvas.height;
+    this.sixthLayer.displayWidth = this.sys.canvas.width;
+    this.sixthLayer.displayHeight = this.sys.canvas.height;
+    this.seventhLayer.displayWidth = this.sys.canvas.width;
+    this.seventhLayer.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
+
+    //Collisions
+    // this.physics.add.collider(this.player, this.groundAndPlatforms);
+    this.physics.add.collider(this.player, this.invisibleLayer);
+    this.physics.add.collider(this.player, this.firstLayer);
+
+    // this.f.setCollisionBetween(142, 170);
+    this.invisibleLayer.setCollisionBetween(139, 160);
+
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
     // laserGroup
@@ -69,13 +134,13 @@ class FirstFight_Three extends Scene {
       callback: function () {
         this.spawn2 = new Enemy(
           this,
-          Phaser.Math.RND.between(0, 1400),
-          0
+          Phaser.Math.RND.between(300, 700),
+          200
         ).setScale(1.5);
 
         this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
-        this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+        this.physics.add.collider(this.spawn2, this.invisibleLayer);
         this.physics.add.overlap(
           this.player,
           this.spawn2,
@@ -96,13 +161,13 @@ class FirstFight_Three extends Scene {
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
-          Phaser.Math.RND.between(0, 1400),
-          0
+          Phaser.Math.RND.between(300, 700),
+          200
         ).setScale(1.5);
 
         this.enemiesArray.push(this.flyGuy);
         this.physics.add.collider(this.flyGuy, this.wallPlatform);
-        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
+        this.physics.add.collider(this.flyGuy, this.invisibleLayer);
         this.physics.add.overlap(
           this.player,
           this.flyGuy,
@@ -162,12 +227,12 @@ class FirstFight_Three extends Scene {
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
-    this.physics.add.collider(this.hearts, this.groundAndPlatforms);
+    this.physics.add.collider(this.hearts, this.invisibleLayer);
     this.hearts.children.iterate(function (child) {
       // for (var i = 0; i < 5; i++) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 1400),
-        Phaser.Math.RND.between(0, 600)
+        Phaser.Math.RND.between(300, 700),
+        Phaser.Math.RND.between(200, 500)
       );
       child.setBounce(1),
         child.setOrigin(0, 0),
