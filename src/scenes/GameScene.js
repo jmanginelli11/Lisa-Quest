@@ -18,6 +18,7 @@ class GameScene extends Scene {
   surfaceTileset;
   direction = 'right';
   enemiesArray = [];
+  isPaused = false;
 
   constructor(data) {
     super({ key: 'GameScene' });
@@ -34,6 +35,21 @@ class GameScene extends Scene {
     this.background.displayHeight = this.sys.canvas.height;
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
+
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+
+      // if (this.isPaused === true) {
+      //   this.physics.pause();
+      // } else {
+      //   this.physics.resume();
+      // }
+
+      console.log('pause button pressed');
+    });
 
     this.typewriteText(
       "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
@@ -137,11 +153,30 @@ class GameScene extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
+
+    // this.input.on('pointerup', function () {
+    //   this.scene.pause();
+    // });
+    //trying to set spacebar as a useable
+    // this.cursors = this.input.keyboard;
+    // this.cursors.pauseKey = this.input.keyboard.addKey(
+    //   Phaser.Input.Keyboard.KeyCodes.SPACEBAR
+    // );
   }
 
   update(time) {
     this.player.update();
 
+    if (this.isPaused === true) {
+      this.scene.pause();
+    } else {
+      this.physics.resume();
+    }
+    //trying to pause on spacebar click
+    // if (Phaser.Input.Keyboard.JustDown(this.cursors.pauseKey)) {
+    //   console.log('spacebar pressed');
+    //   this.scene.pause();
+    // }
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
