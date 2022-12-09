@@ -38,21 +38,26 @@ class GameScene extends Scene {
 
     this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
-    // let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
-    // pauseButton.setInteractive();
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
 
-    // pauseButton.on('pointerup', () => {
-    // this.isPaused = !this.isPaused;
-    //   this.scene.launch('PauseScene');
-    //   this.scene.pause();
-    //   // if (this.isPaused === true) {
-    //   //   this.physics.pause();
-    //   // } else {
-    //   //   this.physics.resume();
-    //   // }
+    pauseButton.on('pointerup', () => {
+      this.scene.start('PauseScene');
+      this.scene.pause();
+      // } else {
+      //   this.scene.resume();
 
-    //   console.log('pause button pressed');
-    // });
+      // this.isPaused = !this.isPaused;
+      //   this.scene.launch('PauseScene');
+      // this.scene.pause();
+      //   // if (this.isPaused === true) {
+      //   //   this.physics.pause();
+      //   // } else {
+      //   //   this.physics.resume();
+      //   // }
+
+      console.log('pause button pressed');
+    });
 
     this.typewriteText(
       "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI should probably avoid hitting the deadly spiky plants I see off in the distance\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
