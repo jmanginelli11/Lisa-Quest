@@ -78,7 +78,7 @@ export class BigBoss extends EnemiesParent {
         this.current_knockback_speed -= 5;
       }
     } else {
-      this.fadeOutDestroy();
+      this.destroy();
     }
   }
 }
