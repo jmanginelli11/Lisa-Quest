@@ -199,7 +199,6 @@ class FirstFight_Start extends Scene {
           timer: this.timer,
         });
       });
-      // this.wallPlatform.setVisible(true);
     }
   }
 
