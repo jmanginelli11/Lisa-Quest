@@ -71,6 +71,13 @@ class FirstFight_Two extends Scene {
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
     this.rocksAndPlantsTwo = this.map.createLayer(
       'rocks_and_plants_layer_2',
       this.rocksAndPlantsTilesetTwo,
@@ -82,16 +89,10 @@ class FirstFight_Two extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
-
-
-    
-
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
     this.rocksAndPlantsTwo.displayWidth = this.sys.canvas.width;
     this.rocksAndPlantsTwo.displayHeight = this.sys.canvas.height;
-
-
     this.mechanicalLayer.displayWidth = this.sys.canvas.width;
     this.mechanicalLayer.displayHeight = this.sys.canvas.height;
     this.invisibleLayer.displayWidth = this.sys.canvas.width;
@@ -104,9 +105,7 @@ class FirstFight_Two extends Scene {
       this.player.hitSpikyPlant
     );
 
-
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
-
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
