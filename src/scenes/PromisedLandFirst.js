@@ -5,6 +5,7 @@ class PromisedLandFirst extends Scene {
   cameras;
   platforms;
   player;
+  phone;
 
   constructor(data) {
     super({ key: 'PromisedLand' });
@@ -19,6 +20,7 @@ class PromisedLandFirst extends Scene {
     const y = innerHeight / 2;
 
     this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
+
     //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapPromisedLand' });
     this.groundAndWaterTileset = this.map.addTilesetImage(
@@ -73,15 +75,30 @@ class PromisedLandFirst extends Scene {
     this.waterLayer.displayHeight = this.sys.canvas.height;
     this.rocksAndPlantsLayer.displayWidth = this.sys.canvas.width;
     this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
+    
+ // adding cellphone to scene
+    this.phone = this.add.sprite(x, y, 'phone').setScale(2);
+
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
     this.groundLayer.setCollisionBetween(165, 170);
     this.physics.add.collider(this.player, this.rocksAndPlantsLayer);
+    this.physics.add.collider(this.player, this.phone);
     this.groundLayer.setCollisionBetween(455, 458);
   }
   update() {
     this.player.update();
+
+    if (this.player) {
+      this.physics.add.collider(this.player, this.phone, () => {
+        this.scene.start('GameOver', {
+          hp: this.player.hp,
+          score: this.player.score,
+          timer: this.timer,
+        });
+      });
+    }
   }
 }
 

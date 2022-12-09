@@ -135,30 +135,30 @@ class FirstFight_Start extends Scene {
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
 
-    //spawning fly guy
-    // this.time.addEvent({
-    //   delay: 8000,
-    //   callback: function () {
-    //     this.flyGuy = new FlyGuy(
-    //       this,
-    //       Phaser.Math.RND.between(0, 1400),
-    //       0
-    //     ).setScale(1.5);
-    //     this.enemiesArray.push(this.flyGuy);
-    //     this.physics.add.collider(this.flyGuy, this.wallPlatform);
-    //     this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
-    //     this.physics.add.overlap(
-    //       this.player,
-    //       this.flyGuy,
-    //       this.player.hitSpawn,
-    //       null,
-    //       this
-    //     );
-    //     this.physics.add.collider(this.player, this.flyGuy);
-    //   },
-    //   callbackScope: this,
-    //   repeat: 5,
-    // });
+    // spawning fly guy
+    this.time.addEvent({
+      delay: 8000,
+      callback: function () {
+        this.flyGuy = new FlyGuy(
+          this,
+          Phaser.Math.RND.between(0, 1400),
+          0
+        ).setScale(1.5);
+        this.enemiesArray.push(this.flyGuy);
+        this.physics.add.collider(this.flyGuy, this.wallPlatform);
+        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
+        this.physics.add.overlap(
+          this.player,
+          this.flyGuy,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.flyGuy);
+      },
+      callbackScope: this,
+      repeat: 5,
+    });
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
@@ -199,7 +199,6 @@ class FirstFight_Start extends Scene {
           timer: this.timer,
         });
       });
-      // this.wallPlatform.setVisible(true);
     }
   }
 

@@ -8,6 +8,7 @@ class FirstFight_Three extends Scene {
   cameras;
   player;
   platforms;
+  portal;
   waterFallPlatform;
   laserGroup;
   enemiesArray = [];
@@ -187,6 +188,16 @@ class FirstFight_Three extends Scene {
       callbackScope: this,
       repeat: 19,
     });
+
+    // Adding portal
+    this.portal = this.physics.add
+      .sprite(innerWidth - 140, innerHeight - 200, 'portal')
+      .setScale(4)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay');
   }
 
   update(data) {
@@ -200,20 +211,15 @@ class FirstFight_Three extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+    if (this.player.heartCount >= 1) {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('BossFight', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 

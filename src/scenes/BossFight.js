@@ -88,10 +88,6 @@ class BossFight extends Scene {
     // text
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
 
-    this.typewriteText(
-      '                \nIs this...  \n                \n... the big boss room? \n                \n '
-    );
-
     //Colliders
     this.physics.add.collider(this.player, this.firstLayer);
     this.firstLayer.setCollisionBetween(160, 170);
@@ -113,6 +109,10 @@ class BossFight extends Scene {
     //   });
     // });
     // wallPlatform.setVisible(false);
+
+    this.typewriteText(
+      '                \nIs this...  \n                \n... the big boss room? \n                \n '
+    );
 
     // spawning big boss
     this.time.addEvent({
