@@ -2,13 +2,17 @@ import axios from 'axios';
 import store from '../store';
 import { fetchScores } from '../store/redux/scoresReducer';
 import { Scene } from 'phaser';
-import { Lisa } from '../sprites/Lisa.js';
+import WebFontFile from '../helpers/fontLoader';
 
 class GameOver extends Scene {
   player;
 
   constructor(data) {
     super({ key: 'GameOver' });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -19,33 +23,30 @@ class GameOver extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    // Creating Player (Lisa)
+
+    //Game over png
+    this.add.image(x, y - 150, 'gameOver').setScale(4);
+
+
+
     const score = data.score || 0;
     this.scoreText = this.add.text(
       innerWidth * 0.05,
       innerHeight * 0.05,
       'Score: ' + score,
       {
+        fontFamily: '"Press Start 2P"',
         fontSize: '32px',
         fill: '#E43AA4',
       }
     );
 
-    this.story = this.add.text(x - 400, y - 200, '', {
-      color: 'white',
-      // fontFamily: 'Arial',
-      fontSize: '32px',
-    });
-
-    this.typewriteText(
-      '                \nGAME OVER  \nType up to four letters to save your score!'
-    );
-
-    this.text = this.add.text(x - x / 4, y - y / 4, '', {
-      color: 'white',
-      fontFamily: 'Arial',
-      fontSize: '32px',
-    });
+    this.addScore = this.add
+      .text(x - 230, y + 95, 'Type up to four letters\n to save your score!', {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '20px',
+      })
+      .setOrigin(0, 0);
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -55,7 +56,7 @@ class GameOver extends Scene {
       this.scene.start('MainMenu');
     });
 
-    const element = this.add.dom(x, y).createFromCache('form');
+    const element = this.add.dom(x, y + 170).createFromCache('form');
 
     element.setPerspective(300);
     element.addListener('change');
@@ -63,25 +64,13 @@ class GameOver extends Scene {
     element.on('change', async (evt) => {
       if (evt.target.name === 'username') {
         let username = evt.target.value;
-        this.text.setText('Welcome ' + username);
+        this.addScore.setText('Welcome ' + username);
         await axios.post('/api/scores', {
           name: username,
-          score: data.score,
+          score: data.score || 0,
         });
         store.dispatch(fetchScores());
       }
-    });
-  }
-  typewriteText(text) {
-    const length = text.length;
-    let i = 0;
-    this.time.addEvent({
-      callback: () => {
-        this.story.text += text[i];
-        i++;
-      },
-      repeat: length - 1,
-      delay: 50,
     });
   }
 }
