@@ -205,7 +205,6 @@ class BossFight extends Scene {
             this.scene.start('PromisedLand');
           }
         );
-        // this.scene.start('PromisedLand');
       }
     }
   }
