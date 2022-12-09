@@ -42,16 +42,11 @@ class GameOver extends Scene {
       '                \nGAME OVER  \nType up to four letters to save your score!'
     );
 
-    // const text = this.add.text(
-    //   x - x / 4,
-    //   y - y / 4,
-    //   'Type up to four letters to save your score',
-    //   {
-    //     color: 'white',
-    //     fontFamily: 'Arial',
-    //     fontSize: '32px',
-    //   }
-    // );
+    this.text = this.add.text(x - x / 4, y - y / 4, '', {
+      color: 'white',
+      fontFamily: 'Arial',
+      fontSize: '32px',
+    });
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -69,7 +64,7 @@ class GameOver extends Scene {
     element.on('change', async (evt) => {
       if (evt.target.name === 'username') {
         let username = evt.target.value;
-        text.setText('Welcome ' + username);
+        this.text.setText('Welcome ' + username);
         await axios.post('/api/scores', {
           name: username,
           score: data.score,
