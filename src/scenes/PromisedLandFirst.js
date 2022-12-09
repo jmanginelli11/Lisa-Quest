@@ -31,13 +31,6 @@ class PromisedLandFirst extends Scene {
       'vegetation1'
     );
 
-    // this.skyLayer = this.map.createLayer(
-    //   'sky_layer',
-    //   this.groundAndWaterTileset,
-    //   0,
-    //   0
-    // );
-
     this.waterLayer = this.map.createLayer(
       'water_layer',
       this.groundAndWaterTileset,
@@ -59,6 +52,12 @@ class PromisedLandFirst extends Scene {
       0
     );
 
+    // adding player to be behind the plants
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
+
     this.rocksAndPlantsLayer = this.map.createLayer(
       'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,
@@ -68,14 +67,12 @@ class PromisedLandFirst extends Scene {
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
-    // this.mountainsLayer.displayWidth = this.sys.canvas.width;
-    // this.mountainsLayer.displayHeight = this.sys.canvas.height;
-
-    // adding player
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
-      560
-    );
+    this.mountainsLayer.displayWidth = this.sys.canvas.width;
+    this.mountainsLayer.displayHeight = this.sys.canvas.height;
+    this.waterLayer.displayWidth = this.sys.canvas.width;
+    this.waterLayer.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlantsLayer.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);
