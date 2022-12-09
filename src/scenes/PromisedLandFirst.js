@@ -13,6 +13,8 @@ class PromisedLandFirst extends Scene {
   create(data) {
     //Blue sky
 
+    this.cameras.main.fadeIn(2000, 255, 255, 255);
+
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -80,21 +82,6 @@ class PromisedLandFirst extends Scene {
     this.groundLayer.setCollisionBetween(165, 170);
     this.physics.add.collider(this.player, this.rocksAndPlantsLayer);
     this.groundLayer.setCollisionBetween(455, 458);
-
-    // Invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    let waterFallPlatform = this.platforms
-      .create(this.sys.canvas.width, this.sys.canvas.height - 300, 'test2')
-      .refreshBody();
-    this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('GameOver', {
-        music: data.music,
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-    });
-    waterFallPlatform.setVisible(false);
   }
   update() {
     this.player.update();

@@ -106,6 +106,12 @@ export default class PreloaderScene extends Phaser.Scene {
       }
     );
 
+    // door sprite
+    this.load.spritesheet('portal', '/assets/portalRings2.png', {
+      frameWidth: 32,
+      frameHeight: 28,
+    });
+
     //background first scene
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
 
@@ -318,6 +324,18 @@ export default class PreloaderScene extends Phaser.Scene {
     });
   }
 
+  createDoorAnims() {
+    this.anims.create({
+      key: 'portalPlay',
+      frames: this.anims.generateFrameNumbers('portal', {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
+  }
+
   create() {
     this.music = this.sound.add('main-menu');
     this.musicConfig = {
@@ -328,6 +346,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.createLisaAnims();
     this.createEnemyAnims();
+    this.createDoorAnims();
 
     this.loadText.setText('Loading... Complete: click here to begin.');
     this.loadText.setInteractive();
