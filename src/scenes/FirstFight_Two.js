@@ -126,7 +126,6 @@ class FirstFight_Two extends Scene {
           0
         ).setScale(1.5);
         this.enemiesArray.push(this.spawn2);
-        // this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
