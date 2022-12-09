@@ -15,6 +15,7 @@ class BossFight extends Scene {
   fireGroup;
   bigBoss;
   enemiesArray = [];
+  fadeTriggered = false;
 
   constructor(data) {
     super({ key: 'BossFight' });
@@ -184,10 +185,6 @@ class BossFight extends Scene {
   update(data) {
     this.player.update();
 
-    if (this.bigBoss) {
-      this.bigBoss.update();
-    }
-
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
@@ -196,10 +193,19 @@ class BossFight extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.bigBoss) {
-      console.log(this.bigBoss.hp);
+    if (this.bigBoss && this.fadeTriggered === false) {
+      this.bigBoss.update();
       if (this.bigBoss.hp <= 0) {
-        this.scene.pause();
+        // this.scene.pause();
+        this.fadeTriggered = true;
+        this.cameras.main.fadeOut(2000, 255, 255, 255);
+        this.cameras.main.once(
+          Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+          (cam, effect) => {
+            this.scene.start('PromisedLand');
+          }
+        );
+        // this.scene.start('PromisedLand');
       }
     }
   }
