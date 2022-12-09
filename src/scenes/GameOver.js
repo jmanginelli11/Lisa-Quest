@@ -23,6 +23,9 @@ class GameOver extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
+    //Game over png
+    this.add.image(x, y - 150, 'gameOver').setScale(4);
+
     const score = data.score || 0;
     this.scoreText = this.add.text(
       innerWidth * 0.05,
@@ -36,7 +39,7 @@ class GameOver extends Scene {
     );
 
     this.addScore = this.add
-      .text(x - 400, y - 100, 'Type up to four letters to save your score!', {
+      .text(x - 230, y + 95, 'Type up to four letters\n to save your score!', {
         fontFamily: '"Press Start 2P"',
         fontSize: '20px',
       })
@@ -50,7 +53,7 @@ class GameOver extends Scene {
       this.scene.start('MainMenu');
     });
 
-    const element = this.add.dom(x, y).createFromCache('form');
+    const element = this.add.dom(x, y + 170).createFromCache('form');
 
     element.setPerspective(300);
     element.addListener('change');
