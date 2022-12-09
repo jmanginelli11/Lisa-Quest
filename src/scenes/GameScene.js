@@ -148,7 +148,7 @@ class GameScene extends Scene {
   }
 
   gameOver(data) {
-    this.scene.start('Form', {
+    this.scene.start('GameOver', {
       music: data.music,
       hp: this.player.hp,
       score: this.player.score,
