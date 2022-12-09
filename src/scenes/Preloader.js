@@ -207,6 +207,8 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Promised-Lands/sky.png'
     );
 
+    this.load.image('phone', '/assets/accessories/phone.png');
+
     //Game over
     this.load.image('gameOver', '/assets/announcements/game-over.png');
 
