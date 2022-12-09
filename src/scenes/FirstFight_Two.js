@@ -7,6 +7,7 @@ class FirstFight_Two extends Scene {
   cameras;
   player;
   platforms;
+  goombaPlatform;
   wallPlatform;
   laserGroup;
   enemiesArray = [];
@@ -139,6 +140,14 @@ class FirstFight_Two extends Scene {
       callbackScope: this,
       repeat: 10,
     });
+
+    // invisible platform for goombas only
+    this.platforms = this.physics.add.staticGroup();
+    this.goombaPlatform = this.platforms
+      .create(this.sys.canvas.width - 150, this.sys.canvas.height - 147, 'test')
+      .refreshBody()
+      .setVisible(false);
+    this.physics.add.collider(this.enemiesArray, this.goombaPlatform);
   }
 
   update(data) {
