@@ -20,7 +20,6 @@ class GameOver extends Scene {
     this.background.displayHeight = this.sys.canvas.height;
 
     // Creating Player (Lisa)
-    // this.player = new Lisa(this, x, y, data.score).setVisible(false);
     const score = data.score || 0;
     this.scoreText = this.add.text(
       innerWidth * 0.05,
