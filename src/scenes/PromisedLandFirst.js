@@ -54,6 +54,12 @@ class PromisedLandFirst extends Scene {
       0
     );
 
+    // adding player to be behind the plants
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
+
     this.rocksAndPlantsLayer = this.map.createLayer(
       'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,
@@ -63,17 +69,16 @@ class PromisedLandFirst extends Scene {
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
-    // this.mountainsLayer.displayWidth = this.sys.canvas.width;
-    // this.mountainsLayer.displayHeight = this.sys.canvas.height;
-
-    // adding cellphone to scene
+    this.mountainsLayer.displayWidth = this.sys.canvas.width;
+    this.mountainsLayer.displayHeight = this.sys.canvas.height;
+    this.waterLayer.displayWidth = this.sys.canvas.width;
+    this.waterLayer.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlantsLayer.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
+    
+ // adding cellphone to scene
     this.phone = this.add.sprite(x, y, 'phone').setScale(2);
 
-    // adding player
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
-      560
-    );
 
     //colliders
     this.physics.add.collider(this.player, this.groundLayer);

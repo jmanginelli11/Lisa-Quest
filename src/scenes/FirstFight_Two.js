@@ -88,10 +88,15 @@ class FirstFight_Two extends Scene {
     //Display width height
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+
+    
+
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
     this.rocksAndPlantsTwo.displayWidth = this.sys.canvas.width;
     this.rocksAndPlantsTwo.displayHeight = this.sys.canvas.height;
+
+
     this.mechanicalLayer.displayWidth = this.sys.canvas.width;
     this.mechanicalLayer.displayHeight = this.sys.canvas.height;
     this.invisibleLayer.displayWidth = this.sys.canvas.width;
@@ -108,6 +113,7 @@ class FirstFight_Two extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
+
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
