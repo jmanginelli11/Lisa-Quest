@@ -13,7 +13,9 @@ class BossFight extends Scene {
   waterFallPlatform;
   laserGroup;
   fireGroup;
+  bigBoss;
   enemiesArray = [];
+  fadeTriggered = false;
 
   constructor(data) {
     super({ key: 'BossFight' });
@@ -81,10 +83,7 @@ class BossFight extends Scene {
     );
 
     //Lisa
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
-      560
-    );
+    this.player = new Lisa(this, x, y, data.hp, data.score);
 
     // text
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
@@ -101,19 +100,19 @@ class BossFight extends Scene {
     this.secondLayer.displayWidth = this.sys.canvas.width;
     this.secondLayer.displayHeight = this.sys.canvas.height;
 
-    // Invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    let wallPlatform = this.platforms
-      .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-      .refreshBody();
-    this.physics.add.collider(this.player, wallPlatform, () => {
-      this.scene.start('PromisedLand', {
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-    });
-    wallPlatform.setVisible(false);
+    // // Invisible platform
+    // this.platforms = this.physics.add.staticGroup();
+    // let wallPlatform = this.platforms
+    //   .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
+    //   .refreshBody();
+    // this.physics.add.collider(this.player, wallPlatform, () => {
+    //   this.scene.start('PromisedLand', {
+    //     hp: this.player.hp,
+    //     score: this.player.score,
+    //     timer: this.timer,
+    //   });
+    // });
+    // wallPlatform.setVisible(false);
 
     // spawning big boss
     this.time.addEvent({
@@ -192,6 +191,22 @@ class BossFight extends Scene {
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
+    }
+
+    if (this.bigBoss && this.fadeTriggered === false) {
+      this.bigBoss.update();
+      if (this.bigBoss.hp <= 0) {
+        // this.scene.pause();
+        this.fadeTriggered = true;
+        this.cameras.main.fadeOut(2000, 255, 255, 255);
+        this.cameras.main.once(
+          Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+          (cam, effect) => {
+            this.scene.start('PromisedLand');
+          }
+        );
+        // this.scene.start('PromisedLand');
+      }
     }
   }
 
