@@ -32,15 +32,8 @@ class FirstFight_Start extends Scene {
   }
 
   create(data) {
-    // Background - First Scene
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
-
-    this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
-    this.sun.displayWidth = this.sys.canvas.width;
-    this.sun.displayHeight = this.sys.canvas.height;
-    this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
     this.time.addEvent({
       delay: 5000,
@@ -48,6 +41,14 @@ class FirstFight_Start extends Scene {
       callbackScope: this,
       loop: true,
     });
+
+    //Background
+    this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
+    this.sun.displayWidth = this.sys.canvas.width;
+    this.sun.displayHeight = this.sys.canvas.height;
+
+    //Tilemaps
+    this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
@@ -187,7 +188,6 @@ class FirstFight_Start extends Scene {
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay');
-
   }
 
   update(data) {

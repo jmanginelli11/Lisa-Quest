@@ -257,7 +257,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('laser', '/assets/lisa/default/laser3.png');
 
     // gun
-    this.load.image('c', '/assets/c.png');
+    // this.load.image('c', '/assets/c.png');
   }
 
   createLisaAnims() {
