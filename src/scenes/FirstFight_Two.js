@@ -105,6 +105,7 @@ class FirstFight_Two extends Scene {
       this.player.hitSpikyPlant
     );
 
+    this.invisibleLayer.setCollisionBetween(139, 170);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
     // laserGroup
