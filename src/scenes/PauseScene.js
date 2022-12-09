@@ -23,10 +23,16 @@ class PauseScene extends Scene {
     resumeButton.on('pointerup', () => {
       console.log('resume button pressed');
 
-      this.scene.launch('GameScene');
       this.scene.resume('GameScene');
+      // this.scene.resume('GameScene');
       // this.scene.start('GameScene');
     });
+
+    this.add.text(
+      x,
+      y,
+      'ARROWS TO GET AROUND \nC TO FAST RUN \nX or Z to Punch \nSHIFT TO SHOOT LASERS'
+    );
   }
 }
 
