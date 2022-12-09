@@ -41,6 +41,13 @@ class FirstFight_Start extends Scene {
     this.sun.displayHeight = this.sys.canvas.height;
     this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
+    this.time.addEvent({
+      delay: 5000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
+
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.rocksAndPlantsTileset = this.map.addTilesetImage(
@@ -162,12 +169,12 @@ class FirstFight_Start extends Scene {
     });
 
     //healthHearts spawning every 10 seconds
-    this.time.addEvent({
-      delay: 5000,
-      callback: this.spawnHearts,
-      callbackScope: this,
-      loop: true,
-    });
+    // this.time.addEvent({
+    //   delay: 5000,
+    //   callback: this.spawnHearts,
+    //   callbackScope: this,
+    //   loop: true,
+    // });
   }
 
   update(data) {

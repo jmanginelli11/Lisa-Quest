@@ -51,13 +51,6 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    this.invisibleLayer = this.map.createLayer(
-      'invisible_layer',
-      this.rocksAndPlantsTileset,
-      0,
-      0
-    );
-
     this.mechanicalLayer = this.map.createLayer(
       'mechanical_layer',
       this.mechanicalTileset,
@@ -85,29 +78,12 @@ class FirstFight_Two extends Scene {
       0
     );
 
-    //Display width height
-    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
-    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
-    this.rocksAndPlants.displayWidth = this.sys.canvas.width;
-    this.rocksAndPlants.displayHeight = this.sys.canvas.height;
-    this.rocksAndPlantsTwo.displayWidth = this.sys.canvas.width;
-    this.rocksAndPlantsTwo.displayHeight = this.sys.canvas.height;
-    this.mechanicalLayer.displayWidth = this.sys.canvas.width;
-    this.mechanicalLayer.displayHeight = this.sys.canvas.height;
-    this.invisibleLayer.displayWidth = this.sys.canvas.width;
-    this.invisibleLayer.displayHeight = this.sys.canvas.height;
-
-    //Collisions
-    this.physics.add.collider(
-      this.player,
-      this.invisibleLayer,
-      this.player.hitSpikyPlant
-    );
-
     this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.groundAndPlatforms.setCollisionBetween(142, 170);
-    this.groundAndPlatforms.setCollisionBetween(743, 746);
-    this.invisibleLayer.setCollisionBetween(139, 170);
+    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
+    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+
+    // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
@@ -116,8 +92,8 @@ class FirstFight_Two extends Scene {
     this.hearts = this.physics.add.group({
       key: 'heart',
       repeat: 5,
-      allowGravity: true,
-      setXY: { x: 300, y: 0 },
+      allowGravity: false,
+      setXY: { x: 300, y: 300, stepX: 100 },
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
