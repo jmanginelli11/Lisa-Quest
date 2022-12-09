@@ -519,6 +519,16 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
 
+  hitSpikyPlant(player) {
+    if (!player.is_immune) {
+      player.is_immune = true;
+      player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
+      // console.log('after', player.hp);
+      player.setHBValue(player.real_bar, player.hp);
+    }
+    player.is_immune = false;
+  }
+
   // Collecting Hearts
   collectHeart(player, heart) {
     heart.disableBody(true, true);

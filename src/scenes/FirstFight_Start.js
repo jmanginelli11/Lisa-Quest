@@ -55,6 +55,13 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
@@ -69,10 +76,20 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
+    this.physics.add.collider(
+      this.player,
+      this.invisibleLayer,
+      this.player.hitSpikyPlant
+    );
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
+
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
-
+    this.invisibleLayer.setCollisionBetween(139, 170);
+    //
     // text
     this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
