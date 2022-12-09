@@ -9,6 +9,7 @@ class FirstFight_Start extends Scene {
   player;
   platforms;
   wallPlatform;
+  portal;
   laserGroup;
   enemiesArray = [];
   // heartCount = 0;
@@ -143,7 +144,7 @@ class FirstFight_Start extends Scene {
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
 
-    //spawning fly guy
+    // spawning fly guy
     this.time.addEvent({
       delay: 8000,
       callback: function () {
@@ -169,12 +170,24 @@ class FirstFight_Start extends Scene {
     });
 
     //healthHearts spawning every 10 seconds
-    // this.time.addEvent({
-    //   delay: 5000,
-    //   callback: this.spawnHearts,
-    //   callbackScope: this,
-    //   loop: true,
-    // });
+
+    this.time.addEvent({
+      delay: 5000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
+
+    // create portal and set invisible
+    this.portal = this.physics.add
+      .sprite(innerWidth, -500, 'portal')
+      .setScale(4)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay');
+
   }
 
   update(data) {
@@ -193,20 +206,15 @@ class FirstFight_Start extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+    if (this.player.heartCount >= 1) {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 
