@@ -12,6 +12,7 @@ class BossFight extends Scene {
   platforms;
   waterFallPlatform;
   laserGroup;
+  fireGroup;
   enemiesArray = [];
 
   constructor(data) {
@@ -43,7 +44,7 @@ class BossFight extends Scene {
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // new laser Group
+    // new fire Group
     this.fireGroup = new FireGroup(this);
 
     this.map = this.make.tilemap({ key: 'tilemap_BF' });
@@ -174,6 +175,11 @@ class BossFight extends Scene {
       callback: this.spawnFire,
       callbackScope: this,
       loop: true,
+    });
+
+    // set collision between lisa and fire from big boss
+    this.physics.add.collider(this.player, this.fireGroup, () => {
+      this.player.hitSpawn;
     });
   }
 
