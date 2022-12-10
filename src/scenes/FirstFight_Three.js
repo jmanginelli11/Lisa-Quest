@@ -205,11 +205,12 @@ class FirstFight_Three extends Scene {
 
     // Adding portal
     this.portal = this.physics.add
-      .sprite(innerWidth - 140, innerHeight - 200, 'portal')
+      .sprite(innerWidth - 200, innerHeight - 200, 'portal')
       .setScale(4)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
-    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+    this.physics.add.collider(this.portal, this.invisibleLayer);
+    this.physics.add.collider(this.portal, this.firstLayer);
 
     this.portal.play('portalPlay');
   }
@@ -225,7 +226,7 @@ class FirstFight_Three extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 1) {
+    if (this.player.heartCount >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('BossFight', {
