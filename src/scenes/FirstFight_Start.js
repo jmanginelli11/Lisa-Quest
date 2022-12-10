@@ -205,7 +205,7 @@ class FirstFight_Start extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 1) {
+    if (this.player.heartCount >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {
