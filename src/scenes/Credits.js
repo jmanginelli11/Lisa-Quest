@@ -167,8 +167,8 @@ class Credits extends Scene {
 
     //Main menu
     let mainMenuButton = this.add
-      .image(x - x / 1.25, y * 1.8, 'main-menu')
-      .setScale(x * 0.002);
+      .image(x / 5, y * 1.85, 'main-menu')
+      .setScale(x * 0.0015);
     mainMenuButton.setInteractive();
     mainMenuButton.on('pointerup', () => {
       this.scene.start('MainMenu', {
