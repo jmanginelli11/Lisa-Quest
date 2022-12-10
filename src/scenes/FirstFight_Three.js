@@ -12,6 +12,7 @@ class FirstFight_Three extends Scene {
   waterFallPlatform;
   laserGroup;
   enemiesArray = [];
+  isPaused = false;
 
   constructor(data) {
     super({ key: 'FirstFight_Three' });
@@ -92,6 +93,19 @@ class FirstFight_Three extends Scene {
       0,
       0
     );
+
+    //PAUSE BUTTON
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(

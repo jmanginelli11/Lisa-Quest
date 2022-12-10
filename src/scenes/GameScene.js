@@ -27,7 +27,7 @@ class GameScene extends Scene {
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
-    this.scale.displaySize.setAspectRatio(1200 / 600);
+    this.scale.displaySize.setAspectRatio(16 / 9);
     this.scale.refresh();
 
     const x = innerWidth / 2;
@@ -39,8 +39,9 @@ class GameScene extends Scene {
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
-    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    // this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
+    //PAUSE BUTTON
     let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
     pauseButton.setInteractive();
 
@@ -76,7 +77,10 @@ class GameScene extends Scene {
       .setVisible(false);
 
     // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y).setPosition(0, 0);
+    this.player = new Lisa(this, x, y).setPosition(
+      innerWidth * 0.2,
+      innerHeight * 0.65
+    );
 
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
@@ -135,7 +139,6 @@ class GameScene extends Scene {
     this.vegetationLayerTwo.displayHeight = this.sys.canvas.height;
 
     this.physics.add.collider(this.player, this.groundLayer);
-    this.physics.add.collider(this.player, this.surfaceTileset);
     this.groundLayer.setCollisionBetween(72, 99);
 
     // Invisible platform
@@ -157,36 +160,50 @@ class GameScene extends Scene {
     // laserGroup
     this.laserGroup = new LaserGroup(this);
 
+    // Spawn one baddie
+    this.time.addEvent({
+      delay: 1000,
+      callback: function () {
+        this.spawn2 = new Enemy(
+          this,
+
+          innerWidth * 0.75,
+          innerHeight * 0.75
+        ).setScale(1.5);
+        this.physics.add.collider(this.spawn2, this.groundLayer);
+        this.physics.add.collider(this.spawn2, this.surfaceTileset);
+        this.physics.add.overlap(
+          this.player,
+          this.spawn2,
+          this.player.hitSpawn,
+          null,
+          this
+        );
+        this.physics.add.collider(this.player, this.spawn2);
+      },
+      callbackScope: this,
+      repeat: 0,
+    });
+  }
+
+  update(data, time) {
+    this.player.update();
+
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-
-    // this.input.on('pointerup', function () {
-    //   this.scene.pause();
-    // });
-    //trying to set spacebar as a useable
-    // this.cursors = this.input.keyboard;
-    // this.cursors.pauseKey = this.input.keyboard.addKey(
-    //   Phaser.Input.Keyboard.KeyCodes.SPACEBAR
-    // );
   }
 
   update(time) {
     this.player.update();
 
-    if (this.key_P.isDown) {
-      console.log('trying to pause');
-    }
-    // if (this.isPaused === true) {
-    //   this.scene.start('PauseScene');
-    //   this.scene.pause();
-    // } else {
-    //   this.scene.resume();
-    // }
-
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
+
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      // this.enemiesArray[i].update();
+    }
   }
 
   gameOver(data) {
