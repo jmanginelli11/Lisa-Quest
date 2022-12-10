@@ -1,9 +1,10 @@
 import { Scene } from 'phaser';
+// import { Lisa } from '../sprites/Lisa.js';
 
 class PauseScene extends Scene {
   music;
 
-  constructor() {
+  constructor(data) {
     super({ key: 'PauseScene' });
   }
 
@@ -25,7 +26,7 @@ class PauseScene extends Scene {
 
       this.scene.resume('GameScene');
       // this.scene.resume('GameScene');
-      // this.scene.start('GameScene');
+      // this.scene.stop();
     });
 
     this.add.text(
