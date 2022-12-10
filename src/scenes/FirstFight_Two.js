@@ -79,7 +79,7 @@ class FirstFight_Two extends Scene {
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
+      x / 10,
       560
     );
 
@@ -204,6 +204,8 @@ class FirstFight_Two extends Scene {
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay2');
+    // this.portal.displayWidth = this.sys.canvas.width;
+    // this.portal.displayHeight = this.sys.canvas.height;
   }
 
   update(data) {
