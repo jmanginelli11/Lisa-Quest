@@ -23,8 +23,8 @@ class HighScores extends Scene {
 
     let mainMenuButton = this.add
       .image(x / 5, y * 1.85, 'main-menu')
-      .setScale(1);
-    mainMenuButton.setInteractive();
+      .setScale(x * 0.0015)
+      .setInteractive();
     mainMenuButton.on('pointerup', () => {
       this.scene.start('MainMenu', {
         music: data.music,
