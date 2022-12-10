@@ -26,6 +26,8 @@ class GameScene extends Scene {
 
   create(data) {
     console.log('here is cameras', this.cameras);
+    this.scale.displaySize.setAspectRatio(1200 / 600);
+    this.scale.refresh();
 
     const x = innerWidth / 2;
     const y = innerHeight / 2;
