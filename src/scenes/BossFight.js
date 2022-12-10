@@ -5,6 +5,7 @@ import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
 import { BigBoss } from '../sprites/Enemies/BigBoss.js';
 import { FireGroup } from '../weapons/Fire/FireGroup.js';
+import WebFontFile from '../helpers/fontLoader';
 
 class BossFight extends Scene {
   cameras;
@@ -33,6 +34,10 @@ class BossFight extends Scene {
       repeat: length - 1,
       delay: 6000,
     });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -97,7 +102,10 @@ class BossFight extends Scene {
     });
 
     //Lisa
-    this.player = new Lisa(this, x, y, data.hp, data.score);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      x / 10,
+      580
+    );
 
     //Colliders
     this.physics.add.collider(this.player, this.firstLayer);
@@ -106,6 +114,8 @@ class BossFight extends Scene {
     this.firstLayer.displayHeight = this.sys.canvas.height;
     this.secondLayer.displayWidth = this.sys.canvas.width;
     this.secondLayer.displayHeight = this.sys.canvas.height;
+    this.thirdLayer.displayWidth = this.sys.canvas.width;
+    this.thirdLayer.displayHeight = this.sys.canvas.height;
 
     // Text
     this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
@@ -141,7 +151,7 @@ class BossFight extends Scene {
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
-          Phaser.Math.RND.between(0, 1400),
+          Phaser.Math.RND.between(300, 700),
           0
         ).setScale(1.5);
         this.enemiesArray.push(this.flyGuy);
@@ -238,8 +248,8 @@ class BossFight extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(0, 1600),
-        Phaser.Math.RND.between(400, 900)
+        Phaser.Math.RND.between(300, 700),
+        Phaser.Math.RND.between(200, 500)
       );
       child.setOrigin(0, 0);
     });
