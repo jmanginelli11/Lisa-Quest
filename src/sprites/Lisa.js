@@ -203,17 +203,35 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Rising
-    if (!this.body.blocked.down && this.body.velocity.y < 0) {
+    if (
+      !this.body.blocked.down &&
+      this.body.velocity.y < 0 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
+    ) {
       this.anims.play('rising');
     }
 
     // Falling
-    if (!this.body.blocked.down && this.body.velocity.y > 0) {
+    if (
+      !this.body.blocked.down &&
+      this.body.velocity.y > 0 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
+    ) {
       this.anims.play('falling');
     }
 
     // Fast-falling
-    if (this.cursors.keyobj_down.isDown && this.body.velocity.y < 100) {
+    if (
+      this.cursors.keyobj_down.isDown &&
+      this.body.velocity.y < 100 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
+    ) {
       this.body.setVelocityY(400);
     }
 
