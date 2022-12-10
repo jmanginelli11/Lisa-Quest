@@ -13,6 +13,11 @@ class FirstFight_Start extends Scene {
   laserGroup;
   enemiesArray = [];
 
+  isPaused = false;
+
+  // heartCount = 0;
+
+
   constructor(data) {
     super({ key: 'FirstFight_Start' });
   }
@@ -70,7 +75,18 @@ class FirstFight_Start extends Scene {
       0
     );
 
-    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    //PAUSE BUTTON
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
 
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
