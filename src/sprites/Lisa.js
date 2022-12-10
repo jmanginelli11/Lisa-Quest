@@ -218,6 +218,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Falling
     if (
+      //maybe set a body.blocked.down on enemies
       (!this.body.blocked.down || !this.body.touching.down) &&
       this.body.velocity.y > 0
     ) {

@@ -27,7 +27,7 @@ class GameScene extends Scene {
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
-    this.scale.displaySize.setAspectRatio(1200 / 600);
+    this.scale.displaySize.setAspectRatio(16 / 9);
     this.scale.refresh();
 
     const x = innerWidth / 2;
