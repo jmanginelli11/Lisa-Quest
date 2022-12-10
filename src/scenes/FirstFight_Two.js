@@ -7,7 +7,8 @@ class FirstFight_Two extends Scene {
   cameras;
   player;
   platforms;
-  wallPlatform;
+  goombaPlatform;
+  portal;
   laserGroup;
   enemiesArray = [];
 
@@ -70,6 +71,13 @@ class FirstFight_Two extends Scene {
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
     this.rocksAndPlantsTwo = this.map.createLayer(
       'rocks_and_plants_layer_2',
       this.rocksAndPlantsTilesetTwo,
@@ -81,7 +89,23 @@ class FirstFight_Two extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlants.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlantsTwo.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlantsTwo.displayHeight = this.sys.canvas.height;
+    this.mechanicalLayer.displayWidth = this.sys.canvas.width;
+    this.mechanicalLayer.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
 
+    //Collisions
+    this.physics.add.collider(
+      this.player,
+      this.invisibleLayer,
+      this.player.hitSpikyPlant
+    );
+
+    this.invisibleLayer.setCollisionBetween(139, 170);
     // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
     // laserGroup
@@ -91,8 +115,8 @@ class FirstFight_Two extends Scene {
     this.hearts = this.physics.add.group({
       key: 'heart',
       repeat: 5,
-      allowGravity: true,
-      setXY: { x: 300, y: 0 },
+      allowGravity: false,
+      setXY: { x: 300, y: 300, stepX: 100 },
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
@@ -125,7 +149,7 @@ class FirstFight_Two extends Scene {
           Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        // this.physics.add.collider(this.spawn2, this.wallPlatform);
+        this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
@@ -139,6 +163,28 @@ class FirstFight_Two extends Scene {
       callbackScope: this,
       repeat: 10,
     });
+
+    // invisible platform for goombas only
+    this.platforms = this.physics.add.staticGroup();
+    this.goombaPlatform = this.platforms
+      .create(this.sys.canvas.width - 150, this.sys.canvas.height - 147, 'test')
+      .refreshBody()
+      .setVisible(false);
+    this.physics.add.collider(this.enemiesArray, this.goombaPlatform);
+
+    // create portal and set invisible
+    this.portal = this.physics.add
+      .sprite(
+        this.sys.canvas.width - 220,
+        this.sys.canvas.height + 200,
+        'portal2'
+      )
+      .setScale(3)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay2');
   }
 
   update(data) {
@@ -152,19 +198,14 @@ class FirstFight_Two extends Scene {
     }
 
     if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width, this.sys.canvas.height, 'test')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Three', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 

@@ -44,9 +44,9 @@ class FallingScene_One extends Scene {
     );
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
-    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.groundLayer.displayHeight = this.sys.canvas.height;
     this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
-    this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
+    this.texturesTwoLayer.displayHeight = this.sys.canvas.height;
     // Creating Player (Lisa)
 
     this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
@@ -54,9 +54,9 @@ class FallingScene_One extends Scene {
     //colliders
 
     this.physics.add.collider(this.player, this.groundLayer);
-    this.groundLayer.setCollisionBetween(95, 99);
-    this.physics.add.collider(this.player, this.texturesTwoLayer);
-    this.texturesTwoLayer.setCollisionBetween(1000, 1250);
+    this.groundLayer.setCollisionBetween(72, 120);
+    // this.physics.add.collider(this.player, this.texturesTwoLayer);
+    // this.texturesTwoLayer.setCollisionBetween(160, 170);
 
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();

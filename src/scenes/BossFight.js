@@ -12,7 +12,10 @@ class BossFight extends Scene {
   platforms;
   waterFallPlatform;
   laserGroup;
+  fireGroup;
+  bigBoss;
   enemiesArray = [];
+  fadeTriggered = false;
 
   constructor(data) {
     super({ key: 'BossFight' });
@@ -27,7 +30,7 @@ class BossFight extends Scene {
         i++;
       },
       repeat: length - 1,
-      delay: 50,
+      delay: 6000,
     });
   }
 
@@ -37,13 +40,13 @@ class BossFight extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    //camera shake
+    // Camera shake
     this.shakeCameras();
 
-    // laserGroup
+    // LaserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // new laser Group
+    // New FireGroup
     this.fireGroup = new FireGroup(this);
 
     this.map = this.make.tilemap({ key: 'tilemap_BF' });
@@ -80,17 +83,7 @@ class BossFight extends Scene {
     );
 
     //Lisa
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
-      560
-    );
-
-    // text
-    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
-
-    this.typewriteText(
-      '                \nIs this...  \n                \n... the big boss room? \n                \n '
-    );
+    this.player = new Lisa(this, x, y, data.hp, data.score);
 
     //Colliders
     this.physics.add.collider(this.player, this.firstLayer);
@@ -100,28 +93,21 @@ class BossFight extends Scene {
     this.secondLayer.displayWidth = this.sys.canvas.width;
     this.secondLayer.displayHeight = this.sys.canvas.height;
 
-    // Invisible platform
-    this.platforms = this.physics.add.staticGroup();
-    let wallPlatform = this.platforms
-      .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-      .refreshBody();
-    this.physics.add.collider(this.player, wallPlatform, () => {
-      this.scene.start('PromisedLand', {
-        hp: this.player.hp,
-        score: this.player.score,
-        timer: this.timer,
-      });
-    });
-    wallPlatform.setVisible(false);
+    // Text
+    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
+
+    this.typewriteText(
+      '                \nIs this...  \n                \n... the big boss room? \n                \n '
+    );
 
     // spawning big boss
     this.time.addEvent({
-      delay: 10000,
+      delay: 7000,
       callback: function () {
         this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
         this.enemiesArray.push(this.bigBoss);
         this.physics.add.collider(this.bigBoss, this.wallPlatform);
-        this.physics.add.collider(this.bigBoss, this.groundAndPlatforms);
+        this.physics.add.collider(this.bigBoss, this.firstLayer);
         this.physics.add.overlap(
           this.player,
           this.bigBoss,
@@ -137,7 +123,7 @@ class BossFight extends Scene {
 
     //spawning fly guy
     this.time.addEvent({
-      delay: 10000,
+      delay: 30000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -175,6 +161,11 @@ class BossFight extends Scene {
       callbackScope: this,
       loop: true,
     });
+
+    // set collision between lisa and fire from big boss
+    this.physics.add.collider(this.player, this.fireGroup, () => {
+      this.player.hitSpawn;
+    });
   }
 
   update(data) {
@@ -186,6 +177,25 @@ class BossFight extends Scene {
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
+    }
+
+    if (this.bigBoss && this.fadeTriggered === false) {
+      this.bigBoss.update();
+      if (this.bigBoss.hp <= 0) {
+        this.fadeTriggered = true;
+        this.cameras.main.fadeOut(2000, 255, 255, 255);
+        this.cameras.main.once(
+          Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
+          (cam, effect) => {
+            this.scene.start('PromisedLand', {
+              music: data.music,
+              hp: this.player.hp,
+              score: this.player.score,
+              timer: this.timer,
+            });
+          }
+        );
+      }
     }
   }
 
@@ -238,7 +248,20 @@ class BossFight extends Scene {
   }
 
   shakeCameras() {
-    this.cameras.main.shake(5000);
+    this.time.addEvent({
+      delay: 2000,
+      callback: () => {
+        this.cameras.main.shake(1000);
+      },
+      callbackScope: this,
+    });
+    this.time.addEvent({
+      delay: 5000,
+      callback: () => {
+        this.cameras.main.shake(1000);
+      },
+      callbackScope: this,
+    });
   }
 }
 

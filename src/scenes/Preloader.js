@@ -104,6 +104,18 @@ export default class PreloaderScene extends Phaser.Scene {
       }
     );
 
+    // door sprite
+    this.load.spritesheet('portal', '/assets/portalRings2.png', {
+      frameWidth: 32,
+      frameHeight: 28,
+    });
+
+    // door sprite 2
+    this.load.spritesheet('portal2', '/assets/portalsSpriteSheet (1).png', {
+      frameWidth: 45,
+      frameHeight: 32,
+    });
+
     //background first scene
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
 
@@ -160,12 +172,17 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.load.tilemapTiledJSON(
       'tilemap_FF3',
-      '/assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3).json'
+      'assets/backgrounds/Themy/First-Fight/Part_Three/First_Fight(3)(Final).json'
     );
 
     this.load.image(
       'mechanical',
       '/assets/backgrounds/Themy/First-Fight/Part_Three/Mechanical_tiles.png'
+    );
+
+    this.load.image(
+      'security_cam',
+      'assets/backgrounds/Themy/First-Fight/Part_Three/cameras.png'
     );
 
     //Boss fight
@@ -198,6 +215,11 @@ export default class PreloaderScene extends Phaser.Scene {
       'blue_sky',
       '/assets/backgrounds/Themy/Promised-Lands/sky.png'
     );
+
+    this.load.image('phone', '/assets/accessories/phone.png');
+
+    //Game over
+    this.load.image('gameOver', '/assets/announcements/game-over.png');
 
     //HealthBar
     this.load.image(
@@ -239,7 +261,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('laser', '/assets/lisa/default/laser4.png');
 
     // gun
-    this.load.image('c', '/assets/c.png');
+    // this.load.image('c', '/assets/c.png');
   }
 
   createLisaAnims() {
@@ -313,6 +335,27 @@ export default class PreloaderScene extends Phaser.Scene {
     });
   }
 
+  createDoorAnims() {
+    this.anims.create({
+      key: 'portalPlay',
+      frames: this.anims.generateFrameNumbers('portal', {
+        start: 0,
+        end: 4,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'portalPlay2',
+      frames: this.anims.generateFrameNumbers('portal2', {
+        start: 0,
+        end: 3,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
+  }
+
   create() {
     this.music = this.sound.add('main-menu');
     this.musicConfig = {
@@ -323,6 +366,7 @@ export default class PreloaderScene extends Phaser.Scene {
 
     this.createLisaAnims();
     this.createEnemyAnims();
+    this.createDoorAnims();
 
     this.loadText.setText('Loading... Complete: click here to begin.');
     this.loadText.setInteractive();

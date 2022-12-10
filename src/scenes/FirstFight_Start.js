@@ -9,9 +9,9 @@ class FirstFight_Start extends Scene {
   player;
   platforms;
   wallPlatform;
+  portal;
   laserGroup;
   enemiesArray = [];
-  // heartCount = 0;
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -31,14 +31,22 @@ class FirstFight_Start extends Scene {
   }
 
   create(data) {
-    // Background - First Scene
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    this.time.addEvent({
+      delay: 5000,
+      callback: this.spawnHearts,
+      callbackScope: this,
+      loop: true,
+    });
+
+    //Background
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
+
+    //Tilemaps
     this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
@@ -55,6 +63,15 @@ class FirstFight_Start extends Scene {
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
+    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+
     //creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
@@ -69,15 +86,25 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
+    this.physics.add.collider(
+      this.player,
+      this.invisibleLayer,
+      this.player.hitSpikyPlant
+    );
+
     this.physics.add.collider(this.player, this.groundAndPlatforms);
+
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
+    this.invisibleLayer.setCollisionBetween(139, 170);
 
-    // text
+    // Text
     this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      `What have we here? Fly guys I hate these ones...                \nI can't seem to get out of here... I think I have to \ncollect three hearts for a door to appear...                       `
+      `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
     );
 
     this.laserGroup = new LaserGroup(this);
@@ -117,7 +144,7 @@ class FirstFight_Start extends Scene {
     //   this.physics.add.collider(this.player, this.spawn2);
     // }
 
-    //spawning fly guy
+    // spawning fly guy
     this.time.addEvent({
       delay: 8000,
       callback: function () {
@@ -143,16 +170,32 @@ class FirstFight_Start extends Scene {
     });
 
     //healthHearts spawning every 10 seconds
+
     this.time.addEvent({
       delay: 5000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
     });
+
+    // create portal and set invisible
+    this.portal = this.physics.add
+      .sprite(innerWidth, -500, 'portal')
+      .setScale(4)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay');
   }
 
   update(data) {
     this.player.update();
+
+    // if (this.key_P.isDown) {
+    //   console.log('trying to pause');
+    //   this.physics.pause();
+    // }
 
     if (this.player.hp <= 0) {
       this.gameOver(data);
@@ -162,20 +205,15 @@ class FirstFight_Start extends Scene {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width, this.sys.canvas.height - 100, 'test2')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+    if (this.player.heartCount >= 1) {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 

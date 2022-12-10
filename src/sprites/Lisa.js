@@ -16,8 +16,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // If we have HP and Score data
     if (hp) this.hp = hp;
-    else this.hp = 5;
-    if (hp > 10) this.hp = 10;
+    else this.hp = 10;
+    if (hp > 20) this.hp = 20;
     if (score) this.score = score;
     else this.score = 0;
     if (heartCount) this.heartCount = heartCount;
@@ -218,6 +218,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Falling
     if (
+      //maybe set a body.blocked.down on enemies
       (!this.body.blocked.down || !this.body.touching.down) &&
       this.body.velocity.y > 0
     ) {
@@ -227,6 +228,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Fast-falling
     if (this.cursors.keyobj_down.isDown && this.body.velocity.y < 100) {
       this.body.setVelocityY(400);
+      // this.attackAnimation('stomp');
     }
 
     // Ground Dash
@@ -285,6 +287,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   attackAnimation(attack) {
+    // if (attack === 'stomp') {
+
+    // }
+
     if (attack === 'shoot') {
       this.is_shoot = true;
       this.hitbox = this.scene.add
@@ -498,8 +504,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   setHBValue(bar, hp) {
     //scales the real_bar
-    if (hp >= 0 && hp <= 10) {
-      bar.scaleX = hp / 10;
+    if (hp >= 0 && hp <= 20) {
+      bar.scaleX = hp / 20;
     }
   }
 
@@ -507,7 +513,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // console.log('before', player.hp);
     if (!player.is_immune) {
       player.is_immune = true;
-      player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 10);
+      player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 20);
       // console.log('after', player.hp);
       player.setHBValue(player.real_bar, player.hp);
       this.time.addEvent({
@@ -520,11 +526,21 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
 
+  hitSpikyPlant(player) {
+    if (!player.is_immune) {
+      player.is_immune = true;
+      player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 20);
+      // console.log('after', player.hp);
+      player.setHBValue(player.real_bar, player.hp);
+    }
+    player.is_immune = false;
+  }
+
   // Collecting Hearts
   collectHeart(player, heart) {
     heart.disableBody(true, true);
 
-    player.hp = Phaser.Math.Clamp(player.hp + 1, 0, 10);
+    player.hp = Phaser.Math.Clamp(player.hp + 1, 0, 20);
 
     player.setHBValue(player.real_bar, player.hp);
     player.addScore(20);
