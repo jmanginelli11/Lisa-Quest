@@ -29,7 +29,6 @@ export default class PreloaderScene extends Phaser.Scene {
 
     //Backgrounds
     this.load.image('stars', '/assets/menu/stars_background.png');
-    // this.load.image('logo', '/assets/menu/logo.png');
     this.load.image('sky', '/assets/menu/sky.png');
 
     //Menu
@@ -58,7 +57,6 @@ export default class PreloaderScene extends Phaser.Scene {
     );
 
     // Testing assets
-
     this.load.image('test', '/assets/testSprites/platform.png');
     this.load.image('test2', '/assets/testSprites/platformRotate.png');
 
@@ -74,8 +72,8 @@ export default class PreloaderScene extends Phaser.Scene {
       frameHeight: 36,
     });
 
-    // Evil Lisa
-    this.load.spritesheet('lisa-alt', '/assets/lisa/alt/lisa-alt-run.png', {
+    // Tori
+    this.load.spritesheet('tori', '/assets/lisa/alt/lisa-alt-run.png', {
       frameWidth: 80,
       frameHeight: 48,
     });
@@ -260,7 +258,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('rig', '/assets/oilRig.png');
 
     // laser
-    this.load.image('laser', '/assets/lisa/default/laser3.png');
+    this.load.image('laser', '/assets/lisa/default/laser4.png');
 
     // gun
     // this.load.image('c', '/assets/c.png');

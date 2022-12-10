@@ -288,10 +288,14 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (attack === 'shoot') {
       this.is_shoot = true;
       this.hitbox = this.scene.add
-        .sprite(this.x, this.y - this.body.height / 2)
+        .sprite(this.x, this.y)
         .setDepth(-1)
-        .setScale(0.2)
+        .setScale(0.5)
         .setAngle(this.flipX ? -45 : 45);
+
+      // Needs hysics to move with laser
+      this.scene.add.existing(this.hitbox);
+      this.scene.physics.add.existing(this.hitbox);
 
       this.anims.play(attack);
 
@@ -352,21 +356,18 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
   attackCalculation(knockbackVal, attack) {
     if (attack === 'shoot') {
-      this.colliderLaser = this.scene.add.rectangle(
-        this.flipX ? this.x - this.x * 0.1 : this.x + this.x * 0.1,
-        this.y,
-        60,
-        60
-      );
+      this.colliderLaser = this.scene.add.rectangle(this.x, this.y, 60, 60);
       this.scene.physics.add.existing(this.colliderLaser);
 
-      // Shooting left
+      // Direction
       if (this.flipX) {
         this.scene.laserGroup.shootLaserLeft(this.x, this.y);
         this.colliderLaser.body.setVelocityX(-1400);
+        this.hitbox.body.setVelocityX(-1400);
       } else {
         this.scene.laserGroup.shootLaserRight(this.x, this.y);
         this.colliderLaser.body.setVelocityX(1400);
+        this.hitbox.body.setVelocityX(1400);
       }
 
       // Collision, knockback, health deprecation
