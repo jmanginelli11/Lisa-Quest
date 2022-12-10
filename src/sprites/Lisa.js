@@ -218,7 +218,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Falling
     if (
-      //maybe set a body.blocked.down on enemies
       (!this.body.blocked.down || !this.body.touching.down) &&
       this.body.velocity.y > 0
     ) {
@@ -228,7 +227,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Fast-falling
     if (this.cursors.keyobj_down.isDown && this.body.velocity.y < 100) {
       this.body.setVelocityY(400);
-      // this.attackAnimation('stomp');
     }
 
     // Ground Dash
@@ -287,10 +285,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   attackAnimation(attack) {
-    // if (attack === 'stomp') {
-
-    // }
-
     if (attack === 'shoot') {
       this.is_shoot = true;
       this.hitbox = this.scene.add
