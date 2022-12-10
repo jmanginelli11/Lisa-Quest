@@ -150,10 +150,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (this.cursors.keyobj_left.isDown) {
       if (!this.is_punch && !this.is_dash && !this.is_shoot) {
         this.body.setVelocityX(-500);
-        if (
-          (this.body.blocked.down || this.body.touching.down) &&
-          !this.anims.isPlaying
-        ) {
+        if (this.body.blocked.down && !this.anims.isPlaying) {
           this.anims.play('run');
         }
 
@@ -164,10 +161,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     } else if (this.cursors.keyobj_right.isDown) {
       if (!this.is_punch && !this.is_dash && !this.is_shoot) {
         this.body.setVelocityX(500);
-        if (
-          (this.body.blocked.down || this.body.touching.down) &&
-          !this.anims.isPlaying
-        ) {
+        if (this.body.blocked.down && !this.anims.isPlaying) {
           this.anims.play('run');
         }
 
@@ -202,7 +196,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Aerial Jump
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_up) &&
-      (!this.body.blocked.down || !this.body.touching.down)
+      !this.body.blocked.down
     ) {
       this.body.setVelocityY(-250);
       this.has_air_jump = false;
@@ -210,22 +204,34 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Rising
     if (
-      (!this.body.blocked.down || !this.body.touching.down) &&
-      this.body.velocity.y < 0
+      !this.body.blocked.down &&
+      this.body.velocity.y < 0 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
     ) {
       this.anims.play('rising');
     }
 
     // Falling
     if (
-      (!this.body.blocked.down || !this.body.touching.down) &&
-      this.body.velocity.y > 0
+      !this.body.blocked.down &&
+      this.body.velocity.y > 0 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
     ) {
       this.anims.play('falling');
     }
 
     // Fast-falling
-    if (this.cursors.keyobj_down.isDown && this.body.velocity.y < 100) {
+    if (
+      this.cursors.keyobj_down.isDown &&
+      this.body.velocity.y < 100 &&
+      !this.is_punch &&
+      !this.is_dash &&
+      !this.is_shoot
+    ) {
       this.body.setVelocityY(400);
     }
 
@@ -233,7 +239,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_c) &&
       this.can_dash &&
-      (this.body.blocked.down || this.body.touching.down)
+      this.body.blocked.down
     ) {
       this.can_dash = false;
       this.dashAnimation();
@@ -247,7 +253,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Super-Punch
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_x) &&
-      (this.body.blocked.down || this.body.touching.down) &&
+      this.body.blocked.down &&
       !this.is_punch &&
       !this.is_dash &&
       !this.is_shoot
@@ -258,7 +264,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Punch
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_z) &&
-      (this.body.blocked.down || this.body.touching.down) &&
+      this.body.blocked.down &&
       !this.is_punch &&
       !this.is_dash &&
       !this.is_shoot
@@ -269,7 +275,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     // Shoot
     if (
       Phaser.Input.Keyboard.JustDown(this.cursors.keyobj_shift) &&
-      (this.body.blocked.down || this.body.touching.down) &&
+      this.body.blocked.down &&
       !this.is_punch &&
       !this.is_dash &&
       !this.is_shoot
@@ -279,7 +285,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
 
     // Reset Jumps
-    if (this.body.blocked.down || this.body.touching.down) {
+    if (this.body.blocked.down) {
       this.has_air_jump = true;
     }
   }
