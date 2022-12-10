@@ -2,6 +2,7 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
+import WebFontFile from '../helpers/fontLoader';
 
 class FirstFight_Two extends Scene {
   cameras;
@@ -15,6 +16,10 @@ class FirstFight_Two extends Scene {
 
   constructor(data) {
     super({ key: 'FirstFight_Two' });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {

@@ -12,6 +12,10 @@ class PromisedLandFirst extends Scene {
     super({ key: 'PromisedLand' });
   }
 
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
+  }
+
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
