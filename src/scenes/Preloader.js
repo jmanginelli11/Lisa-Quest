@@ -112,6 +112,12 @@ export default class PreloaderScene extends Phaser.Scene {
       frameHeight: 28,
     });
 
+    // door sprite 2
+    this.load.spritesheet('portal2', '/assets/portalsSpriteSheet (1).png', {
+      frameWidth: 45,
+      frameHeight: 32,
+    });
+
     //background first scene
     this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
 
@@ -337,6 +343,15 @@ export default class PreloaderScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('portal', {
         start: 0,
         end: 4,
+      }),
+      frameRate: 12,
+      repeat: -1,
+    });
+    this.anims.create({
+      key: 'portalPlay2',
+      frames: this.anims.generateFrameNumbers('portal2', {
+        start: 0,
+        end: 3,
       }),
       frameRate: 12,
       repeat: -1,

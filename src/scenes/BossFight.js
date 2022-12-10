@@ -40,13 +40,13 @@ class BossFight extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    //camera shake
+    // Camera shake
     this.shakeCameras();
 
-    // laserGroup
+    // LaserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // new fire Group
+    // New FireGroup
     this.fireGroup = new FireGroup(this);
 
     this.map = this.make.tilemap({ key: 'tilemap_BF' });
@@ -85,9 +85,6 @@ class BossFight extends Scene {
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score);
 
-    // text
-    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
-
     //Colliders
     this.physics.add.collider(this.player, this.firstLayer);
     this.firstLayer.setCollisionBetween(160, 170);
@@ -96,19 +93,8 @@ class BossFight extends Scene {
     this.secondLayer.displayWidth = this.sys.canvas.width;
     this.secondLayer.displayHeight = this.sys.canvas.height;
 
-    // // Invisible platform
-    // this.platforms = this.physics.add.staticGroup();
-    // let wallPlatform = this.platforms
-    //   .create(this.sys.canvas.width - 100, this.sys.canvas.height, 'test2')
-    //   .refreshBody();
-    // this.physics.add.collider(this.player, wallPlatform, () => {
-    //   this.scene.start('PromisedLand', {
-    //     hp: this.player.hp,
-    //     score: this.player.score,
-    //     timer: this.timer,
-    //   });
-    // });
-    // wallPlatform.setVisible(false);
+    // Text
+    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
 
     this.typewriteText(
       '                \nIs this...  \n                \n... the big boss room? \n                \n '
@@ -196,7 +182,6 @@ class BossFight extends Scene {
     if (this.bigBoss && this.fadeTriggered === false) {
       this.bigBoss.update();
       if (this.bigBoss.hp <= 0) {
-        // this.scene.pause();
         this.fadeTriggered = true;
         this.cameras.main.fadeOut(2000, 255, 255, 255);
         this.cameras.main.once(
