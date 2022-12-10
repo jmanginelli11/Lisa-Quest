@@ -1,4 +1,4 @@
-import { Scene, physics } from 'phaser';
+import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 
 class FallingScene_One extends Scene {
@@ -12,13 +12,17 @@ class FallingScene_One extends Scene {
   }
 
   create(data) {
-    //Background - First Scene
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    //Background - First Scene
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
+    this.background.displayWidth = this.sys.canvas.width;
+    this.background.displayHeight = this.sys.canvas.height;
+
+    //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapFallingSceneOne' });
+
     this.waterAndRockTileset = this.map.addTilesetImage(
       'water_and_rock',
       'tiles'
@@ -47,22 +51,32 @@ class FallingScene_One extends Scene {
     this.groundLayer.displayHeight = this.sys.canvas.height;
     this.texturesTwoLayer.displayWidth = this.sys.canvas.width;
     this.texturesTwoLayer.displayHeight = this.sys.canvas.height;
+
     // Creating Player (Lisa)
+    this.player = new Lisa(this, x + x * 0.05, 0, data.hp, data.score);
 
-    this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
+    //Platforms
 
-    //colliders
-
-    this.physics.add.collider(this.player, this.groundLayer);
-    this.groundLayer.setCollisionBetween(72, 120);
-    // this.physics.add.collider(this.player, this.texturesTwoLayer);
-    // this.texturesTwoLayer.setCollisionBetween(160, 170);
-
-    // Invisible platform
     this.platforms = this.physics.add.staticGroup();
+    // Invisible platform
+    let invisible_platform_left = this.platforms
+      .create(x - x * 0.1, y, 'test2')
+      .setScale(2)
+      .refreshBody();
+
+    let invisible_platform_right = this.platforms
+      .create(x + x * 0.2, y, 'test2')
+      .setScale(2)
+      .refreshBody();
+
+    //Waterfall platform
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
+
+    //Collisions
+    this.physics.add.collider(this.player, invisible_platform_left);
+    this.physics.add.collider(this.player, invisible_platform_right);
 
     this.physics.add.collider(this.player, waterFallPlatform, () => {
       this.scene.start('FallingScene_Two', {
@@ -74,6 +88,9 @@ class FallingScene_One extends Scene {
     });
 
     waterFallPlatform.setVisible(false);
+    invisible_platform_left.setVisible(false);
+    invisible_platform_right.setVisible(false);
+
     //PARALLAX EFFECT
     // this.stars = this.add
     //   .tileSprite(0, 0, innerWidth, innerHeight, 'shiny_stars')

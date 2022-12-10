@@ -519,6 +519,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     }
   }
 
+  //Killer plant
   hitSpikyPlant(player) {
     if (!player.is_immune) {
       player.is_immune = true;

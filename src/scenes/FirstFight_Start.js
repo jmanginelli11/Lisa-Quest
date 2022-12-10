@@ -51,7 +51,7 @@ class FirstFight_Start extends Scene {
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
 
-    //Tilemaps
+    //Tilemap
     this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
@@ -88,7 +88,7 @@ class FirstFight_Start extends Scene {
       }
     });
 
-    //creating lisa behind the plants
+    //Creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
 
     this.rocksAndPlants = this.map.createLayer(
@@ -116,7 +116,9 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
 
+
     // Text
+
     this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
