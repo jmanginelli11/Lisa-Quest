@@ -27,7 +27,7 @@ class GameScene extends Scene {
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
-    this.scale.displaySize.setAspectRatio(1200 / 600);
+    this.scale.displaySize.setAspectRatio(16 / 9);
     this.scale.refresh();
 
     const x = innerWidth / 2;
@@ -39,8 +39,9 @@ class GameScene extends Scene {
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
-    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    // this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
+    //PAUSE BUTTON
     let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
     pauseButton.setInteractive();
 
@@ -60,7 +61,7 @@ class GameScene extends Scene {
     });
 
     this.typewriteText(
-      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI guess when I'm ready I jump through this... waterfall... alright.\n                \nI should probably avoid hitting the deadly spiky plants I see off in the distance\n                \nI have to find the secret sauce to ending climate change and defeat the capitalists\n                \nso let's go!"
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI should probably avoid hitting the deadly spiky plants I see off in the distance\n                \nWhen I'm ready I jump through this... waterfall... alright.\n                \nMy communicator got destroyed in the crash landing and I have to find a new one\n                \nso that I can tell the people back home about this planet!\n"
     );
 
     //timer
@@ -143,7 +144,6 @@ class GameScene extends Scene {
       .create(this.sys.canvas.width / 2 + 60, this.sys.canvas.height, 'test')
       .refreshBody();
 
-    console.log('here is data', data);
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
       this.scene.start('FallingScene_One', {
         music: data.music,
@@ -173,16 +173,6 @@ class GameScene extends Scene {
 
   update(time) {
     this.player.update();
-
-    if (this.key_P.isDown) {
-      console.log('trying to pause');
-    }
-    // if (this.isPaused === true) {
-    //   this.scene.start('PauseScene');
-    //   this.scene.pause();
-    // } else {
-    //   this.scene.resume();
-    // }
 
     // Timer
     let gameRunTime = time * 0.001;

@@ -12,7 +12,11 @@ class FirstFight_Start extends Scene {
   portal;
   laserGroup;
   enemiesArray = [];
+
+  isPaused = false;
+
   // heartCount = 0;
+
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -71,7 +75,18 @@ class FirstFight_Start extends Scene {
       0
     );
 
-    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    //PAUSE BUTTON
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
 
     //Creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
@@ -101,14 +116,13 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
 
-    console.log(this.player.collider);
 
-    //
-    // text
+    // Text
+
     this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      `What have we here? Fly guys I hate these ones...                \nI can't seem to get out of here... I think I have to \ncollect three hearts for a door to appear...                       `
+      `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
     );
 
     this.laserGroup = new LaserGroup(this);

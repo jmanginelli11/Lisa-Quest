@@ -8,9 +8,10 @@ class FirstFight_Two extends Scene {
   player;
   platforms;
   goombaPlatform;
-  wallPlatform;
+  portal;
   laserGroup;
   enemiesArray = [];
+  isPaused = false;
 
   constructor(data) {
     super({ key: 'FirstFight_Two' });
@@ -57,6 +58,19 @@ class FirstFight_Two extends Scene {
       0,
       0
     );
+
+    //PAUSE BUTTON
+    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
@@ -171,6 +185,20 @@ class FirstFight_Two extends Scene {
       .refreshBody()
       .setVisible(false);
     this.physics.add.collider(this.enemiesArray, this.goombaPlatform);
+
+    // create portal and set invisible
+    this.portal = this.physics.add
+      .sprite(
+        this.sys.canvas.width - 220,
+        this.sys.canvas.height + 200,
+        'portal2'
+      )
+      .setScale(3)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay2');
   }
 
   update(data) {
@@ -184,19 +212,14 @@ class FirstFight_Two extends Scene {
     }
 
     if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width, this.sys.canvas.height, 'test')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Three', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 
