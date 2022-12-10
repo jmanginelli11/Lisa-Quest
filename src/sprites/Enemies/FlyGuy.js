@@ -27,7 +27,32 @@ export class FlyGuy extends EnemiesParent {
 
   update() {
     if (this.hp > 0) {
-      if (this.scene.player) this.enemyFollows();
+      // Descend if way above player and not close horizontally
+      console.log(innerHeight);
+      console.log(this.scene.player.body.y);
+      if (
+        this.scene.player &&
+        this.x >= this.scene.player.body.x + innerWidth * 0.2
+      ) {
+        this.body.setVelocityX(-150);
+        if (this.body.y <= this.scene.player.body.y - innerHeight * 0.25) {
+          this.body.setVelocityY(500);
+        } else {
+          this.body.setVelocityY(50);
+        }
+      } else if (
+        this.scene.player &&
+        this.x <= this.scene.player.body.x - innerWidth * 0.2
+      ) {
+        this.body.setVelocityX(150);
+        if (this.body.y <= this.scene.player.body.y - innerHeight * 0.25) {
+          this.body.setVelocityY(500);
+        } else {
+          this.body.setVelocityY(50);
+        }
+      } else if (this.scene.player) {
+        this.enemyFollows();
+      }
 
       // Knockback
       if (this.is_in_knockback) {
@@ -46,6 +71,6 @@ export class FlyGuy extends EnemiesParent {
 
   // Following Enemy AI
   enemyFollows() {
-    this.scene.physics.moveToObject(this, this.scene.player, 100);
+    this.scene.physics.moveToObject(this, this.scene.player, 200);
   }
 }

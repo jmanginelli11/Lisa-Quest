@@ -75,7 +75,7 @@ class MainMenu extends Scene {
     });
 
     playButton.on('pointerup', () => {
-      this.scene.start('Intro', {
+      this.scene.start('FirstFight_Start', {
         music: data.music,
       });
     });
