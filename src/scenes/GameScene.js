@@ -39,8 +39,9 @@ class GameScene extends Scene {
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
-    this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
+    // this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
+    //PAUSE BUTTON
     let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
     pauseButton.setInteractive();
 
@@ -173,16 +174,6 @@ class GameScene extends Scene {
 
   update(time) {
     this.player.update();
-
-    if (this.key_P.isDown) {
-      console.log('trying to pause');
-    }
-    // if (this.isPaused === true) {
-    //   this.scene.start('PauseScene');
-    //   this.scene.pause();
-    // } else {
-    //   this.scene.resume();
-    // }
 
     // Timer
     let gameRunTime = time * 0.001;
