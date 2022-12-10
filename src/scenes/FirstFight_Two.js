@@ -193,7 +193,7 @@ class FirstFight_Two extends Scene {
         this.sys.canvas.height + 200,
         'portal2'
       )
-      .setScale(3)
+      .setScale(3.5)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
     this.physics.add.collider(this.portal, this.groundAndPlatforms);

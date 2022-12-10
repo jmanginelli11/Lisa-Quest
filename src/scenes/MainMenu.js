@@ -103,7 +103,7 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on('pointerup', () => {
-      this.scene.start('FirstFight_Two', {
+      this.scene.start('FirstFight_Three', {
         music: data.music,
       });
     });

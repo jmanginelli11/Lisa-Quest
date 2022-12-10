@@ -52,19 +52,30 @@ class FallingScene_Two extends Scene {
     this.texturesTwoLayer.displayHeight = this.sys.canvas.height;
 
     //player
-    this.player = new Lisa(this, x + 100, 0, data.hp, data.score);
-
-    //colliders
-    this.physics.add.collider(this.player, this.groundLayer);
-    this.groundLayer.setCollisionBetween(72, 120);
-    //     this.physics.add.collider(this.player, this.texturesTwoLayer);
-    // this.texturesTwoLayer.setCollisionBetween(1000, 1250);
+    this.player = new Lisa(this, x + x * 0.05, 0, data.hp, data.score);
 
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
+
+    // Invisible platform
+    let invisible_platform_left = this.platforms
+      .create(x - x * 0.1, y, 'test2')
+      .setScale(2)
+      .refreshBody();
+
+    let invisible_platform_right = this.platforms
+      .create(x + x * 0.2, y, 'test2')
+      .setScale(2)
+      .refreshBody();
+
+    //waterFallPlatform
     let waterFallPlatform = this.platforms
       .create(this.sys.canvas.width / 2 + 120, this.sys.canvas.height, 'test')
       .refreshBody();
+
+    //Collisions
+    this.physics.add.collider(this.player, invisible_platform_left);
+    this.physics.add.collider(this.player, invisible_platform_right);
     this.physics.add.collider(this.player, waterFallPlatform, () => {
       this.scene.start('FirstFight_Start', {
         music: data.music,
@@ -74,6 +85,8 @@ class FallingScene_Two extends Scene {
       });
     });
     waterFallPlatform.setVisible(false);
+    invisible_platform_left.setVisible(false);
+    invisible_platform_right.setVisible(false);
   }
 
   update() {
