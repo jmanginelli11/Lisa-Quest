@@ -8,7 +8,7 @@ class FirstFight_Two extends Scene {
   player;
   platforms;
   goombaPlatform;
-  wallPlatform;
+  portal;
   laserGroup;
   enemiesArray = [];
   isPaused = false;
@@ -185,6 +185,20 @@ class FirstFight_Two extends Scene {
       .refreshBody()
       .setVisible(false);
     this.physics.add.collider(this.enemiesArray, this.goombaPlatform);
+
+    // create portal and set invisible
+    this.portal = this.physics.add
+      .sprite(
+        this.sys.canvas.width - 220,
+        this.sys.canvas.height + 200,
+        'portal2'
+      )
+      .setScale(3)
+      .setVisible(false);
+    this.portal.setCollideWorldBounds(true);
+    this.physics.add.collider(this.portal, this.groundAndPlatforms);
+
+    this.portal.play('portalPlay2');
   }
 
   update(data) {
@@ -198,19 +212,14 @@ class FirstFight_Two extends Scene {
     }
 
     if (this.player.heartCount >= 3) {
-      this.platforms = this.physics.add.staticGroup();
-      this.wallPlatform = this.platforms
-        .create(this.sys.canvas.width, this.sys.canvas.height, 'test')
-        .refreshBody();
-
-      this.physics.add.collider(this.player, this.wallPlatform, () => {
+      this.portal.setVisible(true);
+      this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Three', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
-      this.wallPlatform.setVisible(true);
     }
   }
 

@@ -12,9 +12,11 @@ class FirstFight_Start extends Scene {
   portal;
   laserGroup;
   enemiesArray = [];
+
   isPaused = false;
 
   // heartCount = 0;
+
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -113,12 +115,12 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
-    //
-    // text
+
+    // Text
     this.story = this.add.text(x, y - 300, '').setScale(1.25);
 
     this.typewriteText(
-      `What have we here? Fly guys I hate these ones...                \nI can't seem to get out of here... I think I have to \ncollect three hearts for a door to appear...                       `
+      `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
     );
 
     this.laserGroup = new LaserGroup(this);
