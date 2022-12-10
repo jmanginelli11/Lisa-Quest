@@ -1,4 +1,5 @@
 import { Sprite } from 'phaser';
+import WebFontFile from '../helpers/fontLoader';
 
 export class Lisa extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y, hp = null, score = null, heartCount = null) {
@@ -59,6 +60,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.real_bar;
   }
 
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
+  }
+
   create() {
     // Create Input Event
     this.cursors = this.scene.input.keyboard;
@@ -111,14 +116,12 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     );
 
     // Score
+
     this.scoreText = this.scene.add.text(
       this.x * 0.1,
       this.y * 0.1,
       'Score: ' + this.score,
-      {
-        fontSize: '32px',
-        fill: '#E43AA4',
-      }
+      { fontFamily: '"Press Start 2P"', fontSize: '32px', fill: '#E43AA4' }
     );
 
     // HealthBar Creation

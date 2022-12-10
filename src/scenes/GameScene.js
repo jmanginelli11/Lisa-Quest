@@ -3,6 +3,7 @@ import { Lisa } from '../sprites/Lisa.js';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 import { Enemy } from '../sprites/Enemies/Enemy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
+import WebFontFile from '../helpers/fontLoader';
 
 class GameScene extends Scene {
   player;
@@ -22,6 +23,10 @@ class GameScene extends Scene {
 
   constructor(data) {
     super({ key: 'GameScene' });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {

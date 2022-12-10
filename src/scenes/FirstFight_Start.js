@@ -3,6 +3,7 @@ import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
+import WebFontFile from '../helpers/fontLoader';
 
 class FirstFight_Start extends Scene {
   cameras;
@@ -16,7 +17,6 @@ class FirstFight_Start extends Scene {
   isPaused = false;
 
   // heartCount = 0;
-
 
   constructor(data) {
     super({ key: 'FirstFight_Start' });
@@ -33,6 +33,10 @@ class FirstFight_Start extends Scene {
       repeat: length - 1,
       delay: 50,
     });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -115,7 +119,6 @@ class FirstFight_Start extends Scene {
     this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
-
 
     // Text
 
