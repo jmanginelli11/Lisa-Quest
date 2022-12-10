@@ -26,6 +26,8 @@ class GameScene extends Scene {
 
   create(data) {
     console.log('here is cameras', this.cameras);
+    this.scale.displaySize.setAspectRatio(1200 / 600);
+    this.scale.refresh();
 
     const x = innerWidth / 2;
     const y = innerHeight / 2;
@@ -42,19 +44,16 @@ class GameScene extends Scene {
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
-      this.scene.start('PauseScene');
-      this.scene.pause();
-      // } else {
-      //   this.scene.resume();
+      // this.scene.start('PauseScene', );
 
-      // this.isPaused = !this.isPaused;
-      //   this.scene.launch('PauseScene');
-      // this.scene.pause();
-      //   // if (this.isPaused === true) {
-      //   //   this.physics.pause();
-      //   // } else {
-      //   //   this.physics.resume();
-      //   // }
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        // pauseButton = this.add.text(x, innerHeight / 10, 'RESUME').setScale(2);
+        this.game.loop.sleep();
+      } else {
+        // pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+        this.game.loop.wake();
+      }
 
       console.log('pause button pressed');
     });
@@ -175,6 +174,9 @@ class GameScene extends Scene {
   update(time) {
     this.player.update();
 
+    if (this.key_P.isDown) {
+      console.log('trying to pause');
+    }
     // if (this.isPaused === true) {
     //   this.scene.start('PauseScene');
     //   this.scene.pause();
