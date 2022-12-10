@@ -15,24 +15,25 @@ class Credits extends Scene {
     const y = innerHeight / 2;
 
     this.add.image(x, y, 'shiny_stars');
-    // this.add.image(x, y, 'creditsLOL');
 
     //Naomi
     this.naomi = this.add
       .image(x + x / 4, y / 2, 'naomi')
       .setScale(innerWidth / 200);
-    this.naomiNubble = this.add
+
+    this.naomiBubble = this.add
       .image(
         this.naomi.x + this.naomi.x / 4,
         this.naomi.y - this.naomi.y / 2.5,
         'bubble'
       )
-      .setScale(x / 125);
+      .setScale(x / 125)
+      .setInteractive();
 
     this.naomiName = this.add
       .text(
-        this.naomiNubble.x - this.naomiNubble.x / 50,
-        this.naomiNubble.y,
+        this.naomiBubble.x - this.naomiBubble.x / 50,
+        this.naomiBubble.y,
         'Naomi \nBrender',
         {
           fontFamily: '"Press Start 2P"',
@@ -42,19 +43,21 @@ class Credits extends Scene {
         }
       )
       .setOrigin(0, 0)
-      .setScale(this.naomiNubble.scale / 3);
+      .setScale(this.naomiBubble.scale / 3);
 
     //Jackie
     this.jackie = this.add
       .image(x - x / 1.75, y / 2, 'jags')
       .setScale(innerWidth / 200);
+
     this.jackieBubble = this.add
       .image(
         this.jackie.x + this.jackie.x / 1.3,
         this.jackie.y - this.jackie.y / 2.5,
         'bubble'
       )
-      .setScale(x / 125);
+      .setScale(x / 125)
+      .setInteractive();
 
     this.jackieName = this.add
       .text(
@@ -75,13 +78,15 @@ class Credits extends Scene {
     this.lauren = this.add
       .image(x + x / 4, y + y / 3, 'lauren')
       .setScale(innerWidth / 200);
+
     this.laurenBubble = this.add
       .image(
         this.lauren.x + this.lauren.x / 4,
         this.lauren.y - this.lauren.y / 8,
         'bubble'
       )
-      .setScale(x / 125);
+      .setScale(x / 125)
+      .setInteractive();
 
     this.laurenName = this.add
       .text(
@@ -102,14 +107,15 @@ class Credits extends Scene {
     this.sheyla = this.add
       .image(x - x / 1.75, y + y / 3, 'sheyla')
       .setScale(innerWidth / 200);
+
     this.sheylaBubble = this.add
       .image(
         this.sheyla.x + this.sheyla.x / 1.3,
         this.sheyla.y - this.sheyla.y / 8,
         'bubble'
       )
-      .setScale(x / 125);
-    this.sheyla.setInteractive();
+      .setScale(x / 125)
+      .setInteractive();
 
     this.sheylaName = this.add
       .text(
@@ -126,13 +132,44 @@ class Credits extends Scene {
       .setOrigin(0, 0)
       .setScale(this.sheylaBubble.scale / 3);
 
-    // console.log(this.sheylaName.y);
+    //External Links
+    this.naomiBubble.on(
+      'pointerup',
+      () => {
+        window.open('https://www.linkedin.com/in/naomibrender/');
+      },
+      this
+    );
 
+    this.jackieBubble.on(
+      'pointerup',
+      () => {
+        window.open('https://www.linkedin.com/in/jackie-manginelli/');
+      },
+      this
+    );
+
+    this.laurenBubble.on(
+      'pointerup',
+      () => {
+        window.open('https://www.linkedin.com/in/laurenmhbaca/');
+      },
+      this
+    );
+
+    this.sheylaBubble.on(
+      'pointerup',
+      () => {
+        window.open('https://www.linkedin.com/in/sheyladelossantos/');
+      },
+      this
+    );
+
+    //Main menu
     let mainMenuButton = this.add
       .image(x - x / 1.25, y * 1.8, 'main-menu')
       .setScale(x * 0.002);
     mainMenuButton.setInteractive();
-
     mainMenuButton.on('pointerup', () => {
       this.scene.start('MainMenu', {
         music: data.music,
