@@ -135,7 +135,6 @@ class GameScene extends Scene {
     this.vegetationLayerTwo.displayHeight = this.sys.canvas.height;
 
     this.physics.add.collider(this.player, this.groundLayer);
-    this.physics.add.collider(this.player, this.surfaceTileset);
     this.groundLayer.setCollisionBetween(72, 99);
 
     // Invisible platform
