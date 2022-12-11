@@ -174,7 +174,7 @@ class BossFight extends Scene {
 
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
-      delay: 10000,
+      delay: 8000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
@@ -250,8 +250,10 @@ class BossFight extends Scene {
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-        Phaser.Math.RND.between(300, 700),
-        Phaser.Math.RND.between(200, 500)
+
+        Phaser.Math.RND.between(0, 2000),
+        Phaser.Math.RND.between(400, 600)
+
       );
       child.setOrigin(0, 0);
     });

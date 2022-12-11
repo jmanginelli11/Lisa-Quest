@@ -150,7 +150,7 @@ class FirstFight_Three extends Scene {
     // spawning little enemy guy
 
     this.time.addEvent({
-      delay: 11000,
+      delay: 15000,
       callback: function () {
         this.spawn2 = new Enemy(
           this,
@@ -202,10 +202,10 @@ class FirstFight_Three extends Scene {
     });
 
     this.time.addEvent({
-      delay: 10000,
+      delay: 6000,
       callback: this.spawnHearts,
       callbackScope: this,
-      repeat: 19,
+      loop: true,
     });
 
     // Adding portal
