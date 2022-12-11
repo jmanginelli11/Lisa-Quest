@@ -1,6 +1,9 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
+import axios from 'axios';
+import store from '../store';
+import { fetchScores } from '../store/redux/scoresReducer';
 
 class PromisedLandFirst extends Scene {
   cameras;
@@ -120,6 +123,7 @@ class PromisedLandFirst extends Scene {
             }
           )
           .setOrigin(0, 0);
+
         const element = this.add.dom(x, y + 170).createFromCache('form');
 
         element.setPerspective(300);
@@ -128,7 +132,6 @@ class PromisedLandFirst extends Scene {
         element.on('change', async (evt) => {
           if (evt.target.name === 'username') {
             let username = evt.target.value;
-            this.addScore.setText('Welcome ' + username);
             await axios.post('/api/scores', {
               name: username,
               score: data.score || 0,
