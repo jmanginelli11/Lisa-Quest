@@ -8,12 +8,17 @@ export class EnemiesParent extends Phaser.GameObjects.Sprite {
     this.init();
 
     if (this.scene.enemiesArray) this.scene.enemiesArray.push(this);
-    // && console.log('enemiesArray: ', this.scene.enemiesArray);
     else
       throw 'You must add an enemiesArray to this scene in order for Lisa to interact with them.';
   }
 
   init() {
     this.is_enemy = true;
+  }
+
+  hitByPlayer(enemy) {
+    console.log('before', enemy.hp);
+    enemy.hp = Phaser.Math.Clamp(enemy.hp - 1, 0, 20);
+    console.log('after', enemy.hp);
   }
 }

@@ -13,7 +13,6 @@ class FirstFight_Start extends Scene {
   portal;
   laserGroup;
   enemiesArray = [];
-
   isPaused = false;
 
   // heartCount = 0;
@@ -80,7 +79,9 @@ class FirstFight_Start extends Scene {
     );
 
     //PAUSE BUTTON
-    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
@@ -122,10 +123,14 @@ class FirstFight_Start extends Scene {
 
     // Text
 
-    this.story = this.add.text(x, y - 300, '').setScale(1.25);
+    this.story = this.add.text(x, y - 400, '', {
+      fontSize: 22,
+      color: '0x2e71cc',
+    });
 
     this.typewriteText(
-      `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
+      // `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
+      `                \nDON'T TOUCH THE SPIKY PLANTS!\n                \nKILL BADDIES!\n                \nCOLLECT HEARTS!\n                \nLETS GO!\n`
     );
 
     this.laserGroup = new LaserGroup(this);
@@ -169,22 +174,28 @@ class FirstFight_Start extends Scene {
     this.time.addEvent({
       delay: 8000,
       callback: function () {
-        this.flyGuy = new FlyGuy(
+        // this.flyGuy = new FlyGuy(
+        this.goomba = new Enemy(
           this,
           Phaser.Math.RND.between(0, 1400),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.flyGuy);
-        this.physics.add.collider(this.flyGuy, this.wallPlatform);
-        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
+        // this.enemiesArray.push(this.flyGuy);
+        this.enemiesArray.push(this.goomba);
+        // this.physics.add.collider(this.flyGuy, this.
+        this.physics.add.collider(this.goomba, this.wallPlatform);
+        // this.physics.add.collider(this.flyGuy, this.
+        this.physics.add.collider(this.goomba, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
-          this.flyGuy,
+          // this.flyGuy,
+          this.goomba,
           this.player.hitSpawn,
           null,
           this
         );
-        this.physics.add.collider(this.player, this.flyGuy);
+        // this.physics.add.collider(this.player, this.flyGuy);
+        this.physics.add.collider(this.player, this.goomba);
       },
       callbackScope: this,
       repeat: 5,
@@ -222,11 +233,17 @@ class FirstFight_Start extends Scene {
       this.gameOver(data);
     }
 
+    this.enemiesKilledCount = [];
+    this.enemiesKilledCount = this.enemiesArray.filter(
+      (enemy) => enemy.hp <= 0
+    );
+    // console.log(this.enemiesKilledCount.length);
+
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
+    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {

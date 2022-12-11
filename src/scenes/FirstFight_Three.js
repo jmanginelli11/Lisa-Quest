@@ -100,7 +100,9 @@ class FirstFight_Three extends Scene {
     );
 
     //PAUSE BUTTON
-    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
@@ -148,7 +150,7 @@ class FirstFight_Three extends Scene {
     // spawning little enemy guy
 
     this.time.addEvent({
-      delay: 11000,
+      delay: 15000,
       callback: function () {
         this.spawn2 = new Enemy(
           this,
@@ -200,10 +202,10 @@ class FirstFight_Three extends Scene {
     });
 
     this.time.addEvent({
-      delay: 10000,
+      delay: 6000,
       callback: this.spawnHearts,
       callbackScope: this,
-      repeat: 19,
+      loop: true,
     });
 
     // Adding portal
@@ -225,11 +227,16 @@ class FirstFight_Three extends Scene {
       this.gameOver(data);
     }
 
+    this.enemiesKilledCount = [];
+    this.enemiesKilledCount = this.enemiesArray.filter(
+      (enemy) => enemy.hp <= 0
+    );
+
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
+    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('BossFight', {
