@@ -112,8 +112,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Score
     this.scoreText = this.scene.add.text(
-      this.x * 0.1,
-      this.y * 0.1,
+      innerWidth * 0.05,
+      innerHeight * 0.01,
       'Score: ' + this.score,
       {
         fontSize: '32px',
@@ -126,17 +126,17 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     this.hb_text = this.scene.add.text(
       innerWidth * 0.05,
-      innerHeight * 0.125,
+      innerHeight * 0.05,
       'LISA'
     );
     this.shadow_bar = this.makeHealthBar(
       innerWidth * 0.05,
-      innerHeight * 0.15,
+      innerHeight * 0.075,
       0xc1c1c1
     );
     this.real_bar = this.makeHealthBar(
       innerWidth * 0.05,
-      innerHeight * 0.15,
+      innerHeight * 0.075,
       0x2e71cc
     );
 

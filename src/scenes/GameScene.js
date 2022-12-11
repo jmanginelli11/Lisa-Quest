@@ -42,7 +42,9 @@ class GameScene extends Scene {
     // this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
 
     //PAUSE BUTTON
-    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
