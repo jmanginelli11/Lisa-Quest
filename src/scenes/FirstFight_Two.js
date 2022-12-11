@@ -1,6 +1,7 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
+import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import WebFontFile from '../helpers/fontLoader';
 
@@ -65,7 +66,9 @@ class FirstFight_Two extends Scene {
     );
 
     //PAUSE BUTTON
-    let pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
@@ -162,22 +165,22 @@ class FirstFight_Two extends Scene {
     this.time.addEvent({
       delay: 5000,
       callback: function () {
-        this.spawn2 = new Enemy(
+        this.flyGuy = new FlyGuy(
           this,
 
           Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.spawn2);
-        this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
+        this.enemiesArray.push(this.flyGuy);
+        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
-          this.spawn2,
+          this.flyGuy,
           this.player.hitSpawn,
           null,
           this
         );
-        this.physics.add.collider(this.player, this.spawn2);
+        this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
       repeat: 10,
