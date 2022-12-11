@@ -1,7 +1,11 @@
 const express = require('express');
-const path = require('path');
 const app = express();
+const path = require('path');
 const volleyball = require('volleyball');
+const http = require('http');
+const server = http.createServer(app);
+const { Server } = require('socket.io');
+const io = new Server(server);
 
 //logging middleware
 app.use(volleyball);
@@ -21,6 +25,10 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', '/public/index.html'));
 });
 
+io.on('connection', (socket) => {
+  console.log('a user connected');
+});
+
 // error handling endware
 app.use((err, req, res, next) => {
   console.error(err);
@@ -28,4 +36,6 @@ app.use((err, req, res, next) => {
   res.status(err.status || 500).send(err.message || 'Internal server error.');
 });
 
-module.exports = app;
+// module.exports = app;
+
+module.exports = server;
