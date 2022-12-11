@@ -10,6 +10,7 @@ class PromisedLandFirst extends Scene {
   platforms;
   player;
   phone;
+  enemiesArray = [];
   // hasPhone = false;
 
   constructor(data) {
