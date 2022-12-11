@@ -224,11 +224,16 @@ class FirstFight_Three extends Scene {
       this.gameOver(data);
     }
 
+    this.enemiesKilledCount = [];
+    this.enemiesKilledCount = this.enemiesArray.filter(
+      (enemy) => enemy.hp <= 0
+    );
+
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
+    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('BossFight', {

@@ -118,10 +118,11 @@ class FirstFight_Start extends Scene {
 
     // Text
 
-    this.story = this.add.text(x, y - 300, '').setScale(1.25);
+    this.story = this.add.text(x, y - 400, '').setScale(1.25);
 
     this.typewriteText(
-      `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
+      // `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
+      `                \nDON'T TOUCH THE SPIKY PLANTS!\n                \nKILL BADDIES!\n                \nCOLLECT HEARTS!\n                \nLETS GO!\n`
     );
 
     this.laserGroup = new LaserGroup(this);
@@ -224,16 +225,17 @@ class FirstFight_Start extends Scene {
       this.gameOver(data);
     }
 
-    this.enemiesKilledCount = 0;
+    this.enemiesKilledCount = [];
+    this.enemiesKilledCount = this.enemiesArray.filter(
+      (enemy) => enemy.hp <= 0
+    );
+    // console.log(this.enemiesKilledCount.length);
+
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
-      if (this.enemiesArray[i].hp <= 0) {
-        this.enemiesKilledCount++;
-        console.log('------>', this.enemiesKilledCount);
-      }
     }
 
-    if (this.player.heartCount >= 3 && this.enemiesKilledCount >= 4) {
+    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {

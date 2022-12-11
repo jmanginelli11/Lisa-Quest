@@ -158,7 +158,7 @@ class FirstFight_Two extends Scene {
     //baddies
     // this.spawnArray = [];
     this.time.addEvent({
-      delay: 5000,
+      delay: 7000,
       callback: function () {
         this.flyGuy = new FlyGuy(
           this,
@@ -210,11 +210,18 @@ class FirstFight_Two extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
+
+    this.enemiesKilledCount = [];
+    this.enemiesKilledCount = this.enemiesArray.filter(
+      (enemy) => enemy.hp <= 0
+    );
+    console.log(this.enemiesKilledCount.length);
+
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3) {
+    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Three', {
