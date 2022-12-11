@@ -16,7 +16,6 @@ export const fetchScores = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get('/api/scores');
-      // console.log(`inside the fetch`, data);
       dispatch(setScores(data));
     } catch (error) {
       console.error(error);
