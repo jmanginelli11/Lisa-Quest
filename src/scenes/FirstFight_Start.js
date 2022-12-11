@@ -118,7 +118,10 @@ class FirstFight_Start extends Scene {
 
     // Text
 
-    this.story = this.add.text(x, y - 400, '').setScale(1.25);
+    this.story = this.add.text(x, y - 400, '', {
+      fontSize: 22,
+      color: '0x2e71cc',
+    });
 
     this.typewriteText(
       // `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
