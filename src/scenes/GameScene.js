@@ -191,26 +191,24 @@ class GameScene extends Scene {
       callbackScope: this,
       repeat: 0,
     });
+
+    console.log(this.enemiesArray);
   }
 
   update(data, time) {
     this.player.update();
 
+    for (let i = 0; i < this.enemiesArray.length; i++) {
+      this.enemiesArray[i].update();
+    }
+
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-  }
-
-  update(time) {
-    this.player.update();
 
     // Timer
     let gameRunTime = time * 0.001;
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
-
-    for (let i = 0; i < this.enemiesArray.length; i++) {
-      // this.enemiesArray[i].update();
-    }
   }
 
   gameOver(data) {
