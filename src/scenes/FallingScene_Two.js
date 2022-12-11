@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
+import WebFontFile from '../helpers/fontLoader';
 
 class FallingScene_Two extends Scene {
   player;
@@ -9,6 +10,10 @@ class FallingScene_Two extends Scene {
 
   constructor(data) {
     super({ key: 'FallingScene_Two' });
+  }
+
+  preload() {
+    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
