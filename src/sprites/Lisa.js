@@ -47,6 +47,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.current_knockback_speed = 0;
 
     this.max_hp = 10;
+    this.laser_knockbackVal = 300;
 
     this.is_immune = false;
 
@@ -291,6 +292,60 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (this.body.blocked.down) {
       this.has_air_jump = true;
     }
+
+    // Laser collision, knockback, health deprecation
+    for (let i = 0; i < this.scene.enemiesArray.length; i++) {
+      if (
+        this.colliderLaser &&
+        this.scene.physics.overlap(
+          this.scene.enemiesArray[i],
+          this.colliderLaser
+        )
+      ) {
+        console.log('hit');
+        this.laser_knockbackVal = this.flipX ? -300 : 300;
+        this.scene.enemiesArray[i].is_in_knockback = true;
+        this.scene.enemiesArray[i].current_knockback_speed =
+          this.laser_knockbackVal;
+        this.scene.enemiesArray[i].body.setVelocityX(this.laser_knockbackVal);
+
+        // Knockingback enemiesArray[i]
+        if (this.laser_knockbackVal <= 0) {
+          this.scene.enemiesArray[i].body.setVelocityY(
+            this.laser_knockbackVal / 1.8
+          );
+        } else {
+          this.scene.enemiesArray[i].body.setVelocityY(
+            this.laser_knockbackVal / -1.8
+          );
+        }
+
+        // HP and Score
+        if (this.scene.enemiesArray[i].hp > 1) {
+          this.scene.enemiesArray[i].hp--;
+          // this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
+          console.log('hit! hp: ', this.scene.enemiesArray[i].hp);
+
+          if (this.laser_knockbackVal <= 0) {
+            this.addScore(this.laser_knockbackVal * -0.05);
+          } else {
+            this.addScore(this.laser_knockbackVal * 0.05);
+          }
+        } else if (this.scene.enemiesArray[i].hp <= 1) {
+          if (this.laser_knockbackVal <= 0) {
+            this.addScore(this.laser_knockbackVal * -0.05);
+          } else {
+            this.addScore(this.laser_knockbackVal * 0.05);
+          }
+
+          this.addScore(100);
+          // this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
+          this.scene.enemiesArray[i].hp--;
+        }
+
+        if (this.colliderLaser) this.colliderLaser.destroy();
+      }
+    }
   }
 
   attackAnimation(attack) {
@@ -378,48 +433,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         this.colliderLaser.body.setVelocityX(1400);
         this.hitbox.body.setVelocityX(1400);
       }
-
-      // Collision, knockback, health deprecation
-      for (let i = 0; i < this.scene.enemiesArray.length; i++) {
-        if (
-          this.scene.physics.overlap(
-            this.scene.enemiesArray[i],
-            this.colliderLaser
-          )
-        ) {
-          this.scene.enemiesArray[i].is_in_knockback = true;
-          this.scene.enemiesArray[i].current_knockback_speed = knockbackVal;
-          this.scene.enemiesArray[i].body.setVelocityX(knockbackVal);
-
-          // Knockingback enemiesArray[i]
-          if (knockbackVal <= 0) {
-            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / 1.8);
-          } else {
-            this.scene.enemiesArray[i].body.setVelocityY(knockbackVal / -1.8);
-          }
-
-          // HP and Score
-          if (this.scene.enemiesArray[i].hp > 1) {
-            this.scene.enemiesArray[i].hp--;
-            console.log('hit! hp: ', this.scene.enemiesArray[i].hp);
-
-            if (knockbackVal <= 0) {
-              this.addScore(knockbackVal * -0.05);
-            } else {
-              this.addScore(knockbackVal * 0.05);
-            }
-          } else if (this.scene.enemiesArray[i].hp <= 1) {
-            if (knockbackVal <= 0) {
-              this.addScore(knockbackVal * -0.05);
-            } else {
-              this.addScore(knockbackVal * 0.05);
-            }
-
-            this.addScore(100);
-            this.scene.enemiesArray[i].hp--;
-          }
-        }
-      }
     } else if (attack === 'punch' || attack === 'super-punch') {
       // calculating hitbox by attack
       this.colliderPunch = this.scene.add.rectangle(
@@ -454,7 +467,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
           // HP and Score
           if (this.scene.enemiesArray[i].hp > 1) {
-            this.scene.enemiesArray[i].hp--;
+            // this.scene.enemiesArray[i].hp--;
+            this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
 
             if (knockbackVal <= 0) {
               this.addScore(knockbackVal * -0.05);
@@ -469,7 +483,8 @@ export class Lisa extends Phaser.GameObjects.Sprite {
             }
 
             this.addScore(100);
-            this.scene.enemiesArray[i].hp--;
+            this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
+            // this.scene.enemiesArray[i].hp--;
           }
 
           if (this.colliderPunch) this.colliderPunch.destroy();
