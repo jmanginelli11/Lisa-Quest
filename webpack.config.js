@@ -1,6 +1,12 @@
 'use strict';
 
 const dotEnv = require('dotenv-webpack');
+const mode = process.env.NODE_ENV || 'development';
+
+let systemvarsValue = false;
+if (mode === 'production') {
+  systemvarsValue = true;
+}
 
 module.exports = {
   entry: ['./src/index.js'],
@@ -20,5 +26,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [new dotEnv({ systemvars: true })],
+
+  plugins: [new dotEnv({ systemvars: systemvarsValue })],
 };
