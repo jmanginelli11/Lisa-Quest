@@ -84,6 +84,8 @@ class PromisedLandFirst extends Scene {
     //   560
     // );
 
+    this.stars.displayWidth = this.sys.canvas.width;
+    this.stars.displayHeight = this.sys.canvas.height;
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
     this.mountainsLayer.displayWidth = this.sys.canvas.width;
