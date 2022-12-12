@@ -43,7 +43,7 @@ class FirstFight_Start extends Scene {
     const y = innerHeight / 2;
 
     this.time.addEvent({
-      delay: 5000,
+      delay: 6000,
       callback: this.spawnHearts,
       callbackScope: this,
       loop: true,
@@ -203,15 +203,6 @@ class FirstFight_Start extends Scene {
       repeat: 5,
     });
 
-    //healthHearts spawning every 10 seconds
-
-    this.time.addEvent({
-      delay: 5000,
-      callback: this.spawnHearts,
-      callbackScope: this,
-      loop: true,
-    });
-
     // create portal and set invisible
     this.portal = this.physics.add
       .sprite(innerWidth, -500, 'portal')
@@ -226,11 +217,6 @@ class FirstFight_Start extends Scene {
   update(data) {
     this.player.update();
 
-    // if (this.key_P.isDown) {
-    //   console.log('trying to pause');
-    //   this.physics.pause();
-    // }
-
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
@@ -239,7 +225,6 @@ class FirstFight_Start extends Scene {
     this.enemiesKilledCount = this.enemiesArray.filter(
       (enemy) => enemy.hp <= 0
     );
-    // console.log(this.enemiesKilledCount.length);
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
