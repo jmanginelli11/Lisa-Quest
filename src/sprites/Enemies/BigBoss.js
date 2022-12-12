@@ -26,7 +26,7 @@ export class BigBoss extends EnemiesParent {
   init() {
     this.is_in_knockback = false;
     this.current_knockback_speed = 0;
-    this.hp = 5;
+    this.hp = 15;
   }
 
   update() {
