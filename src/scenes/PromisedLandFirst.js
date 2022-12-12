@@ -1,10 +1,8 @@
-import axios from 'axios';
 import store from '../store';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
-
-import { fetchScores } from '../store/redux/scoresReducer';
+import { persistAddedScores } from '../store/redux/scoresReducer';
 
 class PromisedLandFirst extends Scene {
   cameras;
@@ -128,7 +126,7 @@ class PromisedLandFirst extends Scene {
 
     this.formCounter = 0;
 
-    this.form.on('change', async (evt) => {
+    this.form.on('change', (evt) => {
       this.formCounter += 1;
       if (evt.target.name === 'username') {
         if (this.formCounter === 1) {
@@ -137,11 +135,10 @@ class PromisedLandFirst extends Scene {
             .setText(' Welcome ' + username)
             .setPosition(x - x / 3, y - y / 5)
             .setScale(x * 0.002);
-          await axios.post('/api/scores', {
-            name: username,
-            score: data.score || 0,
-          });
-          store.dispatch(fetchScores());
+
+          store.dispatch(
+            persistAddedScores({ name: username, score: data.score || 0 })
+          );
         }
       }
     });
@@ -152,14 +149,13 @@ class PromisedLandFirst extends Scene {
         this.form.setVisible(true);
         this.winnerText.setVisible(true);
       });
-      // this.hasPhone = true;
 
       let mainMenuButton = this.add
-        .image(x / 2, y * 1.8, 'main-menu')
-        .setScale(1.5);
-      mainMenuButton.setInteractive();
+        .image(x / 5, y * 1.85, 'main-menu')
+        .setScale(x * 0.0015)
+        .setInteractive();
       mainMenuButton.on('pointerup', () => {
-        this.scene.start('MainMenu');
+        this.scene.start('MainMenu', {});
       });
     }
   }

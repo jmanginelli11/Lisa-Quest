@@ -1,22 +1,46 @@
 import axios from 'axios';
 
 //Action types
-const SET_SCORES = 'SET_SCORES';
+const GET_SCORES = 'GET_SCORES';
+const ADD_SCORES = 'ADD_SCORES';
 
 //Action creators
-const setScores = (scores) => {
+const getScores = (scores) => {
   return {
-    type: SET_SCORES,
+    type: GET_SCORES,
     scores,
   };
 };
 
-//Thunk
+const addScores = (score) => {
+  return {
+    type: ADD_SCORES,
+    score,
+  };
+};
+
+//Thunk creators
 export const fetchScores = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get('/api/scores');
-      dispatch(setScores(data));
+      dispatch(getScores(data));
+    } catch (error) {
+      console.error(error);
+    }
+  };
+};
+
+export const persistAddedScores = (score) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post('/api/scores', score, {
+        headers: {
+          authorization: `${process.env.SECRET_AUTH}`,
+        },
+      });
+      dispatch(addScores(data));
+      dispatch(fetchScores());
     } catch (error) {
       console.error(error);
     }
@@ -26,8 +50,10 @@ export const fetchScores = () => {
 //Reducer
 const scoresReducer = (state = [], action) => {
   switch (action.type) {
-    case SET_SCORES:
+    case GET_SCORES:
       return action.scores;
+    case ADD_SCORES:
+      return action.score;
     default:
       return state;
   }

@@ -1,6 +1,5 @@
-import axios from 'axios';
 import store from '../store';
-import { fetchScores } from '../store/redux/scoresReducer';
+import { persistAddedScores } from '../store/redux/scoresReducer';
 import { Scene } from 'phaser';
 import WebFontFile from '../helpers/fontLoader';
 
@@ -62,7 +61,7 @@ class GameOver extends Scene {
     this.form.addListener('change');
     this.formCounter = 0;
 
-    this.form.on('change', async (evt) => {
+    this.form.on('change', (evt) => {
       this.formCounter += 1;
       if (evt.target.name === 'username') {
         if (this.formCounter === 1) {
@@ -70,11 +69,9 @@ class GameOver extends Scene {
           this.addScore
             .setText('Welcome ' + username)
             .setPosition(x - x / 4, y + y / 6);
-          await axios.post('/api/scores', {
-            name: username,
-            score: data.score || 0,
-          });
-          store.dispatch(fetchScores());
+          store.dispatch(
+            persistAddedScores({ name: username, score: data.score || 0 })
+          );
         }
       }
     });
