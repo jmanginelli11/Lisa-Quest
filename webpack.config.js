@@ -20,5 +20,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new dotEnv()],
+  plugins: [new dotEnv({ systemvars: true })],
 };
