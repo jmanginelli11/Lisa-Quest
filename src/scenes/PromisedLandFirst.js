@@ -1,8 +1,9 @@
+import axios from 'axios';
+import store from '../store';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
-import axios from 'axios';
-import store from '../store';
+
 import { fetchScores } from '../store/redux/scoresReducer';
 
 class PromisedLandFirst extends Scene {
@@ -97,60 +98,72 @@ class PromisedLandFirst extends Scene {
 
     this.groundLayer.setCollisionBetween(165, 171);
 
+    //Winner text
+    this.winnerText = this.add
+      .text(
+        x,
+        y,
+        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n Make sure to \ntype up to four \n characters to save your score!',
+        {
+          fontFamily: '"Press Start 2P"',
+          fontSize: '30px',
+          align: 'center',
+        }
+      )
+      .setOrigin(0, 0)
+      .setPosition(x - x / 2, y - y / 1.8)
+      .setVisible(false)
+      .setScale(x * 0.0012);
+
+    //Form
+    this.form = this.add
+      .dom(x, y)
+      .setOrigin(0, 0)
+      .setPosition(x / 2 + x / 3, y + y / 9)
+      .createFromCache('form')
+      .setVisible(false);
+
+    this.form.setPerspective(300);
+    this.form.addListener('change');
+
+    this.formCounter = 0;
+
+    this.form.on('change', async (evt) => {
+      this.formCounter += 1;
+      if (evt.target.name === 'username') {
+        if (this.formCounter === 1) {
+          let username = evt.target.value;
+          this.winnerText
+            .setText(' Welcome ' + username)
+            .setPosition(x - x / 3, y - y / 5)
+            .setScale(x * 0.002);
+          await axios.post('/api/scores', {
+            name: username,
+            score: data.score || 0,
+          });
+          store.dispatch(fetchScores());
+        }
+      }
+    });
+
     if (this.player) {
       this.physics.add.overlap(this.player, this.phone, () => {
         this.phone.setVisible(false);
-        // this.hasPhone = true;
-        this.add
-          .text(
-            x - x * 0.7,
-            y - y * 0.6,
-            'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety.',
-            {
-              fontFamily: '"Press Start 2P"',
-              fontSize: '30px',
-              // align: 'center',
-            }
-          )
-          .setOrigin(0, 0);
-        this.addScore = this.add
-          .text(
-            x - 230,
-            y + 95,
-            'Type up to four letters\n to save your score!',
-            {
-              fontFamily: '"Press Start 2P"',
-              fontSize: '20px',
-            }
-          )
-          .setOrigin(0, 0);
+        this.form.setVisible(true);
+        this.winnerText.setVisible(true);
+      });
+      // this.hasPhone = true;
 
-        const element = this.add.dom(x, y + 170).createFromCache('form');
-
-        element.setPerspective(300);
-        element.addListener('change');
-
-        element.on('change', async (evt) => {
-          if (evt.target.name === 'username') {
-            let username = evt.target.value;
-            await axios.post('/api/scores', {
-              name: username,
-              score: data.score || 0,
-            });
-            store.dispatch(fetchScores());
-          }
-        });
-
-        let mainMenuButton = this.add
-          .image(x / 2, y * 1.8, 'main-menu')
-          .setScale(1.5);
-        mainMenuButton.setInteractive();
-        mainMenuButton.on('pointerup', () => {
-          this.scene.start('MainMenu');
-        });
+      let mainMenuButton = this.add
+        .image(x / 2, y * 1.8, 'main-menu')
+        .setScale(1.5);
+      mainMenuButton.setInteractive();
+      mainMenuButton.on('pointerup', () => {
+        this.scene.start('MainMenu');
       });
     }
   }
+
   update() {
     this.player.update();
     // Was trying to add some incentive for getting the phone in the end

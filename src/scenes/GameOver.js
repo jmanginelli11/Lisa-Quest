@@ -24,7 +24,7 @@ class GameOver extends Scene {
     this.background.displayHeight = this.sys.canvas.height;
 
     //Game over png
-    this.add.image(x, y - 150, 'gameOver').setScale(4);
+    this.gameOver = this.add.image(x, y - 150, 'gameOver').setScale(4);
 
     const score = data.score || 0;
     this.scoreText = this.add.text(
@@ -39,11 +39,14 @@ class GameOver extends Scene {
     );
 
     this.addScore = this.add
-      .text(x - 230, y + 95, 'Type up to four letters\n to save your score!', {
+      .text(x, y, 'Type up to four characters\n to save your score!', {
         fontFamily: '"Press Start 2P"',
         fontSize: '20px',
+        align: 'center',
       })
-      .setOrigin(0, 0);
+      .setOrigin(0, 0)
+      .setPosition(x - x / 2, y + y / 6)
+      .setScale(this.sys.canvas.width * 0.001);
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -53,20 +56,26 @@ class GameOver extends Scene {
       this.scene.start('MainMenu');
     });
 
-    const element = this.add.dom(x, y + 170).createFromCache('form');
+    this.form = this.add.dom(x, y + 170).createFromCache('form');
 
-    element.setPerspective(300);
-    element.addListener('change');
+    this.form.setPerspective(300);
+    this.form.addListener('change');
+    this.formCounter = 0;
 
-    element.on('change', async (evt) => {
+    this.form.on('change', async (evt) => {
+      this.formCounter += 1;
       if (evt.target.name === 'username') {
-        let username = evt.target.value;
-        this.addScore.setText('Welcome ' + username);
-        await axios.post('/api/scores', {
-          name: username,
-          score: data.score || 0,
-        });
-        store.dispatch(fetchScores());
+        if (this.formCounter === 1) {
+          let username = evt.target.value;
+          this.addScore
+            .setText('Welcome ' + username)
+            .setPosition(x - x / 4, y + y / 6);
+          await axios.post('/api/scores', {
+            name: username,
+            score: data.score || 0,
+          });
+          store.dispatch(fetchScores());
+        }
       }
     });
   }
