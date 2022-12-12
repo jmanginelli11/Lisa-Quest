@@ -83,12 +83,6 @@ class GameScene extends Scene {
       .setOrigin(0.5, 0.5)
       .setVisible(false);
 
-    // Creating Player (Lisa)
-    this.player = new Lisa(this, x, y).setPosition(
-      innerWidth * 0.2,
-      innerHeight * 0.65
-    );
-
     //Background - First Scene
     this.map = this.make.tilemap({ key: 'tilemap' });
     this.surfaceTileset = this.map.addTilesetImage('surface', 'tiles');
@@ -119,6 +113,12 @@ class GameScene extends Scene {
       this.vegetationTwoTileset,
       0,
       0
+    );
+
+    // Creating Player (Lisa)
+    this.player = new Lisa(this, x, y).setPosition(
+      innerWidth * 0.2,
+      innerHeight * 0.65
     );
 
     //healthHearts
