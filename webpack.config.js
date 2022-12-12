@@ -1,5 +1,7 @@
 'use strict';
 
+const dotEnv = require('dotenv-webpack');
+
 module.exports = {
   entry: ['./src/index.js'],
   output: {
@@ -18,4 +20,5 @@ module.exports = {
       },
     ],
   },
+  plugins: [new dotEnv()],
 };

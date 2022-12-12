@@ -14,8 +14,12 @@ scoresRouter.get('/', async (req, res, next) => {
 
 scoresRouter.post('/', async (req, res, next) => {
   try {
-    const score = await Score.create(req.body);
-    res.status(201).send(score);
+    if (req.headers.authorization === process.env.SECRET_AUTH) {
+      const score = await Score.create(req.body);
+      res.status(201).send(score);
+    } else {
+      res.status(403).send('Shall Not Pass!');
+    }
   } catch (error) {
     next(error);
   }
