@@ -103,7 +103,7 @@ class PromisedLandFirst extends Scene {
       .text(
         x,
         y,
-        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n Make sure to \ntype up to four \n characters to save your score!',
+        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
         {
           fontFamily: '"Press Start 2P"',
           fontSize: '30px',
