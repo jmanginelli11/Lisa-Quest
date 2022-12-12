@@ -6,6 +6,7 @@ const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
+const players = [];
 
 //logging middleware
 app.use(volleyball);
@@ -27,14 +28,21 @@ app.get('/', (req, res) => {
 
 io.on('connection', (socket) => {
   console.log('a user connected: ' + socket.id);
+  players.push({ posx: this.x, posy: this.y, id: socket.id });
+  socket.on('updatePlayers', (data) => {
+    for (let i = 0; i < players.length; i++) {
+      let player = players[i];
+      if (player.id === socket.id) {
+        player.posx = data.posx;
+        player.posy = data.posy;
+      }
+    }
+    socket.emit('updatePlayers', players);
+  });
   socket.on('disconnect', () => {
     console.log('user disconnected: ' + socket.id);
   });
 });
-
-// io.on('connection', (socket) => {
-//   socket.on('player', );
-// });
 
 // error handling endware
 app.use((err, req, res, next) => {

@@ -12,6 +12,8 @@ class PromisedLandFirst extends Scene {
   player;
   phone;
   enemiesArray = [];
+  others;
+  othersprites = [];
   // hasPhone = false;
 
   constructor(data) {
@@ -171,6 +173,29 @@ class PromisedLandFirst extends Scene {
     //   this.player.addScore(1000);
     // }
     // this.hasPhone = false;
+    socket.emit('updatePlayers', { posy: this.player.y, posx: this.player.x });
+    socket.on('updatePlayers', (data) => {
+      if (this.othersprites[0] != undefined) {
+        for (sprite of this.othersprites) {
+          sprite.destroy(true);
+          this.othersprites = [];
+        }
+        this.others = data;
+      }
+      console.log('called');
+    });
+    if (this.others != null) {
+      for (let i = 0; i < this.others.length; i++) {
+        if (this.others[i].id != socket.id) {
+          const newPlayer = this.physics.add.sprite(
+            this.others[i].posx,
+            this.others[i].posy,
+            'tori'
+          );
+          this.othersprites.push(newPlayer);
+        }
+      }
+    }
   }
 }
 
