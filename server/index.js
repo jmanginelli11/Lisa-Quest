@@ -1,12 +1,13 @@
 const express = require('express');
-const app = express();
-const path = require('path');
+const cors = require('cors');
 const volleyball = require('volleyball');
+const path = require('path');
+const app = express();
 const http = require('http');
 const server = http.createServer(app);
 const { Server } = require('socket.io');
 const io = new Server(server);
-const players = [];
+const players = {};
 
 //logging middleware
 app.use(volleyball);
@@ -27,21 +28,33 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-  console.log('a user connected: ' + socket.id);
-  players.push({ posx: this.x, posy: this.y, id: socket.id });
-  socket.on('updatePlayers', (data) => {
-    for (let i = 0; i < players.length; i++) {
-      let player = players[i];
-      if (player.id === socket.id) {
-        player.posx = data.posx;
-        player.posy = data.posy;
-      }
-    }
-    socket.emit('updatePlayers', players);
-  });
+  console.log('a user connected: ', socket.id);
+  // Create new player and add to players obj
+  players[socket.id] = {
+    flipX: false,
+    x: Math.floor(Math.random() * 400) + 50,
+    y: Math.floor(Math.random() * 500) + 50,
+    playerId: socket.id,
+  };
+  // send player obj to new player
+  socket.emit('currentPlayers', players);
+  // update all other players of the new player
+  socket.broadcast.emit('newPlayer', players[socket.id]);
+
+  // When player disconnects remove from players obj
   socket.on('disconnect', () => {
-    console.log('user disconnected: ' + socket.id);
+    console.log('user disconnected: ', socket.id);
     delete players[socket.id];
+    // io.emit('disconnect', socket.id);
+  });
+
+  // When player moves, update player data
+  socket.on('playerMovement', function (movementData) {
+    players[socket.id].x = movementData.x;
+    players[socket.id].y = movementData.y;
+    players[socket.id].flipX = movementData.flipX;
+    // Emit message to all players about the player that moved
+    socket.broadcast.emit('playerMoved', players[socket.id]);
   });
 });
 
