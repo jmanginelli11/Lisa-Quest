@@ -171,6 +171,10 @@ class PromisedLandFirst extends Scene {
     //   this.player.addScore(1000);
     // }
     // this.hasPhone = false;
+    socket.emit('updatePlayers', { posy: this.player.y, posx: this.player.x });
+    socket.on('updatePlayers', (data) => {
+      console.log('called');
+    });
   }
 }
 
