@@ -118,21 +118,20 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
     // Score
 
-    this.scoreText = this.scene.add.text(
-      innerWidth * 0.05,
-      innerHeight * 0.01,
-      'Score: ' + this.score,
-      { fontFamily: '"Press Start 2P"', fontSize: '32px', fill: '#E43AA4' }
-    );
+    this.scoreText = this.scene.add
+      .text(innerWidth * 0.05, innerHeight * 0.01, 'Score: ' + this.score, {
+        fontFamily: '"Press Start 2P"',
+        fontSize: '32px',
+        fill: '#E43AA4',
+      })
+      .setScale(innerWidth * 0.0008);
 
     // HealthBar Creation
     // console.log('x and y: ', this.x, ' ', this.y);
 
-    this.hb_text = this.scene.add.text(
-      innerWidth * 0.05,
-      innerHeight * 0.062,
-      'LISA'
-    );
+    this.hb_text = this.scene.add
+      .text(innerWidth * 0.05, innerHeight * 0.062, 'LISA')
+      .setScale(innerWidth * 0.0008);
     this.shadow_bar = this.makeHealthBar(
       innerWidth * 0.05,
       innerHeight * 0.087,
