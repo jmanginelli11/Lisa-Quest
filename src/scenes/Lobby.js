@@ -119,53 +119,6 @@ class Lobby extends Scene {
 
     this.groundLayer.setCollisionBetween(165, 171);
 
-    //Winner text
-    this.winnerText = this.add
-      .text(
-        this.x,
-        this.y,
-        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
-        {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '30px',
-          align: 'center',
-        }
-      )
-      .setOrigin(0, 0)
-      .setPosition(this.x - this.x / 2, this.y - this.y / 1.8)
-      .setVisible(false)
-      .setScale(this.x * 0.0012);
-
-    //Form
-    this.form = this.add
-      .dom(this.x, this.y)
-      .setOrigin(0, 0)
-      .setPosition(this.x / 2 + this.x / 3, this.y + this.y / 9)
-      .createFromCache('form')
-      .setVisible(false);
-
-    this.form.setPerspective(300);
-    this.form.addListener('change');
-
-    this.formCounter = 0;
-
-    this.form.on('change', (evt) => {
-      this.formCounter += 1;
-      if (evt.target.name === 'username') {
-        if (this.formCounter === 1) {
-          let username = evt.target.value;
-          this.winnerText
-            .setText(' Welcome ' + username)
-            .setPosition(x - x / 3, y - y / 5)
-            .setScale(x * 0.002);
-
-          store.dispatch(
-            persistAddedScores({ name: username, score: data.score || 0 })
-          );
-        }
-      }
-    });
-
     if (this.player) {
       this.physics.add.overlap(this.player, this.phone, () => {
         this.phone.setVisible(false);
