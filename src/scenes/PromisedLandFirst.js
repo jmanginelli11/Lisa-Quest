@@ -9,11 +9,12 @@ class PromisedLandFirst extends Scene {
   cameras;
   platforms;
   player;
+  otherPlayer;
+  // otherPlayers;
   phone;
   enemiesArray = [];
-  // socket = io('ws://localhost');
-  others;
-  othersprites = [];
+  x = innerWidth / 2;
+  y = innerHeight / 2;
   // hasPhone = false;
 
   constructor(data) {
@@ -26,11 +27,12 @@ class PromisedLandFirst extends Scene {
 
   create(data) {
     this.socket = io();
+    this.otherPlayers = this.physics.add.group();
 
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
-    const x = innerWidth / 2;
-    const y = innerHeight / 2;
+    // const x = innerWidth / 2;
+    // const y = innerHeight / 2;
 
     //Background
     this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
@@ -77,10 +79,10 @@ class PromisedLandFirst extends Scene {
     );
 
     // Adding player to be behind the plants
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      100,
-      560
-    );
+    // this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+    //   100,
+    //   560
+    // );
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
@@ -92,9 +94,28 @@ class PromisedLandFirst extends Scene {
     this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
 
     // Adding cellphone to scene
-    this.phone = this.physics.add.sprite(x, y - 500, 'phone').setScale(2);
+    this.phone = this.physics.add
+      .sprite(this.x, this.y - 500, 'phone')
+      .setScale(2);
     this.phone.setGravityY(450);
     this.phone.setCollideWorldBounds(true);
+
+    // Creating player and watching for new players to join screen
+    this.createPlayer();
+
+    this.socket.on('currentPlayers', (players) => {
+      Object.keys(players).forEach((id) => {
+        if (players[id].playerId === this.socket.id) {
+          this.createPlayer(players[id]);
+        } else {
+          this.addOtherPlayers(players[id]);
+        }
+      });
+    });
+
+    this.socket.on('newPlayer', (playerInfo) => {
+      this.addOtherPlayers(playerInfo);
+    });
 
     // Colliders
     this.physics.add.collider(this.player, this.groundLayer);
@@ -105,8 +126,8 @@ class PromisedLandFirst extends Scene {
     //Winner text
     this.winnerText = this.add
       .text(
-        x,
-        y,
+        this.x,
+        this.y,
         'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
         {
           fontFamily: '"Press Start 2P"',
@@ -115,15 +136,15 @@ class PromisedLandFirst extends Scene {
         }
       )
       .setOrigin(0, 0)
-      .setPosition(x - x / 2, y - y / 1.8)
+      .setPosition(this.x - this.x / 2, this.y - this.y / 1.8)
       .setVisible(false)
-      .setScale(x * 0.0012);
+      .setScale(this.x * 0.0012);
 
     //Form
     this.form = this.add
-      .dom(x, y)
+      .dom(this.x, this.y)
       .setOrigin(0, 0)
-      .setPosition(x / 2 + x / 3, y + y / 9)
+      .setPosition(this.x / 2 + this.x / 3, this.y + this.y / 9)
       .createFromCache('form')
       .setVisible(false);
 
@@ -157,8 +178,8 @@ class PromisedLandFirst extends Scene {
       });
 
       let mainMenuButton = this.add
-        .image(x / 5, y * 1.85, 'main-menu')
-        .setScale(x * 0.0015)
+        .image(this.x / 5, this.y * 1.85, 'main-menu')
+        .setScale(this.x * 0.0015)
         .setInteractive();
       mainMenuButton.on('pointerup', () => {
         this.scene.start('MainMenu', {});
@@ -166,13 +187,27 @@ class PromisedLandFirst extends Scene {
     }
   }
 
-  update() {
+  update(data) {
     this.player.update();
     // Was trying to add some incentive for getting the phone in the end
     // if (this.hasPhone === true) {
     //   this.player.addScore(1000);
     // }
     // this.hasPhone = false;
+  }
+
+  createPlayer(playerInfo) {
+    this.player = new Lisa(this, this.x, this.y).setPosition(100, 560);
+  }
+
+  addOtherPlayers(playerInfo) {
+    this.otherPlayer = new Lisa(this, playerInfo.x, playerInfo.y).setPosition(
+      100,
+      560
+    );
+    this.otherPlayer.setTint(Math.random() * 0xffffff);
+    this.otherPlayer.playerId = playerInfo.playerId;
+    this.otherPlayers.add(this.otherPlayer);
   }
 }
 
