@@ -123,14 +123,16 @@ class FirstFight_Start extends Scene {
 
     // Text
 
-    this.story = this.add.text(x, y - 400, '', {
-      fontSize: 22,
-      color: '0x2e71cc',
-    });
+    this.story = this.add
+      .text(x - x / 9, y - y / 1.3, '', {
+        fontSize: 22,
+        color: '#E43AA4',
+      })
+      .setScale(x * 0.0015);
 
     this.typewriteText(
       // `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
-      `                \nDON'T TOUCH THE SPIKY PLANTS!\n                \nKILL BADDIES!\n                \nCOLLECT HEARTS!\n                \nLETS GO!\n`
+      `                \nDon't touch the spiky plants!                \nSomething tells me I must kill at least 3 enemies \nand collect at least 3 hearts...                       `
     );
 
     this.laserGroup = new LaserGroup(this);
