@@ -111,7 +111,7 @@ class PromisedLandFirst extends Scene {
     }
   }
   update() {
-    this.player.update();
+    // this.player.update();
   }
 }
 
