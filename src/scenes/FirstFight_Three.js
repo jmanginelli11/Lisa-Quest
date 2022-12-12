@@ -23,6 +23,19 @@ class FirstFight_Three extends Scene {
     this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
+    });
+  }
+
   create(data) {
     // Background - First Scene(3)
 
@@ -97,6 +110,13 @@ class FirstFight_Three extends Scene {
       this.machineRoomTilesetTwo,
       0,
       0
+    );
+
+    // Text
+    this.story = this.add.text(x - x / 9, y - y / 1.6, '').setScale(x * 0.002);
+
+    this.typewriteText(
+      'I need to find a communicator! \nThey must have it hidden it... \nI bet if I defeat the big boss \nI will find it... '
     );
 
     //PAUSE BUTTON
@@ -179,6 +199,7 @@ class FirstFight_Three extends Scene {
     this.time.addEvent({
       delay: 10000,
       callback: function () {
+        this.story.setVisible(false);
         this.flyGuy = new FlyGuy(
           this,
           Phaser.Math.RND.between(300, 700),
