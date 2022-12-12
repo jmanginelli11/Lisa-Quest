@@ -23,11 +23,8 @@ class GameOver extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-
     //Game over png
     this.add.image(x, y - 150, 'gameOver').setScale(4);
-
-
 
     const score = data.score || 0;
     this.scoreText = this.add.text(
