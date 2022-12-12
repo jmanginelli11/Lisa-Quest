@@ -6,13 +6,10 @@ import { persistAddedScores } from '../store/redux/scoresReducer';
 import { isAllOf } from '@reduxjs/toolkit';
 
 class Lobby extends Scene {
-  cameras;
   platforms;
   player;
   otherPlayer;
   // otherPlayers;
-  phone;
-  enemiesArray = [];
   x = innerWidth / 2;
   y = innerHeight / 2;
   // hasPhone = false;
@@ -28,8 +25,6 @@ class Lobby extends Scene {
   create(data) {
     this.socket = io();
     this.otherPlayers = this.physics.add.group();
-
-    this.cameras.main.fadeIn(2000, 255, 255, 255);
 
     // const x = innerWidth / 2;
     // const y = innerHeight / 2;
@@ -93,13 +88,6 @@ class Lobby extends Scene {
     this.rocksAndPlantsLayer.displayWidth = this.sys.canvas.width;
     this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
 
-    // Adding cellphone to scene
-    this.phone = this.physics.add
-      .sprite(this.x, this.y - 500, 'phone')
-      .setScale(2);
-    this.phone.setGravityY(450);
-    this.phone.setCollideWorldBounds(true);
-
     // Creating player and watching for new players to join screen
     this.createPlayer();
 
@@ -120,12 +108,6 @@ class Lobby extends Scene {
     this.groundLayer.setCollisionBetween(165, 171);
 
     if (this.player) {
-      this.physics.add.overlap(this.player, this.phone, () => {
-        this.phone.setVisible(false);
-        this.form.setVisible(true);
-        this.winnerText.setVisible(true);
-      });
-
       let mainMenuButton = this.add
         .image(this.x / 5, this.y * 1.85, 'main-menu')
         .setScale(this.x * 0.0015)
@@ -138,11 +120,6 @@ class Lobby extends Scene {
 
   update(data) {
     this.player.update();
-    // Was trying to add some incentive for getting the phone in the end
-    // if (this.hasPhone === true) {
-    //   this.player.addScore(1000);
-    // }
-    // this.hasPhone = false;
   }
 
   createPlayer(playerInfo) {
@@ -156,7 +133,6 @@ class Lobby extends Scene {
     this.container.body.setCollideWorldBounds(true);
     // Colliders
     this.physics.add.collider(this.player, this.groundLayer);
-    this.physics.add.collider(this.phone, this.groundLayer);
   }
 
   addOtherPlayers(playerInfo) {
