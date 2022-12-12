@@ -2,6 +2,7 @@
 
 const server = require('./server/index');
 const { db } = require('./server/db/index');
+require('dotenv').config();
 const PORT = process.env.PORT || 3000;
 
 const init = async () => {
