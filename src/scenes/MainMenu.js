@@ -103,7 +103,7 @@ class MainMenu extends Scene {
     });
 
     creditsButton.on('pointerup', () => {
-      this.scene.start('PromisedLand', {
+      this.scene.start('Credits', {
         music: data.music,
       });
     });
