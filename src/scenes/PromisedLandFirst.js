@@ -3,6 +3,7 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
 import { persistAddedScores } from '../store/redux/scoresReducer';
+import { isAllOf } from '@reduxjs/toolkit';
 
 class PromisedLandFirst extends Scene {
   cameras;
@@ -10,12 +11,14 @@ class PromisedLandFirst extends Scene {
   player;
   phone;
   enemiesArray = [];
+  // socket = io('ws://localhost');
   others;
   othersprites = [];
   // hasPhone = false;
 
   constructor(data) {
     super({ key: 'PromisedLand' });
+    this.scene.socket = io('http://localhost:3000');
   }
 
   preload() {
