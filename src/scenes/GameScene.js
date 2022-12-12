@@ -64,11 +64,15 @@ class GameScene extends Scene {
         this.game.loop.wake();
       }
 
-      console.log('pause button pressed');
+      // console.log('pause button pressed');
     });
 
+    this.story = this.add
+      .text(x - x / 1.2, y - y / 1.5, '')
+      .setScale(x * 0.002);
+
     this.typewriteText(
-      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power with the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI should probably avoid hitting the deadly spiky plants I see off in the distance\n                \nWhen I'm ready I jump through this... waterfall... alright.\n                \nMy communicator got destroyed in the crash landing and I have to find a new one\n                \nso that I can tell the people back home about this planet!\n"
+      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power \nwith the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI should probably avoid hitting the deadly \nspiky plants I see off in the distance\n                \nWhen I'm ready, I jump through this... waterfall... alright.\n                \nMy communicator got destroyed in the crash landing \nand I have to find a new one so that \nI can tell the people back home about this planet!\n"
     );
 
     //timer
