@@ -3,7 +3,6 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
 import { persistAddedScores } from '../store/redux/scoresReducer';
-import { isAllOf } from '@reduxjs/toolkit';
 
 class PromisedLandFirst extends Scene {
   cameras;
@@ -25,9 +24,6 @@ class PromisedLandFirst extends Scene {
 
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
-
-    // const x = innerWidth / 2;
-    // const y = innerHeight / 2;
 
     //Background
     this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
@@ -145,7 +141,6 @@ class PromisedLandFirst extends Scene {
             .setText(' Welcome ' + username)
             .setPosition(this.x - this.x / 3, this.y - this.y / 5)
             .setScale(this.x * 0.002);
-
           store.dispatch(
             persistAddedScores({ name: username, score: data.score || 0 })
           );
@@ -165,7 +160,7 @@ class PromisedLandFirst extends Scene {
         .setScale(this.x * 0.0015)
         .setInteractive();
       mainMenuButton.on('pointerup', () => {
-        this.scene.start('MainMenu', {});
+        this.scene.restart('MainMenu');
       });
     }
   }

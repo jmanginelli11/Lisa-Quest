@@ -196,12 +196,8 @@ class FirstFight_Two extends Scene {
 
     // create portal and set invisible
     this.portal = this.physics.add
-      .sprite(
-        this.sys.canvas.width - 220,
-        this.sys.canvas.height + 200,
-        'portal2'
-      )
-      .setScale(3.5)
+      .sprite(x + x / 1.5, y + y / 1.2, 'portal2')
+      .setScale(x * 0.0055)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
