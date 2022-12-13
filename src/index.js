@@ -6,7 +6,6 @@ import HighScores from './scenes/HighScores';
 import Credits from './scenes/Credits';
 import GameOver from './scenes/GameOver.js';
 import Preloader from './scenes/Preloader.js';
-import GameSceneTester from './helpers/HealthBarSprite.js';
 import Intro from './scenes/Intro';
 import FallingScene_One from './scenes/FallingScene_One.js';
 import FallingScene_Two from './scenes/FallingScene_Two.js';
@@ -35,7 +34,6 @@ const config = {
     HighScores,
     Credits,
     GameOver,
-    GameSceneTester,
     FallingScene_One,
     FallingScene_Two,
     FirstFight_Start,

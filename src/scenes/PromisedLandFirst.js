@@ -159,7 +159,7 @@ class PromisedLandFirst extends Scene {
         .setScale(this.x * 0.0015)
         .setInteractive();
       mainMenuButton.on('pointerup', () => {
-        this.scene.restart('MainMenu');
+        this.scene.start('MainMenu');
       });
     }
   }
