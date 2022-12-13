@@ -231,8 +231,8 @@ class FirstFight_Three extends Scene {
 
     // Adding portal
     this.portal = this.physics.add
-      .sprite(innerWidth - 200, innerHeight - 200, 'portal')
-      .setScale(4)
+      .sprite(x + x / 1.4, y + y / 1.7, 'portal')
+      .setScale(x * 0.005)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
     this.physics.add.collider(this.portal, this.invisibleLayer);
