@@ -28,8 +28,6 @@ export class FlyGuy extends EnemiesParent {
   update() {
     if (this.hp > 0) {
       // Descend if way above player and not close horizontally
-      // console.log(innerHeight);
-      // console.log(this.scene.player.body.y);
       if (
         this.scene.player &&
         this.x >= this.scene.player.body.x + innerWidth * 0.2

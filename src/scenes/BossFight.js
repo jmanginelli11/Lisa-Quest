@@ -147,31 +147,6 @@ class BossFight extends Scene {
       loop: false,
     });
 
-    //spawning fly guy
-    this.time.addEvent({
-      delay: 30000,
-      callback: function () {
-        this.flyGuy = new FlyGuy(
-          this,
-          Phaser.Math.RND.between(300, 700),
-          0
-        ).setScale(1.5);
-        this.enemiesArray.push(this.flyGuy);
-        this.physics.add.collider(this.flyGuy, this.wallPlatform);
-        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
-        this.physics.add.overlap(
-          this.player,
-          this.flyGuy,
-          this.player.hitSpawn,
-          null,
-          this
-        );
-        this.physics.add.collider(this.player, this.flyGuy);
-      },
-      callbackScope: this,
-      loop: true,
-    });
-
     //healthHearts spawning every 10 seconds
     this.time.addEvent({
       delay: 8000,
@@ -182,7 +157,7 @@ class BossFight extends Scene {
 
     //fire raining down
     this.time.addEvent({
-      delay: 8000,
+      delay: 6000,
       callback: this.spawnFire,
       callbackScope: this,
       loop: true,
@@ -245,15 +220,12 @@ class BossFight extends Scene {
   spawnHearts() {
     this.hearts = this.physics.add.group({
       key: 'heart',
-      // repeat: 1,
       allowGravity: false,
     });
     this.hearts.children.iterate(function (child) {
       child.setPosition(
-
         Phaser.Math.RND.between(0, 2000),
         Phaser.Math.RND.between(400, 600)
-
       );
       child.setOrigin(0, 0);
     });

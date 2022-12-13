@@ -1,5 +1,4 @@
 import { Scene } from 'phaser';
-// import { Lisa } from '../sprites/Lisa.js';
 
 class PauseScene extends Scene {
   music;
@@ -22,11 +21,7 @@ class PauseScene extends Scene {
     resumeButton.setInteractive();
 
     resumeButton.on('pointerup', () => {
-      console.log('resume button pressed');
-
       this.scene.resume('GameScene');
-      // this.scene.resume('GameScene');
-      // this.scene.stop();
     });
 
     this.add.text(

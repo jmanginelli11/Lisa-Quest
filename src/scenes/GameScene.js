@@ -1,7 +1,5 @@
 import { Scene, physics } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
-import { Enemy } from '../sprites/Enemies/Enemy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import WebFontFile from '../helpers/fontLoader';
 
@@ -44,8 +42,6 @@ class GameScene extends Scene {
 
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
 
-    // this.key_P = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.P);
-
     //PAUSE BUTTON
     let pauseButton = this.add
       .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
@@ -53,18 +49,12 @@ class GameScene extends Scene {
     pauseButton.setInteractive();
 
     pauseButton.on('pointerup', () => {
-      // this.scene.start('PauseScene', );
-
       this.isPaused = !this.isPaused;
       if (!this.isPaused) {
-        // pauseButton = this.add.text(x, innerHeight / 10, 'RESUME').setScale(2);
         this.game.loop.sleep();
       } else {
-        // pauseButton = this.add.text(x, innerHeight / 10, 'PAUSE').setScale(2);
         this.game.loop.wake();
       }
-
-      // console.log('pause button pressed');
     });
 
     this.story = this.add
@@ -170,33 +160,6 @@ class GameScene extends Scene {
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
-
-    // Spawn one baddie
-    //   this.time.addEvent({
-    //     delay: 1000,
-    //     callback: function () {
-    //       this.spawn2 = new Enemy(
-    //         this,
-
-    //         innerWidth * 0.75,
-    //         innerHeight * 0.75
-    //       ).setScale(1.5);
-    //       this.physics.add.collider(this.spawn2, this.groundLayer);
-    //       this.physics.add.collider(this.spawn2, this.surfaceTileset);
-    //       this.physics.add.overlap(
-    //         this.player,
-    //         this.spawn2,
-    //         this.player.hitSpawn,
-    //         null,
-    //         this
-    //       );
-    //       this.physics.add.collider(this.player, this.spawn2);
-    //     },
-    //     callbackScope: this,
-    //     repeat: 0,
-    //   });
-
-    //   console.log(this.enemiesArray);
   }
 
   update(data, time) {
@@ -236,28 +199,6 @@ class GameScene extends Scene {
       delay: 50,
     });
   }
-
-  // spawnEnemy() {
-  //   let counter = 3;
-  //   counter--;
-
-  //   if (counter > 0) {
-  //     this.spawn = new Enemy(
-  //       this,
-  //       Phaser.Math.RND.between(0, 1400),
-  //       Phaser.Math.RND.between(0, 600)
-  //     );
-  //     this.physics.add.collider(this.spawn, this.groundLayer);
-  //     // this.physics.add.collider(this.player, this.spawn);
-  //     this.physics.add.overlap(
-  //       this.player,
-  //       this.spawn,
-  //       this.player.hitSpawn,
-  //       null,
-  //       this
-  //     );
-  //   }
-  // }
 }
 
 export default GameScene;

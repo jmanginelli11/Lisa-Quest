@@ -161,7 +161,6 @@ class FirstFight_Two extends Scene {
     );
 
     //baddies
-    // this.spawnArray = [];
     this.time.addEvent({
       delay: 7000,
       callback: function () {
@@ -185,14 +184,6 @@ class FirstFight_Two extends Scene {
       callbackScope: this,
       repeat: 10,
     });
-
-    // invisible platform for goombas only
-    this.platforms = this.physics.add.staticGroup();
-    this.goombaPlatform = this.platforms
-      .create(this.sys.canvas.width - 150, this.sys.canvas.height - 147, 'test')
-      .refreshBody()
-      .setVisible(false);
-    this.physics.add.collider(this.enemiesArray, this.goombaPlatform);
 
     // create portal and set invisible
     this.portal = this.physics.add
@@ -218,7 +209,6 @@ class FirstFight_Two extends Scene {
     this.enemiesKilledCount = this.enemiesArray.filter(
       (enemy) => enemy.hp <= 0
     );
-    console.log(this.enemiesKilledCount.length);
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();

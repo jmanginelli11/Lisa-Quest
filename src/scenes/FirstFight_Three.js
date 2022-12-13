@@ -42,8 +42,6 @@ class FirstFight_Three extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    // this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
-
     this.map = this.make.tilemap({ key: 'tilemap_FF3' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
@@ -273,7 +271,6 @@ class FirstFight_Three extends Scene {
     //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
-      // repeat: 0,
       allowGravity: true,
       setXY: { x: 0, y: 350, stepX: 300 },
     });
@@ -281,7 +278,6 @@ class FirstFight_Three extends Scene {
     this.physics.add.collider(this.hearts, this.wallPlatform);
     this.physics.add.collider(this.hearts, this.invisibleLayer);
     this.hearts.children.iterate(function (child) {
-      // for (var i = 0; i < 5; i++) {
       child.setPosition(
         Phaser.Math.RND.between(300, 700),
         Phaser.Math.RND.between(200, 500)
