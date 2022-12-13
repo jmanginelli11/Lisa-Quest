@@ -144,7 +144,7 @@ class PromisedLandFirst extends Scene {
           this.winnerText
             .setText(' Welcome ' + username)
             .setPosition(this.x - this.x / 3, this.y - this.y / 5)
-            .setScale(x * 0.002);
+            .setScale(this.x * 0.002);
 
           store.dispatch(
             persistAddedScores({ name: username, score: data.score || 0 })
