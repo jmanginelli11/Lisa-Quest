@@ -271,7 +271,7 @@ export default class PreloaderScene extends Phaser.Scene {
     });
     this.anims.create({
       key: 'rising',
-      frames: [{ key: 'lisa', frame: 1 }],
+      frames: [{ key: 'lisa', frame: 47 }],
       frameRate: 12,
     });
     this.anims.create({
