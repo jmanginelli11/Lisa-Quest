@@ -52,7 +52,7 @@ class GameOver extends Scene {
       .setScale(1.5);
     mainMenuButton.setInteractive();
     mainMenuButton.on('pointerup', () => {
-      this.scene.restart('MainMenu');
+      this.scene.start('MainMenu');
     });
 
     this.form = this.add.dom(x, y + 170).createFromCache('form');
