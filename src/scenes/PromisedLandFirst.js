@@ -13,7 +13,6 @@ class PromisedLandFirst extends Scene {
   enemiesArray = [];
   x = innerWidth / 2;
   y = innerHeight / 2;
-  // hasPhone = false;
 
   constructor(data) {
     super({ key: 'PromisedLand' });
@@ -25,9 +24,6 @@ class PromisedLandFirst extends Scene {
 
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
-
-    // const x = innerWidth / 2;
-    // const y = innerHeight / 2;
 
     //Background
     this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
@@ -172,11 +168,6 @@ class PromisedLandFirst extends Scene {
 
   update(data) {
     this.player.update();
-    // Was trying to add some incentive for getting the phone in the end
-    // if (this.hasPhone === true) {
-    //   this.player.addScore(1000);
-    // }
-    // this.hasPhone = false;
   }
 }
 

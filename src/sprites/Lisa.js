@@ -27,9 +27,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     //Method calls for creation
     this.init();
     this.create();
-
-    // console.log('scene passed to Lisa: ', this.scene);
-    // console.log('the big lisa: ', this);
   }
 
   init() {
@@ -127,7 +124,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
       .setScale(innerWidth * 0.0008);
 
     // HealthBar Creation
-    // console.log('x and y: ', this.x, ' ', this.y);
 
     this.hb_text = this.scene.add
       .text(innerWidth * 0.05, innerHeight * 0.062, 'LISA')
@@ -144,8 +140,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     );
 
     this.setHBValue(this.real_bar, this.hp);
-
-    // Sounds
   }
 
   update() {
@@ -301,7 +295,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           this.colliderLaser
         )
       ) {
-        console.log('hit');
         this.laser_knockbackVal = this.flipX ? -300 : 300;
         this.scene.enemiesArray[i].is_in_knockback = true;
         this.scene.enemiesArray[i].current_knockback_speed =
@@ -322,9 +315,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         // HP and Score
         if (this.scene.enemiesArray[i].hp > 1) {
           this.scene.enemiesArray[i].hp--;
-          // this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
-          console.log('hit! hp: ', this.scene.enemiesArray[i].hp);
-
           if (this.laser_knockbackVal <= 0) {
             this.addScore(this.laser_knockbackVal * -0.05);
           } else {
@@ -338,7 +328,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
           }
 
           this.addScore(100);
-          // this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
           this.scene.enemiesArray[i].hp--;
         }
 
@@ -356,7 +345,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
         .setScale(0.5)
         .setAngle(this.flipX ? -45 : 45);
 
-      // Needs hysics to move with laser
+      // Needs physics to move with laser
       this.scene.add.existing(this.hitbox);
       this.scene.physics.add.existing(this.hitbox);
 
@@ -466,7 +455,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
           // HP and Score
           if (this.scene.enemiesArray[i].hp > 1) {
-            // this.scene.enemiesArray[i].hp--;
             this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
 
             if (knockbackVal <= 0) {
@@ -483,7 +471,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
 
             this.addScore(100);
             this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
-            // this.scene.enemiesArray[i].hp--;
           }
 
           if (this.colliderPunch) this.colliderPunch.destroy();
@@ -527,11 +514,9 @@ export class Lisa extends Phaser.GameObjects.Sprite {
   }
 
   hitSpawn(player, spawn) {
-    // console.log('before', player.hp);
     if (!player.is_immune) {
       player.is_immune = true;
       player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 20);
-      // console.log('after', player.hp);
       player.setHBValue(player.real_bar, player.hp);
       this.time.addEvent({
         delay: 500,
@@ -548,7 +533,6 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     if (!player.is_immune) {
       player.is_immune = true;
       player.hp = Phaser.Math.Clamp(player.hp - 1, 0, 20);
-      // console.log('after', player.hp);
       player.setHBValue(player.real_bar, player.hp);
     }
     player.is_immune = false;

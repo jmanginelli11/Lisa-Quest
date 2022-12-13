@@ -131,7 +131,6 @@ class FirstFight_Start extends Scene {
       .setScale(x * 0.0015);
 
     this.typewriteText(
-      // `                \nWhat have we here? Fly guys I hate these ones...\n                \nI can't seem to get out of here... I think I have to \n                \ncollect three hearts for a door to appear...\n`
       `                \nDon't touch the spiky plants!                \nSomething tells me I must kill at least 3 enemies \nand collect at least 3 hearts...                       `
     );
 
@@ -140,63 +139,25 @@ class FirstFight_Start extends Scene {
     // Gun placeholder
     // this.gun = this.add.image(x + 150, y - 225, 'c');
 
-    // //Spawn guy
-    // this.spawn = new Enemy(this, Phaser.Math.RND.between(0, 1400), y);
-
-    // this.physics.add.collider(this.spawn, this.wallPlatform);
-    // this.physics.add.collider(this.spawn, this.groundAndPlatforms);
-    // this.physics.add.overlap(
-    //   this.player,
-    //   this.spawn,
-    //   this.player.hitSpawn,
-    //   null,
-    //   this
-    // );
-    // this.physics.add.collider(this.player, this.spawn);
-
-    // //spawn guy 2
-    // this.spawnArray = [];
-    // for (let i = 0; i < 5; i++) {
-    //   this.spawn2 = new Enemy(this, Phaser.Math.RND.between(0, 1600), 0);
-
-    //   this.spawnArray.push(this.spawn2);
-    //   this.physics.add.collider(this.spawn2, this.wallPlatform);
-    //   this.physics.add.collider(this.spawn2, this.groundAndPlatforms);
-    //   this.physics.add.overlap(
-    //     this.player,
-    //     this.spawn2,
-    //     this.player.hitSpawn,
-    //     null,
-    //     this
-    //   );
-    //   this.physics.add.collider(this.player, this.spawn2);
-    // }
-
-    // spawning fly guy
+    // spawning goomba guys
     this.time.addEvent({
       delay: 8000,
       callback: function () {
-        // this.flyGuy = new FlyGuy(
         this.goomba = new Enemy(
           this,
           Phaser.Math.RND.between(0, 1400),
           0
         ).setScale(1.5);
-        // this.enemiesArray.push(this.flyGuy);
         this.enemiesArray.push(this.goomba);
-        // this.physics.add.collider(this.flyGuy, this.
         this.physics.add.collider(this.goomba, this.wallPlatform);
-        // this.physics.add.collider(this.flyGuy, this.
         this.physics.add.collider(this.goomba, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
-          // this.flyGuy,
           this.goomba,
           this.player.hitSpawn,
           null,
           this
         );
-        // this.physics.add.collider(this.player, this.flyGuy);
         this.physics.add.collider(this.player, this.goomba);
       },
       callbackScope: this,
@@ -245,7 +206,6 @@ class FirstFight_Start extends Scene {
   spawnHearts() {
     this.hearts = this.physics.add.group({
       key: 'heart',
-      // repeat: 1,
       allowGravity: false,
     });
     this.hearts.children.iterate(function (child) {

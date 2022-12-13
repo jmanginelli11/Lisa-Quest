@@ -12,7 +12,6 @@ class Lobby extends Scene {
   // otherPlayers;
   x = innerWidth / 2;
   y = innerHeight / 2;
-  // hasPhone = false;
 
   constructor(data) {
     super({ key: 'Lobby' });
@@ -25,9 +24,6 @@ class Lobby extends Scene {
   create(data) {
     this.socket = io();
     this.otherPlayers = this.physics.add.group();
-
-    // const x = innerWidth / 2;
-    // const y = innerHeight / 2;
 
     //Background
     this.stars = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
@@ -73,11 +69,6 @@ class Lobby extends Scene {
       0
     );
 
-    // Adding player to be behind the plants
-    // this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-    //   100,
-    //   560
-    // );
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;

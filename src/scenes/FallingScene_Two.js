@@ -17,8 +17,6 @@ class FallingScene_Two extends Scene {
   }
 
   create(data) {
-    // Creating Player (Lisa)
-
     //Background - First Scene
 
     const x = innerWidth / 2;

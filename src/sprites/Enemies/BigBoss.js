@@ -1,8 +1,6 @@
 import Phaser from 'phaser';
-// import { FireGroup } from '../../weapons/Fire/FireGroup.js';
 import { Sprite } from 'phaser';
 import { EnemiesParent } from './EnemiesParent';
-import FadeOutDestroy from 'phaser3-rex-plugins/plugins/fade-out-destroy.js';
 
 export class BigBoss extends EnemiesParent {
   constructor(scene, x, y) {
@@ -54,7 +52,6 @@ export class BigBoss extends EnemiesParent {
         this.body.x - this.scene.player.body.x >= -200
       ) {
         this.body.setVelocityX(500);
-        // this.scene.sound.play('fire');
         this.scene.fireGroup.shootFireRight(this.x, this.y);
       }
 
@@ -63,7 +60,6 @@ export class BigBoss extends EnemiesParent {
         this.body.x - this.scene.player.body.x <= 200
       ) {
         this.body.setVelocityX(-500);
-        // this.scene.sound.play('fire');
         this.scene.fireGroup.shootFireLeft(this.x, this.y);
       }
 

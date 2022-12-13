@@ -9,10 +9,4 @@ let middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
 
 const store = createStore(scoresReducer, applyMiddleware(...middleware));
 
-// const store = configureStore({
-//   reducer: {
-//     scoresReducer,
-//   },
-// });
-
 export default store;

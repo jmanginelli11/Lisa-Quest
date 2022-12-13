@@ -17,8 +17,6 @@ export class EnemiesParent extends Phaser.GameObjects.Sprite {
   }
 
   hitByPlayer(enemy) {
-    console.log('before', enemy.hp);
     enemy.hp = Phaser.Math.Clamp(enemy.hp - 1, 0, 20);
-    console.log('after', enemy.hp);
   }
 }
