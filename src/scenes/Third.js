@@ -200,20 +200,13 @@ class Third extends Scene {
       this.gameOver(data);
     }
 
-    // this.enemiesKilledCount = [];
-    // this.enemiesKilledCount = this.enemiesArray.filter(
-    //   (enemy) => enemy.hp <= 0
-    // );
-
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
-
-    console.log(this.player.enemiesKilled);
     if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
-        this.scene.start('FirstFight_Two', {
+        this.scene.start('Fourth', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
@@ -221,7 +214,6 @@ class Third extends Scene {
       });
     }
     this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
-    console.log('enemiesArray', this.enemiesArray.length);
   }
 
   gameOver(data) {
