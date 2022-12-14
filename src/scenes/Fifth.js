@@ -5,7 +5,7 @@ import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import WebFontFile from '../helpers/fontLoader';
 
-class FirstFight_Three extends Scene {
+class Fifth extends Scene {
   cameras;
   player;
   platforms;
@@ -16,7 +16,7 @@ class FirstFight_Three extends Scene {
   isPaused = false;
 
   constructor(data) {
-    super('FirstFight_Three');
+    super('Fifth');
   }
 
   preload() {
@@ -256,16 +256,16 @@ class FirstFight_Three extends Scene {
       this.gameOver(data);
     }
 
-    this.enemiesKilledCount = [];
-    this.enemiesKilledCount = this.enemiesArray.filter(
-      (enemy) => enemy.hp <= 0
-    );
+    // this.enemiesKilledCount = [];
+    // this.enemiesKilledCount = this.enemiesArray.filter(
+    //   (enemy) => enemy.hp <= 0
+    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
+    if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('BossFight', {
@@ -275,6 +275,7 @@ class FirstFight_Three extends Scene {
         });
       });
     }
+    this.enemiesArray.filter((enemy) => enemy.hp > 0);
   }
 
   spawnHearts() {
@@ -318,4 +319,4 @@ class FirstFight_Three extends Scene {
   }
 }
 
-export default FirstFight_Three;
+export default Fifth;
