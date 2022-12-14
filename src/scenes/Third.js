@@ -191,6 +191,9 @@ class Third extends Scene {
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay');
+
+    console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -203,6 +206,7 @@ class Third extends Scene {
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
+
     if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {

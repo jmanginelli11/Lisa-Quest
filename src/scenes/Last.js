@@ -10,10 +10,10 @@ class PromisedLandFirst extends Scene {
   platforms;
   player;
   phone;
-  enemiesArray = [];
   laserGroup;
   x = innerWidth / 2;
   y = innerHeight / 2;
+  enemiesArray = [];
 
   constructor(data) {
     super('PromisedLand');
@@ -69,6 +69,9 @@ class PromisedLandFirst extends Scene {
       0,
       0
     );
+
+    // laserGroup
+    this.laserGroup = new LaserGroup(this);
 
     // Adding player to be behind the plants
     this.player = new Lisa(

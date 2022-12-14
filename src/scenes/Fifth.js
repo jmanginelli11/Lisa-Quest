@@ -247,6 +247,9 @@ class Fifth extends Scene {
     this.physics.add.collider(this.portal, this.invisibleLayer);
 
     this.portal.play('portalPlay');
+
+    // console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {

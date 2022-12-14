@@ -195,6 +195,9 @@ class Fourth extends Scene {
     this.portal.play('portalPlay2');
     // this.portal.displayWidth = this.sys.canvas.width;
     // this.portal.displayHeight = this.sys.canvas.height;
+
+    // console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
