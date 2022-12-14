@@ -131,7 +131,7 @@ class BossFight extends Scene {
       delay: 7000,
       callback: function () {
         this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
-        this.enemiesArray.push(this.bigBoss);
+        // this.enemiesArray.push(this.bigBoss);
         this.physics.add.collider(this.bigBoss, this.wallPlatform);
         this.physics.add.collider(this.bigBoss, this.firstLayer);
         this.physics.add.overlap(
