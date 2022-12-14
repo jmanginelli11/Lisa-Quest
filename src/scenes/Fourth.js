@@ -1,37 +1,22 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
-import { FlyGuy } from '../sprites/Enemies/FlyGuy';
+import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import WebFontFile from '../helpers/fontLoader';
 
-class FirstFight_Start extends Scene {
+class Fourth extends Scene {
   cameras;
   player;
   platforms;
-  wallPlatform;
+  goombaPlatform;
   portal;
   laserGroup;
   enemiesArray = [];
   isPaused = false;
 
-  // heartCount = 0;
-
   constructor(data) {
-    super('FirstFight_Start');
-  }
-
-  typewriteText(text) {
-    const length = text.length;
-    let i = 0;
-    this.time.addEvent({
-      callback: () => {
-        this.story.text += text[i];
-        i++;
-      },
-      repeat: length - 1,
-      delay: 50,
-    });
+    super('Fourth');
   }
 
   preload() {
@@ -39,41 +24,43 @@ class FirstFight_Start extends Scene {
   }
 
   create(data) {
+    // Background - First Scene
+
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
-    this.time.addEvent({
-      delay: 6000,
-      callback: this.spawnHearts,
-      callbackScope: this,
-      loop: true,
-    });
-
-    //Background
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
-
-    //Tilemap
-    this.map = this.make.tilemap({ key: 'tilemap_FF' });
+    this.map = this.make.tilemap({ key: 'tilemap_FF2' });
 
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.rocksAndPlantsTileset = this.map.addTilesetImage(
-      'rock_and_plants_tileset',
+      'plants_rocks_tileset',
       'vegetation2'
     );
 
+    this.rocksAndPlantsTilesetTwo = this.map.addTilesetImage(
+      'plants_rocks_tileset_2',
+      'vegetation1'
+    );
+
+    this.mechanicalTileset = this.map.addTilesetImage(
+      'mechanical_tileset',
+      'mechanical'
+    );
+
     this.groundAndPlatforms = this.map.createLayer(
-      'ground_and_platforms',
+      'ground_layer',
       this.groundTileset,
       0,
       0
     );
 
-    this.invisibleLayer = this.map.createLayer(
-      'invisible_layer',
-      this.rocksAndPlantsTileset,
+    this.mechanicalLayer = this.map.createLayer(
+      'mechanical_layer',
+      this.mechanicalTileset,
       0,
       0
     );
@@ -93,83 +80,121 @@ class FirstFight_Start extends Scene {
       }
     });
 
-    //Creating lisa behind the plants
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
+    //Lisa
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      x / 10,
+      560
+    );
 
     this.rocksAndPlants = this.map.createLayer(
-      'rocks_and_plants',
+      'rocks_and_plants_layer',
       this.rocksAndPlantsTileset,
       0,
       0
     );
 
+    this.invisibleLayer = this.map.createLayer(
+      'invisible_layer',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
+    this.rocksAndPlantsTwo = this.map.createLayer(
+      'rocks_and_plants_layer_2',
+      this.rocksAndPlantsTilesetTwo,
+      0,
+      0
+    );
+
+    this.physics.add.collider(this.player, this.groundAndPlatforms);
+    this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
     this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlantsTwo.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlantsTwo.displayHeight = this.sys.canvas.height;
+    this.mechanicalLayer.displayWidth = this.sys.canvas.width;
+    this.mechanicalLayer.displayHeight = this.sys.canvas.height;
     this.invisibleLayer.displayWidth = this.sys.canvas.width;
     this.invisibleLayer.displayHeight = this.sys.canvas.height;
+
+    //Collisions
     this.physics.add.collider(
       this.player,
       this.invisibleLayer,
       this.player.hitSpikyPlant
     );
 
-    this.physics.add.collider(this.player, this.groundAndPlatforms);
-
-    this.groundAndPlatforms.setCollisionBetween(142, 170);
-    this.groundAndPlatforms.setCollisionBetween(743, 746);
     this.invisibleLayer.setCollisionBetween(139, 170);
+    // this.groundAndPlatforms.setCollisionBetween(720, 746);
 
-    // Text
-
-    this.story = this.add
-      .text(x - x / 9, y - y / 1.3, '', {
-        fontSize: 22,
-        color: '#E43AA4',
-      })
-      .setScale(x * 0.0015);
-
-    this.typewriteText(
-      `                \nDon't touch the spiky plants!                \nSomething tells me I must kill at least 3 enemies \nand collect at least 3 hearts...                       `
-    );
-
+    // laserGroup
     this.laserGroup = new LaserGroup(this);
 
-    // spawning goomba guys
+    //healthHearts
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      repeat: 5,
+      allowGravity: false,
+      setXY: { x: 300, y: 300, stepX: 100 },
+    });
+
+    this.physics.add.collider(this.hearts, this.wallPlatform);
+    this.physics.add.collider(this.hearts, this.groundAndPlatforms);
+    this.hearts.children.iterate(function (child) {
+      for (var i = 0; i < 5; i++) {
+        child.setBounce(1),
+          child.setOrigin(0, 0),
+          child.setVelocity(Phaser.Math.Between(-200, 200)),
+          child.setCollideWorldBounds(true);
+      }
+    });
+
+    this.physics.add.overlap(
+      this.player,
+      this.hearts,
+      this.player.collectHeart,
+      null,
+      this
+    );
+
+    //baddies
     this.time.addEvent({
       delay: 7000,
       callback: function () {
-        this.goomba = new Enemy(
+        this.flyGuy = new FlyGuy(
           this,
-          Phaser.Math.RND.between(0, 1400),
+
+          Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.goomba);
-        this.physics.add.collider(this.goomba, this.wallPlatform);
-        this.physics.add.collider(this.goomba, this.groundAndPlatforms);
+        this.enemiesArray.push(this.flyGuy);
+        this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
-          this.goomba,
+          this.flyGuy,
           this.player.hitSpawn,
           null,
           this
         );
-        this.physics.add.collider(this.player, this.goomba);
+        this.physics.add.collider(this.player, this.flyGuy);
       },
       callbackScope: this,
-      repeat: 5,
+      repeat: 10,
     });
 
     // create portal and set invisible
     this.portal = this.physics.add
-      .sprite(innerWidth, y, 'portal')
-      .setScale(x * 0.0062)
+      .sprite(x + x / 1.5, y, 'portal2')
+      .setScale(x * 0.0055)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
-    this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
-    this.portal.play('portalPlay');
+    this.portal.play('portalPlay2');
+    // this.portal.displayWidth = this.sys.canvas.width;
+    // this.portal.displayHeight = this.sys.canvas.height;
   }
 
   update(data) {
@@ -188,40 +213,17 @@ class FirstFight_Start extends Scene {
       this.enemiesArray[i].update();
     }
 
-    console.log(this.player.enemiesKilled);
     if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
-        this.scene.start('FirstFight_Two', {
+        this.scene.start('FirstFight_Three', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
         });
       });
     }
-    this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
-    console.log('enemiesArray', this.enemiesArray.length);
-  }
-
-  spawnHearts() {
-    this.hearts = this.physics.add.group({
-      key: 'heart',
-      allowGravity: false,
-    });
-    this.hearts.children.iterate(function (child) {
-      child.setPosition(
-        Phaser.Math.RND.between(0, 2000),
-        Phaser.Math.RND.between(400, 600)
-      );
-      child.setOrigin(0, 0);
-    });
-    this.physics.add.overlap(
-      this.player,
-      this.hearts,
-      this.player.collectHeart,
-      null,
-      this
-    );
+    this.enemiesArray.filter((enemy) => enemy.hp > 0);
   }
 
   gameOver(data) {
@@ -234,4 +236,4 @@ class FirstFight_Start extends Scene {
   }
 }
 
-export default FirstFight_Start;
+export default Fourth;
