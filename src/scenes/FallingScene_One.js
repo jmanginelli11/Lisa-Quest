@@ -14,6 +14,7 @@ class FallingScene_One extends Scene {
 
   preload() {
     this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
+    console.log('in falling scene');
   }
 
   create(data) {
