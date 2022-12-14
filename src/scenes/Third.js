@@ -159,7 +159,7 @@ class Third extends Scene {
 
     // spawning goomba guys
     this.time.addEvent({
-      delay: 8000,
+      delay: 7000,
       callback: function () {
         this.goomba = new Enemy(
           this,
@@ -200,16 +200,17 @@ class Third extends Scene {
       this.gameOver(data);
     }
 
-    this.enemiesKilledCount = [];
-    this.enemiesKilledCount = this.enemiesArray.filter(
-      (enemy) => enemy.hp <= 0
-    );
+    // this.enemiesKilledCount = [];
+    // this.enemiesKilledCount = this.enemiesArray.filter(
+    //   (enemy) => enemy.hp <= 0
+    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
+    console.log(this.player.enemiesKilled);
+    if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {
@@ -219,6 +220,8 @@ class Third extends Scene {
         });
       });
     }
+    this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
+    console.log('enemiesArray', this.enemiesArray.length);
   }
 
   gameOver(data) {
