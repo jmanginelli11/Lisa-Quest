@@ -149,7 +149,7 @@ class GameScene extends Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
-      this.scene.start('FallingScene_One', {
+      this.scene.start('First', {
         music: data.music,
         hp: this.player.hp,
         score: this.player.score,

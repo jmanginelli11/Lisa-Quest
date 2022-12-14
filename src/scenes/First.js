@@ -84,7 +84,7 @@ class First extends Scene {
     this.physics.add.collider(this.player, invisible_platform_right);
 
     this.physics.add.collider(this.player, waterFallPlatform, () => {
-      this.scene.start('FallingScene_Two', {
+      this.scene.start('Second', {
         music: data.music,
         hp: this.player.hp,
         score: this.player.score,
