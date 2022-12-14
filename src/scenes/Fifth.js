@@ -256,11 +256,6 @@ class Fifth extends Scene {
       this.gameOver(data);
     }
 
-    // this.enemiesKilledCount = [];
-    // this.enemiesKilledCount = this.enemiesArray.filter(
-    //   (enemy) => enemy.hp <= 0
-    // );
-
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
