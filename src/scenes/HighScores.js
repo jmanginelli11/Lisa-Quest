@@ -15,6 +15,7 @@ class HighScores extends Scene {
 
     //Getting score from state
     this.scores = store.getState();
+    console.log('this.scores: ', this.scores);
 
     //Adding background
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
@@ -39,6 +40,7 @@ class HighScores extends Scene {
 
     for (let i = 1; i < 7; i++) {
       if (this.scores[i - 1].score > 0) {
+        console.log('looping: ', i);
         if (this.scores[i - 1].score > 0 && this.scores[i - 1].score < 99) {
           this.add
             .bitmapText(
