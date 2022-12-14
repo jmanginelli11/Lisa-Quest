@@ -3,7 +3,7 @@ import WebFontFile from '../helpers/fontLoader';
 
 class Credits extends Scene {
   constructor(data) {
-    super({ key: 'Credits' });
+    super('Credits');
   }
 
   preload() {

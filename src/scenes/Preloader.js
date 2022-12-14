@@ -4,7 +4,7 @@ export default class PreloaderScene extends Phaser.Scene {
   music;
 
   constructor() {
-    super({ key: 'Preloader' });
+    super('Preloader');
   }
 
   preload() {

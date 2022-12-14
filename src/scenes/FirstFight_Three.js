@@ -16,7 +16,7 @@ class FirstFight_Three extends Scene {
   isPaused = false;
 
   constructor(data) {
-    super({ key: 'FirstFight_Three' });
+    super('FirstFight_Three');
   }
 
   preload() {
