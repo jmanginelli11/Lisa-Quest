@@ -1,7 +1,6 @@
 import * as Phaser from 'phaser';
 import MainMenu from './scenes/MainMenu.js';
 import GameScene from './scenes/GameScene';
-import GameScore from './scenes/GameScore';
 import HighScores from './scenes/HighScores';
 import Credits from './scenes/Credits';
 import GameOver from './scenes/GameOver.js';
@@ -12,8 +11,8 @@ import FallingScene_Two from './scenes/FallingScene_Two.js';
 import FirstFight_Start from './scenes/FirstFight_Start.js';
 import FirstFight_Two from './scenes/FirstFight_Two';
 import FirstFight_Three from './scenes/FirstFight_Three.js';
-import PromisedLandFirst from './scenes/PromisedLandFirst.js';
 import BossFight from './scenes/BossFight.js';
+import PromisedLandFirst from './scenes/PromisedLandFirst.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -28,19 +27,18 @@ const config = {
   scene: [
     Preloader,
     MainMenu,
-    Intro,
-    GameScene,
-    GameScore,
     HighScores,
     Credits,
-    GameOver,
+    Intro,
+    GameScene,
     FallingScene_One,
     FallingScene_Two,
     FirstFight_Start,
     FirstFight_Two,
     FirstFight_Three,
-    PromisedLandFirst,
     BossFight,
+    PromisedLandFirst,
+    GameOver,
   ],
   physics: {
     default: 'arcade',
