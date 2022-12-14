@@ -82,8 +82,8 @@ class Fourth extends Scene {
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      x / 10,
-      560
+      0,
+      y + y / 4
     );
 
     this.rocksAndPlants = this.map.createLayer(
@@ -205,11 +205,6 @@ class Fourth extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-
-    // this.enemiesKilledCount = [];
-    // this.enemiesKilledCount = this.enemiesArray.filter(
-    //   (enemy) => enemy.hp <= 0
-    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
