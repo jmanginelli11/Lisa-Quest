@@ -12,11 +12,9 @@ class PromisedLandFirst extends Scene {
   phone;
   enemiesArray = [];
   laserGroup;
-  x = innerWidth / 2;
-  y = innerHeight / 2;
 
   constructor(data) {
-    super('PromisedLand');
+    super('Last');
   }
 
   preload() {
@@ -24,6 +22,8 @@ class PromisedLandFirst extends Scene {
   }
 
   create(data) {
+    const x = innerWidth / 2;
+    const y = innerHeight / 2;
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
     //Background
@@ -71,13 +71,10 @@ class PromisedLandFirst extends Scene {
     );
 
     // Adding player to be behind the plants
-    this.player = new Lisa(
-      this,
-      this.x,
-      this.y,
-      data.hp,
-      data.score
-    ).setPosition(100, 560);
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
+      100,
+      560
+    );
 
     this.stars.displayWidth = this.sys.canvas.width;
     this.stars.displayHeight = this.sys.canvas.height;
@@ -91,9 +88,7 @@ class PromisedLandFirst extends Scene {
     this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
 
     // Adding cellphone to scene
-    this.phone = this.physics.add
-      .sprite(this.x, this.y - 500, 'phone')
-      .setScale(2);
+    this.phone = this.physics.add.sprite(x, y - 500, 'phone').setScale(2);
     this.phone.setGravityY(450);
     this.phone.setCollideWorldBounds(true);
 
@@ -103,30 +98,12 @@ class PromisedLandFirst extends Scene {
 
     this.groundLayer.setCollisionBetween(165, 171);
 
-    //Winner text
-    this.winnerText = this.add
-      .text(
-        this.x,
-        this.y,
-        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
-        {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '30px',
-          align: 'center',
-        }
-      )
-      .setOrigin(0, 0)
-      .setPosition(this.x - this.x / 2, this.y - this.y / 1.8)
-      .setVisible(false)
-      .setScale(this.x * 0.0012);
-
     //Form
     this.form = this.add
-      .dom(this.x, this.y)
-      .setOrigin(0, 0)
-      .setPosition(this.x / 2 + this.x / 3, this.y + this.y / 5)
+      .dom(x, y)
       .createFromCache('form')
-      .setVisible(false);
+      .setVisible(false)
+      .setScale(x * 0.001);
 
     this.form.setPerspective(300);
     this.form.addListener('change');
@@ -138,10 +115,6 @@ class PromisedLandFirst extends Scene {
       if (evt.target.name === 'username') {
         if (this.formCounter === 1) {
           let username = evt.target.value;
-          this.winnerText
-            .setText(' Welcome ' + username)
-            .setPosition(this.x - this.x / 3, this.y - this.y / 5)
-            .setScale(this.x * 0.002);
           store.dispatch(
             persistAddedScores({ name: username, score: data.score || 0 })
           );
@@ -151,6 +124,23 @@ class PromisedLandFirst extends Scene {
       }
     });
 
+    //Winner text
+    this.winnerText = this.add
+      .text(
+        this.form.x - this.form.x / 4,
+        this.form.y - this.form.y / 1.12,
+        'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
+        {
+          fontFamily: '"Press Start 2P"',
+          fontSize: '30px',
+          align: 'center',
+        }
+      )
+      // .setOrigin(0, 0)
+      // .setPosition(x, y)
+      .setVisible(false)
+      .setScale(x * 0.0012);
+
     if (this.player) {
       this.physics.add.overlap(this.player, this.phone, () => {
         this.phone.setVisible(false);
@@ -159,8 +149,8 @@ class PromisedLandFirst extends Scene {
       });
 
       let mainMenuButton = this.add
-        .image(this.x / 5, this.y * 1.85, 'main-menu')
-        .setScale(this.x * 0.0015)
+        .image(x / 5, y * 1.85, 'main-menu')
+        .setScale(x * 0.0015)
         .setInteractive();
       mainMenuButton.on('pointerup', () => {
         this.scene.start('MainMenu');

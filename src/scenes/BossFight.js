@@ -188,7 +188,7 @@ class BossFight extends Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           (cam, effect) => {
-            this.scene.start('PromisedLand', {
+            this.scene.start('Last', {
               music: data.music,
               hp: this.player.hp,
               score: this.player.score,
