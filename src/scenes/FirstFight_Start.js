@@ -18,7 +18,7 @@ class FirstFight_Start extends Scene {
   // heartCount = 0;
 
   constructor(data) {
-    super({ key: 'FirstFight_Start' });
+    super('FirstFight_Start');
   }
 
   typewriteText(text) {

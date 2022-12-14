@@ -7,7 +7,7 @@ class GameOver extends Scene {
   player;
 
   constructor(data) {
-    super({ key: 'GameOver' });
+    super('GameOver');
   }
 
   preload() {

@@ -3,7 +3,7 @@ import store from '../store';
 
 class HighScores extends Scene {
   constructor(data) {
-    super({ key: 'HighScores' });
+    super('HighScores');
 
     this.scores = [];
   }

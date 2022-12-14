@@ -14,7 +14,7 @@ class PromisedLandFirst extends Scene {
   y = innerHeight / 2;
 
   constructor(data) {
-    super({ key: 'PromisedLand' });
+    super('PromisedLand');
   }
 
   preload() {
