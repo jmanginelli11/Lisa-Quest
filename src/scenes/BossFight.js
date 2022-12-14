@@ -168,7 +168,7 @@ class BossFight extends Scene {
       this.player.hitSpawn;
     });
 
-    console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -190,6 +190,8 @@ class BossFight extends Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           (cam, effect) => {
+            this.fadeTriggered = false;
+            this.bigBoss = undefined;
             this.scene.start('PromisedLand', {
               music: data.music,
               hp: this.player.hp,

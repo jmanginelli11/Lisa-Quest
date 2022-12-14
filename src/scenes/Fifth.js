@@ -248,7 +248,8 @@ class Fifth extends Scene {
 
     this.portal.play('portalPlay');
 
-    console.log('enemiesArray: ', this.enemiesArray);
+    // console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
