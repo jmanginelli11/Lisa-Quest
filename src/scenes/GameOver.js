@@ -38,14 +38,19 @@ class GameOver extends Scene {
     );
 
     this.addScore = this.add
-      .text(x, y, 'Type up to four characters\n to save your score!', {
-        fontFamily: '"Press Start 2P"',
-        fontSize: '20px',
-        align: 'center',
-      })
-      .setOrigin(0, 0)
-      .setPosition(x - x / 2, y + y / 6)
-      .setScale(this.sys.canvas.width * 0.001);
+      .text(
+        this.gameOver.x - this.gameOver.x / 3,
+        this.gameOver.y + this.gameOver.y / 1.1,
+        'Type up to four characters\n to save your score!',
+        {
+          // fontFamily: '"Press Start 2P"',
+          fontSize: '30px',
+          align: 'center',
+        }
+      )
+      // .setOrigin(0, 0)
+      // .setPosition(this.gameOver.x, this.gameOver.y + this.gameOver.y / 1.1)
+      .setScale(x * 0.0015);
 
     let mainMenuButton = this.add
       .image(x / 2, y * 1.8, 'main-menu')
@@ -55,7 +60,9 @@ class GameOver extends Scene {
       this.scene.start('MainMenu');
     });
 
-    this.form = this.add.dom(x, y + 170).createFromCache('form');
+    this.form = this.add
+      .dom(this.gameOver.x, this.gameOver.y + this.gameOver.y / 1.25)
+      .createFromCache('form');
 
     this.form.setPerspective(300);
     this.form.addListener('change');
@@ -66,9 +73,6 @@ class GameOver extends Scene {
       if (evt.target.name === 'username') {
         if (this.formCounter === 1) {
           let username = evt.target.value;
-          this.addScore
-            .setText('Welcome ' + username)
-            .setPosition(x - x / 4, y + y / 6);
           store.dispatch(
             persistAddedScores({ name: username, score: data.score || 0 })
           );

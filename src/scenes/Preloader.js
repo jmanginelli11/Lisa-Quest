@@ -24,12 +24,13 @@ export default class PreloaderScene extends Phaser.Scene {
 
     // Music
     this.load.audio('main-menu', '/assets/audios/music/main-menu-music.mp3');
-    this.load.audio('fight', '/assets/audios/music/fight-music.mp3');
-    this.load.audio('boss', '/assets/audios/music/boss-music.mp3');
+    // this.load.audio('fight', '/assets/audios/music/fight-music.mp3');
+    // this.load.audio('boss', '/assets/audios/music/boss-music.mp3');
 
     //Backgrounds
-    this.load.image('stars', '/assets/menu/stars_background.png');
     this.load.image('sky', '/assets/menu/sky.png');
+    this.load.image('sun', '/assets/backgrounds/Themy/First-Fight/sun.png');
+    this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
 
     //Menu
     this.load.image('play-red', '/assets/menu/play-button-red.png');
@@ -40,10 +41,10 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('credits', '/assets/menu/credits_white.png');
     this.load.image('credits-white', '/assets/menu/credits-white.png');
     this.load.image('credits-red', '/assets/menu/credits-red.png');
-    this.load.image('creditsLOL', '/assets/menu/creditsLOL.png');
 
     //Credits
     this.load.image('bubble', '/assets/credits/bubble.png');
+
     //Intro
     this.load.image('letsGo-white', '/assets/menu/lets-go-white.png');
     this.load.image('letsGo-red', '/assets/menu/lets-go-red.png');
@@ -118,8 +119,7 @@ export default class PreloaderScene extends Phaser.Scene {
       frameHeight: 32,
     });
 
-    //background first scene
-    this.load.image('shiny_stars', '/assets/backgrounds/shiny_stars.png');
+    //Game Scene
 
     this.load.image('tiles', '/assets/backgrounds/Themy/Scene-Main/tiles.png');
 
@@ -137,7 +137,7 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Scene-Main/Scene_Main.json'
     );
 
-    //background falling scene
+    //Falling Scenes
 
     this.load.tilemapTiledJSON(
       'tilemapFallingSceneOne',
@@ -154,23 +154,21 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/Falling-Scene/textures_2.png'
     );
 
-    //background first fight
-
-    this.load.image('sun', '/assets/backgrounds/Themy/First-Fight/sun.png');
+    //First fight
 
     this.load.tilemapTiledJSON(
       'tilemap_FF',
       '/assets/backgrounds/Themy/First-Fight/Start/First_Fight.json'
     );
 
-    // first fight two
+    //Second Fight
 
     this.load.tilemapTiledJSON(
       'tilemap_FF2',
       '/assets/backgrounds/Themy/First-Fight/Part_Two/First_Fight(2).json'
     );
 
-    // first fight three
+    //Third fight
 
     this.load.tilemapTiledJSON(
       'tilemap_FF3',
@@ -206,49 +204,17 @@ export default class PreloaderScene extends Phaser.Scene {
       '/assets/backgrounds/Themy/First-Fight/Boss-Fight/boss_tileset3.png'
     );
 
-    //promised land first
+    //Promised land
 
     this.load.tilemapTiledJSON(
       'tilemapPromisedLand',
       '/assets/backgrounds/Themy/Promised-Lands/First-Promised-Land.json'
     );
 
-    this.load.image(
-      'blue_sky',
-      '/assets/backgrounds/Themy/Promised-Lands/sky.png'
-    );
-
     this.load.image('phone', '/assets/accessories/phone.png');
 
     //Game over
     this.load.image('gameOver', '/assets/announcements/game-over.png');
-
-    //HealthBar
-    this.load.image(
-      'left-cap',
-      '/assets/uipack-space/PNG/barHorizontal_blue_left.png'
-    );
-    this.load.image(
-      'middle',
-      '/assets/uipack-space/PNG/barHorizontal_blue_mid.png'
-    );
-    this.load.image(
-      'right-cap',
-      '/assets/uipack-space/PNG/barHorizontal_blue_right.png'
-    );
-
-    this.load.image(
-      'left-cap-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_left.png'
-    );
-    this.load.image(
-      'middle-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_mid.png'
-    );
-    this.load.image(
-      'right-cap-shadow',
-      '/assets/uipack-space/PNG/barHorizontal_shadow_right.png'
-    );
 
     //heart
     this.load.image('heart', '/assets/heart.png');
