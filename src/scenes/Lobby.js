@@ -14,7 +14,7 @@ class Lobby extends Scene {
   y = innerHeight / 2;
 
   constructor(data) {
-    super({ key: 'Lobby' });
+    super('Lobby');
   }
 
   preload() {
@@ -68,7 +68,6 @@ class Lobby extends Scene {
       0,
       0
     );
-
 
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;

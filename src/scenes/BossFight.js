@@ -20,7 +20,7 @@ class BossFight extends Scene {
   isPaused = false;
 
   constructor(data) {
-    super({ key: 'BossFight' });
+    super('BossFight');
   }
 
   typewriteText(text) {

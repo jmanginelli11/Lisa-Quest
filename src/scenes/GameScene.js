@@ -20,7 +20,7 @@ class GameScene extends Scene {
   isPaused = false;
 
   constructor(data) {
-    super({ key: 'GameScene' });
+    super('GameScene');
   }
 
   preload() {

@@ -7,7 +7,7 @@ class GameOver extends Scene {
   player;
 
   constructor(data) {
-    super({ key: 'GameOver' });
+    super('GameOver');
   }
 
   preload() {
@@ -73,6 +73,7 @@ class GameOver extends Scene {
             persistAddedScores({ name: username, score: data.score || 0 })
           );
         }
+        this.scene.start('HighScores');
       }
     });
   }

@@ -9,7 +9,7 @@ class FallingScene_One extends Scene {
   enemiesArray = [];
 
   constructor(data) {
-    super({ key: 'FallingScene_One' });
+    super('FallingScene_One');
   }
 
   preload() {

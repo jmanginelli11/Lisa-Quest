@@ -2,7 +2,7 @@ import { Scene } from 'phaser';
 
 class Intro extends Scene {
   constructor(data) {
-    super({ key: 'Intro' });
+    super('Intro');
   }
 
   create(data) {

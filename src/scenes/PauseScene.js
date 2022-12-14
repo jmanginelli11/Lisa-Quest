@@ -4,7 +4,7 @@ class PauseScene extends Scene {
   music;
 
   constructor(data) {
-    super({ key: 'PauseScene' });
+    super('PauseScene');
   }
 
   create(data) {

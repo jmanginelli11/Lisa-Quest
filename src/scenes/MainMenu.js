@@ -6,7 +6,7 @@ class MainMenu extends Scene {
   music;
 
   constructor(data) {
-    super({ key: 'MainMenu' });
+    super('MainMenu');
   }
 
   create(data) {

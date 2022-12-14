@@ -16,7 +16,7 @@ class FirstFight_Two extends Scene {
   isPaused = false;
 
   constructor(data) {
-    super({ key: 'FirstFight_Two' });
+    super('FirstFight_Two');
   }
 
   preload() {
@@ -187,11 +187,10 @@ class FirstFight_Two extends Scene {
 
     // create portal and set invisible
     this.portal = this.physics.add
-      .sprite(x + x / 1.5, y + y / 1.2, 'portal2')
+      .sprite(x + x / 1.5, y, 'portal2')
       .setScale(x * 0.0055)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
-    this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay2');
     // this.portal.displayWidth = this.sys.canvas.width;
