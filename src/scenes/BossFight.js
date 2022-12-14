@@ -167,6 +167,8 @@ class BossFight extends Scene {
     this.physics.add.collider(this.player, this.fireGroup, () => {
       this.player.hitSpawn;
     });
+
+    console.log('enemiesArray: ', this.enemiesArray);
   }
 
   update(data) {
