@@ -6,6 +6,7 @@ class Second extends Scene {
   player;
   cameras;
   platforms;
+  enemiesArray = [];
 
   constructor(data) {
     super('Second');

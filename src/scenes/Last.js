@@ -13,6 +13,7 @@ class PromisedLandFirst extends Scene {
   laserGroup;
   x = innerWidth / 2;
   y = innerHeight / 2;
+  enemiesArray = [];
 
   constructor(data) {
     super('PromisedLand');
