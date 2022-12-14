@@ -144,6 +144,7 @@ class PromisedLandFirst extends Scene {
             persistAddedScores({ name: username, score: data.score || 0 })
           );
         }
+        this.scene.start('HighScores');
       }
     });
 
