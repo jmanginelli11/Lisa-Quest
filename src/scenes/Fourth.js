@@ -170,7 +170,7 @@ class Fourth extends Scene {
           Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.flyGuy);
+        // this.enemiesArray.push(this.flyGuy);
         this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,

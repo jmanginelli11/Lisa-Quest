@@ -187,7 +187,7 @@ class Fifth extends Scene {
           200
         ).setScale(1.5);
 
-        this.enemiesArray.push(this.spawn2);
+        // this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.invisibleLayer);
         this.physics.add.overlap(
