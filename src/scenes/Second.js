@@ -2,14 +2,14 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
 
-class FallingScene_Two extends Scene {
+class Second extends Scene {
   player;
   cameras;
   platforms;
   enemiesArray = [];
 
   constructor(data) {
-    super('FallingScene_Two');
+    super('Second');
   }
 
   preload() {
@@ -97,4 +97,4 @@ class FallingScene_Two extends Scene {
   }
 }
 
-export default FallingScene_Two;
+export default Second;

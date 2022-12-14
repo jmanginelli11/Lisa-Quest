@@ -6,13 +6,13 @@ import Credits from './scenes/Credits';
 import GameOver from './scenes/GameOver.js';
 import Preloader from './scenes/Preloader.js';
 import Intro from './scenes/Intro';
-import FallingScene_One from './scenes/FallingScene_One.js';
-import FallingScene_Two from './scenes/FallingScene_Two.js';
-import FirstFight_Start from './scenes/FirstFight_Start.js';
-import FirstFight_Two from './scenes/FirstFight_Two';
-import FirstFight_Three from './scenes/FirstFight_Three.js';
+import First from './scenes/First';
+import Second from './scenes/Second.js';
+import Third from './scenes/Third.js';
+import Fourth from './scenes/Fourth';
+import Fifth from './scenes/Fifth.js';
 import BossFight from './scenes/BossFight.js';
-import PromisedLandFirst from './scenes/PromisedLandFirst.js';
+import Last from './scenes/Last.js';
 
 const config = {
   type: Phaser.AUTO,
@@ -31,13 +31,13 @@ const config = {
     Credits,
     Intro,
     GameScene,
-    FallingScene_One,
-    FallingScene_Two,
-    FirstFight_Start,
-    FirstFight_Two,
-    FirstFight_Three,
+    First,
+    Second,
+    Third,
+    Fourth,
+    Fifth,
     BossFight,
-    PromisedLandFirst,
+    Last,
     GameOver,
   ],
   physics: {
