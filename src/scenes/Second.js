@@ -13,7 +13,7 @@ class Second extends Scene {
   }
 
   preload() {
-    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
+    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
