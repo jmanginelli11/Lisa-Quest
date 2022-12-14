@@ -136,9 +136,6 @@ class FirstFight_Start extends Scene {
 
     this.laserGroup = new LaserGroup(this);
 
-    // Gun placeholder
-    // this.gun = this.add.image(x + 150, y - 225, 'c');
-
     // spawning goomba guys
     this.time.addEvent({
       delay: 8000,
@@ -166,7 +163,7 @@ class FirstFight_Start extends Scene {
 
     // create portal and set invisible
     this.portal = this.physics.add
-      .sprite(innerWidth, y + y / 2.5, 'portal')
+      .sprite(innerWidth, y, 'portal')
       .setScale(x * 0.0062)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);

@@ -73,6 +73,13 @@ class FirstFight_Three extends Scene {
       0
     );
 
+    this.invisibleLayerTwo = this.map.createLayer(
+      'invisible_layer_2',
+      this.machineRoomTilesetThree,
+      0,
+      0
+    );
+
     this.firstLayer = this.map.createLayer('First', this.groundTileset, 0, 0);
 
     this.thirdLayer = this.map.createLayer(
@@ -153,14 +160,18 @@ class FirstFight_Three extends Scene {
     this.seventhLayer.displayHeight = this.sys.canvas.height;
     this.invisibleLayer.displayWidth = this.sys.canvas.width;
     this.invisibleLayer.displayHeight = this.sys.canvas.height;
+    this.invisibleLayerTwo.displayWidth = this.sys.canvas.width;
+    this.invisibleLayerTwo.displayHeight = this.sys.canvas.height;
 
     //Collisions
     // this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.physics.add.collider(this.player, this.invisibleLayer);
+    this.physics.add.collider(this.player, this.invisibleLayerTwo);
     this.physics.add.collider(this.player, this.firstLayer);
 
     // this.f.setCollisionBetween(142, 170);
     this.invisibleLayer.setCollisionBetween(139, 160);
+    this.invisibleLayerTwo.setCollisionBetween(160, 170);
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
@@ -229,12 +240,11 @@ class FirstFight_Three extends Scene {
 
     // Adding portal
     this.portal = this.physics.add
-      .sprite(x + x / 1.4, y + y / 1.7, 'portal')
+      .sprite(x + x / 1.4, y, 'portal')
       .setScale(x * 0.005)
       .setVisible(false);
     this.portal.setCollideWorldBounds(true);
     this.physics.add.collider(this.portal, this.invisibleLayer);
-    this.physics.add.collider(this.portal, this.firstLayer);
 
     this.portal.play('portalPlay');
   }
