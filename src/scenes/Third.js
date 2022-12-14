@@ -5,7 +5,7 @@ import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
 import WebFontFile from '../helpers/fontLoader';
 
-class FirstFight_Start extends Scene {
+class Third extends Scene {
   cameras;
   player;
   platforms;
@@ -18,7 +18,7 @@ class FirstFight_Start extends Scene {
   // heartCount = 0;
 
   constructor(data) {
-    super('FirstFight_Start');
+    super('Third');
   }
 
   typewriteText(text) {
@@ -32,6 +32,27 @@ class FirstFight_Start extends Scene {
       repeat: length - 1,
       delay: 50,
     });
+  }
+
+  spawnHearts() {
+    this.hearts = this.physics.add.group({
+      key: 'heart',
+      allowGravity: false,
+    });
+    this.hearts.children.iterate(function (child) {
+      child.setPosition(
+        Phaser.Math.RND.between(0, 2000),
+        Phaser.Math.RND.between(400, 600)
+      );
+      child.setOrigin(0, 0);
+    });
+    this.physics.add.overlap(
+      this.player,
+      this.hearts,
+      this.player.collectHeart,
+      null,
+      this
+    );
   }
 
   preload() {
@@ -138,7 +159,7 @@ class FirstFight_Start extends Scene {
 
     // spawning goomba guys
     this.time.addEvent({
-      delay: 8000,
+      delay: 7000,
       callback: function () {
         this.goomba = new Enemy(
           this,
@@ -179,16 +200,17 @@ class FirstFight_Start extends Scene {
       this.gameOver(data);
     }
 
-    this.enemiesKilledCount = [];
-    this.enemiesKilledCount = this.enemiesArray.filter(
-      (enemy) => enemy.hp <= 0
-    );
+    // this.enemiesKilledCount = [];
+    // this.enemiesKilledCount = this.enemiesArray.filter(
+    //   (enemy) => enemy.hp <= 0
+    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
 
-    if (this.player.heartCount >= 3 && this.enemiesKilledCount.length >= 6) {
+    console.log(this.player.enemiesKilled);
+    if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
         this.scene.start('FirstFight_Two', {
@@ -198,27 +220,8 @@ class FirstFight_Start extends Scene {
         });
       });
     }
-  }
-
-  spawnHearts() {
-    this.hearts = this.physics.add.group({
-      key: 'heart',
-      allowGravity: false,
-    });
-    this.hearts.children.iterate(function (child) {
-      child.setPosition(
-        Phaser.Math.RND.between(0, 2000),
-        Phaser.Math.RND.between(400, 600)
-      );
-      child.setOrigin(0, 0);
-    });
-    this.physics.add.overlap(
-      this.player,
-      this.hearts,
-      this.player.collectHeart,
-      null,
-      this
-    );
+    this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
+    console.log('enemiesArray', this.enemiesArray.length);
   }
 
   gameOver(data) {
@@ -231,4 +234,4 @@ class FirstFight_Start extends Scene {
   }
 }
 
-export default FirstFight_Start;
+export default Third;

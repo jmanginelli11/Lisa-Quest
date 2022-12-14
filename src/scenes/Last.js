@@ -3,6 +3,7 @@ import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import WebFontFile from '../helpers/fontLoader';
 import { persistAddedScores } from '../store/redux/scoresReducer';
+import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
 class PromisedLandFirst extends Scene {
   cameras;
@@ -10,6 +11,7 @@ class PromisedLandFirst extends Scene {
   player;
   phone;
   enemiesArray = [];
+  laserGroup;
   x = innerWidth / 2;
   y = innerHeight / 2;
 
@@ -144,6 +146,7 @@ class PromisedLandFirst extends Scene {
             persistAddedScores({ name: username, score: data.score || 0 })
           );
         }
+        console.log('about to start HighScores scene');
         this.scene.start('HighScores');
       }
     });
