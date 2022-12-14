@@ -216,7 +216,7 @@ class Fourth extends Scene {
     if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
-        this.scene.start('FirstFight_Three', {
+        this.scene.start('Fifth', {
           hp: this.player.hp,
           score: this.player.score,
           timer: this.timer,
