@@ -149,9 +149,7 @@ class GameScene extends Scene {
       .refreshBody();
 
     this.physics.add.collider(this.player, this.waterFallPlatform, () => {
-      console.log('switching to falling scene');
-      this.scene.stop();
-      this.scene.start('FallingScene_One', {
+      this.scene.start('First', {
         music: data.music,
         hp: this.player.hp,
         score: this.player.score,
