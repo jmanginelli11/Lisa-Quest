@@ -187,7 +187,7 @@ class Fifth extends Scene {
           200
         ).setScale(1.5);
 
-        this.enemiesArray.push(this.spawn2);
+        // this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
         this.physics.add.collider(this.spawn2, this.invisibleLayer);
         this.physics.add.overlap(
@@ -247,6 +247,9 @@ class Fifth extends Scene {
     this.physics.add.collider(this.portal, this.invisibleLayer);
 
     this.portal.play('portalPlay');
+
+    // console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -255,11 +258,6 @@ class Fifth extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-
-    // this.enemiesKilledCount = [];
-    // this.enemiesKilledCount = this.enemiesArray.filter(
-    //   (enemy) => enemy.hp <= 0
-    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();

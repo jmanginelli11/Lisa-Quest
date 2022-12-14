@@ -131,7 +131,7 @@ class BossFight extends Scene {
       delay: 7000,
       callback: function () {
         this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
-        this.enemiesArray.push(this.bigBoss);
+        // this.enemiesArray.push(this.bigBoss);
         this.physics.add.collider(this.bigBoss, this.wallPlatform);
         this.physics.add.collider(this.bigBoss, this.firstLayer);
         this.physics.add.overlap(
@@ -167,6 +167,8 @@ class BossFight extends Scene {
     this.physics.add.collider(this.player, this.fireGroup, () => {
       this.player.hitSpawn;
     });
+
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -188,7 +190,12 @@ class BossFight extends Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           (cam, effect) => {
+
+
+            this.fadeTriggered = false;
+            this.bigBoss = undefined;
             this.scene.start('Last', {
+
               music: data.music,
               hp: this.player.hp,
               score: this.player.score,

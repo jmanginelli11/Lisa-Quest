@@ -82,8 +82,8 @@ class Fourth extends Scene {
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      x / 10,
-      560
+      0,
+      y + y / 4
     );
 
     this.rocksAndPlants = this.map.createLayer(
@@ -170,7 +170,7 @@ class Fourth extends Scene {
           Phaser.Math.RND.between(0, 2000),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.flyGuy);
+        // this.enemiesArray.push(this.flyGuy);
         this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
@@ -195,6 +195,9 @@ class Fourth extends Scene {
     this.portal.play('portalPlay2');
     // this.portal.displayWidth = this.sys.canvas.width;
     // this.portal.displayHeight = this.sys.canvas.height;
+
+    // console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -203,11 +206,6 @@ class Fourth extends Scene {
     if (this.player.hp <= 0) {
       this.gameOver(data);
     }
-
-    // this.enemiesKilledCount = [];
-    // this.enemiesKilledCount = this.enemiesArray.filter(
-    //   (enemy) => enemy.hp <= 0
-    // );
 
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();

@@ -166,7 +166,7 @@ class Third extends Scene {
           Phaser.Math.RND.between(0, 1400),
           0
         ).setScale(1.5);
-        this.enemiesArray.push(this.goomba);
+        // this.enemiesArray.push(this.goomba);
         this.physics.add.collider(this.goomba, this.wallPlatform);
         this.physics.add.collider(this.goomba, this.groundAndPlatforms);
         this.physics.add.overlap(
@@ -191,6 +191,9 @@ class Third extends Scene {
     this.physics.add.collider(this.portal, this.groundAndPlatforms);
 
     this.portal.play('portalPlay');
+
+    console.log('enemiesArray: ', this.enemiesArray);
+    this.enemiesArray = [];
   }
 
   update(data) {
@@ -203,6 +206,7 @@ class Third extends Scene {
     for (let i = 0; i < this.enemiesArray.length; i++) {
       this.enemiesArray[i].update();
     }
+
     if (this.player.heartCount >= 3 && this.player.enemiesKilled >= 3) {
       this.portal.setVisible(true);
       this.physics.add.collider(this.player, this.portal, () => {
@@ -214,6 +218,7 @@ class Third extends Scene {
       });
     }
     this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
+    console.log('enemiesArray', this.enemiesArray);
   }
 
   gameOver(data) {
