@@ -47,6 +47,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.laser_knockbackVal = 300;
 
     this.is_immune = false;
+    this.enemiesKilled = 0;
 
     // Declarations
     this.colliderLaser;
@@ -327,6 +328,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
             this.addScore(this.laser_knockbackVal * 0.05);
           }
 
+          this.addEnemiesKilled();
           this.addScore(100);
           this.scene.enemiesArray[i].hp--;
         }
@@ -469,6 +471,7 @@ export class Lisa extends Phaser.GameObjects.Sprite {
               this.addScore(knockbackVal * 0.05);
             }
 
+            this.addEnemiesKilled();
             this.addScore(100);
             this.scene.enemiesArray[i].hitByPlayer(this.scene.enemiesArray[i]);
           }
@@ -483,6 +486,10 @@ export class Lisa extends Phaser.GameObjects.Sprite {
     this.is_dash = true;
     this.anims.play('dash');
     this.flipX ? this.body.setVelocityX(-1200) : this.body.setVelocityX(1200);
+  }
+
+  addEnemiesKilled() {
+    this.enemiesKilled += 1;
   }
 
   addScore(num) {
