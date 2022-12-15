@@ -1,13 +1,8 @@
 import { Scene } from 'phaser';
-import WebFontFile from '../helpers/fontLoader';
 
 class Credits extends Scene {
   constructor(data) {
     super('Credits');
-  }
-
-  preload() {
-    this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -38,8 +33,7 @@ class Credits extends Scene {
         this.naomiBubble.y,
         'Naomi \nBrender',
         {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '10px',
+          fontSize: '12px',
           color: 'black',
           align: 'center',
         }
@@ -63,12 +57,11 @@ class Credits extends Scene {
 
     this.jackieName = this.add
       .text(
-        this.jackieBubble.x - this.jackieBubble.x / 10,
+        this.jackieBubble.x - this.jackieBubble.x / 12,
         this.jackieBubble.y,
         'Jackie \nManginelli',
         {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '10px',
+          fontSize: '12px',
           color: 'black',
           align: 'center',
         }
@@ -96,8 +89,7 @@ class Credits extends Scene {
         this.laurenBubble.y,
         'Lauren \nBaca',
         {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '10px',
+          fontSize: '12px',
           color: 'black',
           align: 'center',
         }
@@ -121,12 +113,11 @@ class Credits extends Scene {
 
     this.sheylaName = this.add
       .text(
-        this.sheylaBubble.x - this.sheylaBubble.x / 6,
+        this.sheylaBubble.x - this.sheylaBubble.x / 7.5,
         this.sheylaBubble.y,
-        'Sheyla \nDe los Santos',
+        'Sheyla\nDe los Santos',
         {
-          fontFamily: '"Press Start 2P"',
-          fontSize: '10px',
+          fontSize: '12px',
           color: 'black',
           align: 'center',
         }

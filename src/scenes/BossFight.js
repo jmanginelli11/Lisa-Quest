@@ -5,7 +5,6 @@ import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
 import { BigBoss } from '../sprites/Enemies/BigBoss.js';
 import { FireGroup } from '../weapons/Fire/FireGroup.js';
-import WebFontFile from '../helpers/fontLoader';
 
 class BossFight extends Scene {
   cameras;
@@ -36,13 +35,7 @@ class BossFight extends Scene {
     });
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
   create(data) {
-    // Background - Boss Fight
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -55,8 +48,12 @@ class BossFight extends Scene {
     // New FireGroup
     this.fireGroup = new FireGroup(this);
 
+    // Background and terrain
+
+    //Tilemap
     this.map = this.make.tilemap({ key: 'tilemap_BF' });
 
+    //Tilesets
     this.bossRoomTilesetOne = this.map.addTilesetImage(
       'machine_room_tileset2',
       'boss_tileset1'
@@ -67,6 +64,7 @@ class BossFight extends Scene {
       'boss_tileset2'
     );
 
+    //Layers
     this.secondLayer = this.map.createLayer(
       'Second',
       this.bossRoomTilesetOne,
@@ -105,11 +103,11 @@ class BossFight extends Scene {
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
-      x / 10,
-      580
+      0,
+      y + y / 4
     );
 
-    //Colliders
+    //Terrain colliders
     this.physics.add.collider(this.player, this.firstLayer);
     this.firstLayer.setCollisionBetween(160, 170);
     this.firstLayer.displayWidth = this.sys.canvas.width;
@@ -118,13 +116,6 @@ class BossFight extends Scene {
     this.secondLayer.displayHeight = this.sys.canvas.height;
     this.thirdLayer.displayWidth = this.sys.canvas.width;
     this.thirdLayer.displayHeight = this.sys.canvas.height;
-
-    // Text
-    this.story = this.add.text(x + 260, y - 300, '').setScale(1.25);
-
-    this.typewriteText(
-      '                \nIs this...  \n                \n... the big boss room? \n                \n '
-    );
 
     // spawning big boss
     this.time.addEvent({
@@ -163,7 +154,7 @@ class BossFight extends Scene {
       loop: true,
     });
 
-    // set collision between lisa and fire from big boss
+    //Set collision between lisa and fire from big boss
     this.physics.add.collider(this.player, this.fireGroup, () => {
       this.player.hitSpawn;
     });
@@ -190,12 +181,9 @@ class BossFight extends Scene {
         this.cameras.main.once(
           Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE,
           (cam, effect) => {
-
-
             this.fadeTriggered = false;
             this.bigBoss = undefined;
             this.scene.start('Last', {
-
               music: data.music,
               hp: this.player.hp,
               score: this.player.score,

@@ -3,7 +3,6 @@ import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy';
-import WebFontFile from '../helpers/fontLoader';
 
 class Third extends Scene {
   cameras;
@@ -14,8 +13,6 @@ class Third extends Scene {
   laserGroup;
   enemiesArray = [];
   isPaused = false;
-
-  // heartCount = 0;
 
   constructor(data) {
     super('Third');
@@ -55,11 +52,8 @@ class Third extends Scene {
     );
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
   create(data) {
+    //Defining x and y
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
@@ -78,6 +72,7 @@ class Third extends Scene {
     //Tilemap
     this.map = this.make.tilemap({ key: 'tilemap_FF' });
 
+    //Tilesets
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.rocksAndPlantsTileset = this.map.addTilesetImage(
@@ -92,12 +87,42 @@ class Third extends Scene {
       0
     );
 
+    //Layers
     this.invisibleLayer = this.map.createLayer(
       'invisible_layer',
       this.rocksAndPlantsTileset,
       0,
       0
     );
+
+    //Creating lisa behind the plants
+    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
+
+    this.rocksAndPlants = this.map.createLayer(
+      'rocks_and_plants',
+      this.rocksAndPlantsTileset,
+      0,
+      0
+    );
+
+    //Display adjustments
+    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
+    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
+    this.rocksAndPlants.displayWidth = this.sys.canvas.width;
+    this.rocksAndPlants.displayHeight = this.sys.canvas.height;
+    this.invisibleLayer.displayWidth = this.sys.canvas.width;
+    this.invisibleLayer.displayHeight = this.sys.canvas.height;
+
+    //Colliders
+    this.physics.add.collider(
+      this.player,
+      this.invisibleLayer,
+      this.player.hitSpikyPlant
+    );
+    this.physics.add.collider(this.player, this.groundAndPlatforms);
+    this.groundAndPlatforms.setCollisionBetween(142, 170);
+    this.groundAndPlatforms.setCollisionBetween(743, 746);
+    this.invisibleLayer.setCollisionBetween(139, 170);
 
     //PAUSE BUTTON
     let pauseButton = this.add
@@ -114,36 +139,7 @@ class Third extends Scene {
       }
     });
 
-    //Creating lisa behind the plants
-    this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);
-
-    this.rocksAndPlants = this.map.createLayer(
-      'rocks_and_plants',
-      this.rocksAndPlantsTileset,
-      0,
-      0
-    );
-
-    this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
-    this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
-    this.rocksAndPlants.displayWidth = this.sys.canvas.width;
-    this.rocksAndPlants.displayHeight = this.sys.canvas.height;
-    this.invisibleLayer.displayWidth = this.sys.canvas.width;
-    this.invisibleLayer.displayHeight = this.sys.canvas.height;
-    this.physics.add.collider(
-      this.player,
-      this.invisibleLayer,
-      this.player.hitSpikyPlant
-    );
-
-    this.physics.add.collider(this.player, this.groundAndPlatforms);
-
-    this.groundAndPlatforms.setCollisionBetween(142, 170);
-    this.groundAndPlatforms.setCollisionBetween(743, 746);
-    this.invisibleLayer.setCollisionBetween(139, 170);
-
     // Text
-
     this.story = this.add
       .text(x - x / 9, y - y / 1.3, '', {
         fontSize: 22,
@@ -192,7 +188,6 @@ class Third extends Scene {
 
     this.portal.play('portalPlay');
 
-    console.log('enemiesArray: ', this.enemiesArray);
     this.enemiesArray = [];
   }
 
@@ -218,7 +213,6 @@ class Third extends Scene {
       });
     }
     this.enemiesArray = this.enemiesArray.filter((enemy) => enemy.hp > 0);
-    console.log('enemiesArray', this.enemiesArray);
   }
 
   gameOver(data) {

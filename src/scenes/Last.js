@@ -1,7 +1,6 @@
 import store from '../store';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import WebFontFile from '../helpers/fontLoader';
 import { persistAddedScores } from '../store/redux/scoresReducer';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
@@ -13,13 +12,8 @@ class PromisedLandFirst extends Scene {
   laserGroup;
   enemiesArray = [];
 
-
   constructor(data) {
     super('Last');
-  }
-
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -33,6 +27,7 @@ class PromisedLandFirst extends Scene {
     //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapPromisedLand' });
 
+    //Tilesets
     this.groundAndWaterTileset = this.map.addTilesetImage(
       'ground_tileset',
       'tiles'
@@ -43,6 +38,7 @@ class PromisedLandFirst extends Scene {
       'vegetation1'
     );
 
+    //Layers
     this.waterLayer = this.map.createLayer(
       'water_layer',
       this.groundAndWaterTileset,
@@ -80,6 +76,7 @@ class PromisedLandFirst extends Scene {
       560
     );
 
+    //Display adjustments
     this.stars.displayWidth = this.sys.canvas.width;
     this.stars.displayHeight = this.sys.canvas.height;
     this.groundLayer.displayWidth = this.sys.canvas.width;
@@ -91,16 +88,15 @@ class PromisedLandFirst extends Scene {
     this.rocksAndPlantsLayer.displayWidth = this.sys.canvas.width;
     this.rocksAndPlantsLayer.displayHeight = this.sys.canvas.height;
 
+    // Colliders
+    this.physics.add.collider(this.player, this.groundLayer);
+    this.physics.add.collider(this.phone, this.groundLayer);
+    this.groundLayer.setCollisionBetween(165, 171);
+
     // Adding cellphone to scene
     this.phone = this.physics.add.sprite(x, y - 500, 'phone').setScale(2);
     this.phone.setGravityY(450);
     this.phone.setCollideWorldBounds(true);
-
-    // Colliders
-    this.physics.add.collider(this.player, this.groundLayer);
-    this.physics.add.collider(this.phone, this.groundLayer);
-
-    this.groundLayer.setCollisionBetween(165, 171);
 
     //Form
     this.form = this.add
@@ -123,7 +119,6 @@ class PromisedLandFirst extends Scene {
             persistAddedScores({ name: username, score: data.score || 0 })
           );
         }
-        console.log('about to start HighScores scene');
         this.scene.start('HighScores');
       }
     });
@@ -135,13 +130,10 @@ class PromisedLandFirst extends Scene {
         this.form.y - this.form.y / 1.12,
         'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
         {
-          fontFamily: '"Press Start 2P"',
           fontSize: '30px',
           align: 'center',
         }
       )
-      // .setOrigin(0, 0)
-      // .setPosition(x, y)
       .setVisible(false)
       .setScale(x * 0.0012);
 
