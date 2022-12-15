@@ -60,7 +60,7 @@ class First extends Scene {
 
     //Platforms
     this.platforms = this.physics.add.staticGroup();
-    // Invisible dplatform
+    // Invisible platform
     let invisible_platform_left = this.platforms
       .create(x - x * 0.1, y, 'test2')
       .setScale(2)
