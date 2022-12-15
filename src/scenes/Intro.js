@@ -31,12 +31,12 @@ class Intro extends Scene {
     gameButton.on('pointerover', () => {
       gameButton = this.add
         .image(x + 200, y * 1.85, 'letsGo-red')
-        .setScale(x * 0.002);
+        .setScale(x * 0.018);
     });
     gameButton.on('pointerout', () => {
       gameButton = this.add
         .image(x + 200, y * 1.85, 'letsGo-white')
-        .setScale(x * 0.002);
+        .setScale(x * 0.018);
     });
 
     gameButton.on('pointerup', () => {

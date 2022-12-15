@@ -27,9 +27,9 @@ class HighScores extends Scene {
 
     //Bitmap text
     this.add
-      .bitmapText(x / 5, 100, 'arcade', 'RANK   SCORE   NAME')
+      .bitmapText(x / 3, 100, 'arcade', 'RANK    SCORE    NAME')
       .setTint(0xffffff)
-      .setScale(x / 700);
+      .setScale(x * 0.001);
 
     for (let i = 1; i < 7; i++) {
       if (this.scores[i - 1].score > 0) {
@@ -39,11 +39,11 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i - 1].score}      ${
+              `    ${i}     ${this.scores[i - 1].score}      ${
                 this.scores[i - 1].name
               } \n`
             )
-            .setScale(x / 700)
+            .setScale(x * 0.001)
             .setTint(0xffffff);
         } else if (this.scores[i - 1].score < 999) {
           this.add
@@ -51,11 +51,11 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i - 1].score}     ${
+              `    ${i}     ${this.scores[i - 1].score}     ${
                 this.scores[i - 1].name
               } \n`
             )
-            .setScale(x / 700)
+            .setScale(x * 0.001)
             .setTint(0xffffff);
         } else if (
           this.scores[i - 1].score > 999 &&
@@ -66,11 +66,11 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i - 1].score}    ${
+              `    ${i}     ${this.scores[i - 1].score}    ${
                 this.scores[i - 1].name
               } \n`
             )
-            .setScale(x / 700)
+            .setScale(x * 0.001)
             .setTint(0xffffff);
         } else {
           this.add
@@ -78,11 +78,11 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `\n  ${i}    ${this.scores[i - 1].score}   ${
+              `    ${i}     ${this.scores[i - 1].score}   ${
                 this.scores[i - 1].name
               } \n`
             )
-            .setScale(x / 700)
+            .setScale(x * 0.001)
             .setTint(0xffffff);
         }
       }
