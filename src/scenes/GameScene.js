@@ -44,7 +44,7 @@ class GameScene extends Scene {
       .setScale(x * 0.0018);
 
     this.typewriteText(
-      "                \nLooks like I can move around with the arrow keys... \n                \nAnd fast run with the C key? Wa wa wee wa...\n                \nOh boy, these fists they have so much power \nwith the Z and especially the X keys.\n                \nAnd I guess I can shoot lasers with SHIFT too? Neato\n                \nI should probably avoid hitting the deadly \nspiky plants I see off in the distance\n                \nWhen I'm ready, I jump through this... waterfall... alright.\n                \nMy communicator got destroyed in the crash landing \nand I have to find a new one so that \nI can tell the people back home about this planet!\n"
+      "                \nMy communicator got destroyed in the crash landing. \nI need a new one so that \nI can tell the people back home about this planet!\n                \nI can move around with the arrow keys... \n                \nFast run with the C key? \n                \nOh boy, these fists they have so much power \nwith the Z and especially the X keys.\n                \nI can shoot lasers with SHIFT too? Neato\n                \nI don't see a way into their base...but what's with this waterfall?"
     );
 
     //timer
