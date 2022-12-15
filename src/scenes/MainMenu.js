@@ -1,6 +1,4 @@
 import { Scene } from 'phaser';
-import store from '../store';
-import { fetchScores } from '../store/redux/scoresReducer';
 
 class MainMenu extends Scene {
   music;
@@ -10,14 +8,16 @@ class MainMenu extends Scene {
   }
 
   create(data) {
-    store.dispatch(fetchScores());
-
+    //Defining x and y
     const x = innerWidth / 2;
     const y = innerHeight / 2;
+
+    //Background
     this.background = this.add.image(x, y, 'shiny_stars');
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
+    //Buttons
     let playButton = this.add.image(x, 250, 'play-white').setScale(3);
     let highScoreButton = this.add
       .image(x, y + 50, 'high-score-white')
@@ -31,6 +31,7 @@ class MainMenu extends Scene {
     highScoreButton.setInteractive();
     creditsButton.setInteractive();
 
+    //Sprites
     let hoverSprite1 = this.add.sprite(100, 100, 'lisa').setScale(3.5);
     hoverSprite1.setVisible(false);
     let hoverSprite2 = this.add.sprite(100, 100, 'tori').setScale(3.5);

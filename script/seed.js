@@ -1,7 +1,8 @@
-"use strict";
-const { BulkRecordError } = require("sequelize");
-const { db, Score } = require("../server/db");
-const scoreData = require("./scoreData");
+'use strict';
+
+const { BulkRecordError } = require('sequelize');
+const { db, Score } = require('../server/db');
+const scoreData = require('./scoreData');
 
 const seed = async () => {
   try {
@@ -18,16 +19,16 @@ const seed = async () => {
 };
 
 async function runSeed() {
-  console.log("seeding...");
+  console.log('seeding...');
   try {
     await seed();
   } catch (error) {
     console.log(error);
     process.exitCode = 1;
   } finally {
-    console.log("closing db connection");
+    console.log('closing db connection');
     await db.close();
-    console.log("db connection closed");
+    console.log('db connection closed');
   }
 }
 
