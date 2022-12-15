@@ -99,7 +99,7 @@ class Fifth extends Scene {
     this.story = this.add.text(x - x / 9, y - y / 1.6, '').setScale(x * 0.002);
 
     this.typewriteText(
-      'I need to find a communicator! \nThey must have it hidden it... \nI bet if I defeat the big boss \nI will find it... '
+      'I need to find a communicator! \nThey must have hidden it... \nI bet if I defeat the big boss \nI will find it... '
     );
 
     //PAUSE BUTTON
