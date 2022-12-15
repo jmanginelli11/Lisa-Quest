@@ -4,7 +4,12 @@ import axios from 'axios';
 import thunkMiddleware from 'redux-thunk';
 import scoresReducer from './redux/scoresReducer';
 
-let middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
+let middleware;
+if (process.env.NODE_ENV === 'production') {
+  middleware = [thunkMiddleware.withExtraArgument({ axios })];
+} else {
+  middleware = [thunkMiddleware.withExtraArgument({ axios }), createLogger()];
+}
 
 const store = createStore(scoresReducer, applyMiddleware(...middleware));
 
