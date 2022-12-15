@@ -24,7 +24,7 @@ class Intro extends Scene {
     //Let's go button
     let gameButton = this.add
       .image(x + 200, y * 1.85, 'letsGo-white')
-      .setScale(x * 0.002);
+      .setScale(x * 0.0018);
 
     gameButton.setInteractive();
 
