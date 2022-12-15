@@ -1,9 +1,7 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
-import WebFontFile from '../helpers/fontLoader';
 
 class Fourth extends Scene {
   cameras;
@@ -19,21 +17,19 @@ class Fourth extends Scene {
     super('Fourth');
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
   create(data) {
-    // Background - First Scene
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    // Background
     this.sun = this.add.image(0, 0, 'sun').setOrigin(0, 0);
     this.sun.displayWidth = this.sys.canvas.width;
     this.sun.displayHeight = this.sys.canvas.height;
+
+    //Tilemao
     this.map = this.make.tilemap({ key: 'tilemap_FF2' });
 
+    //Tilesets
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.rocksAndPlantsTileset = this.map.addTilesetImage(
@@ -58,27 +54,13 @@ class Fourth extends Scene {
       0
     );
 
+    //Layers
     this.mechanicalLayer = this.map.createLayer(
       'mechanical_layer',
       this.mechanicalTileset,
       0,
       0
     );
-
-    //PAUSE BUTTON
-    let pauseButton = this.add
-      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
-      .setScale(2);
-    pauseButton.setInteractive();
-
-    pauseButton.on('pointerup', () => {
-      this.isPaused = !this.isPaused;
-      if (!this.isPaused) {
-        this.game.loop.sleep();
-      } else {
-        this.game.loop.wake();
-      }
-    });
 
     //Lisa
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(
@@ -107,8 +89,7 @@ class Fourth extends Scene {
       0
     );
 
-    this.physics.add.collider(this.player, this.groundAndPlatforms);
-    this.groundAndPlatforms.setCollisionBetween(142, 170);
+    //Display adjustments
     this.groundAndPlatforms.displayWidth = this.sys.canvas.width;
     this.groundAndPlatforms.displayHeight = this.sys.canvas.height;
     this.rocksAndPlants.displayWidth = this.sys.canvas.width;
@@ -120,15 +101,30 @@ class Fourth extends Scene {
     this.invisibleLayer.displayWidth = this.sys.canvas.width;
     this.invisibleLayer.displayHeight = this.sys.canvas.height;
 
-    //Collisions
+    //Terrain collisions
+    this.physics.add.collider(this.player, this.groundAndPlatforms);
+    this.groundAndPlatforms.setCollisionBetween(142, 170);
     this.physics.add.collider(
       this.player,
       this.invisibleLayer,
       this.player.hitSpikyPlant
     );
-
     this.invisibleLayer.setCollisionBetween(139, 170);
-    // this.groundAndPlatforms.setCollisionBetween(720, 746);
+
+    //PAUSE BUTTON
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
 
     // laserGroup
     this.laserGroup = new LaserGroup(this);
@@ -193,10 +189,7 @@ class Fourth extends Scene {
     this.portal.setCollideWorldBounds(true);
 
     this.portal.play('portalPlay2');
-    // this.portal.displayWidth = this.sys.canvas.width;
-    // this.portal.displayHeight = this.sys.canvas.height;
 
-    // console.log('enemiesArray: ', this.enemiesArray);
     this.enemiesArray = [];
   }
 

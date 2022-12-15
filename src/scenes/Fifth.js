@@ -3,7 +3,6 @@ import { Lisa } from '../sprites/Lisa.js';
 import { Enemy } from '../sprites/Enemies/Enemy';
 import { FlyGuy } from '../sprites/Enemies/FlyGuy.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
-import WebFontFile from '../helpers/fontLoader';
 
 class Fifth extends Scene {
   cameras;
@@ -19,31 +18,15 @@ class Fifth extends Scene {
     super('Fifth');
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
-  typewriteText(text) {
-    const length = text.length;
-    let i = 0;
-    this.time.addEvent({
-      callback: () => {
-        this.story.text += text[i];
-        i++;
-      },
-      repeat: length - 1,
-      delay: 50,
-    });
-  }
-
   create(data) {
-    // Background - First Scene(3)
-
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    // Background and Terrain
+    // TileMap
     this.map = this.make.tilemap({ key: 'tilemap_FF3' });
 
+    //Tile sets
     this.groundTileset = this.map.addTilesetImage('ground_tileset', 'tiles');
 
     this.mechanicalTileset = this.map.addTilesetImage(
@@ -66,6 +49,7 @@ class Fifth extends Scene {
       'boss_tileset2'
     );
 
+    // Layers
     this.invisibleLayer = this.map.createLayer(
       'invisible_layer',
       this.machineRoomTilesetThree,
@@ -164,7 +148,6 @@ class Fifth extends Scene {
     this.invisibleLayerTwo.displayHeight = this.sys.canvas.height;
 
     //Collisions
-    // this.physics.add.collider(this.player, this.groundAndPlatforms);
     this.physics.add.collider(this.player, this.invisibleLayer);
     this.physics.add.collider(this.player, this.invisibleLayerTwo);
     this.physics.add.collider(this.player, this.firstLayer);
@@ -248,7 +231,6 @@ class Fifth extends Scene {
 
     this.portal.play('portalPlay');
 
-    // console.log('enemiesArray: ', this.enemiesArray);
     this.enemiesArray = [];
   }
 
@@ -305,6 +287,19 @@ class Fifth extends Scene {
       null,
       this
     );
+  }
+
+  typewriteText(text) {
+    const length = text.length;
+    let i = 0;
+    this.time.addEvent({
+      callback: () => {
+        this.story.text += text[i];
+        i++;
+      },
+      repeat: length - 1,
+      delay: 50,
+    });
   }
 
   gameOver(data) {

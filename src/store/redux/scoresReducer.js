@@ -39,7 +39,7 @@ export const persistAddedScores = (score) => {
           authorization: `${process.env.SECRET_AUTH}`,
         },
       });
-      dispatch(addScores(data));
+      await dispatch(addScores(data));
       dispatch(fetchScores());
     } catch (error) {
       console.error(error);

@@ -1,6 +1,5 @@
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import WebFontFile from '../helpers/fontLoader';
 
 class Second extends Scene {
   player;
@@ -12,19 +11,18 @@ class Second extends Scene {
     super('Second');
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
   create(data) {
-    //Background - First Scene
-
+    //Defining x and y
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    //Background
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
 
+    //Tilemap
     this.map = this.make.tilemap({ key: 'tilemapFallingSceneTwo' });
+
+    //Tilesets
     this.waterAndRockTileset = this.map.addTilesetImage(
       'water_and_rock',
       'tiles'
@@ -35,6 +33,7 @@ class Second extends Scene {
       'texturesTwo'
     );
 
+    //Layers
     this.groundLayer = this.map.createLayer(
       'water_layer',
       this.waterAndRockTileset,
@@ -49,6 +48,7 @@ class Second extends Scene {
       0
     );
 
+    //Display adjustments
     this.groundLayer.displayWidth = this.sys.canvas.width;
     this.groundLayer.displayHeight = this.sys.canvas.height;
     this.texturesTwoLayer.displayWidth = this.sys.canvas.width;

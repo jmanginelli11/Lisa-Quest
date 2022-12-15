@@ -1,9 +1,6 @@
 import store from '../store';
 import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
-import WebFontFile from '../helpers/fontLoader';
-import { persistAddedScores } from '../store/redux/scoresReducer';
-import { isAllOf } from '@reduxjs/toolkit';
 
 class Lobby extends Scene {
   platforms;
@@ -15,10 +12,6 @@ class Lobby extends Scene {
 
   constructor(data) {
     super('Lobby');
-  }
-
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {

@@ -1,17 +1,12 @@
 import store from '../store';
 import { persistAddedScores } from '../store/redux/scoresReducer';
 import { Scene } from 'phaser';
-import WebFontFile from '../helpers/fontLoader';
 
 class GameOver extends Scene {
   player;
 
   constructor(data) {
     super('GameOver');
-  }
-
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
   }
 
   create(data) {
@@ -22,7 +17,7 @@ class GameOver extends Scene {
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
-    //Game over png
+    //Game over ng
     this.gameOver = this.add.image(x, y - 150, 'gameOver').setScale(4);
 
     const score = data.score || 0;
@@ -43,13 +38,10 @@ class GameOver extends Scene {
         this.gameOver.y + this.gameOver.y / 1.1,
         'Type up to four characters\n to save your score!',
         {
-          // fontFamily: '"Press Start 2P"',
           fontSize: '30px',
           align: 'center',
         }
       )
-      // .setOrigin(0, 0)
-      // .setPosition(this.gameOver.x, this.gameOver.y + this.gameOver.y / 1.1)
       .setScale(x * 0.0015);
 
     let mainMenuButton = this.add

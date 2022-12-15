@@ -1,7 +1,6 @@
-import { Scene, physics } from 'phaser';
+import { Scene } from 'phaser';
 import { Lisa } from '../sprites/Lisa.js';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
-import WebFontFile from '../helpers/fontLoader';
 
 class GameScene extends Scene {
   player;
@@ -23,10 +22,6 @@ class GameScene extends Scene {
     super('GameScene');
   }
 
-  preload() {
-    // this.load.addFile(new WebFontFile(this.load, 'Press Start 2P'));
-  }
-
   create(data) {
     this.cameras.main.fadeIn(2000, 255, 255, 255);
 
@@ -36,26 +31,13 @@ class GameScene extends Scene {
     const x = innerWidth / 2;
     const y = innerHeight / 2;
 
+    //Background
     this.background = this.add.image(0, 0, 'shiny_stars').setOrigin(0, 0);
     this.background.displayWidth = this.sys.canvas.width;
     this.background.displayHeight = this.sys.canvas.height;
 
+    //Text
     this.story = this.add.text(x - 500, y - 200, '').setScale(1.25);
-
-    //PAUSE BUTTON
-    let pauseButton = this.add
-      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
-      .setScale(2);
-    pauseButton.setInteractive();
-
-    pauseButton.on('pointerup', () => {
-      this.isPaused = !this.isPaused;
-      if (!this.isPaused) {
-        this.game.loop.sleep();
-      } else {
-        this.game.loop.wake();
-      }
-    });
 
     this.story = this.add
       .text(x - x / 1.2, y - y / 1.5, '')
@@ -77,8 +59,25 @@ class GameScene extends Scene {
       .setOrigin(0.5, 0.5)
       .setVisible(false);
 
-    //Background - First Scene
+    //PAUSE BUTTON
+    let pauseButton = this.add
+      .text(innerWidth - 200, innerHeight * 0.05, 'PAUSE')
+      .setScale(2);
+    pauseButton.setInteractive();
+
+    pauseButton.on('pointerup', () => {
+      this.isPaused = !this.isPaused;
+      if (!this.isPaused) {
+        this.game.loop.sleep();
+      } else {
+        this.game.loop.wake();
+      }
+    });
+
+    //TileMap
     this.map = this.make.tilemap({ key: 'tilemap' });
+
+    //Tilesets
     this.surfaceTileset = this.map.addTilesetImage('surface', 'tiles');
     this.vegetationOneTileset = this.map.addTilesetImage(
       'vegetation',
@@ -90,6 +89,7 @@ class GameScene extends Scene {
       'vegetation2'
     );
 
+    //Layers
     this.groundLayer = this.map.createLayer(
       'ground',
       this.surfaceTileset,
@@ -115,6 +115,18 @@ class GameScene extends Scene {
       innerHeight * 0.65
     );
 
+    //Display adjustment
+    this.groundLayer.displayWidth = this.sys.canvas.width;
+    this.groundLayer.displayHeight = this.sys.canvas.height;
+    this.vegetationLayerOne.displayWidth = this.sys.canvas.width;
+    this.vegetationLayerOne.displayHeight = this.sys.canvas.height;
+    this.vegetationLayerTwo.displayWidth = this.sys.canvas.width;
+    this.vegetationLayerTwo.displayHeight = this.sys.canvas.height;
+
+    //Terrain colliders
+    this.physics.add.collider(this.player, this.groundLayer);
+    this.groundLayer.setCollisionBetween(72, 99);
+
     //healthHearts
     this.hearts = this.physics.add.group({
       key: 'heart',
@@ -130,17 +142,6 @@ class GameScene extends Scene {
       null,
       this
     );
-
-    //resizing to fit the playable game scene
-    this.groundLayer.displayWidth = this.sys.canvas.width;
-    this.groundLayer.displayHeight = this.sys.canvas.height;
-    this.vegetationLayerOne.displayWidth = this.sys.canvas.width;
-    this.vegetationLayerOne.displayHeight = this.sys.canvas.height;
-    this.vegetationLayerTwo.displayWidth = this.sys.canvas.width;
-    this.vegetationLayerTwo.displayHeight = this.sys.canvas.height;
-
-    this.physics.add.collider(this.player, this.groundLayer);
-    this.groundLayer.setCollisionBetween(72, 99);
 
     // Invisible platform
     this.platforms = this.physics.add.staticGroup();
@@ -178,15 +179,6 @@ class GameScene extends Scene {
     this.timer.setText('Time: ' + Math.round(gameRunTime) + ' seconds ');
   }
 
-  gameOver(data) {
-    this.scene.start('GameOver', {
-      music: data.music,
-      hp: this.player.hp,
-      score: this.player.score,
-      timer: this.timer,
-    });
-  }
-
   typewriteText(text) {
     const length = text.length;
     let i = 0;
@@ -197,6 +189,15 @@ class GameScene extends Scene {
       },
       repeat: length - 1,
       delay: 50,
+    });
+  }
+
+  gameOver(data) {
+    this.scene.start('GameOver', {
+      music: data.music,
+      hp: this.player.hp,
+      score: this.player.score,
+      timer: this.timer,
     });
   }
 }
