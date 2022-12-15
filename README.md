@@ -6,7 +6,7 @@
 
 ## Lisa Quest Deployed Website
 
-This repo is home for the codebase that powers Lisa Quest, a classic arcade-style sci-fi platformer game. 
+This repo is home for the codebase that powers Lisa Quest, a classic arcade-style sci-fi platformer game.
 
 Deployed link: https://lisa-quest.onrender.com/
 
@@ -30,10 +30,11 @@ Deployed link: https://lisa-quest.onrender.com/
 
 [Sheyla De los Santos]() <br />
 [Jackie Manginelli]()<br />
-[Lauren Baca]()<br /> 
+[Lauren Baca]()<br />
 [Naomi Brender]()<br />
 
 ## Lisa Quest Start Screen
+
 <div align="center">
-  <img alt="Logo" src="" />
+  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 5.41.33 PM.png" />
 </div>
