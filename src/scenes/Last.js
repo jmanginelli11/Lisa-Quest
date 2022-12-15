@@ -4,7 +4,7 @@ import { Lisa } from '../sprites/Lisa.js';
 import { persistAddedScores } from '../store/redux/scoresReducer';
 import { LaserGroup } from '../weapons/Fire/Laser/LaserGroup.js';
 
-class PromisedLandFirst extends Scene {
+class Last extends Scene {
   cameras;
   platforms;
   player;
@@ -76,6 +76,11 @@ class PromisedLandFirst extends Scene {
       560
     );
 
+    // Adding cellphone to scene
+    this.phone = this.physics.add.sprite(x, y - 500, 'phone').setScale(2);
+    this.phone.setGravityY(450);
+    this.phone.setCollideWorldBounds(true);
+
     //Display adjustments
     this.stars.displayWidth = this.sys.canvas.width;
     this.stars.displayHeight = this.sys.canvas.height;
@@ -92,11 +97,6 @@ class PromisedLandFirst extends Scene {
     this.physics.add.collider(this.player, this.groundLayer);
     this.physics.add.collider(this.phone, this.groundLayer);
     this.groundLayer.setCollisionBetween(165, 171);
-
-    // Adding cellphone to scene
-    this.phone = this.physics.add.sprite(x, y - 500, 'phone').setScale(2);
-    this.phone.setGravityY(450);
-    this.phone.setCollideWorldBounds(true);
 
     //Form
     this.form = this.add
@@ -126,8 +126,8 @@ class PromisedLandFirst extends Scene {
     //Winner text
     this.winnerText = this.add
       .text(
-        this.form.x - this.form.x / 4,
-        this.form.y - this.form.y / 1.12,
+        x - x / 3,
+        y - x / 2.5,
         'Congratulations! \nYou cleared the planet! \nThanks to you, \nLisa can now \ncommunicate with Earth \nand bring the rest of \nhumanity to safety. \n \nType up to four \n characters to save your score!',
         {
           fontSize: '30px',
@@ -159,4 +159,4 @@ class PromisedLandFirst extends Scene {
   }
 }
 
-export default PromisedLandFirst;
+export default Last;
