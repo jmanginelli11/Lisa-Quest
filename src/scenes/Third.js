@@ -88,12 +88,9 @@ class Third extends Scene {
     );
 
     //Layers
-    this.invisibleLayer = this.map.createLayer(
-      'invisible_layer',
-      this.rocksAndPlantsTileset,
-      0,
-      0
-    );
+    this.invisibleLayer = this.map
+      .createLayer('invisible_layer', this.groundAndPlatforms, 0, 0)
+      .setVisible(false);
 
     //Creating lisa behind the plants
     this.player = new Lisa(this, x, y, data.hp, data.score).setPosition(100);

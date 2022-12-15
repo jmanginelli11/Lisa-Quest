@@ -75,12 +75,9 @@ class Fourth extends Scene {
       0
     );
 
-    this.invisibleLayer = this.map.createLayer(
-      'invisible_layer',
-      this.rocksAndPlantsTileset,
-      0,
-      0
-    );
+    this.invisibleLayer = this.map
+      .createLayer('invisible_layer', this.groundTileset, 0, 0)
+      .setVisible(false);
 
     this.rocksAndPlantsTwo = this.map.createLayer(
       'rocks_and_plants_layer_2',

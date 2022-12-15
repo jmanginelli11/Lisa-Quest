@@ -50,19 +50,13 @@ class Fifth extends Scene {
     );
 
     // Layers
-    this.invisibleLayer = this.map.createLayer(
-      'invisible_layer',
-      this.machineRoomTilesetThree,
-      0,
-      0
-    );
+    this.invisibleLayer = this.map
+      .createLayer('invisible_layer', this.groundTileset, 0, 0)
+      .setVisible(false);
 
-    this.invisibleLayerTwo = this.map.createLayer(
-      'invisible_layer_2',
-      this.machineRoomTilesetThree,
-      0,
-      0
-    );
+    this.invisibleLayerTwo = this.map
+      .createLayer('invisible_layer_2', this.groundTileset, 0, 0)
+      .setVisible(false);
 
     this.firstLayer = this.map.createLayer('First', this.groundTileset, 0, 0);
 
