@@ -31,13 +31,13 @@ class HighScores extends Scene {
       .setTint(0xffffff)
       .setScale(x * 0.001);
 
-    for (let i = 1; i < 7; i++) {
+    for (let i = 1; i < 6; i++) {
       if (this.scores[i - 1].score > 0) {
         if (this.scores[i - 1].score > 0 && this.scores[i - 1].score < 99) {
           this.add
             .bitmapText(
               x / 5,
-              170 + 110 * i,
+              170 + 105 * i,
               'arcade',
               `    ${i}     ${this.scores[i - 1].score}       ${
                 this.scores[i - 1].name
@@ -49,7 +49,7 @@ class HighScores extends Scene {
           this.add
             .bitmapText(
               x / 5,
-              170 + 110 * i,
+              170 + 105 * i,
               'arcade',
               `    ${i}     ${this.scores[i - 1].score}      ${
                 this.scores[i - 1].name
@@ -64,7 +64,7 @@ class HighScores extends Scene {
           this.add
             .bitmapText(
               x / 5,
-              170 + 110 * i,
+              170 + 105 * i,
               'arcade',
               `    ${i}     ${this.scores[i - 1].score}     ${
                 this.scores[i - 1].name
@@ -76,7 +76,7 @@ class HighScores extends Scene {
           this.add
             .bitmapText(
               x / 5,
-              170 + 110 * i,
+              170 + 105 * i,
               'arcade',
               `    ${i}     ${this.scores[i - 1].score}    ${
                 this.scores[i - 1].name
