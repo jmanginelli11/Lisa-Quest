@@ -15,7 +15,7 @@ class Intro extends Scene {
     this.background.displayHeight = this.sys.canvas.height;
 
     //Text
-    this.story = this.add.text(x - x / 2, y - y / 1.2, '').setScale(x * 0.0025);
+    this.story = this.add.text(x - x / 2, y - y / 1.2, '').setScale(x * 0.002);
 
     this.typewriteText(
       "                \nEarth is dying. \n                \nEvil capitalists have selfishly mined our \nworld to the edge of destruction.\n                \nA small, peaceful contingent of humans \nhave put their hopes in you, Lisa.\n                \nYour mission is to find a habitable \nnew planet where humans can live \npeacefully, in balace with nature.\n                \nThis planet looks promising!\n                \nBut wait, what's that?\n                \nOh no! The capitalists are here \nto destroy this planet too!\n                \nWe can't have that! "

@@ -39,7 +39,7 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `    ${i}     ${this.scores[i - 1].score}      ${
+              `    ${i}     ${this.scores[i - 1].score}       ${
                 this.scores[i - 1].name
               } \n`
             )
@@ -51,7 +51,7 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `    ${i}     ${this.scores[i - 1].score}     ${
+              `    ${i}     ${this.scores[i - 1].score}      ${
                 this.scores[i - 1].name
               } \n`
             )
@@ -66,7 +66,7 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `    ${i}     ${this.scores[i - 1].score}    ${
+              `    ${i}     ${this.scores[i - 1].score}     ${
                 this.scores[i - 1].name
               } \n`
             )
@@ -78,7 +78,7 @@ class HighScores extends Scene {
               x / 5,
               170 + 110 * i,
               'arcade',
-              `    ${i}     ${this.scores[i - 1].score}   ${
+              `    ${i}     ${this.scores[i - 1].score}    ${
                 this.scores[i - 1].name
               } \n`
             )
