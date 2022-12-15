@@ -1,7 +1,7 @@
 # Game-Hopper
 
 <div align="center">
-  <img alt="Logo" src="https://raw.githubusercontent.com/Disney-Lovers-2208/capstone/main/public/images/logo.png" width="300" />
+  <img alt="Logo" src="" width="300" />
 </div>
 
 ## Lisa Quest Deployed Website
@@ -24,16 +24,16 @@ Deployed link: https://lisa-quest.onrender.com/
 - [Express](https://expressjs.com)
 - [JSON Web Token](https://jwt.io)
 - [Redux](https://redux.js.org)
-- [OnRender](https://www.heroku.com/)
+- [OnRender]()
 
 ## Meet the Team
 
-[Sheyla De los Santos](https://github.com/mcombs289) <br />
-[Jackie Manginelli](https://github.com/vaniallla)<br />
-[Lauren Baca](https://github.com/klsmith5370)<br /> 
+[Sheyla De los Santos]() <br />
+[Jackie Manginelli]()<br />
+[Lauren Baca]()<br /> 
 [Naomi Brender]()<br />
 
 ## Lisa Quest Start Screen
 <div align="center">
-  <img alt="Logo" src="https://raw.githubusercontent.com/Disney-Lovers-2208/capstone/main/public/images/keepsake.png" />
+  <img alt="Logo" src="" />
 </div>
