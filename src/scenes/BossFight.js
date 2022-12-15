@@ -121,7 +121,7 @@ class BossFight extends Scene {
     this.time.addEvent({
       delay: 7000,
       callback: function () {
-        this.bigBoss = new BigBoss(this, x, y - 200).setScale(3);
+        this.bigBoss = new BigBoss(this, x, y - 200).setScale(x * 0.005);
         // this.enemiesArray.push(this.bigBoss);
         this.physics.add.collider(this.bigBoss, this.wallPlatform);
         this.physics.add.collider(this.bigBoss, this.firstLayer);
@@ -148,7 +148,7 @@ class BossFight extends Scene {
 
     //fire raining down
     this.time.addEvent({
-      delay: 6000,
+      delay: 4000,
       callback: this.spawnFire,
       callbackScope: this,
       loop: true,

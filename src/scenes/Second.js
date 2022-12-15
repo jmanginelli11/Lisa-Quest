@@ -90,6 +90,14 @@ class Second extends Scene {
     waterFallPlatform.setVisible(false);
     invisible_platform_left.setVisible(false);
     invisible_platform_right.setVisible(false);
+
+    //Display adjustments
+    this.waterFallPlatform.displayWidth = this.sys.canvas.width;
+    this.waterFallPlatform.displayHeight = this.sys.canvas.height;
+    this.invisible_platform_left.displayWidth = this.sys.canvas.width;
+    this.invisible_platform_left.displayHeight = this.sys.canvas.height;
+    this.invisible_platform_right.displayWidth = this.sys.canvas.width;
+    this.invisible_platform_right.displayHeight = this.sys.canvas.height;
   }
 
   update() {

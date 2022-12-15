@@ -158,7 +158,7 @@ class Third extends Scene {
           this,
           Phaser.Math.RND.between(0, 1400),
           0
-        ).setScale(1.5);
+        ).setScale(x * 0.002);
         // this.enemiesArray.push(this.goomba);
         this.physics.add.collider(this.goomba, this.wallPlatform);
         this.physics.add.collider(this.goomba, this.groundAndPlatforms);

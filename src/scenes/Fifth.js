@@ -162,7 +162,7 @@ class Fifth extends Scene {
           this,
           Phaser.Math.RND.between(300, 700),
           200
-        ).setScale(1.5);
+        ).setScale(x * 0.002);
 
         // this.enemiesArray.push(this.spawn2);
         this.physics.add.collider(this.spawn2, this.wallPlatform);
@@ -190,7 +190,7 @@ class Fifth extends Scene {
           this,
           Phaser.Math.RND.between(300, 700),
           200
-        ).setScale(1.5);
+        ).setScale(x * 0.002);
 
         this.enemiesArray.push(this.flyGuy);
         this.physics.add.collider(this.flyGuy, this.wallPlatform);

@@ -131,7 +131,7 @@ class Fourth extends Scene {
       key: 'heart',
       repeat: 5,
       allowGravity: false,
-      setXY: { x: 300, y: 300, stepX: 100 },
+      setXY: { x: x / 3, y: y / 2, stepX: 100 },
     });
 
     this.physics.add.collider(this.hearts, this.wallPlatform);
@@ -162,8 +162,8 @@ class Fourth extends Scene {
 
           Phaser.Math.RND.between(0, 2000),
           0
-        ).setScale(1.5);
-        // this.enemiesArray.push(this.flyGuy);
+        ).setScale(x * 0.002);
+
         this.physics.add.collider(this.flyGuy, this.groundAndPlatforms);
         this.physics.add.overlap(
           this.player,
