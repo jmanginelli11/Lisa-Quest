@@ -1,7 +1,7 @@
 # Game-Hopper
 
 <div align="center">
-  <img alt="Logo" src="" width="300" />
+  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 7.36.07 PM.png" width="300" />
 </div>
 
 ## Lisa Quest Deployed Website
@@ -22,7 +22,6 @@ Deployed link: https://lisa-quest.onrender.com/
 - [Sequelize](https://sequelize.org)
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com)
-- [JSON Web Token](https://jwt.io)
 - [Redux](https://redux.js.org)
 - [OnRender]()
 
@@ -36,5 +35,5 @@ Deployed link: https://lisa-quest.onrender.com/
 ## Lisa Quest Start Screen
 
 <div align="center">
-  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 5.41.33 PM.png" />
+  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 7.37.24 PM.png" />
 </div>
