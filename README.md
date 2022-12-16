@@ -18,19 +18,22 @@ Deployed link: https://lisa-quest.onrender.com/
 
 ## Technologies used:
 
+- [Phaser3](https://phaser.io/)
+- [Tiled](https://www.mapeditor.org/)
 - [PostgreSQL](https://www.postgresql.org)
 - [Sequelize](https://sequelize.org)
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com)
 - [Redux](https://redux.js.org)
-- [OnRender]()
+- [OnRender](https://render.com/)
+- [Bit.io](https://bit.io/dashboard)
 
 ## Meet the Team
 
-[Sheyla De los Santos]() <br />
-[Jackie Manginelli]()<br />
-[Lauren Baca]()<br />
-[Naomi Brender]()<br />
+[Sheyla De los Santos](https://github.com/ssshhheeeyyy) <br />
+[Jackie Manginelli](https://github.com/jmanginelli11)<br />
+[Lauren Baca](https://github.com/Lauren-Baca)<br />
+[Naomi Brender](https://github.com/NaomiBBrender)<br />
 
 ## Lisa Quest Start Screen
 
