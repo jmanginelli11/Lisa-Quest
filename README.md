@@ -1,7 +1,7 @@
 # Game-Hopper
 
 <div align="center">
-  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 7.36.07 PM.png" width="300" />
+  <img alt="Logo" src="public/Screen Shot 2022-12-15 at 7.36.07 PM.png" width="500" />
 </div>
 
 ## Lisa Quest Deployed Website
