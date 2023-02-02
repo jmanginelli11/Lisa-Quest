@@ -8,7 +8,7 @@
 
 This repo powers Lisa Quest, a classic arcade-style sci-fi platformer game. 
 
-Deployed link: https://lisa-quest.onrender.com/
+Deployed link: https://lisaquest.onrender.com/
 
 ## Project setup
 
